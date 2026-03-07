@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/cms", "destination": "/", "permanent": false },
+    { "source": "/cms/(.*)", "destination": "/", "permanent": false }
+  ]
+}
