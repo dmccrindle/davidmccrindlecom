@@ -118,7 +118,6 @@ export default defineConfig({
         concertArchive: resolve(__dirname, 'concert-archive/index.html'),
         sayHi: resolve(__dirname, 'say-hi/index.html'),
         portfolio: resolve(__dirname, 'portfolio/index.html'),
-        cms: resolve(__dirname, 'cms/index.html'),
       },
     },
   },
