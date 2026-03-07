@@ -1,4 +1,7 @@
 {
+  "rewrites": [
+    { "source": "/concert-archive/:path+", "destination": "/concert-archive/index.html" }
+  ],
   "redirects": [
     { "source": "/cms", "destination": "/", "permanent": false },
     { "source": "/cms/(.*)", "destination": "/", "permanent": false }

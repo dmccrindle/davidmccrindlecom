@@ -724,7 +724,7 @@
   #right-panel { width: 420px; right: 30px; }
 }
 @media (max-width: 900px) {
-  #map { position: relative; width: 100%; height: 50vh; }
+  #map { position: relative; width: 100%; height: 30vh; }
   #left-panel {
     position: relative; left: auto; top: auto;
     width: auto; height: auto; padding: 16px; z-index: 5;
@@ -739,7 +739,6 @@
     animation: none;
   }
   .list-scroll { max-height: 60vh; }
-  .show-venue-col { display: none; }
   .show-card { gap: 10px; }
   .year-nav { padding-bottom: 16px; }
 }

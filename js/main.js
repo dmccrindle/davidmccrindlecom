@@ -10,7 +10,7 @@ import { renderArtists, setSortMode, toggleArtist } from './concert-archive/arti
 import { renderPlaces, togglePlace, setPlacesSortMode, setPlacesGroup, togglePlacesGroup, renderCityShows, closeCityFilter, onCityShowsSearch, toggleCityShowsSort } from './concert-archive/places.js';
 import { renderVenues, toggleVenue, setVenuesSortMode } from './concert-archive/venues.js';
 import { flyToCity, flyToCountry } from './concert-archive/map.js';
-import { toggleMobileMenu, toggleMobileSectionDD, mobileSectionSelect } from './nav.js';
+import { toggleMobileMenu } from './nav.js';
 import { state } from './concert-archive/state.js';
 import { initRouter } from './concert-archive/router.js';
 import './concert-archive/tooltips.js'; // Side-effect: registers tooltip event listeners
@@ -45,8 +45,6 @@ window.flyToCountry = flyToCountry;
 window.toggleVenue = toggleVenue;
 window.setVenuesSortMode = setVenuesSortMode;
 window.toggleMobileMenu = toggleMobileMenu;
-window.toggleMobileSectionDD = toggleMobileSectionDD;
-window.mobileSectionSelect = mobileSectionSelect;
 window.toggleOnThisDay = toggleOnThisDay;
 window.closeOnThisDay = closeOnThisDay;
 window.toggleStats = toggleStats;
@@ -118,9 +116,5 @@ document.addEventListener('click', e => {
   if (!e.target.closest('.show-type-dd')) {
     document.getElementById('show-type-menu')?.classList.remove('open');
     document.getElementById('show-type-dd')?.classList.remove('open');
-  }
-  if (!e.target.closest('.mobile-section-nav')) {
-    const dd = document.getElementById('mobile-section-dd');
-    if (dd) dd.classList.remove('open');
   }
 });

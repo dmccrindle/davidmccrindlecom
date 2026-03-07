@@ -88,12 +88,11 @@
       </button>
       <div class="stats-body" id="stats-body"></div>
     </div>
-    <div class="mobile-section-nav" id="mobile-section-nav">
-      <button class="mobile-section-btn" id="mobile-section-btn" onclick="toggleMobileSectionDD(event)">
-        <span id="mobile-section-label">Shows</span>
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <div class="mobile-section-dd" id="mobile-section-dd"></div>
+    <div class="mobile-tabs" id="mobile-tabs">
+      <button class="mobile-tab active" data-section="shows" onclick="setSection('shows')">Shows</button>
+      <button class="mobile-tab" data-section="artists" onclick="setSection('artists')">Artists</button>
+      <button class="mobile-tab" data-section="places" onclick="setSection('places')">Places</button>
+      <button class="mobile-tab" data-section="venues" onclick="setSection('venues')">Venues</button>
     </div>
   </div>
 

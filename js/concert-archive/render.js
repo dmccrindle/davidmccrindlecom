@@ -59,8 +59,7 @@ export function setSection(sec) {
   document.querySelectorAll('.content-view').forEach(v => v.classList.add('hidden'));
   document.getElementById(`view-${sec}`).classList.remove('hidden');
 
-  const msl = document.getElementById('mobile-section-label');
-  if (msl) msl.textContent = sec.charAt(0).toUpperCase() + sec.slice(1);
+  document.querySelectorAll('.mobile-tab').forEach(t => t.classList.toggle('active', t.dataset.section === sec));
 
   // Reset scroll position on all list panels
   document.querySelectorAll('.list-scroll').forEach(el => { el.scrollTop = 0; });
