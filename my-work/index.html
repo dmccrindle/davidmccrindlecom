@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Work — davidmccrindle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { width: 100%; min-height: 100vh; background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    button { border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+
+    /* Nav */
+    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 10; display: flex; align-items: center; padding: 25px 40px; height: 106px; transition: background 0.3s ease; }
+    #navbar.scrolled { background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%); }
+    .nav-logo { width: 56px; height: 56px; flex-shrink: 0; }
+    .nav-logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .nav-links { flex: 1; display: flex; gap: 40px; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; white-space: nowrap; }
+    .nav-links a { color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .nav-links a.active { color: #fff; text-decoration: underline; text-underline-offset: 6px; }
+    .nav-links a:hover { color: #fff; }
+    .nav-social { display: flex; gap: 20px; align-items: center; }
+    .nav-social a { color: #fff; transition: opacity 0.2s; display: flex; align-items: center; }
+    .nav-social a:hover { opacity: 0.6; }
+    .hamburger { display: none; width: 36px; height: 36px; background: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px; z-index: 20; flex-shrink: 0; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; inset: 0; z-index: 9; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 32px; font-size: 24px; font-weight: 700; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: #fff; transition: color 0.2s; }
+    .mobile-menu a.active { text-decoration: underline; text-underline-offset: 6px; }
+    .mobile-menu a:hover { color: #a1a1a1; }
+    .mobile-menu-social { display: flex; gap: 24px; margin-top: 16px; }
+    .mobile-menu-social a { color: #fff; display: flex; }
+
+    /* ═══════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 40px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-intro {
+      font-size: 20px;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+    .hero-title {
+      font-size: clamp(40px, 5.5vw, 80px);
+      font-weight: 700;
+      line-height: 1.05;
+      max-width: 968px;
+      margin: 16px auto;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+    .hero-subtitle {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.9s forwards;
+    }
+    .hero-subtitle span {
+      font-weight: 400;
+      font-size: 16px;
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ═══════════════════════════════════════
+       WIREFRAME MARQUEE
+       ═══════════════════════════════════════ */
+    .marquee-wrap {
+      width: 100vw;
+      overflow: hidden;
+      position: relative;
+      padding: 20px 0 40px;
+      opacity: 0;
+      animation: fadeUp 1s 1.2s forwards;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 32px;
+      width: max-content;
+      animation: marqueeScroll 30s linear infinite;
+    }
+    @keyframes marqueeScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .wf-device {
+      flex-shrink: 0;
+      border: 3px solid #fff;
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    .wf-device svg { display: block; }
+
+    /* ═══════════════════════════════════════
+       DIVIDER
+       ═══════════════════════════════════════ */
+    .section-divider {
+      height: 100px;
+      background: linear-gradient(to bottom, #000, #0a0a0a);
+    }
+
+    /* ═══════════════════════════════════════
+       EXPERIENCE SECTION
+       ═══════════════════════════════════════ */
+    .experience {
+      padding: 80px 40px 120px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .exp-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .exp-header h2 {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+    .exp-header p {
+      font-size: clamp(28px, 3.5vw, 48px);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 48px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .tl-item {
+      position: relative;
+      margin-bottom: 72px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .tl-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Timeline dot */
+    .tl-item::before {
+      content: '';
+      position: absolute;
+      left: -48px;
+      top: 8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #000;
+      border: 2px solid rgba(255,255,255,0.3);
+      transition: border-color 0.4s, box-shadow 0.4s;
+    }
+    .tl-item.visible::before {
+      border-color: #fff;
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.1);
+    }
+
+    .tl-dates {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 8px;
+    }
+    .tl-company {
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+    .tl-role {
+      font-size: 18px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 20px;
+    }
+    .tl-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .tl-tag {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .tl-tag:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
+    }
+    .tl-desc {
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.55);
+      max-width: 700px;
+    }
+
+    /* ═══════════════════════════════════════
+       DOMAINS MARQUEE
+       ═══════════════════════════════════════ */
+    .domains {
+      padding: 60px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .domains-track {
+      display: flex;
+      gap: 48px;
+      width: max-content;
+      animation: domainScroll 20s linear infinite;
+    }
+    @keyframes domainScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .domain-word {
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 700;
+      white-space: nowrap;
+      color: rgba(255,255,255,0.08);
+      transition: color 0.3s;
+    }
+    .domain-word:hover {
+      color: rgba(255,255,255,0.25);
+    }
+    .domain-sep {
+      font-size: clamp(32px, 4vw, 56px);
+      color: rgba(255,255,255,0.08);
+    }
+
+    /* ═══════════════════════════════════════
+       PORTFOLIO GATE
+       ═══════════════════════════════════════ */
+    .portfolio-gate {
+      padding: 100px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .portfolio-gate::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
+    }
+    .gate-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 28px;
+      border: 2px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+    .portfolio-gate.visible .gate-icon {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .gate-icon svg {
+      width: 28px;
+      height: 28px;
+      color: rgba(255,255,255,0.4);
+    }
+    .gate-title {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s 0.15s, transform 0.7s 0.15s;
+    }
+    .portfolio-gate.visible .gate-title {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .gate-subtitle {
+      font-size: 17px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s 0.3s, transform 0.7s 0.3s;
+    }
+    .portfolio-gate.visible .gate-subtitle {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .gate-form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      max-width: 400px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s 0.45s, transform 0.7s 0.45s;
+    }
+    .portfolio-gate.visible .gate-form {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .gate-input {
+      flex: 1;
+      height: 52px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 0 20px;
+      font-size: 16px;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      outline: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .gate-input::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+    .gate-input:focus {
+      border-color: rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.08);
+    }
+    .gate-submit {
+      height: 52px;
+      padding: 0 28px;
+      background: #fff;
+      color: #000;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 12px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .gate-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,255,255,0.15);
+    }
+    .gate-error {
+      color: #ff6b6b;
+      font-size: 14px;
+      margin-top: 16px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gate-error.show {
+      opacity: 1;
+    }
+    .gate-shake {
+      animation: shake 0.4s ease-in-out;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      50% { transform: translateX(8px); }
+      75% { transform: translateX(-4px); }
+    }
+
+    /* ═══════════════════════════════════════
+       FOOTER CTA
+       ═══════════════════════════════════════ */
+    .cta {
+      text-align: center;
+      padding: 120px 40px;
+    }
+    .cta h2 {
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 700;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+    .cta.visible h2 {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .cta p {
+      font-size: 18px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 32px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s 0.2s, transform 0.7s 0.2s;
+    }
+    .cta.visible p {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 14px 36px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #000;
+      background: #fff;
+      border-radius: 40px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s 0.4s, transform 0.7s 0.4s;
+    }
+    .cta.visible .cta-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(255,255,255,0.15);
+    }
+
+    /* ═══════════════════════════════════════
+       MOBILE
+       ═══════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-links, .nav-social { display: none; }
+      #navbar { padding: 16px 20px; height: 60px; justify-content: space-between; }
+      .nav-logo { width: 36px; height: 36px; }
+
+      .hero { padding: 80px 24px 0; min-height: auto; padding-bottom: 40px; }
+      .hero-intro { font-size: 16px; }
+      .hero-subtitle { font-size: 16px; margin-bottom: 40px; }
+      .hero-subtitle span { font-size: 14px; }
+
+      .experience { padding: 60px 24px 80px; }
+      .timeline { padding-left: 36px; }
+      .tl-item::before { left: -36px; }
+      .tl-company { font-size: 28px; }
+      .tl-role { font-size: 16px; }
+      .tl-desc { font-size: 15px; }
+
+      .cta { padding: 80px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <div class="nav-logo">
+      <img src="https://www.figma.com/api/mcp/asset/2158519e-b52a-49f2-bc23-32b3c5e1d7a2" alt="dm" onerror="this.parentElement.innerHTML='<div style=&quot;width:56px;height:56px;background:#333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px&quot;>dm</div>'">
+    </div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/my-work/" class="active">My Work</a>
+      <a href="/concert-archive/">Concert Archive</a>
+      <a href="/say-hi/">Say Hi</a>
+    </div>
+    <div class="nav-social">
+      <a href="#" aria-label="Instagram"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="#" aria-label="Threads"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.001 2C8.07 2 5.915 3.785 4.9 5.65c-1.015 1.865-1.05 4.1-.3 5.9.468 1.12 1.218 2.02 2.128 2.65-.06.42-.078.86-.04 1.3.2 2.35 1.38 4.1 3.15 5.1 1.2.68 2.55.95 3.85.85 1.65-.12 3.1-.8 4.15-1.95 1.05-1.15 1.65-2.7 1.65-4.5 0-1.5-.35-2.85-1.05-3.95-.7-1.1-1.75-1.9-3.05-2.25-.4-.1-.82-.17-1.24-.17-1.25 0-2.35.55-3.05 1.45"/><path d="M12 8.5c1.1 0 2.1.5 2.8 1.3.55.65.85 1.5.85 2.4 0 .85-.28 1.65-.8 2.3-.7.85-1.75 1.35-2.85 1.35s-2.15-.5-2.85-1.35"/></svg></a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/">Home</a>
+    <a href="/my-work/" class="active">My Work</a>
+    <a href="/concert-archive/">Concert Archive</a>
+    <a href="/say-hi/">Say Hi</a>
+    <div class="mobile-menu-social">
+      <a href="#" aria-label="Instagram"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="#" aria-label="Threads"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.001 2C8.07 2 5.915 3.785 4.9 5.65c-1.015 1.865-1.05 4.1-.3 5.9.468 1.12 1.218 2.02 2.128 2.65-.06.42-.078.86-.04 1.3.2 2.35 1.38 4.1 3.15 5.1 1.2.68 2.55.95 3.85.85 1.65-.12 3.1-.8 4.15-1.95 1.05-1.15 1.65-2.7 1.65-4.5 0-1.5-.35-2.85-1.05-3.95-.7-1.1-1.75-1.9-3.05-2.25-.4-.1-.82-.17-1.24-.17-1.25 0-2.35.55-3.05 1.45"/><path d="M12 8.5c1.1 0 2.1.5 2.8 1.3.55.65.85 1.5.85 2.4 0 .85-.28 1.65-.8 2.3-.7.85-1.75 1.35-2.85 1.35s-2.15-.5-2.85-1.35"/></svg></a>
+    </div>
+  </div>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <p class="hero-intro">Hi, I'm David. I guess you could say...</p>
+    <h1 class="hero-title">I know a bunch of stuff about a bunch of stuff</h1>
+    <p class="hero-subtitle">...mostly about developing cool products <span>(and 90s britpop)</span></p>
+
+    <!-- Wireframe device marquee -->
+    <div class="marquee-wrap">
+      <div class="marquee-track" id="marquee-track">
+        <!-- Device 1: Mobile with toggles -->
+        <div class="wf-device" style="width:120px;height:220px">
+          <svg width="120" height="220" viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="16" y="30" width="88" height="14" rx="7" stroke="white" stroke-width="3"/>
+            <rect x="16" y="54" width="88" height="14" rx="7" stroke="white" stroke-width="3"/>
+            <rect x="16" y="78" width="88" height="14" rx="7" stroke="white" stroke-width="3"/>
+            <rect x="16" y="120" width="88" height="14" rx="7" stroke="white" stroke-width="3"/>
+            <rect x="16" y="144" width="88" height="14" rx="7" stroke="white" stroke-width="3"/>
+            <rect x="16" y="168" width="88" height="14" rx="7" stroke="white" stroke-width="3"/>
+          </svg>
+        </div>
+
+        <!-- Device 2: Desktop browser -->
+        <div class="wf-device" style="width:260px;height:200px">
+          <svg width="260" height="200" viewBox="0 0 260 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="16" width="12" height="12" rx="2" fill="white"/>
+            <rect x="20" y="44" width="220" height="80" rx="4" stroke="white" stroke-width="3"/>
+            <line x1="20" y1="145" x2="100" y2="145" stroke="white" stroke-width="3"/>
+            <line x1="20" y1="155" x2="80" y2="155" stroke="white" stroke-width="3"/>
+            <line x1="120" y1="145" x2="200" y2="145" stroke="white" stroke-width="3"/>
+            <line x1="120" y1="155" x2="180" y2="155" stroke="white" stroke-width="3"/>
+            <line x1="20" y1="175" x2="100" y2="175" stroke="white" stroke-width="3"/>
+            <line x1="20" y1="185" x2="80" y2="185" stroke="white" stroke-width="3"/>
+            <line x1="120" y1="175" x2="200" y2="175" stroke="white" stroke-width="3"/>
+            <line x1="120" y1="185" x2="180" y2="185" stroke="white" stroke-width="3"/>
+          </svg>
+        </div>
+
+        <!-- Device 3: Analytics dashboard -->
+        <div class="wf-device" style="width:260px;height:220px">
+          <svg width="260" height="220" viewBox="0 0 260 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pac-man chart -->
+            <path d="M90 60 L90 30 A30 30 0 1 1 68 81 Z" fill="white"/>
+            <!-- Lines -->
+            <line x1="140" y1="36" x2="220" y2="36" stroke="white" stroke-width="3"/>
+            <line x1="140" y1="50" x2="200" y2="50" stroke="white" stroke-width="3"/>
+            <line x1="140" y1="64" x2="180" y2="64" stroke="white" stroke-width="3"/>
+            <!-- Line chart -->
+            <polyline points="30,140 70,125 110,135 150,110 190,120 230,105" stroke="white" stroke-width="3" fill="none"/>
+            <!-- Bar chart -->
+            <rect x="30" y="170" width="24" height="30" fill="white" rx="2"/>
+            <rect x="62" y="160" width="24" height="40" fill="white" rx="2"/>
+            <rect x="94" y="150" width="24" height="50" fill="white" rx="2"/>
+            <rect x="126" y="165" width="24" height="35" fill="white" rx="2"/>
+            <rect x="158" y="155" width="24" height="45" fill="white" rx="2"/>
+          </svg>
+        </div>
+
+        <!-- Device 4: User flow -->
+        <div class="wf-device" style="width:280px;height:200px">
+          <svg width="280" height="200" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Flow circles -->
+            <circle cx="40" cy="80" r="12" stroke="white" stroke-width="3"/>
+            <circle cx="100" cy="80" r="12" fill="white"/>
+            <circle cx="160" cy="80" r="8" stroke="white" stroke-width="3" stroke-dasharray="3 3"/>
+            <circle cx="160" cy="80" r="3" fill="white"/>
+            <circle cx="220" cy="80" r="12" stroke="white" stroke-width="3"/>
+            <!-- Connecting dots -->
+            <circle cx="62" cy="80" r="2" fill="white"/>
+            <circle cx="72" cy="80" r="2" fill="white"/>
+            <circle cx="122" cy="80" r="2" fill="white"/>
+            <circle cx="132" cy="80" r="2" fill="white"/>
+            <circle cx="182" cy="80" r="2" fill="white"/>
+            <circle cx="192" cy="80" r="2" fill="white"/>
+            <!-- Labels -->
+            <line x1="20" y1="130" x2="80" y2="130" stroke="white" stroke-width="3"/>
+            <rect x="20" y="140" width="40" height="8" rx="2" fill="white" opacity="0.3"/>
+            <line x1="100" y1="130" x2="160" y2="130" stroke="white" stroke-width="3"/>
+            <rect x="100" y="140" width="50" height="8" rx="2" fill="white" opacity="0.3"/>
+            <line x1="200" y1="130" x2="260" y2="130" stroke="white" stroke-width="3"/>
+          </svg>
+        </div>
+
+        <!-- Device 5: Video/media player -->
+        <div class="wf-device" style="width:200px;height:220px">
+          <svg width="200" height="220" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Top card -->
+            <rect x="20" y="20" width="160" height="80" rx="6" stroke="white" stroke-width="3"/>
+            <circle cx="100" cy="52" r="16" stroke="white" stroke-width="3"/>
+            <polygon points="95,44 95,60 108,52" fill="white"/>
+            <line x1="44" y1="78" x2="80" y2="78" stroke="white" stroke-width="3"/>
+            <rect x="130" y="72" width="30" height="14" rx="3" stroke="white" stroke-width="3"/>
+            <!-- Bottom card -->
+            <rect x="20" y="120" width="160" height="80" rx="6" stroke="white" stroke-width="3"/>
+            <circle cx="100" cy="152" r="16" stroke="white" stroke-width="3"/>
+            <polygon points="95,144 95,160 108,152" fill="white"/>
+            <line x1="44" y1="178" x2="80" y2="178" stroke="white" stroke-width="3"/>
+            <rect x="130" y="172" width="30" height="14" rx="3" stroke="white" stroke-width="3"/>
+          </svg>
+        </div>
+
+        <!-- Device 6: Tablet with form -->
+        <div class="wf-device" style="width:220px;height:200px">
+          <svg width="220" height="200" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="20" width="180" height="30" rx="4" stroke="white" stroke-width="3"/>
+            <line x1="30" y1="35" x2="80" y2="35" stroke="white" stroke-width="3"/>
+            <rect x="20" y="65" width="85" height="55" rx="4" stroke="white" stroke-width="3"/>
+            <rect x="115" y="65" width="85" height="55" rx="4" stroke="white" stroke-width="3"/>
+            <!-- Crosshatch pattern -->
+            <line x1="122" y1="72" x2="193" y2="113" stroke="white" stroke-width="2.5"/>
+            <line x1="135" y1="72" x2="193" y2="100" stroke="white" stroke-width="2.5"/>
+            <line x1="148" y1="72" x2="193" y2="88" stroke="white" stroke-width="2.5"/>
+            <line x1="193" y1="72" x2="122" y2="113" stroke="white" stroke-width="2.5"/>
+            <line x1="180" y1="72" x2="122" y2="100" stroke="white" stroke-width="2.5"/>
+            <line x1="167" y1="72" x2="122" y2="88" stroke="white" stroke-width="2.5"/>
+            <line x1="20" y1="140" x2="100" y2="140" stroke="white" stroke-width="3"/>
+            <line x1="20" y1="155" x2="80" y2="155" stroke="white" stroke-width="3"/>
+            <line x1="20" y1="170" x2="120" y2="170" stroke="white" stroke-width="3"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ DOMAINS TICKER ═══ -->
+  <div class="domains">
+    <div class="domains-track" id="domains-track">
+      <span class="domain-word">Food & Agriculture</span>
+      <span class="domain-sep">/</span>
+      <span class="domain-word">IoT & Smart Home</span>
+      <span class="domain-sep">/</span>
+      <span class="domain-word">Financial Services</span>
+      <span class="domain-sep">/</span>
+      <span class="domain-word">Healthcare</span>
+      <span class="domain-sep">/</span>
+      <span class="domain-word">Retail & eCommerce</span>
+      <span class="domain-sep">/</span>
+      <span class="domain-word">Enterprise Software</span>
+      <span class="domain-sep">/</span>
+      <span class="domain-word">Design Systems</span>
+      <span class="domain-sep">/</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="domain-word">Food & Agriculture</span>
+      <span class="domain-sep">/</span>
+      <span class="domain-word">IoT & Smart Home</span>
+      <span class="domain-sep">/</span>
+      <span class="domain-word">Financial Services</span>
+      <span class="domain-sep">/</span>
+      <span class="domain-word">Healthcare</span>
+      <span class="domain-sep">/</span>
+      <span class="domain-word">Retail & eCommerce</span>
+      <span class="domain-sep">/</span>
+      <span class="domain-word">Enterprise Software</span>
+      <span class="domain-sep">/</span>
+      <span class="domain-word">Design Systems</span>
+      <span class="domain-sep">/</span>
+    </div>
+  </div>
+
+  <!-- ═══ EXPERIENCE ═══ -->
+  <section class="experience">
+    <div class="exp-header">
+      <h2>Experience</h2>
+      <p>20+ years of shaping digital products at scale</p>
+    </div>
+
+    <div class="timeline">
+      <!-- Cargill -->
+      <div class="tl-item">
+        <div class="tl-dates">2021 &mdash; Present</div>
+        <h3 class="tl-company">Cargill</h3>
+        <p class="tl-role">Director, UX Center of Excellence</p>
+        <div class="tl-highlights">
+          <span class="tl-tag">Design Systems</span>
+          <span class="tl-tag">Experience Vision</span>
+          <span class="tl-tag">Enterprise Scale</span>
+          <span class="tl-tag">Figma</span>
+        </div>
+        <p class="tl-desc">Leading end-to-end experience design across complex digital ecosystems. Driving strategy, governance, and adoption of an enterprise design system enabling consistent experiences across hundreds of products and teams.</p>
+      </div>
+
+      <!-- Sleep Number -->
+      <div class="tl-item">
+        <div class="tl-dates">2020 &mdash; 2021</div>
+        <h3 class="tl-company">Sleep Number</h3>
+        <p class="tl-role">Senior Manager, Product UI/UX Design</p>
+        <div class="tl-highlights">
+          <span class="tl-tag">Connected Ecosystem</span>
+          <span class="tl-tag">Mobile Apps</span>
+          <span class="tl-tag">Hardware UI</span>
+        </div>
+        <p class="tl-desc">Owned experience design across a connected ecosystem of mobile apps, web platforms, hardware interfaces, and internal tooling. Defined interaction patterns and visual language across multiple digital surfaces.</p>
+      </div>
+
+      <!-- Solution Design Group -->
+      <div class="tl-item">
+        <div class="tl-dates">2016 &mdash; 2020</div>
+        <h3 class="tl-company">Solution Design Group</h3>
+        <p class="tl-role">Consultant, UX Design Director</p>
+        <div class="tl-highlights">
+          <span class="tl-tag">Enterprise Consulting</span>
+          <span class="tl-tag">Financial Services</span>
+          <span class="tl-tag">Healthcare</span>
+          <span class="tl-tag">Design Systems</span>
+        </div>
+        <p class="tl-desc">Principal design consultant shaping experience vision and guiding complex products from concept through launch for clients including Thrivent and Cargill. Led creation of enterprise design systems across large product portfolios.</p>
+      </div>
+
+      <!-- Samsung SmartThings -->
+      <div class="tl-item">
+        <div class="tl-dates">2015 &mdash; 2016</div>
+        <h3 class="tl-company">Samsung SmartThings</h3>
+        <p class="tl-role">Director, Consumer UX</p>
+        <div class="tl-highlights">
+          <span class="tl-tag">IoT Platform</span>
+          <span class="tl-tag">Multi-surface</span>
+          <span class="tl-tag">Wearables</span>
+          <span class="tl-tag">User Research</span>
+        </div>
+        <p class="tl-desc">Led experience design for a large-scale consumer platform spanning phones, wearables, TVs, appliances, and vehicles. Established and scaled a design system to support consistency across teams and platforms.</p>
+      </div>
+
+      <!-- Shinebox Creative -->
+      <div class="tl-item">
+        <div class="tl-dates">2012 &mdash; 2015</div>
+        <h3 class="tl-company">Shinebox Creative</h3>
+        <p class="tl-role">Digital Creative Director</p>
+        <div class="tl-highlights">
+          <span class="tl-tag">Agency</span>
+          <span class="tl-tag">Brand Strategy</span>
+          <span class="tl-tag">3M</span>
+          <span class="tl-tag">Unisys</span>
+        </div>
+        <p class="tl-desc">Built and led the digital practice, establishing design processes and guiding multidisciplinary teams across UX, brand, content, and engineering. Led award-winning digital initiatives for enterprise and consumer clients.</p>
+      </div>
+
+      <!-- Earlier career -->
+      <div class="tl-item">
+        <div class="tl-dates">Pre-2012</div>
+        <h3 class="tl-company">Earlier career</h3>
+        <p class="tl-role">Various design & creative leadership roles</p>
+        <div class="tl-highlights">
+          <span class="tl-tag">Web Design</span>
+          <span class="tl-tag">Creative Direction</span>
+          <span class="tl-tag">Brand</span>
+        </div>
+        <p class="tl-desc">More details available at <a href="https://linkedin.com/in/davidmccrindle" style="color:#fff;text-decoration:underline;text-underline-offset:3px" target="_blank">linkedin.com/in/davidmccrindle</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PORTFOLIO GATE ═══ -->
+  <section class="portfolio-gate" id="portfolio-gate">
+    <div class="gate-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </div>
+    <h2 class="gate-title">There's more behind the curtain</h2>
+    <p class="gate-subtitle">Enter the password to view selected case studies from my portfolio.</p>
+    <form class="gate-form" id="gate-form" onsubmit="return handleGateSubmit(event)">
+      <input type="password" class="gate-input" id="gate-input" placeholder="Password" autocomplete="off" />
+      <button type="submit" class="gate-submit">Unlock</button>
+    </form>
+    <p class="gate-error" id="gate-error">That's not quite right. Try again.</p>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <section class="cta" id="cta">
+    <h2>Let's build something great</h2>
+    <p>Got a product challenge? I'd love to hear about it.</p>
+    <a href="/say-hi/" class="cta-btn">Say Hi</a>
+  </section>
+
+  <script type="module" src="/js/simple-nav.js"></script>
+  <script>
+    // Duplicate marquee track for seamless loop
+    const marqueeTrack = document.getElementById('marquee-track');
+    marqueeTrack.innerHTML += marqueeTrack.innerHTML;
+
+    // Scroll-triggered animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.tl-item, .cta, .portfolio-gate').forEach(el => observer.observe(el));
+
+    // Nav gradient on scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Portfolio gate
+    function handleGateSubmit(e) {
+      e.preventDefault();
+      const input = document.getElementById('gate-input');
+      const error = document.getElementById('gate-error');
+      const form = document.getElementById('gate-form');
+
+      if (input.value.toLowerCase().trim() === 'pizza') {
+        sessionStorage.setItem('portfolio_auth', 'true');
+        window.location.href = '/portfolio/';
+      } else {
+        error.classList.add('show');
+        form.classList.add('gate-shake');
+        input.value = '';
+        input.focus();
+        setTimeout(() => form.classList.remove('gate-shake'), 400);
+        setTimeout(() => error.classList.remove('show'), 3000);
+      }
+      return false;
+    }
+
+    // If already authenticated, show a direct link
+    if (sessionStorage.getItem('portfolio_auth') === 'true') {
+      const gate = document.getElementById('portfolio-gate');
+      const form = document.getElementById('gate-form');
+      form.innerHTML = '<a href="/portfolio/" class="gate-submit" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;padding:0 32px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>View Portfolio</a>';
+      document.querySelector('.gate-subtitle').textContent = "You've already unlocked the portfolio.";
+    }
+  </script>
+</body>
+</html>

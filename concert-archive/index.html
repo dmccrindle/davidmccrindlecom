@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Concert Archive — davidmccrindle</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="map"></div>
+  <div id="overlay"></div>
+  <div id="gradient"></div>
+
+  <nav id="navbar">
+    <div class="nav-logo" tabindex="1" role="button" aria-label="Home">
+      <img src="https://www.figma.com/api/mcp/asset/2158519e-b52a-49f2-bc23-32b3c5e1d7a2" alt="dm" onerror="this.parentElement.innerHTML='<div style=&quot;width:56px;height:56px;background:#333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px&quot;>dm</div>'">
+    </div>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/my-work/">My Work</a>
+      <a href="/concert-archive/" class="active">Concert Archive</a>
+      <a href="/say-hi/">Say Hi</a>
+    </div>
+    <div class="nav-social">
+      <a href="#" aria-label="Instagram"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="#" aria-label="Threads"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.001 2C8.07 2 5.915 3.785 4.9 5.65c-1.015 1.865-1.05 4.1-.3 5.9.468 1.12 1.218 2.02 2.128 2.65-.06.42-.078.86-.04 1.3.2 2.35 1.38 4.1 3.15 5.1 1.2.68 2.55.95 3.85.85 1.65-.12 3.1-.8 4.15-1.95 1.05-1.15 1.65-2.7 1.65-4.5 0-1.5-.35-2.85-1.05-3.95-.7-1.1-1.75-1.9-3.05-2.25-.4-.1-.82-.17-1.24-.17-1.25 0-2.35.55-3.05 1.45"/><path d="M12 8.5c1.1 0 2.1.5 2.8 1.3.55.65.85 1.5.85 2.4 0 .85-.28 1.65-.8 2.3-.7.85-1.75 1.35-2.85 1.35s-2.15-.5-2.85-1.35"/></svg></a>
+    </div>
+    <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/">Home</a>
+    <a href="/my-work/">My Work</a>
+    <a href="/concert-archive/" class="active">Concert Archive</a>
+    <a href="/say-hi/">Say Hi</a>
+    <div class="mobile-menu-social">
+      <a href="#" aria-label="Instagram"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="#" aria-label="Threads"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12.001 2C8.07 2 5.915 3.785 4.9 5.65c-1.015 1.865-1.05 4.1-.3 5.9.468 1.12 1.218 2.02 2.128 2.65-.06.42-.078.86-.04 1.3.2 2.35 1.38 4.1 3.15 5.1 1.2.68 2.55.95 3.85.85 1.65-.12 3.1-.8 4.15-1.95 1.05-1.15 1.65-2.7 1.65-4.5 0-1.5-.35-2.85-1.05-3.95-.7-1.1-1.75-1.9-3.05-2.25-.4-.1-.82-.17-1.24-.17-1.25 0-2.35.55-3.05 1.45"/><path d="M12 8.5c1.1 0 2.1.5 2.8 1.3.55.65.85 1.5.85 2.4 0 .85-.28 1.65-.8 2.3-.7.85-1.75 1.35-2.85 1.35s-2.15-.5-2.85-1.35"/></svg></a>
+    </div>
+  </div>
+
+  <div id="left-panel">
+    <div class="toggle-row">
+      <button class="toggle-btn" id="btn-map" tabindex="0" onclick="setView('map')">Map</button>
+      <button class="toggle-btn active" id="btn-list" tabindex="0" onclick="setView('list')">List</button>
+    </div>
+    <div class="cards-grid">
+      <div class="stat-card active" data-section="shows" tabindex="0" role="button" onclick="setSection('shows')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setSection('shows')}">
+        <div class="card-header">
+          <span class="card-label">Shows</span>
+          <svg class="card-arrow" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card-number" id="shows-count">0</div>
+      </div>
+      <div class="stat-card" data-section="artists" tabindex="0" role="button" onclick="setSection('artists')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setSection('artists')}">
+        <div class="card-header">
+          <span class="card-label">Artists</span>
+          <svg class="card-arrow" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card-number" id="artists-count">0</div>
+      </div>
+      <div class="stat-card" data-section="places" tabindex="0" role="button" onclick="setSection('places')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setSection('places')}">
+        <div class="card-header">
+          <span class="card-label">Places</span>
+          <svg class="card-arrow" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card-number" id="places-count">0</div>
+      </div>
+      <div class="stat-card" data-section="venues" tabindex="0" role="button" onclick="setSection('venues')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setSection('venues')}">
+        <div class="card-header">
+          <span class="card-label">Venues</span>
+          <svg class="card-arrow" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card-number" id="venues-count">0</div>
+      </div>
+    </div>
+    <div class="stats-accordion" id="stats-accordion">
+      <button class="stats-toggle" onclick="toggleStats()">
+        <svg class="stats-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="stats-toggle-text">Stats relevant to no-one but me</span>
+        <span class="stats-toggle-right">What is this???</span>
+      </button>
+      <div class="stats-body" id="stats-body"></div>
+    </div>
+    <div class="mobile-section-nav" id="mobile-section-nav">
+      <button class="mobile-section-btn" id="mobile-section-btn" onclick="toggleMobileSectionDD(event)">
+        <span id="mobile-section-label">Shows</span>
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="mobile-section-dd" id="mobile-section-dd"></div>
+    </div>
+  </div>
+
+  <div class="show-tooltip" id="show-tooltip"></div>
+
+  <div id="right-panel">
+    <div id="view-shows" class="content-view">
+      <!-- On This Day widget sits above the shows box -->
+      <div id="on-this-day"></div>
+      <div class="shows-box">
+        <div class="list-header">
+          <div class="year-selector" id="year-selector" tabindex="0" role="button" aria-label="Select year" onclick="toggleYearDropdown(event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleYearDropdown(event)}">
+            <span class="year-display" id="year-display">2026</span>
+            <svg class="year-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="year-dropdown" id="year-dropdown"></div>
+          </div>
+          <div class="shows-search-box" onclick="focusShowsSearch()">
+            <input class="shows-search-input" id="shows-search" type="text" placeholder="Search" oninput="onSearch('shows',this.value)">
+            <span class="search-kbd">⌘K</span>
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="7" stroke="#a1a1a1" stroke-width="1.8"/>
+              <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#a1a1a1" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="show-type-dd" id="show-type-dd">
+            <button class="show-type-btn" onclick="toggleShowTypeDropdown(event)">
+              <span id="show-type-label">Concerts</span>
+              <svg class="show-type-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="show-type-menu" id="show-type-menu">
+              <button class="show-type-menu-item active" id="stype-concerts" onclick="setShowType('concerts');event.stopPropagation()">Concerts</button>
+              <button class="show-type-menu-item" id="stype-festivals" onclick="setShowType('festivals');event.stopPropagation()">Festivals</button>
+            </div>
+          </div>
+        </div>
+        <div class="list-scroll" id="shows-list"></div>
+        <div class="year-nav">
+          <button class="year-nav-btn" id="prev-year-btn" onclick="changeYear(-1)">
+            <span>←</span><span id="prev-year-label">—</span>
+          </button>
+          <button class="year-nav-btn" id="next-year-btn" onclick="changeYear(1)">
+            <span id="next-year-label">—</span><span>→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-artists" class="content-view hidden">
+      <div class="shows-box">
+        <div class="list-search-bar">
+          <button class="sort-text-btn" id="btn-alpha" onclick="setSortMode('alpha')">A-Z</button>
+          <div class="section-search-box">
+            <input class="section-search-input" id="artists-search" type="text" placeholder="Search" oninput="onSearch('artists',this.value)">
+            <span class="search-kbd">⌘K</span>
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="7" stroke="#a1a1a1" stroke-width="1.8"/>
+              <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#a1a1a1" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <button class="sort-icon-btn" id="btn-crown" title="Most seen" onclick="setSortMode('most')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="11" width="4" height="10" rx="0.5" fill="#fff"/>
+              <rect x="10" y="7" width="4" height="14" rx="0.5" fill="#fff"/>
+              <rect x="17" y="3" width="4" height="18" rx="0.5" fill="#fff"/>
+            </svg>
+          </button>
+        </div>
+        <div class="list-scroll" id="artists-list"></div>
+      </div>
+    </div>
+
+    <div id="view-places" class="content-view hidden">
+      <div class="shows-box">
+        <div class="list-search-bar">
+          <button class="sort-text-btn" id="btn-place-alpha" onclick="setPlacesSortMode('alpha')">A-Z</button>
+          <div class="section-search-box">
+            <input class="section-search-input" id="places-search" type="text" placeholder="Search" oninput="onSearch('places',this.value)">
+            <span class="search-kbd">⌘K</span>
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="7" stroke="#a1a1a1" stroke-width="1.8"/>
+              <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#a1a1a1" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <button class="sort-icon-btn" id="btn-place-crown" title="Most visited" onclick="setPlacesSortMode('most')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="11" width="4" height="10" rx="0.5" fill="#fff"/>
+              <rect x="10" y="7" width="4" height="14" rx="0.5" fill="#fff"/>
+              <rect x="17" y="3" width="4" height="18" rx="0.5" fill="#fff"/>
+            </svg>
+          </button>
+          <button class="places-group-toggle" id="btn-places-group" onclick="togglePlacesGroup()">
+            <span class="places-group-label">Cities</span>
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+              <path d="M4 6l4 4 4-4" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="list-scroll" id="places-list"></div>
+      </div>
+    </div>
+
+    <div id="view-venues" class="content-view hidden">
+      <div class="shows-box">
+        <div class="list-search-bar">
+          <button class="sort-text-btn" id="btn-venue-alpha" onclick="setVenuesSortMode('alpha')">A-Z</button>
+          <div class="section-search-box">
+            <input class="section-search-input" id="venues-search" type="text" placeholder="Search" oninput="onSearch('venues',this.value)">
+            <span class="search-kbd">⌘K</span>
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="7" stroke="#a1a1a1" stroke-width="1.8"/>
+              <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#a1a1a1" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <button class="sort-icon-btn" id="btn-venue-crown" title="Most visited" onclick="setVenuesSortMode('most')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="11" width="4" height="10" rx="0.5" fill="#fff"/>
+              <rect x="10" y="7" width="4" height="14" rx="0.5" fill="#fff"/>
+              <rect x="17" y="3" width="4" height="18" rx="0.5" fill="#fff"/>
+            </svg>
+          </button>
+        </div>
+        <div class="list-scroll" id="venues-list"></div>
+      </div>
+    </div>
+
+    <div id="view-city-shows" class="content-view hidden">
+      <div class="shows-box">
+        <div class="city-shows-header">
+          <button class="city-shows-back" onclick="closeCityFilter()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3l-5 5 5 5" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Back
+          </button>
+          <span class="city-shows-title" id="city-shows-title"></span>
+        </div>
+        <div class="city-shows-photo-wrap" id="city-shows-photo-wrap">
+          <img class="city-shows-photo" id="city-shows-photo" src="" alt="" aria-hidden="true">
+        </div>
+        <div class="list-search-bar">
+          <div class="section-search-box">
+            <input class="section-search-input" id="city-shows-search" type="text" placeholder="Search" oninput="onCityShowsSearch(this.value)">
+            <span class="search-kbd">⌘K</span>
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="7" stroke="#a1a1a1" stroke-width="1.8"/>
+              <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#a1a1a1" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <button class="sort-icon-btn" id="btn-city-crown" title="Most popular" onclick="toggleCityShowsSort()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="11" width="4" height="10" rx="0.5" fill="#fff"/>
+              <rect x="10" y="7" width="4" height="14" rx="0.5" fill="#fff"/>
+              <rect x="17" y="3" width="4" height="18" rx="0.5" fill="#fff"/>
+            </svg>
+          </button>
+        </div>
+        <div class="list-scroll" id="city-shows-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="info-modal">
+    <div class="modal-box">
+      <h2>Concert Archive</h2>
+      <p>A visual archive of every live concert, gig, and festival I've attended since 1995. From the Barrowlands in Glasgow to First Avenue in Minneapolis and everywhere in between.</p>
+      <p>Browse by year, search for artists, explore the map — it's all here. Every show, every support act, every venue.</p>
+      <button class="modal-close" onclick="closeInfo()">Got it</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

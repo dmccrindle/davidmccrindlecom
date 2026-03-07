@@ -1,0 +1,3 @@
+* build a site based on this figma link https://www.figma.com/design/nXYccp7haHvHHLM6uOKFTE/Untitled?node-id=1-81&t=vso0uiVEGU6pXSqA-4
+* Use this spreadsheet: https://docs.google.com/spreadsheets/d/1_1cJtn0bIy94w-udQMNoA3WnXII9yOV5IVmDiHu5H78/edit?usp=sharing
+* when reading the spreadsheet, update the british countries - so based on the city, it should be Scotland instead of UK, England instead of UK etc

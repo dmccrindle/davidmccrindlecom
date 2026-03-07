@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concert CMS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { min-height: 100vh; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+    }
+
+    /* ── Auth Gate ── */
+    #auth-gate {
+      position: fixed; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: #0d0d0d;
+      z-index: 100;
+    }
+    #auth-gate.hidden { display: none; }
+    .auth-box {
+      text-align: center;
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .auth-box h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+    .auth-box p { color: #666; font-size: 14px; }
+    .auth-input-row {
+      display: flex; gap: 0;
+      border: 1px solid #333;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .auth-input-row input {
+      flex: 1;
+      background: #1a1a1a;
+      border: none; outline: none;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      padding: 14px 18px;
+    }
+    .auth-input-row input::placeholder { color: #555; }
+    .auth-input-row button {
+      background: #fff;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 14px 22px;
+      transition: background 0.2s;
+    }
+    .auth-input-row button:hover { background: #e0e0e0; }
+    .auth-error {
+      color: #ff6b6b;
+      font-size: 13px;
+      min-height: 18px;
+    }
+
+    /* ── App Shell ── */
+    #app { display: none; padding: 60px 40px 80px; max-width: 860px; margin: 0 auto; }
+    #app.visible { display: block; }
+
+    .cms-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #222;
+    }
+    .cms-header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+    .cms-header span { color: #555; font-size: 13px; }
+
+    /* ── Tabs ── */
+    .cms-tabs {
+      display: flex; gap: 4px;
+      margin-bottom: 40px;
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: 4px;
+      width: fit-content;
+    }
+    .cms-tab {
+      background: transparent;
+      border: none;
+      border-radius: 7px;
+      color: #666;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 20px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .cms-tab:hover { color: #ccc; }
+    .cms-tab.active {
+      background: #2a2a2a;
+      color: #fff;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Form ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #666;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select,
+    textarea {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      padding: 12px 14px;
+      transition: border-color 0.2s;
+      outline: none;
+      width: 100%;
+    }
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #555;
+    }
+    input::placeholder, textarea::placeholder { color: #444; }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); cursor: pointer; }
+
+    select option { background: #1a1a1a; }
+    textarea { resize: vertical; min-height: 80px; }
+
+    /* ── Festival toggle ── */
+    .festival-row {
+      display: flex; align-items: center; gap: 12px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .festival-row span { font-size: 15px; color: #888; flex: 1; }
+    .toggle-switch {
+      position: relative; width: 44px; height: 24px; flex-shrink: 0;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-track {
+      position: absolute; inset: 0;
+      background: #333; border-radius: 24px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle-track::before {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      left: 3px; top: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+    .toggle-switch input:checked + .toggle-track { background: #7c3aed; }
+    .toggle-switch input:checked + .toggle-track::before { transform: translateX(20px); }
+
+    .hint { font-size: 11px; color: #444; margin-top: 2px; }
+
+    /* ── Date warning ── */
+    .date-warning {
+      display: none;
+      margin-top: 4px;
+      background: #2a1a0a;
+      border: 1px solid #7a4a10;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 12px;
+      color: #f4a04a;
+      line-height: 1.5;
+    }
+    .date-warning.visible { display: block; }
+
+    /* ── Venue Autocomplete ── */
+    .ac-wrap { position: relative; }
+    .ac-wrap input[type="text"] { width: 100%; }
+    .ac-list {
+      position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 8px;
+      max-height: 220px;
+      overflow-y: auto;
+      z-index: 50;
+      display: none;
+    }
+    .ac-list.open { display: block; }
+    .ac-item {
+      padding: 10px 14px;
+      cursor: pointer;
+      display: flex; align-items: baseline; gap: 10px;
+    }
+    .ac-item:hover, .ac-item.active { background: #2a2a2a; }
+    .ac-item-name { font-size: 14px; }
+    .ac-item-city { font-size: 12px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ac-autofilled {
+      border-color: #4a3a7a !important;
+      background: #1a1428 !important;
+    }
+
+    /* ── Submit ── */
+    .form-actions { margin-top: 40px; display: flex; align-items: center; gap: 16px; }
+    .btn-submit {
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 14px 32px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-submit:hover { background: #e5e5e5; }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .submit-status { font-size: 14px; }
+    .submit-status.ok { color: #4ade80; }
+    .submit-status.err { color: #f87171; }
+
+    /* ── Recent entries ── */
+    .recent-header {
+      margin-top: 64px;
+      padding-top: 32px;
+      border-top: 1px solid #1e1e1e;
+      margin-bottom: 20px;
+      display: flex; align-items: baseline; gap: 12px;
+    }
+    .recent-header h2 { font-size: 16px; font-weight: 600; }
+    .recent-header span { font-size: 12px; color: #555; }
+
+    .recent-list { display: flex; flex-direction: column; gap: 10px; }
+    .recent-entry {
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+    .recent-date { font-size: 13px; color: #666; font-variant-numeric: tabular-nums; }
+    .recent-artist { font-size: 14px; font-weight: 500; }
+    .recent-venue { font-size: 12px; color: #555; }
+
+    /* ── Edit Tab ── */
+    .edit-toolbar {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 28px;
+    }
+    .edit-toolbar input[type="text"] {
+      flex: 1; max-width: 360px;
+      font-size: 14px; padding: 10px 14px;
+    }
+    .edit-count { font-size: 13px; color: #555; }
+
+    .edit-list { display: flex; flex-direction: column; gap: 16px; }
+
+    .edit-row {
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .edit-row.saving { opacity: 0.6; pointer-events: none; }
+
+    .edit-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .ef-group { display: flex; flex-direction: column; gap: 6px; }
+    .ef-group label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #555;
+    }
+    .ef-group input[type="text"],
+    .ef-group input[type="date"],
+    .ef-group select,
+    .ef-group textarea {
+      font-size: 13px;
+      padding: 9px 12px;
+    }
+    .ef-group textarea { min-height: 60px; }
+    .ef-full { grid-column: 1 / -1; }
+    .ef-two { grid-column: span 2; }
+
+    .edit-actions {
+      display: flex; align-items: center; gap: 10px;
+      padding-top: 16px;
+      border-top: 1px solid #1e1e1e;
+    }
+    .btn-save-row {
+      background: #fff; color: #000; border: none; border-radius: 7px;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+      padding: 8px 20px; cursor: pointer; transition: background 0.15s;
+    }
+    .btn-save-row:hover { background: #e5e5e5; }
+    .btn-save-row:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-delete-row {
+      background: transparent; color: #f87171; border: 1px solid #3a1a1a;
+      border-radius: 7px; font-family: 'Inter', sans-serif; font-size: 13px;
+      font-weight: 500; padding: 8px 16px; cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .btn-delete-row:hover { background: #2a0a0a; border-color: #f87171; }
+    .btn-delete-row:disabled { opacity: 0.5; cursor: not-allowed; }
+    .row-status { font-size: 13px; margin-left: 4px; }
+    .row-status.ok { color: #4ade80; }
+    .row-status.err { color: #f87171; }
+
+    @media (max-width: 600px) {
+      #app { padding: 40px 20px 60px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: auto; }
+      .edit-fields { grid-template-columns: 1fr; }
+      .ef-two, .ef-full { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Auth Gate -->
+  <div id="auth-gate">
+    <div class="auth-box">
+      <div>
+        <h1>Concert CMS</h1>
+        <p style="margin-top:8px">dev-only · adds entries to concerts.csv</p>
+      </div>
+      <div class="auth-input-row">
+        <input type="password" id="pw-input" placeholder="password" />
+        <button onclick="unlock()">Enter</button>
+      </div>
+      <div class="auth-error" id="pw-error"></div>
+    </div>
+  </div>
+
+  <!-- App -->
+  <div id="app">
+    <div class="cms-header">
+      <h1>Concert CMS</h1>
+      <span>dev only — writes to public/data/concerts.csv</span>
+    </div>
+
+    <div class="cms-tabs">
+      <button class="cms-tab active" onclick="switchTab('add')">Add Show</button>
+      <button class="cms-tab" onclick="switchTab('edit')">Edit Shows</button>
+    </div>
+
+    <!-- Add tab -->
+    <div id="tab-add" class="tab-panel active">
+      <form id="concert-form">
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="f-date">Date</label>
+            <input type="date" id="f-date" required />
+            <div class="date-warning" id="date-warning"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="f-artist">Artist / Festival Name</label>
+            <div class="ac-wrap">
+              <input type="text" id="f-artist" placeholder="e.g. Radiohead" autocomplete="off" required />
+              <div class="ac-list" id="artist-ac-list"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Festival?</label>
+            <div class="festival-row">
+              <span id="festival-label">No</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="f-festival" onchange="updateFestivalLabel(this)" />
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="f-support">Support Acts</label>
+            <div class="ac-wrap">
+              <input type="text" id="f-support" placeholder="e.g. Pixies; Weezer" autocomplete="off" />
+              <div class="ac-list" id="support-ac-list"></div>
+            </div>
+            <div class="hint">Separate multiple acts with ;</div>
+          </div>
+
+          <div class="form-group">
+            <label for="f-tour">Tour Name</label>
+            <input type="text" id="f-tour" placeholder="e.g. OK Computer Tour" />
+          </div>
+
+          <div class="form-group">
+            <label for="f-venue">Venue</label>
+            <div class="ac-wrap">
+              <input type="text" id="f-venue" placeholder="e.g. First Avenue" autocomplete="off" required />
+              <div class="ac-list" id="venue-ac-list"></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="f-city">City</label>
+            <input type="text" id="f-city" placeholder="e.g. Glasgow" required />
+          </div>
+
+          <div class="form-group">
+            <label for="f-country">Country</label>
+            <select id="f-country" required>
+              <option value="US">🇺🇸 United States</option>
+              <option value="UK">🇬🇧 United Kingdom (inc. Scotland / England / Wales)</option>
+              <option value="IE">🇮🇪 Ireland</option>
+              <option value="DE">🇩🇪 Germany</option>
+              <option value="Sweden">🇸🇪 Sweden</option>
+              <option value="Norway">🇳🇴 Norway</option>
+              <option value="Canada">🇨🇦 Canada</option>
+            </select>
+            <div class="hint">UK cities are auto-mapped to Scotland / England / Wales on load</div>
+          </div>
+
+          <div class="form-group">
+            <label for="f-friends">Friends</label>
+            <input type="text" id="f-friends" placeholder="e.g. Andy, Kirsty" />
+          </div>
+
+          <div class="form-group full">
+            <label for="f-notes">Notes</label>
+            <textarea id="f-notes" placeholder="Anything worth remembering…"></textarea>
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit" id="submit-btn">Add to CSV</button>
+          <span class="submit-status" id="submit-status"></span>
+        </div>
+      </form>
+
+      <!-- Recent entries preview -->
+      <div class="recent-header">
+        <h2>Recent entries</h2>
+        <span id="recent-count"></span>
+      </div>
+      <div class="recent-list" id="recent-list"></div>
+    </div>
+
+    <!-- Edit tab -->
+    <div id="tab-edit" class="tab-panel">
+      <div class="edit-toolbar">
+        <input type="text" id="edit-search" placeholder="Filter by artist, venue, city or date…" oninput="renderEditList()" />
+        <span class="edit-count" id="edit-count"></span>
+      </div>
+      <div class="edit-list" id="edit-list"></div>
+    </div>
+
+  </div>
+
+  <script>
+    const PASSWORD = 'pizza';
+
+    const venueMap = {};
+    const dateMap = {};
+    const artistList = [];
+    const supportList = [];
+    let allRows = [];
+    let currentTab = 'add';
+
+    // ── Auth ────────────────────────────────────────
+
+    function unlock() {
+      const val = document.getElementById('pw-input').value;
+      if (val === PASSWORD) {
+        sessionStorage.setItem('cms-auth', '1');
+        document.getElementById('auth-gate').classList.add('hidden');
+        document.getElementById('app').classList.add('visible');
+        loadData();
+      } else {
+        const err = document.getElementById('pw-error');
+        err.textContent = 'Wrong password.';
+        document.getElementById('pw-input').value = '';
+        setTimeout(() => { err.textContent = ''; }, 2000);
+      }
+    }
+
+    document.getElementById('pw-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') unlock();
+    });
+
+    // ── Tabs ────────────────────────────────────────
+
+    function switchTab(name) {
+      currentTab = name;
+      document.querySelectorAll('.cms-tab').forEach((btn, i) => {
+        btn.classList.toggle('active', ['add', 'edit'][i] === name);
+      });
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      if (name === 'edit') renderEditList();
+    }
+
+    // ── Add form ────────────────────────────────────
+
+    function updateFestivalLabel(cb) {
+      document.getElementById('festival-label').textContent = cb.checked ? 'Yes' : 'No';
+    }
+
+    function toCSVDate(isoDate) {
+      const [y, m, d] = isoDate.split('-');
+      return `${parseInt(m)}/${parseInt(d)}/${y}`;
+    }
+
+    function csvDateToISO(d) {
+      const m = d.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+      if (!m) return d;
+      return `${m[3]}-${m[1].padStart(2, '0')}-${m[2].padStart(2, '0')}`;
+    }
+
+    document.getElementById('concert-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      const status = document.getElementById('submit-status');
+      btn.disabled = true;
+      status.textContent = 'Saving…';
+      status.className = 'submit-status';
+
+      const payload = {
+        date:     toCSVDate(document.getElementById('f-date').value),
+        artist:   document.getElementById('f-artist').value.trim(),
+        support:  document.getElementById('f-support').value.trim(),
+        festival: document.getElementById('f-festival').checked,
+        tour:     document.getElementById('f-tour').value.trim(),
+        venue:    document.getElementById('f-venue').value.trim(),
+        city:     document.getElementById('f-city').value.trim(),
+        country:  document.getElementById('f-country').value,
+        friends:  document.getElementById('f-friends').value.trim(),
+        notes:    document.getElementById('f-notes').value.trim(),
+      };
+
+      try {
+        const res = await fetch('/api/add-concert', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const json = await res.json();
+        if (json.ok) {
+          status.textContent = `✓ Added "${payload.artist}" on ${payload.date}`;
+          status.className = 'submit-status ok';
+          e.target.reset();
+          document.getElementById('festival-label').textContent = 'No';
+          await loadData();
+        } else {
+          throw new Error(json.error || 'Unknown error');
+        }
+      } catch (err) {
+        status.textContent = `✗ ${err.message}`;
+        status.className = 'submit-status err';
+      }
+      btn.disabled = false;
+    });
+
+    document.getElementById('f-date').addEventListener('change', function() {
+      const warning = document.getElementById('date-warning');
+      if (!this.value) { warning.classList.remove('visible'); return; }
+      const csvDate = toCSVDate(this.value);
+      const existing = dateMap[csvDate];
+      if (existing && existing.length) {
+        warning.textContent = `Already have ${existing.length} show${existing.length > 1 ? 's' : ''} on this date: ${existing.join(', ')}`;
+        warning.classList.add('visible');
+      } else {
+        warning.classList.remove('visible');
+      }
+    });
+
+    // ── Edit tab ────────────────────────────────────
+
+    const COUNTRIES = [
+      { value: 'US',            label: '🇺🇸 United States' },
+      { value: 'UK',            label: '🇬🇧 United Kingdom' },
+      { value: 'IE',            label: '🇮🇪 Ireland' },
+      { value: 'DE',            label: '🇩🇪 Germany' },
+      { value: 'Scotland',      label: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland' },
+      { value: 'England',       label: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 England' },
+      { value: 'Wales',         label: '🏴󠁧󠁢󠁷󠁬󠁳󠁿 Wales' },
+      { value: 'Northern Ireland', label: '🇬🇧 Northern Ireland' },
+      { value: 'Sweden',        label: '🇸🇪 Sweden' },
+      { value: 'Norway',        label: '🇳🇴 Norway' },
+      { value: 'Canada',        label: '🇨🇦 Canada' },
+    ];
+
+    function countrySelect(selected) {
+      const options = COUNTRIES.map(c =>
+        `<option value="${c.value}"${c.value === selected ? ' selected' : ''}>${c.label}</option>`
+      ).join('');
+      // If no match, add as-is
+      const hasMatch = COUNTRIES.some(c => c.value === selected);
+      const fallback = hasMatch ? '' : `<option value="${escAttr(selected)}" selected>${esc(selected)}</option>`;
+      return `<select class="ef-country">${fallback}${options}</select>`;
+    }
+
+    function renderEditList() {
+      const q = document.getElementById('edit-search').value.trim().toLowerCase();
+      const rows = q
+        ? allRows.filter(r =>
+            r.artist.toLowerCase().includes(q) ||
+            r.venue.toLowerCase().includes(q) ||
+            r.city.toLowerCase().includes(q) ||
+            r.date.includes(q) ||
+            r.support.toLowerCase().includes(q)
+          )
+        : allRows;
+
+      document.getElementById('edit-count').textContent =
+        q ? `${rows.length} of ${allRows.length}` : `${allRows.length} shows`;
+
+      const displayed = [...rows].sort((a, b) => csvDateToISO(b.date).localeCompare(csvDateToISO(a.date)));
+
+      document.getElementById('edit-list').innerHTML = displayed.map(r => {
+        const isoDate = csvDateToISO(r.date);
+        return `<div class="edit-row" data-idx="${r.idx}">
+          <div class="edit-fields">
+            <div class="ef-group">
+              <label>Date</label>
+              <input type="date" class="ef-date" value="${escAttr(isoDate)}">
+            </div>
+            <div class="ef-group ef-two">
+              <label>Artist</label>
+              <input type="text" class="ef-artist" value="${escAttr(r.artist)}">
+            </div>
+            <div class="ef-group ef-two">
+              <label>Support Acts</label>
+              <input type="text" class="ef-support" value="${escAttr(r.support)}" placeholder="e.g. Pixies; Weezer">
+            </div>
+            <div class="ef-group">
+              <label>Festival</label>
+              <div class="festival-row">
+                <span class="ef-festival-label">${r.festival ? 'Yes' : 'No'}</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" class="ef-festival"${r.festival ? ' checked' : ''}
+                    onchange="this.closest('.edit-row').querySelector('.ef-festival-label').textContent=this.checked?'Yes':'No'">
+                  <span class="toggle-track"></span>
+                </label>
+              </div>
+            </div>
+            <div class="ef-group ef-two">
+              <label>Tour</label>
+              <input type="text" class="ef-tour" value="${escAttr(r.tour)}" placeholder="e.g. OK Computer Tour">
+            </div>
+            <div class="ef-group">
+              <label>Venue</label>
+              <input type="text" class="ef-venue" value="${escAttr(r.venue)}">
+            </div>
+            <div class="ef-group">
+              <label>City</label>
+              <input type="text" class="ef-city" value="${escAttr(r.city)}">
+            </div>
+            <div class="ef-group">
+              <label>Country</label>
+              ${countrySelect(r.country)}
+            </div>
+            <div class="ef-group ef-full">
+              <label>Friends</label>
+              <input type="text" class="ef-friends" value="${escAttr(r.friends)}" placeholder="e.g. Andy, Kirsty">
+            </div>
+            <div class="ef-group ef-full">
+              <label>Notes</label>
+              <textarea class="ef-notes">${esc(r.notes)}</textarea>
+            </div>
+          </div>
+          <div class="edit-actions">
+            <button class="btn-save-row" onclick="saveRow(this)">Save</button>
+            <button class="btn-delete-row" onclick="deleteRow(this)">Delete</button>
+            <span class="row-status"></span>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    async function saveRow(btn) {
+      const row = btn.closest('.edit-row');
+      const idx = parseInt(row.dataset.idx);
+      const status = row.querySelector('.row-status');
+      const saveBtn = row.querySelector('.btn-save-row');
+      saveBtn.disabled = true;
+      status.textContent = 'Saving…';
+      status.className = 'row-status';
+
+      const isoDate = row.querySelector('.ef-date').value;
+      const payload = {
+        rowIndex: idx,
+        date:     toCSVDate(isoDate),
+        artist:   row.querySelector('.ef-artist').value.trim(),
+        support:  row.querySelector('.ef-support').value.trim(),
+        festival: row.querySelector('.ef-festival').checked,
+        tour:     row.querySelector('.ef-tour').value.trim(),
+        venue:    row.querySelector('.ef-venue').value.trim(),
+        city:     row.querySelector('.ef-city').value.trim(),
+        country:  row.querySelector('.ef-country').value,
+        friends:  row.querySelector('.ef-friends').value.trim(),
+        notes:    row.querySelector('.ef-notes').value.trim(),
+      };
+
+      try {
+        const res = await fetch('/api/edit-concert', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const json = await res.json();
+        if (json.ok) {
+          status.textContent = '✓ Saved';
+          status.className = 'row-status ok';
+          await loadData();
+        } else {
+          throw new Error(json.error || 'Unknown error');
+        }
+      } catch (e) {
+        status.textContent = `✗ ${e.message}`;
+        status.className = 'row-status err';
+        saveBtn.disabled = false;
+      }
+    }
+
+    async function deleteRow(btn) {
+      const row = btn.closest('.edit-row');
+      const idx = parseInt(row.dataset.idx);
+      const artist = row.querySelector('.ef-artist')?.value || 'this show';
+      if (!confirm(`Delete "${artist}"? This cannot be undone.`)) return;
+
+      const status = row.querySelector('.row-status');
+      const delBtn = row.querySelector('.btn-delete-row');
+      delBtn.disabled = true;
+      status.textContent = 'Deleting…';
+      status.className = 'row-status';
+
+      try {
+        const res = await fetch('/api/delete-concert', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ rowIndex: idx }),
+        });
+        const json = await res.json();
+        if (json.ok) {
+          await loadData();
+        } else {
+          throw new Error(json.error || 'Unknown error');
+        }
+      } catch (e) {
+        status.textContent = `✗ ${e.message}`;
+        status.className = 'row-status err';
+        delBtn.disabled = false;
+      }
+    }
+
+    // ── Autocomplete ────────────────────────────────
+
+    function createAutocomplete(inputId, listId, getMatches, onSelect) {
+      const input = document.getElementById(inputId);
+      const list  = document.getElementById(listId);
+      let idx = -1;
+
+      function close() { list.classList.remove('open'); idx = -1; }
+
+      function highlight(items) {
+        items.forEach((el, i) => el.classList.toggle('active', i === idx));
+        if (items[idx]) items[idx].scrollIntoView({ block: 'nearest' });
+      }
+
+      input.addEventListener('input', () => {
+        const q = input.value.trim().toLowerCase();
+        idx = -1;
+        if (!q) { close(); return; }
+        const matches = getMatches(q);
+        if (!matches.length) { close(); return; }
+
+        list.innerHTML = matches.map((m, i) => {
+          const dataAttrs = Object.entries(m.data)
+            .map(([k, v]) => `data-${k}="${esc(String(v))}"`).join(' ');
+          return `<div class="ac-item" ${dataAttrs} data-idx="${i}">
+            <span class="ac-item-name">${esc(m.label)}</span>
+            ${m.sublabel ? `<span class="ac-item-city">${esc(m.sublabel)}</span>` : ''}
+          </div>`;
+        }).join('');
+
+        list.querySelectorAll('.ac-item').forEach(item => {
+          item.addEventListener('mousedown', e => {
+            e.preventDefault();
+            onSelect(item.dataset, input);
+            close();
+          });
+        });
+        list.classList.add('open');
+      });
+
+      input.addEventListener('keydown', e => {
+        if (!list.classList.contains('open')) return;
+        const items = list.querySelectorAll('.ac-item');
+        if (e.key === 'ArrowDown') {
+          e.preventDefault(); idx = Math.min(idx + 1, items.length - 1); highlight(items);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault(); idx = Math.max(idx - 1, 0); highlight(items);
+        } else if (e.key === 'Enter' && idx >= 0 && items[idx]) {
+          e.preventDefault(); onSelect(items[idx].dataset, input); close();
+        } else if (e.key === 'Escape') {
+          close();
+        }
+      });
+
+      input.addEventListener('blur', () => setTimeout(close, 150));
+    }
+
+    function sortedMatches(list, q) {
+      return list
+        .filter(v => v.toLowerCase().includes(q))
+        .sort((a, b) => {
+          const aS = a.toLowerCase().startsWith(q);
+          const bS = b.toLowerCase().startsWith(q);
+          if (aS && !bS) return -1;
+          if (!aS && bS) return 1;
+          return a.localeCompare(b);
+        })
+        .slice(0, 12);
+    }
+
+    function initAutocompletes() {
+      createAutocomplete(
+        'f-artist', 'artist-ac-list',
+        q => sortedMatches(artistList, q).map(a => ({ label: a, sublabel: '', data: { value: a } })),
+        (data, input) => { input.value = data.value; }
+      );
+
+      createAutocomplete(
+        'f-support', 'support-ac-list',
+        q => {
+          const lastToken = q.split(';').pop().trim();
+          if (!lastToken) return [];
+          return sortedMatches(supportList, lastToken).map(a => ({ label: a, sublabel: '', data: { value: a } }));
+        },
+        (data, input) => {
+          const parts = input.value.split(';');
+          parts[parts.length - 1] = ' ' + data.value;
+          input.value = parts.join(';').replace(/^;\s*/, '');
+        }
+      );
+
+      createAutocomplete(
+        'f-venue', 'venue-ac-list',
+        q => sortedMatches(Object.keys(venueMap), q)
+          .map(v => ({ label: v, sublabel: venueMap[v].city, data: { venue: v, city: venueMap[v].city, country: venueMap[v].country } })),
+        (data) => {
+          document.getElementById('f-venue').value = data.venue;
+          const cInput = document.getElementById('f-city');
+          const ctSelect = document.getElementById('f-country');
+          cInput.value = data.city;
+          cInput.classList.add('ac-autofilled');
+          ctSelect.value = data.country;
+          ctSelect.classList.add('ac-autofilled');
+          document.getElementById('f-tour').focus();
+        }
+      );
+    }
+
+    document.getElementById('f-city').addEventListener('input', function() {
+      this.classList.remove('ac-autofilled');
+    });
+    document.getElementById('f-country').addEventListener('change', function() {
+      this.classList.remove('ac-autofilled');
+    });
+
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.ac-wrap')) {
+        document.querySelectorAll('.ac-list').forEach(l => l.classList.remove('open'));
+      }
+    });
+
+    // ── Data loading ────────────────────────────────
+
+    async function loadData() {
+      try {
+        const res = await fetch('/data/concerts.csv?t=' + Date.now());
+        const text = await res.text();
+        const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+        const dataLines = lines.slice(1);
+
+        const artistSet = new Set();
+        allRows = [];
+
+        for (let i = 0; i < dataLines.length; i++) {
+          const cols    = parseCSV(dataLines[i]);
+          const date    = cols[0] || '';
+          const artist  = cols[1] || '';
+          const support = cols[2] || '';
+          const festival = (cols[3] || '').toLowerCase() === 'yes';
+          const tour    = cols[4] || '';
+          const venue   = cols[5] || '';
+          const city    = cols[6] || '';
+          const country = cols[7] || '';
+          const friends = cols[8] || '';
+          const notes   = cols[9] || '';
+
+          allRows.push({ idx: i, date, artist, support, festival, tour, venue, city, country, friends, notes });
+
+          if (venue) venueMap[venue] = { city, country };
+          if (date && artist) {
+            if (!dateMap[date]) dateMap[date] = [];
+            dateMap[date].push(artist);
+          }
+          if (artist) artistSet.add(artist);
+          support.split(';').map(s => s.trim()).filter(Boolean).forEach(s => artistSet.add(s));
+        }
+
+        const sorted = [...artistSet].sort((a, b) => a.localeCompare(b));
+        artistList.length = 0; artistList.push(...sorted);
+        supportList.length = 0; supportList.push(...sorted);
+
+        document.getElementById('recent-count').textContent = `${dataLines.length} total`;
+        const recent = allRows.slice(-5).reverse();
+        document.getElementById('recent-list').innerHTML = recent.map(r =>
+          `<div class="recent-entry">
+            <span class="recent-date">${esc(r.date)}</span>
+            <span class="recent-artist">${esc(r.artist)}</span>
+            <span class="recent-venue">${esc(r.venue)}${r.city ? ', ' + esc(r.city) : ''}</span>
+          </div>`
+        ).join('');
+
+        if (currentTab === 'edit') renderEditList();
+      } catch (_) {}
+    }
+
+    function parseCSV(line) {
+      const r = []; let c = '', q = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') { q = !q; }
+        else if (ch === ',' && !q) { r.push(c); c = ''; }
+        else { c += ch; }
+      }
+      r.push(c);
+      return r;
+    }
+
+    function esc(s) {
+      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function escAttr(s) {
+      return String(s || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    initAutocompletes();
+
+    if (sessionStorage.getItem('cms-auth') === '1') {
+      document.getElementById('auth-gate').classList.add('hidden');
+      document.getElementById('app').classList.add('visible');
+      loadData();
+    }
+  </script>
+</body>
+</html>
