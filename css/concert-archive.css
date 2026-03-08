@@ -766,10 +766,12 @@
 /* ── Mobile Bottom Sheet (≤ 768px) ───────────────── */
 @media (max-width: 768px) {
 
-  /* Map: stays fixed fullscreen */
+  /* Map: stays fixed below navbar so it doesn't intercept nav touch events */
   #map {
     position: fixed !important;
-    width: 100vw !important; height: 100vh !important;
+    top: 60px !important;
+    width: 100vw !important;
+    height: calc(100vh - 60px) !important;
   }
 
   /* Left panel: shrunk to nothing; stats can escape via position:fixed */

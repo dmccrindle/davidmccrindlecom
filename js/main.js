@@ -3,7 +3,7 @@
 import '../css/global.css';
 import '../css/concert-archive.css';
 import { parseData, deriveYears } from './concert-archive/data.js';
-import { initMap, updateMapMarkers } from './concert-archive/map.js';
+import { initMap, updateMapMarkers, getMap } from './concert-archive/map.js';
 import { render, setView, setSection, openInfo, closeInfo } from './concert-archive/render.js';
 import { renderShows, toggleYearDropdown, selectYear, changeYear, toggleSearch, onSearch, setShowType, focusShowsSearch, toggleShowTypeDropdown } from './concert-archive/shows.js';
 import { renderArtists, setSortMode, toggleArtist } from './concert-archive/artists.js';
@@ -23,16 +23,27 @@ function isMobile() { return window.innerWidth <= 768; }
 function expandMobileSheet() {
   if (!isMobile()) return;
   document.getElementById('right-panel')?.classList.add('sheet-open');
+  // After the CSS transition (~400ms), shrink the map to the visible strip
+  // so Leaflet repositions dots within the 200px visible area
+  setTimeout(() => {
+    const mapEl = document.getElementById('map');
+    if (mapEl) { mapEl.style.height = '200px'; getMap()?.invalidateSize(); }
+  }, 420);
 }
 
 function collapseMobileSheet() {
   if (!isMobile()) return;
   document.getElementById('right-panel')?.classList.remove('sheet-open');
+  const mapEl = document.getElementById('map');
+  if (mapEl) { mapEl.style.height = ''; getMap()?.invalidateSize(); }
 }
 
 function toggleMobileSheet() {
   if (!isMobile()) return;
-  document.getElementById('right-panel')?.classList.toggle('sheet-open');
+  const panel = document.getElementById('right-panel');
+  if (!panel) return;
+  if (panel.classList.contains('sheet-open')) collapseMobileSheet();
+  else expandMobileSheet();
 }
 
 // Unified mobile search: delegates to current section
