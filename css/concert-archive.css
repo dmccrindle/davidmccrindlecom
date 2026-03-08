@@ -770,6 +770,10 @@
   html, body { overflow: hidden !important; height: 100vh !important; }
   /* Overlay/gradient not needed on mobile — hides the 30vh cutoff line */
   #overlay, #gradient { display: none !important; }
+  /* Mobile menu must sit above the sheet (z-index 20) */
+  .mobile-menu { z-index: 30 !important; }
+  /* Hide ⌘K hint on mobile */
+  .search-kbd { display: none !important; }
 
   /* Map: stays fixed below navbar so it doesn't intercept nav touch events */
   #map {

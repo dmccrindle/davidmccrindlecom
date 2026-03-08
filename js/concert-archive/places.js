@@ -218,6 +218,10 @@ export function renderCityShows() {
   const crownBtn = document.getElementById('btn-city-crown');
   if (crownBtn) crownBtn.classList.remove('active');
 
+  // Sync mobile search to city shows context
+  const mobileInput = document.getElementById('mobile-search-input');
+  if (mobileInput) { mobileInput.value = ''; mobileInput.placeholder = `Search ${cf.city}`; }
+
   // Title: "City 🇮🇪 (4)"
   const flag = countryShort(cf.country);
   document.getElementById('city-shows-title').textContent =
@@ -260,5 +264,12 @@ export function closeCityFilter() {
   state.cityShowsSortMode = 'date';
   document.getElementById('view-city-shows').classList.add('hidden');
   document.getElementById(`view-${state.section}`).classList.remove('hidden');
+  // Restore mobile search to section context
+  const mobileInput = document.getElementById('mobile-search-input');
+  if (mobileInput) {
+    mobileInput.value = '';
+    const labels = { shows: `Search ${state.year || ''}`, artists: 'Search artists', places: 'Search places', venues: 'Search venues' };
+    mobileInput.placeholder = labels[state.section] || 'Search';
+  }
   import('./render.js').then(m => m.render());
 }

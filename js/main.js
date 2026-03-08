@@ -40,10 +40,13 @@ function toggleMobileSheet() {
   else expandMobileSheet();
 }
 
-// Unified mobile search: delegates to current section
+// Unified mobile search: delegates to current section or city shows
 function onMobileSearch(v) {
+  if (state.cityFilter) {
+    onCityShowsSearch(v);
+    return;
+  }
   onSearch(state.section, v);
-  // Sync the section's own search input
   const map = { shows: 'shows-search', artists: 'artists-search', places: 'places-search', venues: 'venues-search' };
   const inp = document.getElementById(map[state.section]);
   if (inp) inp.value = v;
