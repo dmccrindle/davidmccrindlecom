@@ -161,12 +161,7 @@ body.map-mode #gradient { opacity: 0; }
 }
 
 @media (max-width: 768px) {
-  /* Restore fullscreen mode (overrides 900px scroll layout) */
-  html, body { overflow: hidden !important; height: 100vh !important; }
-  /* Show mobile stats button */
   #mobile-stats-btn { display: flex; }
-  /* Stats button conflicts with hamburger — hide hamburger at 768px */
-  .hamburger { display: none; }
 }
 
 /* ── Animations ────────────────────────────────── */

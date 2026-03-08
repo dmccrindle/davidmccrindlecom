@@ -766,6 +766,10 @@
 /* ── Mobile Bottom Sheet (≤ 768px) ───────────────── */
 @media (max-width: 768px) {
 
+  /* Lock to fullscreen and hide hamburger (replaced by bottom sheet nav) */
+  html, body { overflow: hidden !important; height: 100vh !important; }
+  .hamburger { display: none !important; }
+
   /* Map: stays fixed below navbar so it doesn't intercept nav touch events */
   #map {
     position: fixed !important;
