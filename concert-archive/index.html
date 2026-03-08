@@ -13,6 +13,15 @@
   <div id="overlay"></div>
   <div id="gradient"></div>
 
+  <!-- Mobile stats button (top-right, mobile only) -->
+  <button id="mobile-stats-btn" onclick="toggleStats()" aria-label="View stats">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="11" width="4" height="10" rx="0.5" fill="currentColor"/>
+      <rect x="10" y="7" width="4" height="14" rx="0.5" fill="currentColor"/>
+      <rect x="17" y="3" width="4" height="18" rx="0.5" fill="currentColor"/>
+    </svg>
+  </button>
+
   <nav id="navbar">
     <div class="nav-logo" tabindex="1" role="button" aria-label="Home">
       <img src="https://www.figma.com/api/mcp/asset/2158519e-b52a-49f2-bc23-32b3c5e1d7a2" alt="dm" onerror="this.parentElement.innerHTML='<div style=&quot;width:56px;height:56px;background:#333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px&quot;>dm</div>'">
@@ -81,6 +90,11 @@
       </div>
     </div>
     <div class="stats-accordion" id="stats-accordion">
+      <!-- Mobile-only close button shown when stats is a fullscreen overlay -->
+      <button id="mobile-stats-close" onclick="toggleStats()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3l-5 5 5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Stats
+      </button>
       <button class="stats-toggle" onclick="toggleStats()">
         <svg class="stats-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span class="stats-toggle-text">Stats relevant to no-one but me</span>
@@ -99,6 +113,43 @@
   <div class="show-tooltip" id="show-tooltip"></div>
 
   <div id="right-panel">
+    <!-- Mobile bottom sheet header: handle + tabs + search (mobile only) -->
+    <div id="mobile-sheet-header">
+      <div id="mobile-sheet-handle"></div>
+      <div id="mobile-sheet-tabs">
+        <button class="mobile-sheet-tab active" data-section="shows" onclick="setSection('shows')">
+          Shows
+          <span class="mobile-tab-badge" id="tab-badge-shows"></span>
+        </button>
+        <button class="mobile-sheet-tab" data-section="artists" onclick="setSection('artists')">
+          Artists
+          <span class="mobile-tab-badge" id="tab-badge-artists"></span>
+        </button>
+        <button class="mobile-sheet-tab" data-section="places" onclick="setSection('places')">
+          Places
+          <span class="mobile-tab-badge" id="tab-badge-places"></span>
+        </button>
+        <button class="mobile-sheet-tab" data-section="venues" onclick="setSection('venues')">
+          Venues
+          <span class="mobile-tab-badge" id="tab-badge-venues"></span>
+        </button>
+      </div>
+      <div id="mobile-sheet-search">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none">
+          <circle cx="11" cy="11" r="7" stroke="#a1a1a1" stroke-width="1.8"/>
+          <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#a1a1a1" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="mobile-search-input" placeholder="Search"
+               oninput="onMobileSearch(this.value)"
+               onfocus="expandMobileSheet()"
+               autocomplete="off" autocorrect="off" spellcheck="false">
+        <span class="search-kbd">⌘K</span>
+        <button class="search-clear" onclick="clearMobileSearch()" tabindex="-1" aria-label="Clear search">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+
     <div id="view-shows" class="content-view">
       <!-- On This Day widget sits above the shows box -->
       <div id="on-this-day"></div>
@@ -110,8 +161,11 @@
             <div class="year-dropdown" id="year-dropdown"></div>
           </div>
           <div class="shows-search-box" onclick="focusShowsSearch()">
-            <input class="shows-search-input" id="shows-search" type="text" placeholder="Search" oninput="onSearch('shows',this.value)">
+            <input class="shows-search-input" id="shows-search" type="text" placeholder="Search" oninput="onSearch('shows',this.value)" autocomplete="off">
             <span class="search-kbd">⌘K</span>
+            <button class="search-clear" onclick="clearSearch('shows');event.stopPropagation()" tabindex="-1" aria-label="Clear search">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
             <svg class="search-icon" viewBox="0 0 24 24" fill="none">
               <circle cx="11" cy="11" r="7" stroke="#a1a1a1" stroke-width="1.8"/>
               <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#a1a1a1" stroke-width="1.8" stroke-linecap="round"/>
@@ -145,8 +199,11 @@
         <div class="list-search-bar">
           <button class="sort-text-btn" id="btn-alpha" onclick="setSortMode('alpha')">A-Z</button>
           <div class="section-search-box">
-            <input class="section-search-input" id="artists-search" type="text" placeholder="Search" oninput="onSearch('artists',this.value)">
+            <input class="section-search-input" id="artists-search" type="text" placeholder="Search" oninput="onSearch('artists',this.value)" autocomplete="off">
             <span class="search-kbd">⌘K</span>
+            <button class="search-clear" onclick="clearSearch('artists')" tabindex="-1" aria-label="Clear search">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
             <svg class="search-icon" viewBox="0 0 24 24" fill="none">
               <circle cx="11" cy="11" r="7" stroke="#a1a1a1" stroke-width="1.8"/>
               <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#a1a1a1" stroke-width="1.8" stroke-linecap="round"/>
@@ -169,8 +226,11 @@
         <div class="list-search-bar">
           <button class="sort-text-btn" id="btn-place-alpha" onclick="setPlacesSortMode('alpha')">A-Z</button>
           <div class="section-search-box">
-            <input class="section-search-input" id="places-search" type="text" placeholder="Search" oninput="onSearch('places',this.value)">
+            <input class="section-search-input" id="places-search" type="text" placeholder="Search" oninput="onSearch('places',this.value)" autocomplete="off">
             <span class="search-kbd">⌘K</span>
+            <button class="search-clear" onclick="clearSearch('places')" tabindex="-1" aria-label="Clear search">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
             <svg class="search-icon" viewBox="0 0 24 24" fill="none">
               <circle cx="11" cy="11" r="7" stroke="#a1a1a1" stroke-width="1.8"/>
               <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#a1a1a1" stroke-width="1.8" stroke-linecap="round"/>
@@ -199,8 +259,11 @@
         <div class="list-search-bar">
           <button class="sort-text-btn" id="btn-venue-alpha" onclick="setVenuesSortMode('alpha')">A-Z</button>
           <div class="section-search-box">
-            <input class="section-search-input" id="venues-search" type="text" placeholder="Search" oninput="onSearch('venues',this.value)">
+            <input class="section-search-input" id="venues-search" type="text" placeholder="Search" oninput="onSearch('venues',this.value)" autocomplete="off">
             <span class="search-kbd">⌘K</span>
+            <button class="search-clear" onclick="clearSearch('venues')" tabindex="-1" aria-label="Clear search">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
             <svg class="search-icon" viewBox="0 0 24 24" fill="none">
               <circle cx="11" cy="11" r="7" stroke="#a1a1a1" stroke-width="1.8"/>
               <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#a1a1a1" stroke-width="1.8" stroke-linecap="round"/>
@@ -232,8 +295,11 @@
         </div>
         <div class="list-search-bar">
           <div class="section-search-box">
-            <input class="section-search-input" id="city-shows-search" type="text" placeholder="Search" oninput="onCityShowsSearch(this.value)">
+            <input class="section-search-input" id="city-shows-search" type="text" placeholder="Search" oninput="onCityShowsSearch(this.value)" autocomplete="off">
             <span class="search-kbd">⌘K</span>
+            <button class="search-clear" onclick="clearSearch('cityshows')" tabindex="-1" aria-label="Clear search">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </button>
             <svg class="search-icon" viewBox="0 0 24 24" fill="none">
               <circle cx="11" cy="11" r="7" stroke="#a1a1a1" stroke-width="1.8"/>
               <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#a1a1a1" stroke-width="1.8" stroke-linecap="round"/>

@@ -17,6 +17,76 @@ import './concert-archive/tooltips.js'; // Side-effect: registers tooltip event 
 import { renderOnThisDay, toggleOnThisDay, closeOnThisDay } from './concert-archive/on-this-day.js';
 import { toggleStats } from './concert-archive/stats.js';
 
+// ── Mobile bottom sheet ───────────────────────────
+function isMobile() { return window.innerWidth <= 768; }
+
+function expandMobileSheet() {
+  if (!isMobile()) return;
+  document.getElementById('right-panel')?.classList.add('sheet-open');
+}
+
+function collapseMobileSheet() {
+  if (!isMobile()) return;
+  document.getElementById('right-panel')?.classList.remove('sheet-open');
+}
+
+function toggleMobileSheet() {
+  if (!isMobile()) return;
+  document.getElementById('right-panel')?.classList.toggle('sheet-open');
+}
+
+// Unified mobile search: delegates to current section
+function onMobileSearch(v) {
+  onSearch(state.section, v);
+  // Sync the section's own search input
+  const map = { shows: 'shows-search', artists: 'artists-search', places: 'places-search', venues: 'venues-search' };
+  const inp = document.getElementById(map[state.section]);
+  if (inp) inp.value = v;
+}
+
+function clearMobileSearch() {
+  const inp = document.getElementById('mobile-search-input');
+  if (!inp) return;
+  inp.value = '';
+  onMobileSearch('');
+  inp.focus();
+}
+
+function clearSearch(section) {
+  const ids = { shows: 'shows-search', artists: 'artists-search', places: 'places-search', venues: 'venues-search', cityshows: 'city-shows-search' };
+  const inp = document.getElementById(ids[section]);
+  if (!inp) return;
+  inp.value = '';
+  if (section === 'cityshows') {
+    onCityShowsSearch('');
+  } else {
+    onSearch(section, '');
+  }
+  inp.focus();
+}
+
+// Swipe gesture on the mobile sheet handle
+function initMobileSheet() {
+  const handle = document.getElementById('mobile-sheet-handle');
+  const header = document.getElementById('mobile-sheet-header');
+  if (!handle) return;
+
+  let startY = 0;
+  const onTouchStart = (e) => { startY = e.touches[0].clientY; };
+  const onTouchEnd = (e) => {
+    const delta = e.changedTouches[0].clientY - startY;
+    if (delta < -40) expandMobileSheet();
+    else if (delta > 40) collapseMobileSheet();
+  };
+
+  // Swipe on the whole header, tap-toggle only on the handle pill
+  [handle, header].forEach(el => {
+    el.addEventListener('touchstart', onTouchStart, { passive: true });
+    el.addEventListener('touchend', onTouchEnd, { passive: true });
+  });
+  handle.addEventListener('click', (e) => { e.stopPropagation(); toggleMobileSheet(); });
+}
+
 // Attach global functions for inline onclick handlers
 window.setView = setView;
 window.setSection = setSection;
@@ -48,6 +118,10 @@ window.toggleMobileMenu = toggleMobileMenu;
 window.toggleOnThisDay = toggleOnThisDay;
 window.closeOnThisDay = closeOnThisDay;
 window.toggleStats = toggleStats;
+window.expandMobileSheet = expandMobileSheet;
+window.onMobileSearch = onMobileSearch;
+window.clearMobileSearch = clearMobileSearch;
+window.clearSearch = clearSearch;
 
 // Initialize – handles both cases: DOM still loading or already loaded
 async function init() {
@@ -60,6 +134,7 @@ async function init() {
 
   // Restore state from URL (e.g., /artists/coldplay) and set up back/forward handling
   initRouter(render, setSection, renderShows, renderArtists, renderPlaces, renderVenues);
+  initMobileSheet();
 }
 
 if (document.readyState === 'loading') {

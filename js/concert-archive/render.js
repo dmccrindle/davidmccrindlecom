@@ -60,6 +60,18 @@ export function setSection(sec) {
   document.getElementById(`view-${sec}`).classList.remove('hidden');
 
   document.querySelectorAll('.mobile-tab').forEach(t => t.classList.toggle('active', t.dataset.section === sec));
+  document.querySelectorAll('.mobile-sheet-tab').forEach(t => t.classList.toggle('active', t.dataset.section === sec));
+
+  // Sync mobile search input to new section's search state
+  const mobileInput = document.getElementById('mobile-search-input');
+  if (mobileInput) {
+    const searchValues = { shows: state.showsSearch, artists: state.artistsSearch, places: state.placesSearch, venues: state.venuesSearch };
+    mobileInput.value = searchValues[sec] || '';
+    if (sec !== 'shows') {
+      const labels = { artists: 'Search artists', places: 'Search places', venues: 'Search venues' };
+      mobileInput.placeholder = labels[sec] || 'Search';
+    }
+  }
 
   // Reset scroll position on all list panels
   document.querySelectorAll('.list-scroll').forEach(el => { el.scrollTop = 0; });
@@ -128,6 +140,13 @@ function updateStats() {
   });
   const places = new Set(SHOWS.map(s => s.city));
   const venues = new Set(SHOWS.map(s => s.venue));
+
+  // Update mobile tab badges
+  const setTabBadge = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  setTabBadge('tab-badge-shows', showsN);
+  setTabBadge('tab-badge-artists', artists.size);
+  setTabBadge('tab-badge-places', places.size);
+  setTabBadge('tab-badge-venues', venues.size);
 
   if (!updateStats._done) {
     updateStats._done = true;

@@ -90,6 +90,8 @@ function updateYearNav() {
     nb.disabled = true;
   }
   updateShowTypeLabel();
+  const mInp = document.getElementById('mobile-search-input');
+  if (mInp && state.section === 'shows') mInp.placeholder = `Search ${state.year}`;
 }
 
 export function toggleYearDropdown(e) {
