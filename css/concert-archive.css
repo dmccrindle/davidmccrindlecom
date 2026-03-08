@@ -766,9 +766,8 @@
 /* ── Mobile Bottom Sheet (≤ 768px) ───────────────── */
 @media (max-width: 768px) {
 
-  /* Lock to fullscreen and hide hamburger (replaced by bottom sheet nav) */
+  /* Lock to fullscreen */
   html, body { overflow: hidden !important; height: 100vh !important; }
-  .hamburger { display: none !important; }
   /* Overlay/gradient not needed on mobile — hides the 30vh cutoff line */
   #overlay, #gradient { display: none !important; }
 
@@ -928,6 +927,51 @@
 
   /* Prevent iOS input zoom */
   .shows-search-input, .section-search-input { font-size: 16px !important; }
+
+  /* City shows: photo scrolls with list (make whole box scroll) */
+  #view-city-shows .shows-box { overflow-y: auto !important; }
+  #view-city-shows .city-shows-header {
+    position: sticky; top: 0; z-index: 1;
+    background: #1e1e1e; padding-bottom: 8px;
+  }
+  #view-city-shows .list-scroll { overflow: visible !important; flex: unset !important; }
+
+  /* OTD ticker: shown when body.has-otd, pushes sheet up */
+  body.has-otd #mobile-otd-ticker { display: flex; align-items: center; }
+  body.has-otd #right-panel { bottom: 40px !important; }
+}
+
+/* ── Mobile OTD Ticker ───────────────────────────── */
+#mobile-otd-ticker {
+  display: none; /* shown only on mobile via body.has-otd rule */
+  position: fixed; bottom: 0; left: 0; right: 0;
+  height: 40px; z-index: 25;
+  background: rgba(15,15,15,0.97);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+.otd-ticker-track {
+  display: flex; align-items: center;
+  white-space: nowrap; will-change: transform;
+  animation: otdTicker var(--otd-duration, 25s) linear infinite;
+}
+.otd-ticker-item {
+  flex-shrink: 0; font-size: 13px;
+  color: rgba(255,255,255,0.6); padding: 0 4px;
+}
+.otd-ticker-artist {
+  background: none; border: none; padding: 0;
+  font-size: 13px; font-weight: 700; color: #fff;
+  text-decoration: underline; text-underline-offset: 2px;
+  cursor: pointer; touch-action: manipulation;
+}
+.otd-ticker-sep {
+  flex-shrink: 0; color: rgba(255,255,255,0.3);
+  font-size: 8px; padding: 0 12px; line-height: 1;
+}
+@keyframes otdTicker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 /* ═══════════════════════════════════════════

@@ -74,8 +74,10 @@ function clearSearch(section) {
 function initMobileSheet() {
   const handle = document.getElementById('mobile-sheet-handle');
   const header = document.getElementById('mobile-sheet-header');
+  const panel  = document.getElementById('right-panel');
   if (!handle) return;
 
+  // Vertical drag: expand/collapse sheet
   let startY = 0;
   const onTouchStart = (e) => { startY = e.touches[0].clientY; };
   const onTouchEnd = (e) => {
@@ -83,13 +85,29 @@ function initMobileSheet() {
     if (delta < -40) expandMobileSheet();
     else if (delta > 40) collapseMobileSheet();
   };
-
-  // Swipe on the whole header, tap-toggle only on the handle pill
   [handle, header].forEach(el => {
     el.addEventListener('touchstart', onTouchStart, { passive: true });
     el.addEventListener('touchend', onTouchEnd, { passive: true });
   });
   handle.addEventListener('click', (e) => { e.stopPropagation(); toggleMobileSheet(); });
+
+  // Horizontal swipe: change section (only when sheet is open)
+  const sections = ['shows', 'artists', 'places', 'venues'];
+  let swipeX = 0, swipeY = 0;
+  panel.addEventListener('touchstart', e => {
+    swipeX = e.touches[0].clientX;
+    swipeY = e.touches[0].clientY;
+  }, { passive: true });
+  panel.addEventListener('touchend', e => {
+    if (!isMobile() || !panel.classList.contains('sheet-open')) return;
+    const dx = e.changedTouches[0].clientX - swipeX;
+    const dy = e.changedTouches[0].clientY - swipeY;
+    if (Math.abs(dx) > 80 && Math.abs(dx) > Math.abs(dy) * 2) {
+      const idx = sections.indexOf(state.section);
+      const next = dx < 0 ? sections[idx + 1] : sections[idx - 1];
+      if (next) window.setSection(next);
+    }
+  }, { passive: true });
 }
 
 // Attach global functions for inline onclick handlers

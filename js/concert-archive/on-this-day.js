@@ -26,6 +26,31 @@ function showRow(s, extraClass = '') {
   </div>`;
 }
 
+function renderMobileOtdTicker(otdShows) {
+  const ticker = document.getElementById('mobile-otd-ticker');
+  if (!ticker || !otdShows.length) return;
+
+  const items = otdShows.map(s => {
+    const year = s.date.split('-')[0];
+    return `<span class="otd-ticker-item">On this day in ${year},\u00a0<button class="otd-ticker-artist" data-artist="${esc(s.artist)}">${esc(s.artist)}</button></span><span class="otd-ticker-sep" aria-hidden="true">●</span>`;
+  }).join('');
+
+  // Duplicate for seamless infinite loop
+  const duration = Math.max(otdShows.length * 6, 20);
+  ticker.innerHTML = `<div class="otd-ticker-track" style="--otd-duration:${duration}s">${items}${items}</div>`;
+  document.body.classList.add('has-otd');
+
+  // Artist tap: expand sheet + go to artists + open artist accordion
+  ticker.addEventListener('click', e => {
+    const btn = e.target.closest('.otd-ticker-artist');
+    if (!btn) return;
+    const name = btn.dataset.artist;
+    if (window.expandMobileSheet) window.expandMobileSheet();
+    if (window.setSection) window.setSection('artists');
+    setTimeout(() => { if (window.toggleArtist) window.toggleArtist(name); }, 50);
+  });
+}
+
 export function renderOnThisDay() {
   const container = document.getElementById('on-this-day');
   if (!container || !SHOWS || !SHOWS.length) return;
@@ -44,6 +69,8 @@ export function renderOnThisDay() {
   }).sort((a, b) => b.date.localeCompare(a.date));
 
   if (!otdShows.length) { container.innerHTML = ''; return; }
+
+  renderMobileOtdTicker(otdShows);
 
   const isOpen    = state.onThisDayOpen;
   const dateLabel = `${MONTH_NAMES[parseInt(mm) - 1]} ${parseInt(dd)}`;

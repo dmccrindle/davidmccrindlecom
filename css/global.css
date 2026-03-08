@@ -160,9 +160,5 @@ body.map-mode #gradient { opacity: 0; }
   .mobile-tabs { display: flex; }
 }
 
-@media (max-width: 768px) {
-  #mobile-stats-btn { display: flex; }
-}
-
 /* ── Animations ────────────────────────────────── */
 @keyframes dropdownIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
