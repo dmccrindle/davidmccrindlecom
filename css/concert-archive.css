@@ -769,6 +769,8 @@
   /* Lock to fullscreen and hide hamburger (replaced by bottom sheet nav) */
   html, body { overflow: hidden !important; height: 100vh !important; }
   .hamburger { display: none !important; }
+  /* Overlay/gradient not needed on mobile — hides the 30vh cutoff line */
+  #overlay, #gradient { display: none !important; }
 
   /* Map: stays fixed below navbar so it doesn't intercept nav touch events */
   #map {
@@ -905,15 +907,19 @@
   }
   .list-scroll { max-height: none !important; flex: 1 !important; overflow-y: auto !important; }
 
-  /* Show cards: dividers, no background */
+  /* Show cards: dividers, no background, no stagger animation */
   .show-card {
     margin-bottom: 0 !important; padding: 12px 0 !important;
     border-radius: 0 !important; gap: 12px !important;
     border-bottom: 1px solid rgba(255,255,255,0.07) !important;
     background: transparent !important;
+    animation: none !important;
   }
   .show-card:last-child { border-bottom: none !important; }
   .show-card:hover { background: transparent !important; }
+  /* Disable stagger animations on all list rows — prevents invisible
+     DOM nodes from intercepting touches during animation-delay */
+  .artist-row.animate, .place-row.animate, .venue-row.animate { animation: none !important; }
 
   #on-this-day { display: none !important; }
   .year-selector { display: none !important; }
