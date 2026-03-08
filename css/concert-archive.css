@@ -773,6 +773,8 @@
     width: 100vw !important;
     height: calc(100vh - 60px) !important;
   }
+  /* Disable map interaction when sheet is fully expanded */
+  body.sheet-expanded #map { pointer-events: none !important; }
 
   /* Left panel: shrunk to nothing; stats can escape via position:fixed */
   #left-panel {
@@ -829,7 +831,7 @@
     animation: none !important;
     overflow: hidden;
   }
-  #right-panel.sheet-open { transform: translateY(200px); }
+  #right-panel.sheet-open { transform: translateY(0); }
 
   /* Sheet header */
   #mobile-sheet-header {
@@ -884,7 +886,7 @@
   #mobile-search-input::placeholder { color: #555; }
 
   /* Content views */
-  .content-view { flex: 1 !important; min-height: 0 !important; overflow: hidden !important; }
+  .content-view { flex: 1 !important; min-height: 0 !important; overflow: visible !important; }
   .content-view.hidden { display: none !important; }
 
   /* Hide per-section search bars (replaced by unified mobile search) */
@@ -895,7 +897,7 @@
     background: transparent !important; border-radius: 0 !important;
     padding: 0 16px !important; flex: 1 !important;
     display: flex !important; flex-direction: column !important;
-    min-height: 0 !important; overflow: hidden !important;
+    min-height: 0 !important; overflow: visible !important;
   }
   .list-scroll { max-height: none !important; flex: 1 !important; overflow-y: auto !important; }
 
