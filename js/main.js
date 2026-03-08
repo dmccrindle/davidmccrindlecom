@@ -130,16 +130,20 @@ window.clearSearch = clearSearch;
 
 // Initialize – handles both cases: DOM still loading or already loaded
 async function init() {
+  // Set up touch handlers immediately — doesn't need data
+  initMobileSheet();
+
   await parseData();
   deriveYears();
-  initMap();
-  updateMapMarkers();
   render();
-  renderOnThisDay();  // Render "On This Day" widget after data is ready
-
-  // Restore state from URL (e.g., /artists/coldplay) and set up back/forward handling
+  renderOnThisDay();
   initRouter(render, setSection, renderShows, renderArtists, renderPlaces, renderVenues);
-  initMobileSheet();
+
+  // Defer map init until after the first paint so list is interactive first
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    initMap();
+    updateMapMarkers();
+  }));
 }
 
 if (document.readyState === 'loading') {

@@ -76,6 +76,12 @@ export function setSection(sec) {
   // Reset scroll position on all list panels
   document.querySelectorAll('.list-scroll').forEach(el => { el.scrollTop = 0; });
 
+  // Expand the sheet on mobile when switching sections
+  if (window.innerWidth <= 768) {
+    document.getElementById('right-panel')?.classList.add('sheet-open');
+    document.body.classList.add('sheet-expanded');
+  }
+
   if (map) {
     map.closePopup();
     clearHighlightedMarkers();

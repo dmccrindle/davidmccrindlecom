@@ -27,6 +27,7 @@ export function initMap() {
     scrollWheelZoom: true,
     dragging: true,
     doubleClickZoom: true,
+    tap: false,
     minZoom: 2,
     maxZoom: 15,
   });
@@ -97,6 +98,11 @@ export function updateMapMarkers(filteredShows) {
       if (state.view !== 'map') {
         state.cityFilter = { city: g.city, country: g.country, shows: g.shows };
         if (window.renderCityShows) window.renderCityShows();
+      }
+      // Expand sheet on mobile when a marker is tapped
+      if (window.innerWidth <= 768) {
+        document.getElementById('right-panel')?.classList.add('sheet-open');
+        document.body.classList.add('sheet-expanded');
       }
     });
 
