@@ -6,6 +6,29 @@ import { pushRoute, replaceRoute } from './router.js';
 
 const MN = MONTH_NAMES;
 
+const FEATURED_PLACES_HTML = `<div class="featured-strip">
+  <button class="feat-card" style="--fc-bg:#6b6b6b" onclick="togglePlace('Minneapolis')">
+    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/4b4baa37-e325-4e34-a77f-cd2cd8771783" alt="Minneapolis" loading="lazy"></div>
+    <div class="feat-footer"><div class="feat-rank">#1</div><div class="feat-name">Minneapolis</div></div>
+  </button>
+  <button class="feat-card" style="--fc-bg:#6b6b6b" onclick="togglePlace('London')">
+    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/6256c66f-a3b3-4269-99e2-8a5da9b72241" alt="London" loading="lazy"></div>
+    <div class="feat-footer"><div class="feat-rank">#2</div><div class="feat-name">London</div></div>
+  </button>
+  <button class="feat-card" style="--fc-bg:#6b6b6b" onclick="togglePlace('Glasgow')">
+    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/d40fa5c6-3c5a-4cf1-8c52-344ca5c0439a" alt="Glasgow" loading="lazy"></div>
+    <div class="feat-footer"><div class="feat-rank">#3</div><div class="feat-name">Glasgow</div></div>
+  </button>
+  <button class="feat-card" style="--fc-bg:#6b6b6b" onclick="togglePlace('Edinburgh')">
+    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/05d2f3a6-aa98-495d-86f3-79f368068b52" alt="Edinburgh" loading="lazy"></div>
+    <div class="feat-footer"><div class="feat-rank">#4</div><div class="feat-name">Edinburgh</div></div>
+  </button>
+  <button class="feat-card" style="--fc-bg:#6b6b6b" onclick="togglePlace('New York')">
+    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/e1f52e31-c99f-4d65-b608-97076f92ec3a" alt="New York" loading="lazy"></div>
+    <div class="feat-footer"><div class="feat-rank">#5</div><div class="feat-name">New York</div></div>
+  </button>
+</div>`;
+
 export function getPlaceData() {
   const byCity = {};
   SHOWS.forEach(s => {
@@ -42,7 +65,7 @@ export function renderPlaces(animate) {
     else if (state.placesSortMode === 'alpha-asc') entries.sort((a, b) => a[0].localeCompare(b[0]));
     else entries.sort((a, b) => b[0].localeCompare(a[0]));
     let idx = 0;
-    document.getElementById('places-list').innerHTML = entries.map(([country, count]) => {
+    document.getElementById('places-list').innerHTML = FEATURED_PLACES_HTML + entries.map(([country, count]) => {
       const sc = country.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
       return `<div class="place-row${animate ? ' animate' : ''}" tabindex="0" role="button" style="animation-delay:${(idx++)*30}ms" onclick="flyToCountry('${sc}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();flyToCountry('${sc}')}">
         <div class="place-row-header">
@@ -61,7 +84,7 @@ export function renderPlaces(animate) {
     else if (state.placesSortMode === 'alpha-asc') entries.sort((a, b) => a[0].localeCompare(b[0]));
     else entries.sort((a, b) => b[0].localeCompare(a[0]));
     let idx = 0;
-    document.getElementById('places-list').innerHTML = entries.map(([city, d]) => {
+    document.getElementById('places-list').innerHTML = FEATURED_PLACES_HTML + entries.map(([city, d]) => {
       const sc = city.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
       const isExp = state.expandedPlace === city;
       let acc = '';

@@ -6,6 +6,29 @@ import { pushRoute, replaceRoute } from './router.js';
 
 const MN = MONTH_NAMES;
 
+const FEATURED_ARTISTS_HTML = `<div class="featured-strip">
+  <button class="feat-card" style="--fc-bg:#8c8c8c" onclick="toggleArtist('Black Rebel Motorcycle Club')">
+    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/4b4baa37-e325-4e34-a77f-cd2cd8771783" alt="Black Rebel Motorcycle Club" loading="lazy"></div>
+    <div class="feat-footer"><div class="feat-rank">#1</div><div class="feat-name">Black Rebel Motorcycle Club</div></div>
+  </button>
+  <button class="feat-card" style="--fc-bg:#f15058" onclick="toggleArtist('Travis')">
+    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/6256c66f-a3b3-4269-99e2-8a5da9b72241" alt="Travis" loading="lazy"></div>
+    <div class="feat-footer"><div class="feat-rank">#2</div><div class="feat-name">Travis</div></div>
+  </button>
+  <button class="feat-card" style="--fc-bg:#d9ab5a" onclick="toggleArtist('Howler')">
+    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/d40fa5c6-3c5a-4cf1-8c52-344ca5c0439a" alt="Howler" loading="lazy"></div>
+    <div class="feat-footer"><div class="feat-rank">#3</div><div class="feat-name">Howler</div></div>
+  </button>
+  <button class="feat-card" style="--fc-bg:#5090ac" onclick="toggleArtist('Strange Names')">
+    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/05d2f3a6-aa98-495d-86f3-79f368068b52" alt="Strange Names" loading="lazy"></div>
+    <div class="feat-footer"><div class="feat-rank">#4</div><div class="feat-name">Strange Names</div></div>
+  </button>
+  <button class="feat-card" style="--fc-bg:#324870" onclick="toggleArtist('Idlewild')">
+    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/e1f52e31-c99f-4d65-b608-97076f92ec3a" alt="Idlewild" loading="lazy"></div>
+    <div class="feat-footer"><div class="feat-rank">#5</div><div class="feat-name">Idlewild</div></div>
+  </button>
+</div>`;
+
 // Strip leading "The " for sorting so "The Black Angels" files under B
 function sortKey(name) {
   return name.replace(/^the\s+/i, '').trim();
@@ -43,7 +66,7 @@ export function renderArtists(animate) {
   let idx = 0;
   let currentLetter = null;
   const c = document.getElementById('artists-list');
-  c.innerHTML = artists.map(a => {
+  c.innerHTML = FEATURED_ARTISTS_HTML + artists.map(a => {
     // Letter group divider (alpha mode only)
     let divider = '';
     if (isAlpha) {
