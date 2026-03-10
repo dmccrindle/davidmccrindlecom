@@ -80,6 +80,51 @@
 .popup-venue { font-size: 12px; color: #666; white-space: nowrap; }
 .popup-more { text-align: center; padding: 10px 0 4px; font-size: 12px; color: #8a38f5; }
 
+/* ── Nav ─────────────────────────────────────── */
+#navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center;
+  padding: 25px 40px; height: 106px;
+  transition: background 0.3s, backdrop-filter 0.3s;
+}
+#navbar.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); }
+.nav-logo-wrap { display: flex; align-items: center; gap: 14px; flex-shrink: 0; text-decoration: none; }
+.nav-logo { width: 44px; height: 44px; flex-shrink: 0; display: flex; }
+.nav-logo svg { width: 100%; height: 100%; }
+.nav-name { font-size: 18px; font-weight: 700; color: #fff; white-space: nowrap; }
+.nav-links {
+  flex: 1; display: flex; gap: 40px;
+  align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700; white-space: nowrap;
+}
+.nav-links a { color: rgba(255,255,255,0.55); transition: color 0.2s; text-decoration: none; }
+.nav-links a.active { color: #fff; text-decoration: underline; text-underline-offset: 5px; }
+.nav-links a:hover { color: #fff; }
+.nav-social { display: flex; gap: 18px; align-items: center; }
+.nav-social a { color: #fff; transition: opacity 0.2s; display: flex; align-items: center; text-decoration: none; }
+.nav-social a:hover { opacity: 0.6; }
+.hamburger {
+  display: none; width: 32px; height: 32px;
+  background: none; flex-direction: column;
+  align-items: center; justify-content: center; gap: 5px; flex-shrink: 0;
+}
+.hamburger span { display: block; width: 20px; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.97); backdrop-filter: blur(20px);
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 32px; font-size: 24px; font-weight: 700;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a { color: #fff; transition: color 0.2s; text-decoration: none; }
+.mobile-menu a.active { text-decoration: underline; text-underline-offset: 6px; }
+.mobile-menu a:hover { color: rgba(255,255,255,0.6); }
+.mobile-menu-social { display: flex; gap: 24px; margin-top: 16px; }
+.mobile-menu-social a { color: #fff; display: flex; text-decoration: none; }
+
 /* ── Left Panel ──────────────────────────────── */
 #left-panel {
   position: fixed; left: 40px; top: 118px;
@@ -859,6 +904,11 @@
   html, body { overflow: hidden !important; height: 100vh !important; }
   /* Overlay/gradient not needed on mobile — hides the 30vh cutoff line */
   #overlay, #gradient { display: none !important; }
+  /* Nav: show hamburger, hide links/social on mobile */
+  .hamburger { display: flex !important; }
+  .nav-links, .nav-social { display: none !important; }
+  #navbar { height: 60px !important; padding: 16px 20px !important; justify-content: space-between; }
+  .nav-logo { width: 32px !important; height: 32px !important; }
   /* Mobile menu must sit above the sheet (z-index 20) */
   .mobile-menu { z-index: 30 !important; }
   /* Hide ⌘K hint on mobile */

@@ -364,7 +364,7 @@
     </a>
     <div class="nav-links">
       <a href="/">Home</a>
-      <a href="/my-work/" class="active">Experience</a>
+      <a href="/experience/" class="active">Experience</a>
       <a href="/concert-archive/">Concert Archive</a>
       <a href="/say-hi/">Say "Hi"</a>
     </div>
@@ -386,7 +386,7 @@
 
   <div id="mobile-menu" class="mobile-menu">
     <a href="/" onclick="toggleMobileMenu()">Home</a>
-    <a href="/my-work/" class="active" onclick="toggleMobileMenu()">Experience</a>
+    <a href="/experience/" class="active" onclick="toggleMobileMenu()">Experience</a>
     <a href="/concert-archive/" onclick="toggleMobileMenu()">Concert Archive</a>
     <a href="/say-hi/" onclick="toggleMobileMenu()">Say "Hi"</a>
     <div class="mobile-menu-social">
@@ -683,7 +683,7 @@
         <div class="footer-right">
           <nav class="footer-links">
             <a href="/">Home</a>
-            <a href="/my-work/">Experience</a>
+            <a href="/experience/">Experience</a>
             <a href="/concert-archive/">Concert Archive</a>
             <a href="/say-hi/">Say "Hi"</a>
           </nav>
@@ -730,7 +730,7 @@
       const wrap = document.getElementById('gate-wrap');
       if (input.value.toLowerCase().trim() === 'pizza') {
         sessionStorage.setItem('portfolio_auth', 'true');
-        window.location.href = '/portfolio/';
+        window.location.href = '/experience/portfolio/';
       } else {
         error.classList.add('show');
         wrap.style.animation = 'gateShake 0.4s ease-in-out';
@@ -746,7 +746,7 @@
 
     if (sessionStorage.getItem('portfolio_auth') === 'true') {
       const wrap = document.getElementById('gate-wrap');
-      wrap.innerHTML = '<a href="/portfolio/" style="display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;background:rgba(255,0,217,0.85);border-radius:8px;font-size:15px;font-weight:700;color:#fff;text-decoration:none">View Portfolio</a>';
+      wrap.innerHTML = '<a href="/experience/portfolio/" style="display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 24px;background:rgba(255,0,217,0.85);border-radius:8px;font-size:15px;font-weight:700;color:#fff;text-decoration:none">View Portfolio</a>';
     }
 
     // Scroll fade-in

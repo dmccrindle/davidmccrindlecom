@@ -14,29 +14,42 @@
     button { border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
 
     /* Nav */
-    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 10; display: flex; align-items: center; padding: 25px 40px; height: 106px; transition: background 0.3s ease; }
-    #navbar.scrolled { background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%); }
-    .nav-logo { width: 56px; height: 56px; flex-shrink: 0; }
-    .nav-logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-    .nav-links { flex: 1; display: flex; gap: 40px; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; white-space: nowrap; }
+    #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; padding: 25px 40px; height: 106px; transition: background 0.3s, backdrop-filter 0.3s, height 0.3s, padding 0.3s; }
+    #navbar.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); height: 72px; padding: 18px 40px; }
+    .nav-logo-wrap { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+    .nav-logo { width: 44px; height: 44px; flex-shrink: 0; display: flex; }
+    .nav-logo svg { width: 100%; height: 100%; }
+    .nav-name { font-size: 18px; font-weight: 700; color: #fff; white-space: nowrap; }
+    .nav-links { flex: 1; display: flex; gap: 40px; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; white-space: nowrap; }
     .nav-links a { color: rgba(255,255,255,0.6); transition: color 0.2s; }
     .nav-links a.active { color: #fff; text-decoration: underline; text-underline-offset: 6px; }
     .nav-links a:hover { color: #fff; }
-    .nav-social { display: flex; gap: 20px; align-items: center; }
+    .nav-social { display: flex; gap: 18px; align-items: center; }
     .nav-social a { color: #fff; transition: opacity 0.2s; display: flex; align-items: center; }
     .nav-social a:hover { opacity: 0.6; }
-    .hamburger { display: none; width: 36px; height: 36px; background: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px; z-index: 20; flex-shrink: 0; }
+    .hamburger { display: none; width: 36px; height: 36px; background: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px; z-index: 120; flex-shrink: 0; }
     .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display: none; position: fixed; inset: 0; z-index: 9; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 32px; font-size: 24px; font-weight: 700; }
+    .mobile-menu { display: none; position: fixed; inset: 0; z-index: 110; background: rgba(0,0,0,0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 32px; font-size: 24px; font-weight: 700; }
     .mobile-menu.open { display: flex; }
     .mobile-menu a { color: #fff; transition: color 0.2s; }
     .mobile-menu a.active { text-decoration: underline; text-underline-offset: 6px; }
-    .mobile-menu a:hover { color: #a1a1a1; }
+    .mobile-menu a:hover { color: rgba(255,255,255,0.6); }
     .mobile-menu-social { display: flex; gap: 24px; margin-top: 16px; }
     .mobile-menu-social a { color: #fff; display: flex; }
+    /* Footer */
+    .site-footer { border-top: 1px solid rgba(255,255,255,0.08); padding: 32px 40px; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .footer-copy { font-size: 14px; color: rgba(255,255,255,0.4); }
+    .footer-right { display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
+    .footer-links { display: flex; gap: 32px; }
+    .footer-links a { font-size: 15px; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-social { display: flex; gap: 16px; align-items: center; }
+    .footer-social a { color: rgba(255,255,255,0.5); display: flex; transition: color 0.2s; }
+    .footer-social a:hover { color: #fff; }
 
     /* ═══════════════════════════════════════
        PAGE LAYOUT
@@ -335,7 +348,9 @@
       .hamburger { display: flex; }
       .nav-links, .nav-social { display: none; }
       #navbar { padding: 16px 20px; height: 60px; justify-content: space-between; }
-      .nav-logo { width: 36px; height: 36px; }
+      .nav-logo { width: 32px; height: 32px; }
+      .footer-links { gap: 20px; flex-wrap: wrap; }
+      .footer-right { flex-direction: column; align-items: flex-start; gap: 16px; }
 
       .sayhi-page { padding: 90px 24px 60px; }
       .sayhi-wave { font-size: 40px; }
@@ -349,10 +364,39 @@
 </head>
 <body>
   <nav id="navbar">
-    <div class="nav-logo">
-      <a href="/"><svg width="56" height="56" viewBox="0 0 113 113" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M56.5 0C25.2862 0 0 25.2862 0 56.5C0 87.7138 25.2862 113 56.5 113C87.7138 113 113 87.7138 113 56.5C113 25.2862 87.7138 0 56.5 0ZM88.9143 88.9143H67.4173L88.8018 67.5299V88.9143H88.9143ZM88.9143 64.3972L64.3972 88.9143H45.9203L88.9143 45.9203V64.3972ZM88.9143 42.7877L42.7877 88.9143H24.0857L88.8018 24.0857V42.7689H88.9143V42.7877Z" fill="white"/></svg></a>
+    <a class="nav-logo-wrap" href="/">
+      <div class="nav-logo">
+        <svg viewBox="0 0 113 113" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M56.5 0C25.2862 0 0 25.2862 0 56.5C0 87.7138 25.2862 113 56.5 113C87.7138 113 113 87.7138 113 56.5C113 25.2862 87.7138 0 56.5 0ZM88.9143 88.9143H67.4173L88.8018 67.5299V88.9143H88.9143ZM88.9143 64.3972L64.3972 88.9143H45.9203L88.9143 45.9203V64.3972ZM88.9143 42.7877L42.7877 88.9143H24.0857L88.8018 24.0857V42.7689H88.9143V42.7877Z" fill="white"/></svg>
+      </div>
+      <span class="nav-name">David McCrindle</span>
+    </a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/experience/">Experience</a>
+      <a href="/concert-archive/">Concert Archive</a>
+      <a href="/say-hi/" class="active">Say "Hi"</a>
     </div>
+    <div class="nav-social">
+      <a href="https://www.linkedin.com/in/davidmccrindle/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <a href="https://www.instagram.com/davidmccrindle/" aria-label="Instagram" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://www.threads.net/@davidmccrindle" aria-label="Threads" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 192 192" fill="currentColor"><path d="M141.537 88.988c-.828-.394-1.668-.776-2.519-1.143-1.482-27.307-16.403-42.94-41.457-43.1h-.354c-14.986 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.724-10.548 21.347-10.548.076 0 .153 0 .228.001 8.25.053 14.474 2.451 18.503 7.129 2.932 3.405 4.893 8.111 5.864 14.05-7.314-1.243-15.224-1.625-23.68-1.14-23.82 1.372-39.134 15.265-38.105 34.569.522 9.792 5.447 18.216 13.887 23.838 7.107 4.77 16.414 7.114 26.084 6.606 12.65-.66 22.566-5.278 29.403-13.727 5.186-6.451 8.448-14.776 9.88-25.313 6.011 3.685 10.467 8.868 12.139 15.503 2.699 10.566-2.757 23.784-14.678 32.204-10.471 7.541-26.645 11.609-45.086 11.275-20.255-.374-36.322-6.784-47.448-19.04-10.558-11.661-16.022-28.301-16.199-49.645.177-21.344 5.641-37.968 16.199-49.629 11.126-12.256 27.193-18.666 47.448-19.04 20.405.374 36.514 6.81 47.549 19.134 5.408 6.037 9.556 13.656 12.369 22.647l15.667-4.465c-3.394-10.894-8.708-20.195-15.9-27.768C122.98 8.024 103.218.181 77.64-.237 52.142.181 32.404 8.047 18.378 23.183 5.846 36.655-.688 55.565-.91 82.33c.222 26.765 6.756 45.675 19.288 59.147 14.026 15.136 33.764 22.002 59.262 22.421 23.195.38 41.132-5.284 53.192-16.813 13.816-13.2 19.782-32.164 15.787-49.288-2.968-12.782-11.175-23.352-19.487-25.472l.405.663zM98.44 129.507c-10.44.588-21.286-4.098-21.821-14.135-.364-7.442 5.329-15.746 22.494-16.735 1.966-.113 3.895-.168 5.79-.168 6.235 0 12.068.606 17.371 1.765-1.978 24.702-13.58 28.713-23.834 29.273z"/></svg></a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="/" onclick="toggleMobileMenu()">Home</a>
+    <a href="/experience/" onclick="toggleMobileMenu()">Experience</a>
+    <a href="/concert-archive/" onclick="toggleMobileMenu()">Concert Archive</a>
+    <a href="/say-hi/" class="active" onclick="toggleMobileMenu()">Say "Hi"</a>
+    <div class="mobile-menu-social">
+      <a href="https://www.linkedin.com/in/davidmccrindle/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <a href="https://www.instagram.com/davidmccrindle/" aria-label="Instagram" target="_blank" rel="noopener"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://www.threads.net/@davidmccrindle" aria-label="Threads" target="_blank" rel="noopener"><svg width="24" height="24" viewBox="0 0 192 192" fill="currentColor"><path d="M141.537 88.988c-.828-.394-1.668-.776-2.519-1.143-1.482-27.307-16.403-42.94-41.457-43.1h-.354c-14.986 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.724-10.548 21.347-10.548.076 0 .153 0 .228.001 8.25.053 14.474 2.451 18.503 7.129 2.932 3.405 4.893 8.111 5.864 14.05-7.314-1.243-15.224-1.625-23.68-1.14-23.82 1.372-39.134 15.265-38.105 34.569.522 9.792 5.447 18.216 13.887 23.838 7.107 4.77 16.414 7.114 26.084 6.606 12.65-.66 22.566-5.278 29.403-13.727 5.186-6.451 8.448-14.776 9.88-25.313 6.011 3.685 10.467 8.868 12.139 15.503 2.699 10.566-2.757 23.784-14.678 32.204-10.471 7.541-26.645 11.609-45.086 11.275-20.255-.374-36.322-6.784-47.448-19.04-10.558-11.661-16.022-28.301-16.199-49.645.177-21.344 5.641-37.968 16.199-49.629 11.126-12.256 27.193-18.666 47.448-19.04 20.405.374 36.514 6.81 47.549 19.134 5.408 6.037 9.556 13.656 12.369 22.647l15.667-4.465c-3.394-10.894-8.708-20.195-15.9-27.768C122.98 8.024 103.218.181 77.64-.237 52.142.181 32.404 8.047 18.378 23.183 5.846 36.655-.688 55.565-.91 82.33c.222 26.765 6.756 45.675 19.288 59.147 14.026 15.136 33.764 22.002 59.262 22.421 23.195.38 41.132-5.284 53.192-16.813 13.816-13.2 19.782-32.164 15.787-49.288-2.968-12.782-11.175-23.352-19.487-25.472l.405.663zM98.44 129.507c-10.44.588-21.286-4.098-21.821-14.135-.364-7.442 5.329-15.746 22.494-16.735 1.966-.113 3.895-.168 5.79-.168 6.235 0 12.068.606 17.371 1.765-1.978 24.702-13.58 28.713-23.834 29.273z"/></svg></a>
+    </div>
+  </div>
 
   <!-- ═══ PAGE ═══ -->
   <main class="sayhi-page">
@@ -444,8 +488,34 @@
 
   </main>
 
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-copy">© David McCrindle 2026</div>
+      <div class="footer-right">
+        <nav class="footer-links">
+          <a href="/">Home</a>
+          <a href="/experience/">Experience</a>
+          <a href="/concert-archive/">Concert Archive</a>
+          <a href="/say-hi/">Say "Hi"</a>
+        </nav>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/davidmccrindle/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+          <a href="https://www.instagram.com/davidmccrindle/" aria-label="Instagram" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+          <a href="https://www.threads.net/@davidmccrindle" aria-label="Threads" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 192 192" fill="currentColor"><path d="M141.537 88.988c-.828-.394-1.668-.776-2.519-1.143-1.482-27.307-16.403-42.94-41.457-43.1h-.354c-14.986 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.724-10.548 21.347-10.548.076 0 .153 0 .228.001 8.25.053 14.474 2.451 18.503 7.129 2.932 3.405 4.893 8.111 5.864 14.05-7.314-1.243-15.224-1.625-23.68-1.14-23.82 1.372-39.134 15.265-38.105 34.569.522 9.792 5.447 18.216 13.887 23.838 7.107 4.77 16.414 7.114 26.084 6.606 12.65-.66 22.566-5.278 29.403-13.727 5.186-6.451 8.448-14.776 9.88-25.313 6.011 3.685 10.467 8.868 12.139 15.503 2.699 10.566-2.757 23.784-14.678 32.204-10.471 7.541-26.645 11.609-45.086 11.275-20.255-.374-36.322-6.784-47.448-19.04-10.558-11.661-16.022-28.301-16.199-49.645.177-21.344 5.641-37.968 16.199-49.629 11.126-12.256 27.193-18.666 47.448-19.04 20.405.374 36.514 6.81 47.549 19.134 5.408 6.037 9.556 13.656 12.369 22.647l15.667-4.465c-3.394-10.894-8.708-20.195-15.9-27.768C122.98 8.024 103.218.181 77.64-.237 52.142.181 32.404 8.047 18.378 23.183 5.846 36.655-.688 55.565-.91 82.33c.222 26.765 6.756 45.675 19.288 59.147 14.026 15.136 33.764 22.002 59.262 22.421 23.195.38 41.132-5.284 53.192-16.813 13.816-13.2 19.782-32.164 15.787-49.288-2.968-12.782-11.175-23.352-19.487-25.472l.405.663zM98.44 129.507c-10.44.588-21.286-4.098-21.821-14.135-.364-7.442 5.329-15.746 22.494-16.735 1.966-.113 3.895-.168 5.79-.168 6.235 0 12.068.606 17.371 1.765-1.978 24.702-13.58 28.713-23.834 29.273z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <script type="module" src="/js/simple-nav.js"></script>
   <script>
+    window.toggleMobileMenu = function() {
+      document.getElementById('mobile-menu').classList.toggle('open');
+      document.getElementById('hamburger').classList.toggle('open');
+    };
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
     // Focus state for form groups
     function setFocus(groupId, focused) {
       document.getElementById(groupId).classList.toggle('focused', focused);

@@ -85,12 +85,12 @@ function mpaFallback() {
 
         if (url.startsWith('/concert-archive')) {
           req.url = '/concert-archive/index.html'
-        } else if (url.startsWith('/portfolio')) {
-          req.url = '/portfolio/index.html'
+        } else if (url.startsWith('/experience/portfolio')) {
+          req.url = '/experience/portfolio/index.html'
         } else if (url.startsWith('/about-me')) {
           req.url = '/about-me/index.html'
-        } else if (url.startsWith('/my-work')) {
-          req.url = '/my-work/index.html'
+        } else if (url.startsWith('/experience')) {
+          req.url = '/experience/index.html'
         } else if (url.startsWith('/say-hi')) {
           req.url = '/say-hi/index.html'
         } else if (url.startsWith('/cms')) {
@@ -114,10 +114,10 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         aboutMe: resolve(__dirname, 'about-me/index.html'),
-        myWork: resolve(__dirname, 'my-work/index.html'),
+        experience: resolve(__dirname, 'experience/index.html'),
         concertArchive: resolve(__dirname, 'concert-archive/index.html'),
         sayHi: resolve(__dirname, 'say-hi/index.html'),
-        portfolio: resolve(__dirname, 'portfolio/index.html'),
+        portfolio: resolve(__dirname, 'experience/portfolio/index.html'),
       },
     },
   },

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>davidmccrindle — coming soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; background: #111; color: #fff; font-family: 'Inter', sans-serif; }
+    a { text-decoration: none; color: inherit; touch-action: manipulation; }
+    button { border: none; cursor: pointer; font-family: 'Inter', sans-serif; touch-action: manipulation; }
+
+    /* Nav */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+      display: flex; align-items: center;
+      padding: 25px 40px; height: 106px;
+    }
+    .nav-logo { width: 56px; height: 56px; flex-shrink: 0; }
+    .nav-logo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .nav-links {
+      flex: 1; display: flex; gap: 40px;
+      align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 700; white-space: nowrap;
+    }
+    .nav-links a { color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .nav-links a.active { color: #fff; text-decoration: underline; text-underline-offset: 6px; }
+    .nav-links a:hover { color: #fff; }
+    .nav-social { display: flex; gap: 20px; align-items: center; }
+    .nav-social a { color: #fff; transition: opacity 0.2s; display: flex; align-items: center; }
+    .nav-social a:hover { opacity: 0.6; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; width: 36px; height: 36px;
+      background: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 5px; z-index: 20; flex-shrink: 0;
+    }
+    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 9;
+      background: rgba(0,0,0,0.95); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+      font-size: 24px; font-weight: 700;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: #fff; transition: color 0.2s; }
+    .mobile-menu a.active { text-decoration: underline; text-underline-offset: 6px; }
+    .mobile-menu a:hover { color: #a1a1a1; }
+    .mobile-menu-social { display: flex; gap: 24px; margin-top: 16px; }
+    .mobile-menu-social a { color: #fff; display: flex; }
+
+    /* Coming soon */
+    .coming-soon {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 106px 40px 40px;
+      text-align: center;
+    }
+    .coming-soon-inner { max-width: 560px; }
+    .coming-soon-label {
+      font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-bottom: 24px;
+    }
+    .coming-soon-heading {
+      font-size: clamp(40px, 8vw, 80px); font-weight: 700; line-height: 1.05;
+      margin-bottom: 20px;
+    }
+    .coming-soon-sub {
+      font-size: 17px; color: rgba(255,255,255,0.55); line-height: 1.6;
+      margin-bottom: 40px;
+    }
+    .coming-soon-links {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+    .coming-soon-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; border-radius: 10px;
+      font-size: 15px; font-weight: 700;
+      transition: opacity 0.2s;
+    }
+    .coming-soon-link:hover { opacity: 0.75; }
+    .coming-soon-link.primary { background: #fff; color: #111; }
+    .coming-soon-link.secondary {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12); color: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-links, .nav-social { display: none; }
+      #navbar { padding: 16px 20px; height: 60px; justify-content: space-between; }
+      .nav-logo { width: 36px; height: 36px; }
+      .coming-soon { padding-top: 60px; }
+      .coming-soon-sub { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <div class="nav-logo">
+      <a href="/"><svg width="56" height="56" viewBox="0 0 113 113" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M56.5 0C25.2862 0 0 25.2862 0 56.5C0 87.7138 25.2862 113 56.5 113C87.7138 113 113 87.7138 113 56.5C113 25.2862 87.7138 0 56.5 0ZM88.9143 88.9143H67.4173L88.8018 67.5299V88.9143H88.9143ZM88.9143 64.3972L64.3972 88.9143H45.9203L88.9143 45.9203V64.3972ZM88.9143 42.7877L42.7877 88.9143H24.0857L88.8018 24.0857V42.7689H88.9143V42.7877Z" fill="white"/></svg></a>
+    </div>
+  </nav>
+
+  <main class="coming-soon">
+    <div class="coming-soon-inner">
+      <div class="coming-soon-label">David McCrindle</div>
+      <h1 class="coming-soon-heading">Something's<br>coming.</h1>
+      <p class="coming-soon-sub">The portfolio is getting a refresh. Check back soon.</p>
+      <div class="coming-soon-links">
+        <a class="coming-soon-link primary" href="/say-hi/">Say Hi</a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
