@@ -97,12 +97,14 @@ function initMobileSheet() {
   // Horizontal swipe: change section (only when sheet is open)
   const sections = ['shows', 'artists', 'places', 'venues'];
   let swipeX = 0, swipeY = 0;
+  let swipeFromStrip = false;
   panel.addEventListener('touchstart', e => {
     swipeX = e.touches[0].clientX;
     swipeY = e.touches[0].clientY;
+    swipeFromStrip = !!e.target.closest('.featured-strip');
   }, { passive: true });
   panel.addEventListener('touchend', e => {
-    if (!isMobile() || !panel.classList.contains('sheet-open')) return;
+    if (!isMobile() || !panel.classList.contains('sheet-open') || swipeFromStrip) return;
     const dx = e.changedTouches[0].clientX - swipeX;
     const dy = e.changedTouches[0].clientY - swipeY;
     if (Math.abs(dx) > 80 && Math.abs(dx) > Math.abs(dy) * 2) {
