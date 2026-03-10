@@ -1,33 +1,39 @@
 import { state, SHOWS, MONTH_NAMES, LOGO_URL } from './state.js';
 import { esc, tourHtml, supportPillsHtml } from './data.js';
 import { flyToCity, getMap, updateMapMarkers, clearHighlightedMarkers } from './map.js';
-import { loadAccordionImage, wikiCache } from './api.js';
+import { loadAccordionImage, wikiCache, fetchWikiImage } from './api.js';
 import { pushRoute, replaceRoute } from './router.js';
 
 const MN = MONTH_NAMES;
 
-const FEATURED_VENUES_HTML = `<div class="featured-strip">
-  <button class="feat-card" style="--fc-bg:#6b6b6b" onclick="toggleVenue('First Avenue')">
-    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/4b4baa37-e325-4e34-a77f-cd2cd8771783" alt="First Avenue" loading="lazy"></div>
-    <div class="feat-footer"><div class="feat-rank">#1</div><div class="feat-name">First Avenue</div></div>
-  </button>
-  <button class="feat-card" style="--fc-bg:#6b6b6b" onclick="toggleVenue('Barrowland Ballroom')">
-    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/6256c66f-a3b3-4269-99e2-8a5da9b72241" alt="Barrowland Ballroom" loading="lazy"></div>
-    <div class="feat-footer"><div class="feat-rank">#2</div><div class="feat-name">Barrowland Ballroom</div></div>
-  </button>
-  <button class="feat-card" style="--fc-bg:#6b6b6b" onclick="toggleVenue('The Garage')">
-    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/d40fa5c6-3c5a-4cf1-8c52-344ca5c0439a" alt="The Garage" loading="lazy"></div>
-    <div class="feat-footer"><div class="feat-rank">#3</div><div class="feat-name">The Garage</div></div>
-  </button>
-  <button class="feat-card" style="--fc-bg:#6b6b6b" onclick="toggleVenue('Liquid Room')">
-    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/05d2f3a6-aa98-495d-86f3-79f368068b52" alt="Liquid Room" loading="lazy"></div>
-    <div class="feat-footer"><div class="feat-rank">#4</div><div class="feat-name">Liquid Room</div></div>
-  </button>
-  <button class="feat-card" style="--fc-bg:#6b6b6b" onclick="toggleVenue('Bowery Ballroom')">
-    <div class="feat-img"><img src="https://www.figma.com/api/mcp/asset/e1f52e31-c99f-4d65-b608-97076f92ec3a" alt="Bowery Ballroom" loading="lazy"></div>
-    <div class="feat-footer"><div class="feat-rank">#5</div><div class="feat-name">Bowery Ballroom</div></div>
-  </button>
-</div>`;
+const FEATURED_VENUES = [
+  { name: 'First Avenue',        color: '#1a1a2a' },
+  { name: '7th St Entry',        color: '#3a3a3a' },
+  { name: 'Barrowland Ballroom', color: '#c03060' },
+  { name: 'Varsity Theater',     color: '#7a7a10' },
+  { name: 'Fine Line Music Cafe', color: '#4a4ab0' },
+];
+
+function buildFeaturedVenuesHtml() {
+  const cards = FEATURED_VENUES.map((v, i) => {
+    const sv = v.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    return `<button class="feat-card" data-wiki="${v.name}" data-wiki-type="venue" style="--fc-bg:${v.color}" onclick="toggleVenue('${sv}')">
+    <div class="feat-img"><img src="" alt="${v.name}" loading="lazy"></div>
+    <div class="feat-footer"><div class="feat-rank">#${i + 1}</div><div class="feat-name">${v.name}</div></div>
+  </button>`;
+  }).join('\n  ');
+  return `<div class="featured-strip">\n  ${cards}\n</div>`;
+}
+
+function loadFeaturedImages(container) {
+  container.querySelectorAll('.feat-card[data-wiki]').forEach(card => {
+    const img = card.querySelector('.feat-img img');
+    if (!img || img.getAttribute('src')) return;
+    fetchWikiImage(card.dataset.wiki, card.dataset.wikiType || 'venue').then(url => {
+      if (url && img) img.src = url;
+    });
+  });
+}
 
 export function getVenueData() {
   const v = {}, byVenue = {};
@@ -52,7 +58,9 @@ export function renderVenues(animate) {
   else if (state.venuesSortMode === 'alpha-asc') entries.sort((a, b) => a[0].localeCompare(b[0]));
   else entries.sort((a, b) => b[0].localeCompare(a[0]));
   let idx = 0;
-  document.getElementById('venues-list').innerHTML = FEATURED_VENUES_HTML + entries.map(([venue, d]) => {
+  const venuesList = document.getElementById('venues-list');
+  const featuredVenues = state.venuesSearch ? '' : buildFeaturedVenuesHtml();
+  venuesList.innerHTML = featuredVenues + entries.map(([venue, d]) => {
     const isExp = state.expandedVenue === venue;
     const sv = venue.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     let acc = '';
@@ -95,6 +103,7 @@ export function renderVenues(animate) {
       ${acc}
     </div>`;
   }).join('');
+  if (featuredVenues) requestAnimationFrame(() => loadFeaturedImages(venuesList));
 }
 
 export function toggleVenue(v) {

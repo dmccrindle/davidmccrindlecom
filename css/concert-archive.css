@@ -461,45 +461,45 @@
 
 .feat-card {
   flex-shrink: 0;
-  width: 190px;
+  width: 240px;
+  height: 240px;
   background: var(--fc-bg, #6b6b6b);
-  border-radius: 8px;
-  padding: 0 0 10px;
+  border-radius: 12px;
+  padding: 8px;
   cursor: pointer;
   border: none;
   color: #fff;
   text-align: left;
   font-family: 'Inter', sans-serif;
   transition: transform 0.25s cubic-bezier(0.34, 1.4, 0.64, 1), filter 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   position: relative;
-  overflow: hidden;
-}
-.feat-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0);
-  transition: background 0.2s;
-  pointer-events: none;
 }
 .feat-card:hover {
   transform: scale(1.03);
   filter: drop-shadow(0 8px 18px rgba(0,0,0,0.55));
 }
-.feat-card:hover::after {
-  background: rgba(255,255,255,0.06);
-}
 .feat-card:active {
   transform: scale(1.01);
   transition-duration: 0.1s;
 }
+.feat-card--wide {
+  width: 100%;
+  height: auto;
+}
+.feat-card--wide .feat-img {
+  height: 200px;
+}
 
 .feat-img {
   width: 100%;
-  height: 132px;
-  border-radius: 0;
+  height: 168px;
+  border-radius: 8px;
   overflow: hidden;
-  margin-bottom: 8px;
+  background: rgba(0,0,0,0.2);
+  flex-shrink: 0;
 }
 .feat-img img {
   width: 100%; height: 100%;
@@ -515,24 +515,32 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  padding: 0 8px;
+  height: 48px;
+  flex-shrink: 0;
 }
 .feat-rank {
   background: rgba(0,0,0,0.45);
   border-radius: 6px;
-  width: 38px; height: 38px;
+  min-width: 44px;
+  height: 44px;
   flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 0 6px;
 }
 .feat-name {
-  font-size: 14px; font-weight: 700;
+  font-size: 14px;
+  font-weight: 700;
   line-height: 1.25;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
+  color: #fff;
 }
 
 /* Scrollable list */
@@ -913,6 +921,8 @@
   .mobile-menu { z-index: 30 !important; }
   /* Hide ⌘K hint on mobile */
   .search-kbd { display: none !important; }
+  /* Hide On This Day on mobile — takes too much space */
+  #on-this-day { display: none !important; }
 
   /* Map: stays fixed below navbar so it doesn't intercept nav touch events */
   #map {
@@ -1063,7 +1073,6 @@
      DOM nodes from intercepting touches during animation-delay */
   .artist-row.animate, .place-row.animate, .venue-row.animate { animation: none !important; }
 
-  #on-this-day { display: none !important; }
   .year-selector { display: none !important; }
   .show-type-dd { display: none !important; }
   .year-nav { padding: 12px 0 16px; flex-shrink: 0; }
@@ -1118,104 +1127,66 @@
 }
 
 /* ═══════════════════════════════════════════
-   ON THIS DAY WIDGET
+   ON THIS DAY
    ═══════════════════════════════════════════ */
 #on-this-day {
   flex-shrink: 0;
-  margin-bottom: 24px; /* breathing room between widget and year/search bar */
+  margin-bottom: 20px;
 }
 
-.otd-widget {
-  border-radius: 8px;
-  overflow: hidden;
-  background: rgba(161,161,161,0.2);
+.otd-strip {
+  display: flex;
+  flex-direction: column;
 }
 
-/* ── Header row ───────────────────────────── */
 .otd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  padding: 0 2px;
+  cursor: pointer;
   width: 100%;
-  display: flex; align-items: center; gap: 10px;
-  padding: 13px 16px;
-  background: none; color: #fff;
-  font-family: 'Inter', sans-serif;
-  text-align: left; cursor: pointer;
-  transition: background 0.2s;
-  border-bottom: 1px solid transparent;
+  gap: 6px;
 }
-.otd-header:hover { background: rgba(255,255,255,0.04); }
-.otd-widget.open .otd-header { border-bottom-color: rgba(255,255,255,0.08); }
+
+.otd-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+}
 
 .otd-chevron {
-  flex-shrink: 0;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform: rotate(-90deg); /* pointing right = closed */
-}
-.otd-widget.open .otd-chevron { transform: rotate(0deg); } /* pointing down = open */
-
-/* "On this day  March 4" — bold, white, prominent */
-.otd-heading {
   font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -0.01em;
+  color: rgba(255,255,255,0.4);
+  line-height: 1;
+  transition: transform 0.3s ease;
+  transform: rotate(90deg);
 }
 
-.otd-badge {
-  margin-left: auto;
-  background: rgba(255,255,255,0.08);
-  border-radius: 20px; padding: 2px 9px;
-  font-size: 11px; font-weight: 700;
-  color: rgba(255,255,255,0.45);
+.otd-strip.open .otd-chevron {
+  transform: rotate(270deg);
 }
 
-/* ── Collapsible body ─────────────────────── */
 .otd-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
   max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: max-height 0.35s ease, padding 0.35s ease;
+  padding-top: 0;
 }
-.otd-widget.open .otd-body { max-height: 800px; }
 
-/* ── Artist photo (no overlay, no gradient) ── */
-.otd-feat-photo-wrap {
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-  display: none;
-  border-radius: 8px;
-  margin: 0 8px 0 8px;
+.otd-strip.open .otd-body {
+  max-height: 600px;
+  padding-top: 8px;
 }
-.otd-feat-photo-wrap.has-photo { display: block; }
 
-.otd-feat-photo {
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: center top;
-  display: block;
-  opacity: 0;
-  transition: opacity 0.5s ease;
+.otd-strip .featured-strip {
+  padding: 0 0 8px;
+  margin-bottom: 0;
 }
-.otd-feat-photo.loaded { opacity: 1; }
-
-/* ── All show rows (featured + rest share same style) ── */
-.otd-featured-rows { padding: 4px 0; }
-
-.otd-rest-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 6px 12px 6px 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  transition: background 0.15s;
-}
-.otd-rest-row:last-child { border-bottom: none; }
-.otd-rest-row:hover { background: rgba(255,255,255,0.04); }
-
-/* Slightly smaller text than the main list since it's a compact widget */
-.otd-rest-row .show-day { background: rgba(255,255,255,0.06); width: 44px; flex-shrink: 0; }
-.otd-rest-row .show-artist { font-size: 14px; }
-.otd-rest-row .show-support { font-size: 12px; }
-.otd-rest-row .show-venue { font-size: 13px; }
-.otd-rest-row .show-location { font-size: 12px; }
-
-/* Featured row gets a subtle highlight */
-.otd-feat-row { background: rgba(255,255,255,0.02); }
-.otd-feat-row .show-artist { font-size: 15px; font-weight: 800; }
-.otd-feat-row .show-day { background: rgba(255,255,255,0.09); }
