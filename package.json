@@ -11,5 +11,9 @@
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-arm64-gnu": "4.59.0"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.0",
+    "@vercel/speed-insights": "^2.0.0"
   }
 }

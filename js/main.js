@@ -1,5 +1,6 @@
 // Main entry point for Concert Archive
 
+import './analytics.js';
 import '../css/global.css';
 import '../css/concert-archive.css';
 import { parseData, deriveYears } from './concert-archive/data.js';

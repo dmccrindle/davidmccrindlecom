@@ -1,3 +1,5 @@
+import './analytics.js';
+
 // Minimal nav JS for non-Concert-Archive pages
 // Handles the mobile hamburger menu and nav gradient on scroll
 
