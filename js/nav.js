@@ -1,6 +1,10 @@
 // Navigation module
 
 export function toggleMobileMenu() {
-  document.getElementById('hamburger').classList.toggle('open');
-  document.getElementById('mobile-menu').classList.toggle('open');
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobile-menu');
+  btn.classList.toggle('open');
+  const open = menu.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open);
+  btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
 }

@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Concert Archive — davidmccrindle</title>
+  <title>Concert Archive — David McCrindle</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -13,7 +14,7 @@
   <div id="overlay"></div>
   <div id="gradient"></div>
 
-  <nav id="navbar">
+  <nav id="navbar" aria-label="Main navigation">
     <a class="nav-logo-wrap" href="/">
       <div class="nav-logo">
         <svg viewBox="0 0 113 113" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M56.5 0C25.2862 0 0 25.2862 0 56.5C0 87.7138 25.2862 113 56.5 113C87.7138 113 113 87.7138 113 56.5C113 25.2862 87.7138 0 56.5 0ZM88.9143 88.9143H67.4173L88.8018 67.5299V88.9143H88.9143ZM88.9143 64.3972L64.3972 88.9143H45.9203L88.9143 45.9203V64.3972ZM88.9143 42.7877L42.7877 88.9143H24.0857L88.8018 24.0857V42.7689H88.9143V42.7877Z" fill="white"/></svg>
@@ -31,12 +32,12 @@
       <a href="https://www.instagram.com/davidmccrindle/" aria-label="Instagram" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
       <a href="https://www.threads.net/@davidmccrindle" aria-label="Threads" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 192 192" fill="currentColor"><path d="M141.537 88.988c-.828-.394-1.668-.776-2.519-1.143-1.482-27.307-16.403-42.94-41.457-43.1h-.354c-14.986 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.724-10.548 21.347-10.548.076 0 .153 0 .228.001 8.25.053 14.474 2.451 18.503 7.129 2.932 3.405 4.893 8.111 5.864 14.05-7.314-1.243-15.224-1.625-23.68-1.14-23.82 1.372-39.134 15.265-38.105 34.569.522 9.792 5.447 18.216 13.887 23.838 7.107 4.77 16.414 7.114 26.084 6.606 12.65-.66 22.566-5.278 29.403-13.727 5.186-6.451 8.448-14.776 9.88-25.313 6.011 3.685 10.467 8.868 12.139 15.503 2.699 10.566-2.757 23.784-14.678 32.204-10.471 7.541-26.645 11.609-45.086 11.275-20.255-.374-36.322-6.784-47.448-19.04-10.558-11.661-16.022-28.301-16.199-49.645.177-21.344 5.641-37.968 16.199-49.629 11.126-12.256 27.193-18.666 47.448-19.04 20.405.374 36.514 6.81 47.549 19.134 5.408 6.037 9.556 13.656 12.369 22.647l15.667-4.465c-3.394-10.894-8.708-20.195-15.9-27.768C122.98 8.024 103.218.181 77.64-.237 52.142.181 32.404 8.047 18.378 23.183 5.846 36.655-.688 55.565-.91 82.33c.222 26.765 6.756 45.675 19.288 59.147 14.026 15.136 33.764 22.002 59.262 22.421 23.195.38 41.132-5.284 53.192-16.813 13.816-13.2 19.782-32.164 15.787-49.288-2.968-12.782-11.175-23.352-19.487-25.472l.405.663zM98.44 129.507c-10.44.588-21.286-4.098-21.821-14.135-.364-7.442 5.329-15.746 22.494-16.735 1.966-.113 3.895-.168 5.79-.168 6.235 0 12.068.606 17.371 1.765-1.978 24.702-13.58 28.713-23.834 29.273z"/></svg></a>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMobileMenu()">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu()">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
-  <div id="mobile-menu" class="mobile-menu">
+  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
     <a href="/" onclick="toggleMobileMenu()">Home</a>
     <a href="/experience/" onclick="toggleMobileMenu()">Experience</a>
     <a href="/concert-archive/" class="active" onclick="toggleMobileMenu()">Concert Archive</a>
@@ -54,34 +55,34 @@
       <button class="toggle-btn active" id="btn-list" tabindex="0" onclick="setView('list')">List</button>
     </div>
     <div class="cards-grid">
-      <div class="stat-card active" data-section="shows" tabindex="0" role="button" onclick="setSection('shows')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setSection('shows')}">
+      <button class="stat-card active" data-section="shows" onclick="setSection('shows')" aria-pressed="true">
         <div class="card-header">
           <span class="card-label">Shows</span>
-          <svg class="card-arrow" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="card-number" id="shows-count">0</div>
-      </div>
-      <div class="stat-card" data-section="artists" tabindex="0" role="button" onclick="setSection('artists')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setSection('artists')}">
+      </button>
+      <button class="stat-card" data-section="artists" onclick="setSection('artists')" aria-pressed="false">
         <div class="card-header">
           <span class="card-label">Artists</span>
-          <svg class="card-arrow" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="card-number" id="artists-count">0</div>
-      </div>
-      <div class="stat-card" data-section="places" tabindex="0" role="button" onclick="setSection('places')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setSection('places')}">
+      </button>
+      <button class="stat-card" data-section="places" onclick="setSection('places')" aria-pressed="false">
         <div class="card-header">
           <span class="card-label">Places</span>
-          <svg class="card-arrow" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="card-number" id="places-count">0</div>
-      </div>
-      <div class="stat-card" data-section="venues" tabindex="0" role="button" onclick="setSection('venues')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setSection('venues')}">
+      </button>
+      <button class="stat-card" data-section="venues" onclick="setSection('venues')" aria-pressed="false">
         <div class="card-header">
           <span class="card-label">Venues</span>
-          <svg class="card-arrow" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="card-number" id="venues-count">0</div>
-      </div>
+      </button>
     </div>
     <div class="stats-accordion" id="stats-accordion">
       <!-- Mobile-only close button shown when stats is a fullscreen overlay -->
@@ -133,7 +134,7 @@
           <circle cx="11" cy="11" r="7" stroke="#a1a1a1" stroke-width="1.8"/>
           <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="#a1a1a1" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
-        <input type="text" id="mobile-search-input" placeholder="Search"
+        <input type="text" id="mobile-search-input" placeholder="Search" aria-label="Search concerts"
                oninput="onMobileSearch(this.value)"
                onfocus="expandMobileSheet()"
                autocomplete="off" autocorrect="off" spellcheck="false">
@@ -149,13 +150,13 @@
       <div id="on-this-day"></div>
       <div class="shows-box">
         <div class="list-header">
-          <div class="year-selector" id="year-selector" tabindex="0" role="button" aria-label="Select year" onclick="toggleYearDropdown(event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleYearDropdown(event)}">
+          <button class="year-selector" id="year-selector" aria-label="Select year" aria-expanded="false" aria-haspopup="listbox" onclick="toggleYearDropdown(event)">
             <span class="year-display" id="year-display">2026</span>
-            <svg class="year-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <div class="year-dropdown" id="year-dropdown"></div>
-          </div>
+            <svg class="year-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div class="year-dropdown" id="year-dropdown" role="listbox" aria-label="Year"></div>
+          </button>
           <div class="shows-search-box" onclick="focusShowsSearch()">
-            <input class="shows-search-input" id="shows-search" type="text" placeholder="Search" oninput="onSearch('shows',this.value)" autocomplete="off">
+            <input class="shows-search-input" id="shows-search" type="text" placeholder="Search" aria-label="Search shows" oninput="onSearch('shows',this.value)" autocomplete="off">
             <span class="search-kbd">⌘K</span>
             <button class="search-clear" onclick="clearSearch('shows');event.stopPropagation()" tabindex="-1" aria-label="Clear search">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -193,7 +194,7 @@
         <div class="list-search-bar">
           <button class="sort-text-btn" id="btn-alpha" onclick="setSortMode('alpha')">A-Z</button>
           <div class="section-search-box">
-            <input class="section-search-input" id="artists-search" type="text" placeholder="Search" oninput="onSearch('artists',this.value)" autocomplete="off">
+            <input class="section-search-input" id="artists-search" type="text" placeholder="Search" aria-label="Search artists" oninput="onSearch('artists',this.value)" autocomplete="off">
             <span class="search-kbd">⌘K</span>
             <button class="search-clear" onclick="clearSearch('artists')" tabindex="-1" aria-label="Clear search">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -220,7 +221,7 @@
         <div class="list-search-bar">
           <button class="sort-text-btn" id="btn-place-alpha" onclick="setPlacesSortMode('alpha')">A-Z</button>
           <div class="section-search-box">
-            <input class="section-search-input" id="places-search" type="text" placeholder="Search" oninput="onSearch('places',this.value)" autocomplete="off">
+            <input class="section-search-input" id="places-search" type="text" placeholder="Search" aria-label="Search places" oninput="onSearch('places',this.value)" autocomplete="off">
             <span class="search-kbd">⌘K</span>
             <button class="search-clear" onclick="clearSearch('places')" tabindex="-1" aria-label="Clear search">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -253,7 +254,7 @@
         <div class="list-search-bar">
           <button class="sort-text-btn" id="btn-venue-alpha" onclick="setVenuesSortMode('alpha')">A-Z</button>
           <div class="section-search-box">
-            <input class="section-search-input" id="venues-search" type="text" placeholder="Search" oninput="onSearch('venues',this.value)" autocomplete="off">
+            <input class="section-search-input" id="venues-search" type="text" placeholder="Search" aria-label="Search venues" oninput="onSearch('venues',this.value)" autocomplete="off">
             <span class="search-kbd">⌘K</span>
             <button class="search-clear" onclick="clearSearch('venues')" tabindex="-1" aria-label="Clear search">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -289,7 +290,7 @@
         </div>
         <div class="list-search-bar">
           <div class="section-search-box">
-            <input class="section-search-input" id="city-shows-search" type="text" placeholder="Search" oninput="onCityShowsSearch(this.value)" autocomplete="off">
+            <input class="section-search-input" id="city-shows-search" type="text" placeholder="Search" aria-label="Search shows in this city" oninput="onCityShowsSearch(this.value)" autocomplete="off">
             <span class="search-kbd">⌘K</span>
             <button class="search-clear" onclick="clearSearch('cityshows')" tabindex="-1" aria-label="Clear search">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -312,9 +313,9 @@
     </div>
   </div>
 
-  <div id="info-modal">
+  <div id="info-modal" role="dialog" aria-modal="true" aria-labelledby="info-modal-title">
     <div class="modal-box">
-      <h2>Concert Archive</h2>
+      <h2 id="info-modal-title">Concert Archive</h2>
       <p>A visual archive of every live concert, gig, and festival I've attended since 1995. From the Barrowlands in Glasgow to First Avenue in Minneapolis and everywhere in between.</p>
       <p>Browse by year, search for artists, explore the map — it's all here. Every show, every support act, every venue.</p>
       <button class="modal-close" onclick="closeInfo()">Got it</button>

@@ -101,6 +101,7 @@ export function toggleYearDropdown(e) {
   const isOpen = dd.classList.contains('open');
   dd.classList.toggle('open');
   sel.classList.toggle('open');
+  sel.setAttribute('aria-expanded', !isOpen);
   if (!isOpen) {
     dd.innerHTML = state.years.map(y => {
       const count = SHOWS.filter(s => parseInt(s.date.slice(0, 4)) === y).length;
@@ -113,7 +114,9 @@ export function selectYear(y, e) {
   e && e.stopPropagation();
   state.year = y;
   document.getElementById('year-dropdown').classList.remove('open');
-  document.getElementById('year-selector').classList.remove('open');
+  const sel = document.getElementById('year-selector');
+  sel.classList.remove('open');
+  sel.setAttribute('aria-expanded', 'false');
   closeOnThisDay();
   renderShows();
   pushRoute();

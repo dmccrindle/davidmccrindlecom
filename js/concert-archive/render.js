@@ -53,8 +53,10 @@ export function setSection(sec) {
   state.expandedPlace = null;
   state.cityFilter = null;
 
-  document.querySelectorAll('.stat-card').forEach(c => c.classList.remove('active'));
-  document.querySelector(`.stat-card[data-section="${sec}"]`).classList.add('active');
+  document.querySelectorAll('.stat-card').forEach(c => { c.classList.remove('active'); c.setAttribute('aria-pressed', 'false'); });
+  const activeCard = document.querySelector(`.stat-card[data-section="${sec}"]`);
+  activeCard.classList.add('active');
+  activeCard.setAttribute('aria-pressed', 'true');
 
   document.querySelectorAll('.content-view').forEach(v => v.classList.add('hidden'));
   document.getElementById(`view-${sec}`).classList.remove('hidden');
