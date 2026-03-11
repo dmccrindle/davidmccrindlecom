@@ -150,14 +150,7 @@ window.photoNav = function(dir) {
 
 // ── Portfolio gate ──
 window.checkGate = function() {
-  const input = document.getElementById('gate-password');
-  if (!input) return;
-  const pw = input.value.trim();
-  // Password is set on my-work/index.html — match that logic
-  fetch('/portfolio/', { method: 'HEAD' }).then(() => {
-    sessionStorage.setItem('portfolio_auth', pw);
-    window.location.href = '/portfolio/';
-  });
+  window.location.href = '/login/?redirect=/experience/portfolio/';
 };
 
 document.getElementById('gate-password')?.addEventListener('keydown', e => {

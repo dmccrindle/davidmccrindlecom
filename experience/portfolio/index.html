@@ -446,14 +446,6 @@
   </style>
 </head>
 <body>
-  <!-- Auth Gate -->
-  <div class="auth-gate" id="auth-gate">
-    <div class="gate-icon">
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-      </svg>
-    </div>
     <h2>Portfolio is locked</h2>
     <p>You need a password to view this content.</p>
     <div style="display:flex;gap:8px;margin-bottom:24px;">
@@ -600,7 +592,6 @@
     import { projects } from '/js/portfolio-data.js';
 
     // ── Element refs ─────────────────────────────
-    const authGate    = document.getElementById('auth-gate');
     const navbar      = document.getElementById('navbar');
     const hamburger   = document.getElementById('hamburger');
     const mobileMenu  = document.getElementById('mobile-menu');
@@ -620,33 +611,7 @@
       mobileMenu.classList.toggle('open');
     });
 
-    // ── Portfolio gate (direct access) ───────────
-    const gatePwInput = document.getElementById('gate-pw');
-    const gateBtn = document.getElementById('gate-btn');
-    const gatePwError = document.getElementById('gate-pw-error');
-    function checkGatePassword() {
-      if (gatePwInput.value.toLowerCase().trim() === 'pizza') {
-        sessionStorage.setItem('portfolio_auth', 'true');
-        authGate.classList.add('hidden');
-        document.body.style.overflow = '';
-        init();
-      } else {
-        gatePwError.style.opacity = '1';
-        gatePwInput.value = ''; gatePwInput.focus();
-        setTimeout(() => { gatePwError.style.opacity = '0'; }, 3000);
-      }
-    }
-    gateBtn.addEventListener('click', checkGatePassword);
-    gatePwInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkGatePassword(); });
-
-    // ── Auth check ──────────────────────────────
-    if (sessionStorage.getItem('portfolio_auth') !== 'true') {
-      authGate.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    } else {
-      authGate.classList.add('hidden');
-      init();
-    }
+    init();
 
     function init() {
       generateDotBackground();

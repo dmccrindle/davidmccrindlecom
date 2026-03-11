@@ -1,10 +1,7 @@
 {
   "rewrites": [
     { "source": "/concert-archive/:path+", "destination": "/concert-archive/index.html" },
-    { "source": "/experience/portfolio/:path+", "destination": "/experience/portfolio/index.html" }
-  ],
-  "redirects": [
-    { "source": "/cms", "destination": "/", "permanent": false },
-    { "source": "/cms/(.*)", "destination": "/", "permanent": false }
+    { "source": "/experience/portfolio/:path+", "destination": "/experience/portfolio/index.html" },
+    { "source": "/login/:path+", "destination": "/login/index.html" }
   ]
 }

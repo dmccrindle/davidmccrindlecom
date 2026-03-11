@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <title>Login — davidmccrindle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #111; color: #fff;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    .login-box {
+      width: 100%; max-width: 400px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 0;
+    }
+
+    .login-logo {
+      width: 48px; height: 48px; margin-bottom: 32px; opacity: 0.9;
+    }
+    .login-logo svg { width: 100%; height: 100%; }
+
+    .login-title {
+      font-size: 28px; font-weight: 700; margin-bottom: 10px;
+    }
+    .login-subtitle {
+      font-size: 15px; color: rgba(255,255,255,0.45); margin-bottom: 40px; line-height: 1.5;
+    }
+
+    .login-field {
+      width: 100%; position: relative; margin-bottom: 12px;
+    }
+    .login-input {
+      width: 100%; height: 52px; padding: 0 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; color: #fff;
+      font-size: 16px; font-family: 'Inter', sans-serif;
+      outline: none; transition: border-color 0.2s;
+    }
+    .login-input::placeholder { color: rgba(255,255,255,0.25); }
+    .login-input:focus { border-color: rgba(255,255,255,0.4); }
+    .login-input.error { border-color: rgba(255,80,80,0.6); }
+
+    .login-error {
+      font-size: 13px; color: #ff5050;
+      margin-bottom: 16px; min-height: 18px;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .login-error.show { opacity: 1; }
+
+    .login-btn {
+      width: 100%; height: 52px; border-radius: 10px;
+      background: #fff; color: #111;
+      font-size: 16px; font-weight: 700; font-family: 'Inter', sans-serif;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .login-btn:hover { background: #e8e8e8; }
+    .login-btn:active { transform: scale(0.99); }
+    .login-btn:disabled { opacity: 0.5; cursor: default; }
+
+    .login-back {
+      margin-top: 28px; font-size: 14px; color: rgba(255,255,255,0.3);
+      transition: color 0.2s;
+    }
+    .login-back:hover { color: rgba(255,255,255,0.7); }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <div class="login-logo">
+      <svg viewBox="0 0 113 113" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M56.5 0C25.2862 0 0 25.2862 0 56.5C0 87.7138 25.2862 113 56.5 113C87.7138 113 113 87.7138 113 56.5C113 25.2862 87.7138 0 56.5 0ZM88.9143 88.9143H67.4173L88.8018 67.5299V88.9143H88.9143ZM88.9143 64.3972L64.3972 88.9143H45.9203L88.9143 45.9203V64.3972ZM88.9143 42.7877L42.7877 88.9143H24.0857L88.8018 24.0857V42.7689H88.9143V42.7877Z" fill="white"/>
+      </svg>
+    </div>
+    <h1 class="login-title" id="login-title">You need a password</h1>
+    <p class="login-subtitle" id="login-subtitle">This area is private.</p>
+    <div class="login-field">
+      <input class="login-input" type="password" id="password" placeholder="Enter password" autocomplete="current-password">
+    </div>
+    <div class="login-error" id="login-error">Wrong password — try again.</div>
+    <button class="login-btn" id="login-btn">Unlock</button>
+    <a class="login-back" href="/" id="login-back">← Back to site</a>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const redirect = params.get('redirect') || '/';
+    const scope = redirect.startsWith('/experience/portfolio') ? 'portfolio' : 'cms';
+
+    // Customise copy per scope
+    const titles = { portfolio: 'Portfolio is private', cms: 'CMS access only' };
+    const subtitles = { portfolio: 'Enter the password to view my work.', cms: 'Enter the password to manage concert data.' };
+    document.getElementById('login-title').textContent = titles[scope] || 'Private area';
+    document.getElementById('login-subtitle').textContent = subtitles[scope] || '';
+
+    const input = document.getElementById('password');
+    const btn = document.getElementById('login-btn');
+    const errorEl = document.getElementById('login-error');
+
+    async function attemptLogin() {
+      const password = input.value.trim();
+      if (!password) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Checking...';
+      errorEl.classList.remove('show');
+      input.classList.remove('error');
+
+      try {
+        const res = await fetch('/api/auth', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password, scope }),
+        });
+        if (res.ok) {
+          window.location.href = redirect;
+        } else {
+          input.classList.add('error');
+          errorEl.classList.add('show');
+          btn.disabled = false;
+          btn.textContent = 'Unlock';
+          input.value = '';
+          input.focus();
+        }
+      } catch {
+        errorEl.textContent = 'Something went wrong — please try again.';
+        errorEl.classList.add('show');
+        btn.disabled = false;
+        btn.textContent = 'Unlock';
+      }
+    }
+
+    btn.addEventListener('click', attemptLogin);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
+  </script>
+</body>
+</html>
