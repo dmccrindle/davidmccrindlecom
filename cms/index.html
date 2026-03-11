@@ -16,57 +16,8 @@
       color: #fff;
     }
 
-    /* ── Auth Gate ── */
-    #auth-gate {
-      position: fixed; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      background: #0d0d0d;
-      z-index: 100;
-    }
-    #auth-gate.hidden { display: none; }
-    .auth-box {
-      text-align: center;
-      display: flex; flex-direction: column; gap: 24px;
-    }
-    .auth-box h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
-    .auth-box p { color: #666; font-size: 14px; }
-    .auth-input-row {
-      display: flex; gap: 0;
-      border: 1px solid #333;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .auth-input-row input {
-      flex: 1;
-      background: #1a1a1a;
-      border: none; outline: none;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      padding: 14px 18px;
-    }
-    .auth-input-row input::placeholder { color: #555; }
-    .auth-input-row button {
-      background: #fff;
-      color: #000;
-      border: none;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 14px 22px;
-      transition: background 0.2s;
-    }
-    .auth-input-row button:hover { background: #e0e0e0; }
-    .auth-error {
-      color: #ff6b6b;
-      font-size: 13px;
-      min-height: 18px;
-    }
-
     /* ── App Shell ── */
-    #app { display: none; padding: 60px 40px 80px; max-width: 860px; margin: 0 auto; }
-    #app.visible { display: block; }
+    #app { display: block; padding: 60px 40px 80px; max-width: 860px; margin: 0 auto; }
 
     .cms-header {
       display: flex; align-items: center; justify-content: space-between;
@@ -354,21 +305,6 @@
 </head>
 <body>
 
-  <!-- Auth Gate -->
-  <div id="auth-gate">
-    <div class="auth-box">
-      <div>
-        <h1>Concert CMS</h1>
-        <p style="margin-top:8px">dev-only · adds entries to concerts.csv</p>
-      </div>
-      <div class="auth-input-row">
-        <input type="password" id="pw-input" placeholder="password" />
-        <button onclick="unlock()">Enter</button>
-      </div>
-      <div class="auth-error" id="pw-error"></div>
-    </div>
-  </div>
-
   <!-- App -->
   <div id="app">
     <div class="cms-header">
@@ -490,35 +426,12 @@
   </div>
 
   <script>
-    const PASSWORD = 'pizza';
-
     const venueMap = {};
     const dateMap = {};
     const artistList = [];
     const supportList = [];
     let allRows = [];
     let currentTab = 'add';
-
-    // ── Auth ────────────────────────────────────────
-
-    function unlock() {
-      const val = document.getElementById('pw-input').value;
-      if (val === PASSWORD) {
-        sessionStorage.setItem('cms-auth', '1');
-        document.getElementById('auth-gate').classList.add('hidden');
-        document.getElementById('app').classList.add('visible');
-        loadData();
-      } else {
-        const err = document.getElementById('pw-error');
-        err.textContent = 'Wrong password.';
-        document.getElementById('pw-input').value = '';
-        setTimeout(() => { err.textContent = ''; }, 2000);
-      }
-    }
-
-    document.getElementById('pw-input').addEventListener('keydown', e => {
-      if (e.key === 'Enter') unlock();
-    });
 
     // ── Tabs ────────────────────────────────────────
 
@@ -982,12 +895,7 @@
     }
 
     initAutocompletes();
-
-    if (sessionStorage.getItem('cms-auth') === '1') {
-      document.getElementById('auth-gate').classList.add('hidden');
-      document.getElementById('app').classList.add('visible');
-      loadData();
-    }
+    loadData();
   </script>
 </body>
 </html>
