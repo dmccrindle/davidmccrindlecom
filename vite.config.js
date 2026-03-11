@@ -119,6 +119,7 @@ export default defineConfig({
         sayHi: resolve(__dirname, 'say-hi/index.html'),
         portfolio: resolve(__dirname, 'experience/portfolio/index.html'),
         login: resolve(__dirname, 'login/index.html'),
+        cms: resolve(__dirname, 'cms/index.html'),
       },
     },
   },

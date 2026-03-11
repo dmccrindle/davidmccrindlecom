@@ -2,6 +2,7 @@
   "rewrites": [
     { "source": "/concert-archive/:path+", "destination": "/concert-archive/index.html" },
     { "source": "/experience/portfolio/:path+", "destination": "/experience/portfolio/index.html" },
-    { "source": "/login/:path+", "destination": "/login/index.html" }
+    { "source": "/login/:path+", "destination": "/login/index.html" },
+    { "source": "/cms/:path+", "destination": "/cms/index.html" }
   ]
 }
