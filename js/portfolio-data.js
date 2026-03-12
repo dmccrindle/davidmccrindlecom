@@ -2,9 +2,9 @@
 export const projects = [
   {
     slug: 'cargill',
-    title: 'Cargill.com',
-    gridTitle: 'Cargill.com Website Redesign',
-    subtitle: 'Redesigning the public homepage for a global food company ahead of a major brand refresh.',
+    title: 'Cargill',
+    gridTitle: 'Cargill',
+    subtitle: 'I lead design strategy for global digital products across food and agriculture at Cargill. Working with product and engineering leaders, I helped shape modern experiences across complex supply chain, customer, and internal platforms—bringing design systems, UX practices, and product thinking into an enterprise environment at global scale.',
     company: 'Cargill',
     tags: ['Website Redesign', 'Design Systems', 'Brand'],
     thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1768269368521-FYSI09SLGPWKNEUD3BE2/cargillcom.png',
@@ -49,8 +49,8 @@ export const projects = [
   {
     slug: 'sprout',
     title: 'Sprout',
-    gridTitle: 'Sprout: A Cargill Design System',
-    subtitle: "Cargill's enterprise design system—unifying digital experiences across internal tools, customer-facing products, and public web properties.",
+    gridTitle: 'Sprout Design System',
+    subtitle: "Sprout is Cargill’s enterprise design system supporting thousands of digital experiences across the company. I led the creation and governance of the system—aligning brand, accessibility, UX standards, and engineering workflows to help teams design and ship consistent products faster.",
     company: 'Cargill',
     tags: ['Design Systems', 'Enterprise', 'Governance'],
     thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1768270556147-KFUF4JDQHMMP2E3O5YJ0/screens%2Bisometric%2Bsm%2B1.png',
@@ -85,7 +85,7 @@ export const projects = [
     slug: 'chekt',
     title: 'Chekt',
     gridTitle: 'Chekt Food Lockers',
-    subtitle: 'A smart, temperature-controlled food locker system designed to automate pickup for restaurants, stadiums, and universities.',
+    subtitle: 'Chekt reimagines food pickup through smart locker technology used in stadiums, restaurants, and high-volume venues. I led the product design strategy spanning kiosks, mobile ordering, locker interfaces, and operational tools—creating a seamless system that connects physical hardware with digital ordering experiences.',
     company: 'Cargill',
     tags: ['Hardware UX', 'FOH/BOH', 'Service Design'],
     thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1769009191830-8XC0CBS63JLH0DVXYCQ5/cargill-chekt.jpeg.png',
@@ -119,7 +119,7 @@ export const projects = [
     slug: 'kitchen-blueprint',
     title: 'Kitchen Blueprint',
     gridTitle: 'Kitchen Blueprint',
-    subtitle: 'An AI-powered digital platform for commercial kitchens—the "brain" to manage inventory, track stock, and automate ordering.',
+    subtitle: 'Kitchen Blueprint is an operational platform designed to simplify back-of-house restaurant workflows. I led the experience design for inventory management, kitchen operations, and smart device integrations—helping teams move from fragmented tools to a unified digital command center.',
     company: 'Cargill',
     tags: ['AI/ML', 'Data Visualization', 'Operations'],
     thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/01d5491a-c6cc-402e-9bd6-7db5c37d5a94/kbp.png',
@@ -151,7 +151,7 @@ export const projects = [
     slug: 'nosherie',
     title: 'Nosherie',
     gridTitle: 'Nosherie: Food Discovery',
-    subtitle: 'A digital food discovery platform connecting consumers with new snacks and drinks through gamified engagement.',
+    subtitle: 'Nosherie explores new ways people discover and purchase food products through mobile experiences. I guided the design direction across product discovery, social sharing, and digital merchandising—blending commerce, brand storytelling, and playful interaction design.',
     company: 'Cargill',
     tags: ['Consumer App', 'Gamification', 'DTC'],
     thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1768942169726-TSHQXU5E8EV7CEEOAPD9/Free%2Bmockup%2Bof%2Bwoman%2Bholding%2Ba%2Bsmartphone%2B%2528Mockuuups%2BStudio%2529.png',
@@ -182,7 +182,7 @@ export const projects = [
     slug: 'digital-ordering',
     title: 'Digital Ordering',
     gridTitle: 'Digital Ordering',
-    subtitle: 'A connected ecosystem across discovery, ordering, and kitchen operations—unifying consumer and operational products.',
+    subtitle: 'Digital Ordering connects customers, restaurants, and kitchen operations through a modern ordering platform. I led the UX vision for customer ordering flows, menu systems, and operational tooling—designing experiences that support high-volume food environments while keeping interactions simple and intuitive.',
     company: 'Cargill',
     tags: ['Platform', 'Multi-device', 'Payments'],
     thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1768942212107-SUUNPQ9AX6N6FPE4DKTO/elomockup%2B1.png',
@@ -220,7 +220,7 @@ export const projects = [
     slug: 'morsel',
     title: 'Morsel',
     gridTitle: 'Morsel: Local-Chef–Curated Meals',
-    subtitle: 'A food ordering platform connecting consumers with local chefs using underutilized commercial kitchen capacity.',
+    subtitle: 'Morsel explores new digital experiences around food discovery and curated recommendations. I helped shape the product concept and interaction design—focusing on intuitive browsing, visual storytelling, and mobile-first exploration.',
     company: 'Cargill',
     tags: ['Marketplace', 'Food Tech', 'Startup'],
     thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1768270423555-XU1SO5G2FF6I8UUCWELU/morsel.png',
@@ -251,7 +251,7 @@ export const projects = [
     slug: 'sleep-number',
     title: 'Sleep Number',
     gridTitle: 'Sleep Number',
-    subtitle: 'Shaping the end-to-end digital experience across mobile and web for a connected sleep ecosystem.',
+    subtitle: 'At Sleep Number I helped design digital experiences that connect customers with smart sleep technology. My work focused on mobile interfaces and connected product experiences that translate complex sensor data into simple insights people can use to improve their sleep.',
     company: 'Sleep Number',
     tags: ['IoT', 'Mobile Apps', 'Health Data'],
     thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1768270081396-GGQZJMLFKYQNYGD3MPPY/SN-Family-2-1024x789%2B1.png',
@@ -283,7 +283,7 @@ export const projects = [
     slug: 'unisys',
     title: 'Unisys',
     gridTitle: 'Unisys',
-    subtitle: 'Digital experience design for a global enterprise IT solutions company.',
+    subtitle: 'At Unisys I designed enterprise applications used by large organizations to manage operations and service delivery. My work focused on simplifying complex workflows and transforming dense enterprise systems into intuitive, task-focused digital tools.',
     company: 'Unisys',
     tags: ['Enterprise', 'Digital Transformation', 'B2B'],
     thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1768270811479-DWV6S28MK1TGYCGVOLL3/di%2B1.png',
@@ -301,7 +301,7 @@ export const projects = [
     slug: 'transmission',
     title: 'Transmission Music',
     gridTitle: 'Transmission Music',
-    subtitle: 'A collective of Minneapolis DJs obsessed with crafting the perfect party soundtrack.',
+    subtitle: 'Transmission is a digital platform built for independent music culture and community. I designed the experience architecture and visual system, bringing together editorial storytelling, artist content, and community participation into a cohesive music platform.',
     company: 'Personal',
     tags: ['Branding', 'Web Design', 'Music'],
     thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1768270876653-B31AG2BIMVFQWSHIX8X8/transmission.png',
@@ -320,7 +320,7 @@ export const projects = [
     slug: 'thymes',
     title: 'Thymes',
     gridTitle: 'Thymes Website Design',
-    subtitle: 'E-commerce website design for a premium fragrance and home goods brand.',
+    subtitle: 'Thymes is a premium fragrance and lifestyle brand with a strong retail presence. I led the redesign of their digital commerce experience—balancing storytelling, product discovery, and seamless purchasing across desktop and mobile.',
     company: 'Thymes',
     tags: ['E-commerce', 'Web Design', 'Luxury Brand'],
     thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1768942101647-PW1PX3E0NLX9PS9HQQDQ/thymes.png',
@@ -338,7 +338,7 @@ export const projects = [
     slug: 'risk-trade',
     title: 'Risk Trade',
     gridTitle: 'Risk Trade',
-    subtitle: 'A next-generation online trading tool providing intuitive quoting and executing capabilities.',
+    subtitle: 'Commodity trading platforms are often complex, data-heavy systems built for speed and precision. I led the design of this trading dashboard to help traders quickly evaluate positions, adjust pricing, and manage contracts without losing sight of risk or margin. The result is a focused workspace that balances real-time data, operational controls, and financial insight in a single unified view. ',
     company: 'Cargill',
     tags: ['Financial Services', 'Trading', 'Data-heavy UI'],
     thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1768942124808-IBN1VNBV58895MSA0RBW/Redesign%252BScreenshot%252Bwith%252BTemplate.png',
@@ -350,6 +350,188 @@ export const projects = [
       <h2>Overview</h2>
       <p>Cargill RiskTrade is a next-generation online trading tool providing intuitive quoting and executing capabilities. With 25+ years in the risk management space and 150 years of commodity experience, Cargill Risk Management provides tools that help businesses grow and thrive.</p>
       <p>I led the experience design for the platform, focusing on making complex financial data accessible and actionable for traders. The design emphasized clarity in dense data environments, speed of execution, and confidence in decision-making—critical requirements in commodity trading.</p>
+    `
+  },
+  {
+    slug: '3m-hearing',
+    title: '3M Hearing Solutions',
+    gridTitle: '3M Hearing Solutions',
+    subtitle: 'I led the design strategy for a suite of digital products supporting 3M\'s global hearing protection ecosystem. The work focused on simplifying complex product selection and compliance workflows for industrial customers while modernizing the brand\'s digital experience across mobile and web.',
+    company: '3M',
+    tags: ['Product Design', 'E-commerce', 'Industrial'],
+    thumbnail: '',
+    industry: 'commerce-payments',
+    featured: false,
+    cardColor: '#2d9398',
+    caseStudyUrl: null,
+    content: `
+      <h2>Overview</h2>
+      <p>I led the design strategy for a suite of digital products supporting 3M's global hearing protection ecosystem. The work focused on simplifying complex product selection and compliance workflows for industrial customers while modernizing the brand's digital experience across mobile and web.</p>
+
+      <h2>The Challenge</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>My Role</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>Outcomes</h2>
+      <p>[Placeholder — add content here]</p>
+    `
+  },
+  {
+    slug: 'ieee',
+    title: 'IEEE',
+    gridTitle: 'IEEE',
+    subtitle: 'Working with the world\'s largest technical professional organization, I helped redesign key digital experiences to better serve engineers, researchers, and members globally. The work modernized IEEE\'s web ecosystem, improving discoverability, accessibility, and the overall experience for a highly specialized audience.',
+    company: 'IEEE',
+    tags: ['Web Design', 'Accessibility', 'Member Experience'],
+    thumbnail: '',
+    industry: 'consumer-tech',
+    featured: false,
+    cardColor: '#0097d0',
+    caseStudyUrl: null,
+    content: `
+      <h2>Overview</h2>
+      <p>Working with the world's largest technical professional organization, I helped redesign key digital experiences to better serve engineers, researchers, and members globally. The work modernized IEEE's web ecosystem, improving discoverability, accessibility, and the overall experience for a highly specialized audience.</p>
+
+      <h2>The Challenge</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>My Role</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>Outcomes</h2>
+      <p>[Placeholder — add content here]</p>
+    `
+  },
+  {
+    slug: 'eventis',
+    title: 'Eventis',
+    gridTitle: 'Eventis',
+    subtitle: 'Eventis was an enterprise SaaS platform designed to manage complex event operations at scale. I led UX and product design across multiple modules, focusing on data visibility, operational workflows, and cross-device usability for teams managing large-scale conferences and live events.',
+    company: 'Eventis',
+    tags: ['Enterprise SaaS', 'Event Management', 'Operations'],
+    thumbnail: '',
+    industry: 'enterprise-saas',
+    featured: false,
+    cardColor: '#2c4e6a',
+    caseStudyUrl: null,
+    content: `
+      <h2>Overview</h2>
+      <p>Eventis was an enterprise SaaS platform designed to manage complex event operations at scale. I led UX and product design across multiple modules, focusing on data visibility, operational workflows, and cross-device usability for teams managing large-scale conferences and live events.</p>
+
+      <h2>The Challenge</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>My Role</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>Outcomes</h2>
+      <p>[Placeholder — add content here]</p>
+    `
+  },
+  {
+    slug: 'cwt',
+    title: 'Carlson Wagonlit Travel',
+    gridTitle: 'Carlson Wagonlit Travel',
+    subtitle: 'At CWT, I worked on enterprise travel management tools used by global companies to plan and track business travel. The design focused on simplifying complex booking workflows, improving traveler visibility, and helping corporate teams manage travel programs more efficiently.',
+    company: 'Carlson Wagonlit Travel',
+    tags: ['Enterprise SaaS', 'Travel', 'Booking'],
+    thumbnail: '',
+    industry: 'enterprise-saas',
+    featured: false,
+    cardColor: '#98819e',
+    caseStudyUrl: null,
+    content: `
+      <h2>Overview</h2>
+      <p>At CWT, I worked on enterprise travel management tools used by global companies to plan and track business travel. The design focused on simplifying complex booking workflows, improving traveler visibility, and helping corporate teams manage travel programs more efficiently.</p>
+
+      <h2>The Challenge</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>My Role</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>Outcomes</h2>
+      <p>[Placeholder — add content here]</p>
+    `
+  },
+  {
+    slug: 'unisys-vantagepoint',
+    title: 'Unisys Vantagepoint',
+    gridTitle: 'Unisys Vantagepoint',
+    subtitle: 'Vantagepoint was a data-rich security intelligence platform designed for enterprise IT teams. I helped shape the user experience for monitoring, analytics, and operational decision-making, transforming dense data into clear, actionable dashboards.',
+    company: 'Unisys',
+    tags: ['Security', 'Data Visualization', 'Enterprise'],
+    thumbnail: '',
+    industry: 'security',
+    featured: false,
+    cardColor: '#c41a00',
+    caseStudyUrl: null,
+    content: `
+      <h2>Overview</h2>
+      <p>Vantagepoint was a data-rich security intelligence platform designed for enterprise IT teams. I helped shape the user experience for monitoring, analytics, and operational decision-making, transforming dense data into clear, actionable dashboards.</p>
+
+      <h2>The Challenge</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>My Role</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>Outcomes</h2>
+      <p>[Placeholder — add content here]</p>
+    `
+  },
+  {
+    slug: 'shinebox',
+    title: 'Shinebox',
+    gridTitle: 'Shinebox',
+    subtitle: 'Shinebox is a Minneapolis-based creative agency specializing in storytelling, UX, video, branding, and content strategy. I partnered with their team to design digital experiences that translated powerful brand narratives into engaging, user-focused products.',
+    company: 'Shinebox',
+    tags: ['Agency', 'Branding', 'Web Design'],
+    thumbnail: '',
+    industry: 'media-entertainment',
+    featured: false,
+    cardColor: '#466160',
+    caseStudyUrl: null,
+    content: `
+      <h2>Overview</h2>
+      <p>Shinebox is a Minneapolis-based creative agency specializing in storytelling, UX, video, branding, and content strategy. I partnered with their team to design digital experiences that translated powerful brand narratives into engaging, user-focused products.</p>
+
+      <h2>The Challenge</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>My Role</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>Outcomes</h2>
+      <p>[Placeholder — add content here]</p>
+    `
+  },
+  {
+    slug: 'samsung-smartthings',
+    title: 'Samsung SmartThings',
+    gridTitle: 'Samsung SmartThings',
+    subtitle: 'At SmartThings I designed experiences for one of the earliest consumer IoT platforms. I worked on mobile interfaces that allow people to connect devices, automate their homes, and manage smart environments—helping make complex connected ecosystems feel simple and approachable.',
+    company: 'Samsung SmartThings',
+    tags: ['IoT', 'Mobile', 'Consumer Tech'],
+    thumbnail: '',
+    industry: 'consumer-tech',
+    featured: false,
+    cardColor: '#0c1e2d',
+    caseStudyUrl: null,
+    content: `
+      <h2>Overview</h2>
+      <p>At SmartThings I designed experiences for one of the earliest consumer IoT platforms. I worked on mobile interfaces that allow people to connect devices, automate their homes, and manage smart environments—helping make complex connected ecosystems feel simple and approachable.</p>
+
+      <h2>The Challenge</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>My Role</h2>
+      <p>[Placeholder — add content here]</p>
+
+      <h2>Outcomes</h2>
+      <p>[Placeholder — add content here]</p>
     `
   }
 ];
