@@ -156,7 +156,7 @@
             <div class="year-dropdown" id="year-dropdown" role="listbox" aria-label="Year"></div>
           </button>
           <div class="shows-search-box" onclick="focusShowsSearch()">
-            <input class="shows-search-input" id="shows-search" type="text" placeholder="Search" aria-label="Search shows" oninput="onSearch('shows',this.value)" autocomplete="off">
+            <input class="shows-search-input" id="shows-search" type="text" placeholder="Search" aria-label="Search shows" oninput="onSearch('shows',this.value)" onfocus="closeOnThisDay()" autocomplete="off">
             <span class="search-kbd">⌘K</span>
             <button class="search-clear" onclick="clearSearch('shows');event.stopPropagation()" tabindex="-1" aria-label="Clear search">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="#a1a1a1" stroke-width="1.5" stroke-linecap="round"/></svg>

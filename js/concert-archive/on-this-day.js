@@ -57,9 +57,14 @@ export function renderOnThisDay() {
 
   const dateLabel = `${MONTH_NAMES[parseInt(mm) - 1]} ${parseInt(dd)}`;
 
-  const innerHtml = otdShows.length === 1
-    ? makeOtdCard(otdShows[0], true)
-    : `<div class="featured-strip">${otdShows.map(s => makeOtdCard(s, false)).join('')}</div>`;
+  let innerHtml;
+  if (otdShows.length === 1) {
+    innerHtml = makeOtdCard(otdShows[0], true);
+  } else if (otdShows.length === 2) {
+    innerHtml = `<div class="otd-grid-2">${otdShows.map(s => makeOtdCard(s, false)).join('')}</div>`;
+  } else {
+    innerHtml = `<div class="featured-strip">${otdShows.map(s => makeOtdCard(s, false)).join('')}</div>`;
+  }
 
   container.innerHTML = `
     <div class="otd-strip open">
@@ -83,10 +88,6 @@ export function renderOnThisDay() {
 export function toggleOnThisDay() {}
 
 export function closeOnThisDay() {
-  const container = document.getElementById('on-this-day');
-  if (!container) return;
-  const strip = container.querySelector('.otd-strip');
-  if (!strip) { container.innerHTML = ''; return; }
-  strip.classList.remove('open');
-  strip.addEventListener('transitionend', () => { container.innerHTML = ''; }, { once: true });
+  const strip = document.querySelector('#on-this-day .otd-strip');
+  if (strip) strip.classList.remove('open');
 }

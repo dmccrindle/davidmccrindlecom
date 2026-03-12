@@ -1139,6 +1139,10 @@
 .otd-strip {
   display: flex;
   flex-direction: column;
+  background: rgba(161,161,161,0.2);
+  border-radius: 8px;
+  padding: 16px;
+  gap: 0;
 }
 
 .otd-header {
@@ -1147,36 +1151,33 @@
   justify-content: space-between;
   background: none;
   border: none;
-  padding: 0 2px;
+  padding: 0;
   cursor: pointer;
   width: 100%;
-  gap: 6px;
+  gap: 8px;
 }
 
 .otd-section-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: normal;
+  text-transform: none;
 }
 
 .otd-chevron {
-  font-size: 16px;
-  color: rgba(255,255,255,0.4);
+  font-size: 18px;
+  color: rgba(255,255,255,0.6);
   line-height: 1;
   transition: transform 0.3s ease;
-  transform: rotate(90deg);
+  transform: rotate(0deg);
 }
 
 .otd-strip.open .otd-chevron {
-  transform: rotate(270deg);
+  transform: rotate(90deg);
 }
 
 .otd-body {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   overflow: hidden;
   max-height: 0;
   transition: max-height 0.35s ease, padding 0.35s ease;
@@ -1185,10 +1186,30 @@
 
 .otd-strip.open .otd-body {
   max-height: 600px;
-  padding-top: 8px;
+  padding-top: 12px;
+}
+
+/* 2 artists — equal columns, fills full width */
+.otd-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.otd-grid-2 .feat-card {
+  width: 100%;
 }
 
 .otd-strip .featured-strip {
-  padding: 0 0 8px;
+  padding: 0 0 4px;
   margin-bottom: 0;
+}
+
+/* OTD-scoped font sizes from Figma */
+.otd-strip .feat-name {
+  font-size: 20px;
+}
+.otd-strip .feat-rank {
+  font-size: 24px;
+  min-width: 48px;
+  height: 48px;
 }
