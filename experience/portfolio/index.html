@@ -93,34 +93,29 @@
     }
 
     /* ══════════════════════════════════════════
-       GALLERY VIEW — white, two-column list
+       GALLERY VIEW — white, stacked cards
     ══════════════════════════════════════════ */
     .gallery-page {
       position: relative;
       min-height: 100vh;
       background: #fff;
-      /* display controlled by .portfolio-page.active — do NOT set display: flex here
-         or it overrides the "display: none" hiding rule */
-      align-items: center;
-      justify-content: center;
       overflow: hidden;
     }
-    /* Override .portfolio-page.active { display: block } with flex for gallery */
     .gallery-page.active {
-      display: flex !important;
+      display: block !important;
     }
 
     /* Rotating dot background */
     .circles-bg-wrap {
-      position: absolute;
-      /* Positioned on the right side, centered vertically */
-      left: 42%;
+      position: fixed;
+      right: -400px;
       top: 50%;
-      width: 1600px;
-      height: 1600px;
+      transform: translateY(-50%);
+      width: 1000px;
+      height: 1000px;
       pointer-events: none;
       z-index: 0;
-      transform: translate(0, -50%);
+      opacity: 0.5;
     }
     #dot-bg-svg {
       width: 100%;
@@ -133,135 +128,124 @@
       to   { transform: rotate(360deg); }
     }
 
-    /* Two-column content */
-    .gallery-layout {
+    /* ── Project Cards ── */
+    .cards-container {
       position: relative;
       z-index: 2;
-      display: flex;
-      align-items: center;
-      gap: 48px;
-      width: 100%;
-      max-width: 1280px;
-      padding: 100px 60px 60px; /* top padding clears fixed nav */
-    }
-
-    /* ── Left column: project list ─────────── */
-    .project-list-col {
-      flex: 1;
-      min-width: 0; /* prevent flex overflow */
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 20px;
+      gap: 16px;
     }
 
-    /* Navigation arrows */
-    .list-arrow {
-      width: 50px; height: 50px;
-      border-radius: 50%;
-      border: 1.5px solid #000;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      color: #000;
-      transition: background 0.2s, color 0.2s, opacity 0.2s, border-color 0.2s;
-    }
-    .list-arrow:hover { background: #000; color: #fff; }
-    .list-arrow.disabled { opacity: 0.18; pointer-events: none; }
-
-    /* Viewport: shows exactly 4 rows */
-    .list-viewport {
-      width: 100%;
-      height: 352px; /* 4 × 88px */
-      overflow: hidden;
-    }
-
-    .list-track {
-      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* Individual project row */
-    .project-row {
-      position: relative;
-      height: 88px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 36px 0 0; /* right padding for arrow */
-      border-bottom: 1px solid #e0e0e0;
-      cursor: pointer;
-      overflow: hidden;
-    }
-    .project-row:first-child {
-      border-top: 1px solid #e0e0e0;
-    }
-
-    .row-eyebrow {
-      font-size: 13px;
-      font-weight: 600;
-      color: #aaa;
-      letter-spacing: 0.02em;
-      margin-bottom: 4px;
-      transition: color 0.25s;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .row-title {
-      font-size: 40px;
-      font-weight: 700;
-      color: #000;
-      letter-spacing: -0.025em;
-      line-height: 1.0;
-      transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* Row hover arrow */
-    .row-arrow-icon {
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%) translateX(8px);
-      opacity: 0;
-      color: #000;
-      transition: opacity 0.25s, transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
-
-    .project-row:hover .row-eyebrow { color: #666; }
-    .project-row:hover .row-title { transform: translateX(10px); }
-    .project-row:hover .row-arrow-icon { opacity: 1; transform: translateY(-50%) translateX(0); }
-
-    /* Active (top) row — same size as others */
-    .project-row.row-featured .row-eyebrow { font-size: 13px; }
-    .project-row.row-featured .row-title { font-size: 40px; }
-
-    /* ── Right column: featured image ──────── */
-    .featured-col {
-      width: 616px;
-      height: 616px;
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    .featured-card {
-      position: absolute;
-      inset: 0;
+    .proj-card {
       border-radius: 20px;
       overflow: hidden;
-      background: #e8e8e8;
-      /* Hidden until user hovers a row */
-      opacity: 0;
-      transition: opacity 0.35s ease;
+      min-height: 300px;
+      display: flex;
+      align-items: stretch;
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94),
+                  box-shadow 0.35s ease;
+      text-decoration: none;
+      color: #fff;
     }
-    .featured-card.visible {
-      opacity: 1;
+    .proj-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.2);
     }
-    .featured-card img {
-      width: 100%; height: 100%;
+    /* Light cards get dark text */
+    .proj-card.light-card { color: #111; }
+
+    .proj-card-content {
+      flex: 1;
+      min-width: 0;
+      padding: 48px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+
+    .proj-card-image {
+      width: 42%;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .proj-card-image img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
+      object-position: center top;
       display: block;
+      transition: transform 0.5s ease;
+    }
+    .proj-card:hover .proj-card-image img { transform: scale(1.04); }
+
+    .proj-category {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      opacity: 0.55;
+    }
+    .proj-title {
+      font-size: clamp(32px, 3.5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      margin-bottom: 14px;
+    }
+    .proj-subtitle {
+      font-size: 15px;
+      line-height: 1.65;
+      opacity: 0.65;
+      max-width: 420px;
+    }
+
+    .proj-card-bottom { margin-top: 32px; }
+    .proj-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 11px 22px;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.45);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      opacity: 1;
+      transition: background 0.25s ease, border-color 0.25s ease, gap 0.25s ease,
+                  transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      letter-spacing: 0.02em;
+      backdrop-filter: blur(4px);
+    }
+    .proj-cta svg {
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      flex-shrink: 0;
+    }
+    .proj-card:hover .proj-cta {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.7);
+      gap: 12px;
+    }
+    .proj-card:hover .proj-cta svg { transform: translateX(3px); }
+    /* Light card CTA */
+    .proj-card.light-card .proj-cta {
+      border-color: rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.06);
+      color: #111;
+    }
+    .proj-card.light-card:hover .proj-cta {
+      background: #111;
+      color: #fff;
+      border-color: #111;
     }
 
     /* ══════════════════════════════════════════
@@ -417,15 +401,11 @@
       #navbar { padding: 16px 20px; height: 64px; justify-content: space-between; }
       .nav-logo { width: 40px; height: 40px; }
 
-      .gallery-layout {
-        flex-direction: column;
-        padding: 88px 24px 40px;
-        gap: 32px;
-      }
-      .featured-col { display: none; }
-      .list-viewport { height: 352px; } /* 4 rows on mobile */
-      .row-title { font-size: 28px; }
-      .project-row.row-featured .row-title { font-size: 32px; }
+      .cards-container { padding: 24px 20px 60px; gap: 12px; }
+      .proj-card { min-height: auto; flex-direction: column; }
+      .proj-card-content { padding: 32px 28px; }
+      .proj-card-image { width: 100%; height: 200px; }
+      .proj-title { font-size: clamp(28px, 7vw, 40px); }
 
       .cs-hero-wrap { margin-top: 64px; height: 50vh; }
       .cs-intro { padding: 36px 24px 0; }
@@ -446,18 +426,18 @@
 
     /* ── Industries Filter Bar (Portfolio) ── */
     .ind-filter-bar {
-      position: absolute;
-      top: 80px; left: 0; right: 0;
-      z-index: 20;
-      padding: 16px 60px;
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0,0,0,0.07);
+      display: flex;
+      justify-content: center;
+      padding: 40px 40px 0;
+      position: relative;
+      z-index: 10;
+      margin-top: 80px; /* clear fixed nav */
     }
     .ind-filter-strip {
       display: flex; gap: 8px;
       overflow-x: auto; scrollbar-width: none;
+      flex-wrap: nowrap;
+      justify-content: center;
     }
     .ind-filter-strip::-webkit-scrollbar { display: none; }
     .ind-pill {
@@ -490,16 +470,13 @@
     }
     .ind-pill:hover .ind-text,
     .ind-pill.ind-active .ind-text { max-width: 240px; opacity: 1; margin-left: 10px; }
-    /* Bump gallery layout down to clear filter bar */
-    .gallery-layout { padding-top: 200px; }
     @media (max-width: 900px) {
-      .ind-filter-bar { top: 64px; padding: 10px 20px; }
+      .ind-filter-bar { padding: 20px 20px 0; margin-top: 64px; }
       .ind-text { display: none !important; }
       .ind-pill { height: 56px; min-width: 56px; max-width: 56px; padding: 0 12px; border-radius: 10px; }
       .ind-pill:hover { max-width: 56px; padding: 0 12px; background: transparent; border-color: rgba(0,0,0,0.15); color: #111; }
       .ind-pill.ind-active { max-width: 56px; padding: 0 12px; background: #111; border-color: #111; color: #fff; }
       .ind-icon { width: 28px; height: 28px; }
-      .gallery-layout { padding-top: 150px; }
     }
   </style>
 </head>
@@ -521,9 +498,6 @@
       </a>
       <a href="https://www.instagram.com/davidmccrindle/" target="_blank" rel="noopener" aria-label="Instagram">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-      </a>
-      <a href="https://www.threads.net/@davidmccrindle" target="_blank" rel="noopener" aria-label="Threads">
-        <svg width="20" height="20" viewBox="0 0 192 192" fill="currentColor"><path d="M141.537 88.988c-.828-.394-1.668-.776-2.519-1.143-1.482-27.307-16.403-42.94-41.457-43.1h-.354c-14.986 0-27.449 6.396-35.12 18.036l13.779 9.452c5.73-8.695 14.724-10.548 21.347-10.548.076 0 .153 0 .228.001 8.25.053 14.474 2.451 18.503 7.129 2.932 3.405 4.893 8.111 5.864 14.05-7.314-1.243-15.224-1.625-23.68-1.14-23.82 1.372-39.134 15.265-38.105 34.569.522 9.792 5.447 18.216 13.887 23.838 7.107 4.77 16.414 7.114 26.084 6.606 12.65-.66 22.566-5.278 29.403-13.727 5.186-6.451 8.448-14.776 9.88-25.313 6.011 3.685 10.467 8.868 12.139 15.503 2.699 10.566-2.757 23.784-14.678 32.204-10.471 7.541-26.645 11.609-45.086 11.275-20.255-.374-36.322-6.784-47.448-19.04-10.558-11.661-16.022-28.301-16.199-49.645.177-21.344 5.641-37.968 16.199-49.629 11.126-12.256 27.193-18.666 47.448-19.04 20.405.374 36.514 6.81 47.549 19.134 5.408 6.037 9.556 13.656 12.369 22.647l15.667-4.465c-3.394-10.894-8.708-20.195-15.9-27.768C122.98 8.024 103.218.181 77.64-.237 52.142.181 32.404 8.047 18.378 23.183 5.846 36.655-.688 55.565-.91 82.33c.222 26.765 6.756 45.675 19.288 59.147 14.026 15.136 33.764 22.002 59.262 22.421 23.195.38 41.132-5.284 53.192-16.813 13.816-13.2 19.782-32.164 15.787-49.288-2.968-12.782-11.175-23.352-19.487-25.472l.405.663zM98.44 129.507c-10.44.588-21.286-4.098-21.821-14.135-.364-7.442 5.329-15.746 22.494-16.735 1.966-.113 3.895-.168 5.79-.168 6.235 0 12.068.606 17.371 1.765-1.978 24.702-13.58 28.713-23.834 29.273z"/></svg>
       </a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -597,34 +571,9 @@
       <svg id="dot-bg-svg" viewBox="0 0 1600 1600" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
 
-    <div class="gallery-layout">
-      <!-- Left: project list -->
-      <div class="project-list-col">
-        <button class="list-arrow disabled" id="arrow-up" onclick="window.galleryPrev()" aria-label="Previous projects">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 15l-6-6-6 6"/>
-          </svg>
-        </button>
-
-        <div class="list-viewport">
-          <div class="list-track" id="list-track">
-            <!-- Rows injected by JS -->
-          </div>
-        </div>
-
-        <button class="list-arrow" id="arrow-down" onclick="window.galleryNext()" aria-label="Next projects">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 9l6 6 6-6"/>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Right: featured image -->
-      <div class="featured-col">
-        <div class="featured-card" id="featured-card">
-          <img id="featured-img" src="" alt="">
-        </div>
-      </div>
+    <!-- Cards -->
+    <div class="cards-container" id="cards-container">
+      <!-- Injected by JS -->
     </div>
   </div>
 
@@ -695,14 +644,10 @@
     const hamburger   = document.getElementById('hamburger');
     const mobileMenu  = document.getElementById('mobile-menu');
 
-    // ── State (must be before auth check so init() can use them) ──
+    // ── State ────────────────────────────────────
     var currentSlug    = null;
     var carouselImages = [];
     var carouselIndex  = 0;
-    var galleryPage    = 0;
-    const PAGE_SIZE    = 4;
-    const ROW_HEIGHT   = 88;
-    var hoverTimeout   = null;
 
     // ── Hamburger ────────────────────────────────
     hamburger.addEventListener('click', () => {
@@ -710,10 +655,56 @@
       mobileMenu.classList.toggle('open');
     });
 
-    init();
-
     // ── Active industry filter ───────────────────
     var activeFilter = 'featured';
+
+    const CATEGORY_LABELS = {
+      'food-agriculture':   'Food & Agriculture',
+      'consumer-tech':      'Consumer Technology & IoT',
+      'design-systems':     'Design Systems',
+      'media-entertainment':'Media & Entertainment',
+      'commerce-payments':  'Commerce & Payments',
+      'enterprise-saas':    'Enterprise SaaS Platforms',
+      'retail':             'Retail & Physical-Digital Experiences',
+      'security':           'Security',
+    };
+
+    function getFilteredProjects() {
+      if (activeFilter === 'featured') return projects.filter(p => p.featured);
+      return projects.filter(p => p.industry === activeFilter);
+    }
+
+    function buildCards() {
+      const container = document.getElementById('cards-container');
+      const filtered  = getFilteredProjects();
+
+      container.innerHTML = filtered.map(p => {
+        const isLight = p.cardColor && (
+          p.cardColor.startsWith('#F') || p.cardColor.startsWith('#f') ||
+          p.cardColor.startsWith('#E') || p.cardColor.startsWith('#e')
+        );
+        const categoryLabel = CATEGORY_LABELS[p.industry] || p.industry || '';
+
+        return `<div class="proj-card${isLight ? ' light-card' : ''}" style="background:${p.cardColor || '#111'}"
+          data-slug="${p.slug}" onclick="window.navigateToProject('${p.slug}')">
+          <div class="proj-card-content">
+            <div class="proj-card-top">
+              <div class="proj-category">${categoryLabel}</div>
+              <div class="proj-title">${p.gridTitle || p.title}</div>
+              <div class="proj-subtitle">${p.subtitle}</div>
+            </div>
+            <div class="proj-card-bottom">
+              <span class="proj-cta">Case Study
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+          </div>
+          <div class="proj-card-image">
+            <img src="${p.thumbnail}" alt="${p.title}" loading="lazy">
+          </div>
+        </div>`;
+      }).join('');
+    }
 
     function initIndustryFilter() {
       document.querySelectorAll('#ind-filter-bar .ind-pill').forEach(pill => {
@@ -721,16 +712,14 @@
           activeFilter = pill.dataset.filter;
           document.querySelectorAll('#ind-filter-bar .ind-pill').forEach(p => p.classList.remove('ind-active'));
           pill.classList.add('ind-active');
-          // Hook point: when projects gain an `industries` property,
-          // call buildList() here to refilter. For now just toggles visual state.
-          // buildList();
+          buildCards();
         });
       });
     }
 
     function init() {
       generateDotBackground();
-      buildList();
+      buildCards();
       initIndustryFilter();
       handleRoute();
       window.addEventListener('popstate', handleRoute);
@@ -757,98 +746,6 @@
       }
       svg.innerHTML = markup;
     }
-
-    // ── Build list rows ──────────────────────────
-    function buildList() {
-      const track = document.getElementById('list-track');
-      track.innerHTML = projects.map((p, i) => `
-        <div class="project-row ${i === 0 ? 'row-featured' : ''}"
-          data-slug="${p.slug}"
-          data-thumb="${p.thumbnail}"
-          tabindex="0"
-          role="button"
-          aria-label="${(p.gridTitle || p.title).replace(/"/g, '&quot;')}">
-          <div class="row-eyebrow">${p.subtitle || p.company}</div>
-          <div class="row-title">${p.gridTitle || p.title}</div>
-          <svg class="row-arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14"/><path d="M12 5l7 7-7 7"/>
-          </svg>
-        </div>
-      `).join('');
-
-      // Attach event listeners to rows (avoids HTML-attribute escaping issues)
-      track.querySelectorAll('.project-row').forEach(row => {
-        const slug  = row.dataset.slug;
-        const thumb = row.dataset.thumb;
-        const title = row.querySelector('.row-title').textContent;
-
-        row.addEventListener('click', () => {
-          window.navigateToProject(slug);
-        });
-        row.addEventListener('keydown', e => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            window.navigateToProject(slug);
-          }
-        });
-        row.addEventListener('mouseenter', () => {
-          window.onRowHover(thumb, title);
-        });
-        row.addEventListener('mouseleave', () => {
-          window.onRowLeave();
-        });
-      });
-
-      updateArrows();
-    }
-
-    // ── Gallery navigation ───────────────────────
-    function totalPages() { return Math.ceil(projects.length / PAGE_SIZE); }
-
-    window.galleryNext = function() {
-      if (galleryPage >= totalPages() - 1) return;
-      galleryPage++;
-      updateTrack();
-      updateArrows();
-    };
-
-    window.galleryPrev = function() {
-      if (galleryPage <= 0) return;
-      galleryPage--;
-      updateTrack();
-      updateArrows();
-    };
-
-    function updateTrack() {
-      const track = document.getElementById('list-track');
-      track.style.transform = `translateY(-${galleryPage * PAGE_SIZE * ROW_HEIGHT}px)`;
-      // Update "featured" class to the top visible row
-      const rows = track.querySelectorAll('.project-row');
-      rows.forEach((r, i) => r.classList.toggle('row-featured', i === galleryPage * PAGE_SIZE));
-    }
-
-    function updateArrows() {
-      document.getElementById('arrow-up').classList.toggle('disabled', galleryPage === 0);
-      document.getElementById('arrow-down').classList.toggle('disabled', galleryPage >= totalPages() - 1);
-    }
-
-    // ── Hover interactions ───────────────────────
-    window.onRowHover = function(thumbSrc, altText) {
-      clearTimeout(hoverTimeout);
-      const card  = document.getElementById('featured-card');
-      const img   = document.getElementById('featured-img');
-      img.src = thumbSrc;
-      img.alt = altText;
-      card.classList.add('visible');
-    };
-
-    window.onRowLeave = function() {
-      hoverTimeout = setTimeout(() => {
-        const card = document.getElementById('featured-card');
-        card.classList.remove('visible');
-        // Don't clear src so there's no flicker if they re-hover the same row
-      }, 80);
-    };
 
     // ── Routing ──────────────────────────────────
     function handleRoute() {
@@ -1053,6 +950,8 @@
         showGallery();
       }
     };
+
+    init();
   </script>
 </body>
 </html>

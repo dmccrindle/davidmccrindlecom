@@ -149,8 +149,32 @@ window.photoNav = function(dir) {
 };
 
 // ── Portfolio gate ──
-window.checkGate = function() {
-  window.location.href = '/login/?redirect=/experience/portfolio/';
+window.checkGate = async function() {
+  const input = document.getElementById('gate-password');
+  const btn   = document.querySelector('.gate-btn');
+  const password = input?.value?.trim();
+  if (!password) return;
+
+  btn && (btn.disabled = true);
+  try {
+    const res = await fetch('/api/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password, scope: 'portfolio' })
+    });
+    if (res.ok) {
+      window.location.href = '/experience/portfolio/';
+    } else {
+      input.value = '';
+      input.classList.add('gate-error-shake');
+      input.placeholder = 'Wrong password';
+      setTimeout(() => { input.classList.remove('gate-error-shake'); input.placeholder = 'Password'; }, 600);
+    }
+  } catch(e) {
+    input.value = '';
+  } finally {
+    btn && (btn.disabled = false);
+  }
 };
 
 document.getElementById('gate-password')?.addEventListener('keydown', e => {
