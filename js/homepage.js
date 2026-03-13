@@ -138,6 +138,15 @@ window.scrollCards = function(dir) {
   document.getElementById('cards-next').disabled = cardsOffset >= maxOffset;
 };
 
+// ── Cards swipe ──
+const cardsWrap = cardsTrack.closest('.cards-track-wrap');
+let cardsTouchStartX = 0;
+cardsWrap.addEventListener('touchstart', e => { cardsTouchStartX = e.touches[0].clientX; }, { passive: true });
+cardsWrap.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - cardsTouchStartX;
+  if (Math.abs(dx) > 40) scrollCards(dx < 0 ? 1 : -1);
+}, { passive: true });
+
 // ── Photo gallery ──
 const photoTrack = document.getElementById('photo-track');
 const photoSlides = photoTrack.querySelectorAll('.photo-slide');

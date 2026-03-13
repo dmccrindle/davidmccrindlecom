@@ -138,6 +138,8 @@ function setFlapInstant(el, target) {
   el.innerHTML = digits.map(d => `<span class="flap-tile">${d}</span>`).join('');
 }
 
+let statsAnimated = false;
+
 function updateStats() {
   const showsN = SHOWS.length;
   const artists = new Set();
@@ -156,8 +158,8 @@ function updateStats() {
   setTabBadge('tab-badge-places', places.size);
   setTabBadge('tab-badge-venues', venues.size);
 
-  if (!updateStats._done) {
-    updateStats._done = true;
+  if (!statsAnimated) {
+    statsAnimated = true;
     setTimeout(() => {
       splitFlap(document.getElementById('shows-count'), showsN);
       splitFlap(document.getElementById('artists-count'), artists.size);
