@@ -112,10 +112,13 @@ function parseCSVLine(line) {
   return r;
 }
 
+const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/1gxpotmHLzFGaP7GhPWzcEqILO8cB_U0H6YubtvwJ4R4/export?format=csv&gid=1073946958';
+
 // Fetch and parse CSV data
 export async function parseData() {
   try {
-    const response = await fetch('/data/concerts.csv');
+    let response = await fetch(SHEETS_CSV_URL).catch(() => null);
+    if (!response || !response.ok) response = await fetch('/data/concerts.csv');
     const text = await response.text();
     const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
 

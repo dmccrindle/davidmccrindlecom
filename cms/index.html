@@ -309,7 +309,7 @@
   <div id="app">
     <div class="cms-header">
       <h1>Concert CMS</h1>
-      <span>dev only — writes to public/data/concerts.csv</span>
+      <span>writes to Google Sheets</span>
     </div>
 
     <div class="cms-tabs">
@@ -484,21 +484,11 @@
       };
 
       try {
-        const res = await fetch('/api/add-concert', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        const json = await res.json();
-        if (json.ok) {
-          status.textContent = `✓ Added "${payload.artist}" on ${payload.date}`;
-          status.className = 'submit-status ok';
-          e.target.reset();
-          document.getElementById('festival-label').textContent = 'No';
-          await loadData();
-        } else {
-          throw new Error(json.error || 'Unknown error');
-        }
+        await sheetsPost({ action: 'add', ...payload });
+        status.textContent = `✓ Added "${payload.artist}" on ${payload.date}`;
+        status.className = 'submit-status ok';
+        e.target.reset();
+        document.getElementById('festival-label').textContent = 'No';
       } catch (err) {
         status.textContent = `✗ ${err.message}`;
         status.className = 'submit-status err';
@@ -648,19 +638,9 @@
       };
 
       try {
-        const res = await fetch('/api/edit-concert', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        const json = await res.json();
-        if (json.ok) {
-          status.textContent = '✓ Saved';
-          status.className = 'row-status ok';
-          await loadData();
-        } else {
-          throw new Error(json.error || 'Unknown error');
-        }
+        await sheetsPost({ action: 'edit', ...payload });
+        status.textContent = '✓ Saved';
+        status.className = 'row-status ok';
       } catch (e) {
         status.textContent = `✗ ${e.message}`;
         status.className = 'row-status err';
@@ -681,17 +661,7 @@
       status.className = 'row-status';
 
       try {
-        const res = await fetch('/api/delete-concert', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ rowIndex: idx }),
-        });
-        const json = await res.json();
-        if (json.ok) {
-          await loadData();
-        } else {
-          throw new Error(json.error || 'Unknown error');
-        }
+        await sheetsPost({ action: 'delete', rowIndex: idx });
       } catch (e) {
         status.textContent = `✗ ${e.message}`;
         status.className = 'row-status err';
@@ -820,11 +790,26 @@
       }
     });
 
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbysXxlSN04_8dQsLqZNKRF4R6mN8m03M1SpcNgJ61uv6dQsCzd8xv5y_yjjiu8_aOq9hw/exec';
+    const SHEETS_CSV = 'https://docs.google.com/spreadsheets/d/1gxpotmHLzFGaP7GhPWzcEqILO8cB_U0H6YubtvwJ4R4/export?format=csv&gid=1073946958';
+
+    async function sheetsPost(payload) {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      // no-cors = opaque response; wait briefly then reload from Sheets to confirm
+      await new Promise(r => setTimeout(r, 1500));
+      await loadData();
+    }
+
     // ── Data loading ────────────────────────────────
 
     async function loadData() {
       try {
-        const res = await fetch('/data/concerts.csv?t=' + Date.now());
+        const res = await fetch(SHEETS_CSV + '&t=' + Date.now());
         const text = await res.text();
         const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
         const dataLines = lines.slice(1);
@@ -871,7 +856,10 @@
         ).join('');
 
         if (currentTab === 'edit') renderEditList();
-      } catch (_) {}
+      } catch (err) {
+        console.error('loadData failed:', err);
+        document.getElementById('recent-count').textContent = '⚠ ' + err.message;
+      }
     }
 
     function parseCSV(line) {
