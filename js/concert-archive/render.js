@@ -173,10 +173,18 @@ function updateStats() {
 }
 
 export function openInfo() {
-  document.getElementById('info-modal').classList.add('open');
+  const el = document.getElementById('concert-overlay');
+  el.classList.add('ready');
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('open')));
 }
 
 export function closeInfo() {
-  document.getElementById('info-modal').classList.remove('open');
+  document.getElementById('concert-overlay').classList.remove('open');
+  document.cookie = 'ca_seen=1; max-age=31536000; path=/';
+}
+
+export function maybeShowInfo() {
+  const seen = document.cookie.split(';').some(c => c.trim().startsWith('ca_seen='));
+  if (!seen) openInfo();
 }
 

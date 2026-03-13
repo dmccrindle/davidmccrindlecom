@@ -91,7 +91,7 @@
       <button class="stats-toggle" onclick="toggleStats()">
         <svg class="stats-chevron" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span class="stats-toggle-text">Stats relevant to no-one but me</span>
-        <span class="stats-toggle-right">What is this???</span>
+        <span class="stats-toggle-right" onclick="event.stopPropagation(); openInfo()">What is this???</span>
       </button>
       <div class="stats-body" id="stats-body"></div>
     </div>
@@ -311,12 +311,14 @@
     </div>
   </div>
 
-  <div id="info-modal" role="dialog" aria-modal="true" aria-labelledby="info-modal-title">
-    <div class="modal-box">
-      <h2 id="info-modal-title">Concert Archive</h2>
-      <p>A visual archive of every live concert, gig, and festival I've attended since 1995. From the Barrowlands in Glasgow to First Avenue in Minneapolis and everywhere in between.</p>
-      <p>Browse by year, search for artists, explore the map — it's all here. Every show, every support act, every venue.</p>
-      <button class="modal-close" onclick="closeInfo()">Got it</button>
+  <div id="concert-overlay" role="dialog" aria-modal="true" aria-label="What is this?">
+    <img class="co-ticket-left"  src="/img/overlay/tickets-left.svg"  alt="">
+    <img class="co-ticket-right" src="/img/overlay/tickets-right.svg" alt="">
+    <div class="co-content">
+      <h2 class="co-headline">Concert Archive</h2>
+      <p class="co-body">I started designing websites for the coolest bands as a teenager. After working my way through Learn PHP in 24 Hours, I began building bespoke fan communities with detailed tour archives—fans could log which shows they attended, upload photos, and meet fellow obsessives. It ended up being one of the most satisfying things I've ever built.</p>
+      <p class="co-body-2">So I thought: why not build one for myself? This is my attempt at cataloging every show I've been to. There are probably a few errors, but it's pretty close.</p>
+      <button class="co-btn" onclick="closeInfo()">Check it out</button>
     </div>
   </div>
 

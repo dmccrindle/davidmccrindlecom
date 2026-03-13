@@ -124,30 +124,57 @@ body.map-mode #gradient { opacity: 0; }
 }
 #mobile-stats-btn:hover { background: rgba(50,50,50,0.9); }
 
-/* ── Info Modal ───────────────────────────────── */
-#info-modal {
-  position: fixed; inset: 0; z-index: 100;
-  background: rgba(0,0,0,0.8);
-  display: none; align-items: center; justify-content: center;
-  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+/* ── Concert Info Overlay ─────────────────────── */
+#concert-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: #000;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  overflow: hidden;
 }
-#info-modal.open { display: flex; }
-.modal-box {
-  background: rgba(20,20,20,0.96); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px; padding: 36px; width: 520px; max-width: 90vw;
-  box-shadow: 0 16px 64px rgba(0,0,0,0.5);
-  animation: modalIn 0.3s ease-out;
+#concert-overlay.ready { transition: opacity 0.4s ease; }
+#concert-overlay.open { opacity: 1; pointer-events: all; }
+
+.co-ticket-left, .co-ticket-right {
+  position: absolute; top: 0; height: 100%; width: auto;
 }
-@keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-.modal-box h2 { font-size: 22px; font-weight: 700; margin-bottom: 16px; }
-.modal-box p { font-size: 15px; color: #a1a1a1; line-height: 1.6; margin-bottom: 12px; }
-.modal-close {
-  margin-top: 20px; width: 100%; height: 48px;
-  border-radius: 8px; background: #8a38f5; color: #fff;
-  font-size: 16px; font-weight: 700;
-  transition: background 0.2s;
+.co-ticket-left  { left: 0;  transform: translateX(-110%); }
+.co-ticket-right { right: 0; transform: translateX(110%); }
+#concert-overlay.ready .co-ticket-left,
+#concert-overlay.ready .co-ticket-right {
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.modal-close:hover { background: #7028e0; }
+#concert-overlay.open .co-ticket-left  { transform: translateX(0); }
+#concert-overlay.open .co-ticket-right { transform: translateX(0); }
+
+.co-content {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; color: #fff;
+  padding: 40px; max-width: 520px;
+  opacity: 0; transform: translateY(12px);
+}
+#concert-overlay.ready .co-content { transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s; }
+#concert-overlay.open .co-content { opacity: 1; transform: translateY(0); }
+
+.co-headline { font-size: clamp(36px, 5vw, 60px); font-weight: 700; line-height: 1; margin-bottom: 24px; }
+.co-body { font-size: 16px; line-height: 1.65; font-weight: 700; margin-bottom: 16px; }
+.co-body-2 { font-size: 16px; line-height: 1.65; font-weight: 400; margin-bottom: 36px; opacity: 0.8; }
+.co-btn {
+  border: 4px solid #fff; height: 80px; padding: 0 32px;
+  border-radius: 24px; background: none; color: #fff;
+  font-size: 20px; font-weight: 700; font-family: inherit;
+  cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.co-btn:hover { background: #fff; color: #000; }
+
+@media (max-width: 700px) {
+  #concert-overlay::after {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+    background: rgba(0,0,0,0.75);
+  }
+  .co-content { z-index: 2; }
+}
 
 /* ── Mobile Responsive ────────────────────────── */
 @media (max-width: 900px) {

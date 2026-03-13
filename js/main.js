@@ -5,7 +5,7 @@ import '../css/global.css';
 import '../css/concert-archive.css';
 import { parseData, deriveYears } from './concert-archive/data.js';
 import { initMap, updateMapMarkers } from './concert-archive/map.js';
-import { render, setView, setSection, openInfo, closeInfo } from './concert-archive/render.js';
+import { render, setView, setSection, openInfo, closeInfo, maybeShowInfo } from './concert-archive/render.js';
 import { renderShows, toggleYearDropdown, selectYear, changeYear, toggleSearch, onSearch, setShowType, focusShowsSearch, toggleShowTypeDropdown } from './concert-archive/shows.js';
 import { renderArtists, setSortMode, toggleArtist } from './concert-archive/artists.js';
 import { renderPlaces, togglePlace, setPlacesSortMode, setPlacesGroup, togglePlacesGroup, renderCityShows, closeCityFilter, onCityShowsSearch, toggleCityShowsSort } from './concert-archive/places.js';
@@ -160,6 +160,7 @@ async function init() {
   await parseData();
   deriveYears();
   render();
+  maybeShowInfo();
   renderOnThisDay();
   initRouter(render, setSection, renderShows, renderArtists, renderPlaces, renderVenues);
 
