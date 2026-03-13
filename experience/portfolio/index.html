@@ -887,7 +887,7 @@
       }
 
       const { lead, sections } = parseContent(project.content);
-      document.getElementById('cs-lead-text').textContent = lead;
+      document.getElementById('cs-lead-text').textContent = project.intro || lead;
 
       const accordion = document.getElementById('cs-accordion');
       const panel     = document.getElementById('cs-panel');
