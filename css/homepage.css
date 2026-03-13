@@ -327,7 +327,7 @@ button { border: none; cursor: pointer; font-family: 'Inter', sans-serif; touch-
 
 @media (max-width: 600px) {
   .carousel-section { height: 80vh; }
-  .carousel-circle { width: 70vw; height: 70vw; max-width: none; max-height: none; transform: translateY(-60%); }
+  .carousel-circle { width: 70vw; height: 70vw; max-width: none; max-height: none; top: 33%; transform: translateY(-50%); }
   .carousel-col-left .carousel-circle { right: -35vw; }
   .carousel-col-right .carousel-circle { left: -35vw; }
   .photo-slide { flex-direction: column; }
