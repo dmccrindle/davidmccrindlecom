@@ -783,7 +783,9 @@
       'security':           '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
     };
 
-    function setActiveFilter(filter) {
+    var FILTER_SLUGS = ['featured','food-agriculture','consumer-tech','design-systems','media-entertainment','commerce-payments','enterprise-saas','retail','security'];
+
+    function setActiveFilter(filter, pushUrl) {
       activeFilter = filter;
       // sync pills
       document.querySelectorAll('#ind-filter-bar .ind-pill').forEach(p => {
@@ -796,6 +798,10 @@
       if (sel) sel.value = filter;
       if (icon && FILTER_ICONS[filter]) icon.innerHTML = FILTER_ICONS[filter];
       if (label) label.textContent = CATEGORY_LABELS[filter] || 'Featured';
+      if (pushUrl !== false) {
+        const url = filter === 'featured' ? '/experience/portfolio/' : '/experience/portfolio/' + filter;
+        history.pushState(null, '', url);
+      }
       buildCards();
     }
 
@@ -844,9 +850,16 @@
       const path  = window.location.pathname.replace(/\/$/, '');
       const parts = path.split('/').filter(Boolean);
       if (parts.length >= 3 && parts[0] === 'experience' && parts[1] === 'portfolio') {
-        const project = projects.find(p => p.slug === parts[2]);
+        const seg = parts[2];
+        if (FILTER_SLUGS.includes(seg)) {
+          setActiveFilter(seg, false);
+          showGallery();
+          return;
+        }
+        const project = projects.find(p => p.slug === seg);
         if (project) { showCaseStudy(project); return; }
       }
+      setActiveFilter('featured', false);
       showGallery();
     }
 
@@ -1044,7 +1057,8 @@
 
     window.navigateTo = function(view) {
       if (view === 'gallery') {
-        history.pushState(null, '', '/experience/portfolio/');
+        const url = activeFilter === 'featured' ? '/experience/portfolio/' : '/experience/portfolio/' + activeFilter;
+        history.pushState(null, '', url);
         showGallery();
       }
     };
