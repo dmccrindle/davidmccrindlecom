@@ -8,12 +8,18 @@ export const projects = [
     intro: "In September 2024, I led the redesign of Cargill.com's homepage ahead of a major brand refresh—delivering a modern, campaign-ready experience under a compressed timeline and in close partnership with communications, product, and engineering.",
     company: 'Cargill',
     tags: ['Website Redesign', 'Design Systems', 'Brand'],
-    thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1768269368521-FYSI09SLGPWKNEUD3BE2/cargillcom.png',
+    thumbnail: '/img/portfolio/cargill-1.jpg',
     industry: 'food-agriculture',
     featured: true,
     cardColor: '#1B4D3E',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Homepage', image: '/img/portfolio/cargill-1.jpg', caption: 'The Cargill.com homepage was redesigned to better communicate the scale and impact of the company while improving clarity, storytelling, and navigation. The new experience balances brand storytelling with direct pathways to products, insights, and industry solutions, helping diverse audiences—from customers to job seekers—quickly understand Cargill’s role in the global food system.' },
+      { tab: 'Dark Mode',  image: '/img/portfolio/cargill-2.jpg', caption: 'Dark mode was introduced to support modern viewing preferences and improve usability in low-light environments. Careful attention was given to color contrast, accessibility standards, and brand expression to ensure the experience remained distinctly Cargill while maintaining readability across content, data visualizations, and media.' },
+      { tab: 'Contact',   image: '/img/portfolio/cargill-3.jpg', caption: 'The contact experience was redesigned to better route users to the right teams and resources across a complex global organization. Instead of a single generic form, the system helps users identify the correct business unit, topic, or region—reducing friction and improving response efficiency for both customers and internal teams.' },
+      { tab: 'Mobile',  image: '/img/portfolio/cargill-4.jpg', caption: 'The mobile experience was rebuilt with a mobile-first mindset, ensuring key content and tasks are easily accessible across devices. Layouts were simplified, navigation was streamlined, and performance improvements were introduced to support users accessing Cargill.com in diverse environments around the world.' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>In September 2024, Cargill's Global Communications team engaged the DT&D Design Team to redesign the Cargill.com homepage in advance of a major brand refresh launching October 8. The goal was to quickly deliver a homepage that reflected the new visual identity, activated the Food Secure World campaign, and improved engagement—without disrupting existing site architecture.</p>
       <p>As design lead, I oversaw the experience strategy, design execution, and cross-functional collaboration required to deliver a high-visibility public launch on a compressed timeline.</p>
@@ -60,7 +66,13 @@ export const projects = [
     featured: true,
     cardColor: '#111111',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Portfolio', image: '/img/portfolio/sprout-1.jpg', caption: 'Sprout powers the design of hundreds of digital products across Cargill’s ecosystem—from internal tools and operational dashboards to customer-facing platforms and marketing experiences. By providing shared patterns, components, and design guidance, Sprout enables teams to build faster while maintaining consistency, accessibility, and brand alignment across devices and product teams.' },
+      { tab: 'Color',  image: '/img/portfolio/sprout-2.jpg', caption: 'Sprout’s color system ensures visual consistency, accessibility, and clear meaning across all Cargill digital experiences. The palette defines primary brand colors, supporting neutrals, and functional states such as success, warning, and error. Usage guidance helps teams apply color intentionally for hierarchy, readability, and accessibility while maintaining alignment with the Cargill brand.' },
+      { tab: 'Typography',   image: '/img/portfolio/sprout-3.jpg', caption: 'Sprout typography establishes a clear and scalable hierarchy that supports readability across products, devices, and data-heavy interfaces. Defined text styles for headings, body content, labels, and UI elements help teams create consistent information structures while ensuring accessibility and legibility across the ecosystem.' },
+      { tab: 'Components',  image: '/img/portfolio/sprout-4.jpg', caption: 'Sprout provides detailed documentation for UI components used across Cargill products, including usage guidelines, interaction patterns, accessibility considerations, and implementation guidance. These resources help designers and engineers build consistent experiences while accelerating development through shared patterns and reusable components.' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>Sprout is Cargill's enterprise design system—created to unify the company's digital experiences across internal tools, customer-facing products, and public web properties. Launched as part of Cargill's broader Product and Digital Transformation, Sprout provides shared components, patterns, guidance, and governance that enable teams to design and build consistent, accessible, and scalable experiences at enterprise scale.</p>
       <p>As Design Director and leader of the UX Center of Excellence, I was responsible for establishing Sprout as a strategic platform, not just a UI library—aligning design, engineering, brand, and product around a shared foundation.</p>
@@ -96,7 +108,13 @@ export const projects = [
     featured: true,
     cardColor: '#1C1C1E',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'PPG Arena', image: '/img/portfolio/chekt-1.jpg', caption: 'Chekt lockers were deployed at PPG Arena to streamline food pickup during high-volume events. The experience connects mobile ordering, locker assignment, and digital notifications so fans can grab their food quickly without waiting in long concession lines. The system was designed to work seamlessly within the fast-paced environment of a stadium.' },
+      { tab: 'PDS Pod Display System',  image: '/img/portfolio/chekt-2.jpg', caption: 'The Pod Display System (PDS) provides kitchen staff with a clear operational view of incoming orders and locker assignments. Designed for speed and clarity, the interface helps staff quickly identify orders, track preparation status, and ensure food is placed in the correct locker. The system reduces errors and keeps operations moving during peak demand.' },
+      { tab: 'Kitchen Dashboard',   image: '/img/portfolio/chekt-3.jpg', caption: 'The kitchen dashboard acts as the operational control center for Chekt deployments. It provides real-time visibility into order volume, locker availability, and fulfillment status, allowing teams to manage throughput and respond quickly to changing demand.' },
+      { tab: 'Mobile Pickup',  image: '/img/portfolio/chekt-4.jpg', caption: 'The mobile pickup experience connects the entire Chekt ecosystem. Customers place orders on their phone and receive a notification when their food is ready, along with a locker number or unlock method. This removes friction from the pickup process and creates a fast, contactless experience for customers.' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>Chekt is a digital platform designed to improve the order pickup experience for customers while supporting restaurant teams across front-of-house (FOH) and back-of-house (BOH) operations. The product addresses a growing challenge in foodservice: balancing convenience and speed for pickup customers with operational control, theft prevention, and staff efficiency.</p>
       <p>As design lead, I was responsible for shaping a holistic system that combined software, physical hardware, and spatial considerations—ensuring the experience worked across varied restaurant layouts and operating models.</p>
@@ -131,7 +149,13 @@ export const projects = [
     featured: false,
     cardColor: '#2B5219',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Family', image: '/img/portfolio/kb-1.jpg', caption: 'Kitchen Blueprint was designed as a connected family of products that help restaurants manage kitchen operations more effectively. The platform brings together inventory management, forecasting, alerts, and operational insights into a single system that helps teams reduce waste, anticipate demand, and keep kitchens running smoothly.' },
+      { tab: 'Mobile',  image: '/img/portfolio/kb-2.jpg', caption: 'The mobile experience allows restaurant managers and staff to stay connected to kitchen operations from anywhere. Teams can monitor inventory levels, receive alerts for low stock, and review operational insights directly from their phone, helping them respond quickly to changing conditions throughout the day.' },
+      { tab: 'Desktop',   image: '/img/portfolio/kb-3.jpg', caption: 'The desktop interface serves as the operational hub for managing kitchen systems. It provides a comprehensive view of inventory, usage trends, and forecasting tools that help teams make informed purchasing and preparation decisions. The design prioritizes clarity and speed so managers can quickly understand what’s happening across the kitchen.' },
+      { tab: 'Website',  image: '/img/portfolio/kb-4.jpg', caption: 'The Kitchen Blueprint website communicates the platform’s value to restaurant operators, partners, and investors. The experience explains how connected systems—from inventory tracking to predictive insights—help kitchens operate more efficiently while reducing food waste and improving profitability.' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>Kitchen Blueprint is a Cargill-developed digital platform designed to bring transparency, intelligence, and optimization to restaurant back-of-house (BOH) operations. Positioned as the "brain of the kitchen," the platform aggregates operational data to identify cost drivers, reduce waste, surface automation opportunities, and ultimately improve profitability and labor efficiency.</p>
       <p>As design lead, I shaped the product vision, experience strategy, and end-to-end UX, translating complex operational and data-heavy concepts into actionable insights that operators could understand and trust.</p>
@@ -164,7 +188,12 @@ export const projects = [
     featured: false,
     cardColor: '#C45A00',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Nosherie', image: '/img/portfolio/nosh-1.jpg', caption: 'Nosherie explores new ways for people to discover, share, and experience food. Designed as a mobile-first platform, the concept blends product discovery, storytelling, and community interaction to help users find unique food products and brands. The experience focuses on visual browsing, simple interactions, and playful design elements that encourage exploration.' },
+      { tab: 'Mobile Flows',  image: '/img/portfolio/nosh-2.jpg', caption: 'The mobile experience was designed around quick discovery and lightweight interactions. Users can browse featured products, learn about makers, and save items they want to try. The flows prioritize intuitive gestures, clear product storytelling, and fast exploration so users can move naturally between inspiration and action.' },
+      { tab: 'UI Library',   image: '/img/portfolio/nosh-3.jpg', caption: 'To support rapid experimentation, a flexible UI library was created to power the Nosherie product experience. The system includes reusable patterns for product cards, discovery feeds, interactions, and navigation—allowing the team to quickly prototype and evolve new ideas while maintaining visual consistency.' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>Nosherie is a Cargill-owned digital platform and consumer brand designed to help people discover, review, and purchase new snacks and beverages—often before they reach traditional retail. Beyond being a foodie destination, Nosherie serves as a market-testing and innovation channel, allowing Cargill to validate product concepts through direct engagement.</p>
 
@@ -191,12 +220,18 @@ export const projects = [
     intro: "Ordering food digitally sounds simple—but behind the scenes it involves menus, kitchen workflows, payment systems, and operational logistics. I led the experience design for a modern ordering platform that connects these systems together.",
     company: 'Cargill',
     tags: ['Platform', 'Multi-device', 'Payments'],
-    thumbnail: 'https://images.squarespace-cdn.com/content/v1/696555d026578c3e62111bf7/1768942212107-SUUNPQ9AX6N6FPE4DKTO/elomockup%2B1.png',
+    thumbnail: '/img/portfolio/digitalordering-3.jpg',
     industry: 'food-agriculture',
     featured: false,
     cardColor: '#D6533A',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Kiosk', image: '/img/portfolio/digitalordering-1.jpg', caption: 'The kiosk experience enables customers to browse menus, customize orders, and check out quickly without waiting in line. Designed for high-traffic environments, the interface prioritizes clear product imagery, simple navigation, and fast interactions to keep ordering intuitive and efficient.' },
+      { tab: 'Lifestyle',  image: '/img/portfolio/digitalordering-2.jpg', caption: 'Lifestyle imagery and branding were integrated into the ordering experience to create a more engaging, modern restaurant interaction. The design balances appetizing food photography with clear menu structures, helping customers quickly discover items while reinforcing the restaurant’s brand.' },
+      { tab: 'Mobile',   image: '/img/portfolio/digitalordering-3.jpg', caption: 'The mobile ordering experience allows customers to browse menus, customize meals, and place orders from their phone before arriving. The design focuses on quick decision-making and streamlined checkout flows so customers can move seamlessly from browsing to pickup.' },
+      { tab: 'Tablet',  image: '/img/portfolio/digitalordering-4.jpg', caption: 'The tablet interface provides staff and operators with a flexible tool for managing orders and assisting customers. Optimized for quick interactions in busy environments, the design ensures orders can be reviewed, adjusted, or processed with minimal friction.' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>Cargill's Digital Ordering initiative unified Nosherie, Chekt, and Kitchen Blueprint into a single, connected platform that supported the entire ordering lifecycle—from discovery and selection through payment, checkout, fulfillment, and back-of-house intelligence.</p>
       <p>A core requirement was enabling customers to pay and checkout seamlessly across devices while ensuring those transactions flowed cleanly into kitchen execution and operational insight.</p>
@@ -235,7 +270,12 @@ export const projects = [
     featured: false,
     cardColor: '#D4720A',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Morsel', image: '/img/portfolio/morsel-1.jpg', caption: 'Morsel explores a curated approach to food discovery by connecting users with chef-selected meals, local restaurants, and limited-time offerings. The experience blends editorial storytelling with ordering functionality, helping users quickly find high-quality food recommendations while supporting local kitchens and culinary creators.' },
+      { tab: 'User Flows',  image: '/img/portfolio/morsel-2.jpg', caption: 'The user experience was designed around simple discovery and fast decision-making. Flows guide users from browsing curated recommendations to selecting meals, customizing orders, and checking out with minimal friction. The design emphasizes clear navigation and visual food storytelling to make choosing what to eat feel effortless.' },
+      { tab: 'Pickup',   image: '/img/portfolio/morsel-3.jpg', caption: 'The pickup experience focuses on clarity and convenience for both customers and restaurants. After ordering, users receive clear timing and pickup instructions, helping them quickly retrieve meals while minimizing confusion during busy service periods.' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>Morsel was a food ordering platform similar in spirit to HelloFresh—but instead of centralized meal kits, Morsel partnered with local chefs who prepared curated menus using unused commercial kitchen capacity. The platform connected consumers seeking high-quality, chef-driven meals with chefs looking for new revenue streams.</p>
 
@@ -267,7 +307,13 @@ export const projects = [
     featured: false,
     cardColor: '#0F1B2D',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Overview', image: '', caption: '' },
+      { tab: 'Process',  image: '', caption: '' },
+      { tab: 'Design',   image: '', caption: '' },
+      { tab: 'Outcome',  image: '', caption: '' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>Sleep Number's SleepIQ ecosystem combines connected beds, biometric sleep data, and mobile applications to help customers understand and improve their sleep. As a design lead, I was responsible for shaping the end-to-end digital experience across mobile and web, translating complex health and sensor data into intuitive, actionable experiences for millions of users.</p>
 
@@ -300,7 +346,13 @@ export const projects = [
     featured: false,
     cardColor: '#8B1A1A',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Overview', image: '', caption: '' },
+      { tab: 'Process',  image: '', caption: '' },
+      { tab: 'Design',   image: '', caption: '' },
+      { tab: 'Outcome',  image: '', caption: '' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>Unisys is a global IT solutions company serving both government and commercial enterprises. I led the digital experience design initiative focused on simplifying complex service offerings, improving user engagement, and modernizing the company's digital presence to better reflect its forward-thinking capabilities.</p>
       <p>The work spanned research, interaction design, and visual design—translating deep technical subject matter into clear, accessible experiences for diverse audiences.</p>
@@ -319,7 +371,13 @@ export const projects = [
     featured: false,
     cardColor: '#111111',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'img 1', image: '', caption: 'hi hi' },
+      { tab: 'Process',  image: '', caption: '' },
+      { tab: 'Design',   image: '', caption: '' },
+      { tab: 'Outcome',  image: '', caption: '' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>Transmission Music is a collective of Minneapolis DJs who are genuinely obsessed with crafting the perfect party soundtrack. Our philosophy is simple: we let the music do the talking. Forget the gimmicks and the cheesy shtick—we focus entirely on reading the room and matching the right tunes to the vibe, every single time.</p>
       <p>Whether it's an epic wedding, a high-energy corporate bash, or a private celebration, we truly believe the right music is the magic ingredient that elevates your occasion from great to unforgettable. We rely on years of experience and sharp intuition to guarantee a fun, creative, and dynamic atmosphere that keeps the energy high all night long.</p>
@@ -339,7 +397,13 @@ export const projects = [
     featured: false,
     cardColor: '#F0EBE0',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Overview', image: '', caption: '' },
+      { tab: 'Process',  image: '', caption: '' },
+      { tab: 'Design',   image: '', caption: '' },
+      { tab: 'Outcome',  image: '', caption: '' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>Working closely with marketing, brand teams, and engineering, I designed a digital experience that combined rich storytelling with strong merchandising. The work focused on highlighting fragrance collections, guiding customers through product discovery, and building a flexible commerce system that could scale with seasonal campaigns and retail initiatives.</p>
 
@@ -366,7 +430,13 @@ export const projects = [
     featured: false,
     cardColor: '#1B3A2D',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Overview', image: '', caption: '' },
+      { tab: 'Process',  image: '', caption: '' },
+      { tab: 'Design',   image: '', caption: '' },
+      { tab: 'Outcome',  image: '', caption: '' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>The platform brought together pricing, contract management, market data, and risk insights into a single operational workspace. The goal was to reduce friction for traders while preserving the depth of data required for complex financial decisions.</p>
 
@@ -393,7 +463,13 @@ export const projects = [
     featured: false,
     cardColor: '#2d9398',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Overview', image: '', caption: '' },
+      { tab: 'Process',  image: '', caption: '' },
+      { tab: 'Design',   image: '', caption: '' },
+      { tab: 'Outcome',  image: '', caption: '' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>The project involved designing a mobile app that complemented existing print brochures and product documentation—giving industrial customers a modern, accessible way to understand and select hearing protection solutions.</p>
 
@@ -420,7 +496,13 @@ export const projects = [
     featured: false,
     cardColor: '#0097d0',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Overview', image: '', caption: '' },
+      { tab: 'Process',  image: '', caption: '' },
+      { tab: 'Design',   image: '', caption: '' },
+      { tab: 'Outcome',  image: '', caption: '' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>The organization needed to improve discoverability across an enormous library of technical content. Working with global stakeholders, I helped shape a digital experience that made IEEE's resources more accessible to engineers, researchers, and members worldwide.</p>
 
@@ -447,7 +529,13 @@ export const projects = [
     featured: false,
     cardColor: '#2c4e6a',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Overview', image: '', caption: '' },
+      { tab: 'Process',  image: '', caption: '' },
+      { tab: 'Design',   image: '', caption: '' },
+      { tab: 'Outcome',  image: '', caption: '' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>The company wanted a unified experience that allowed customers to easily manage accounts, pay bills, and access services—regardless of which legacy system their area originally operated on.</p>
 
@@ -474,7 +562,13 @@ export const projects = [
     featured: false,
     cardColor: '#98819e',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Overview', image: '', caption: '' },
+      { tab: 'Process',  image: '', caption: '' },
+      { tab: 'Design',   image: '', caption: '' },
+      { tab: 'Outcome',  image: '', caption: '' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>The platform supported complex booking workflows, corporate travel policies, and multi-market configurations. The challenge was creating a design system flexible enough to support cobranded experiences across dozens of enterprise clients.</p>
 
@@ -501,7 +595,13 @@ export const projects = [
     featured: false,
     cardColor: '#c41a00',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Overview', image: '', caption: '' },
+      { tab: 'Process',  image: '', caption: '' },
+      { tab: 'Design',   image: '', caption: '' },
+      { tab: 'Outcome',  image: '', caption: '' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>The platform brought together multiple security systems into a unified intelligence dashboard, giving enterprise IT teams a single view of threats, anomalies, and security posture across their organization.</p>
 
@@ -528,7 +628,13 @@ export const projects = [
     featured: false,
     cardColor: '#466160',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Overview', image: '', caption: '' },
+      { tab: 'Process',  image: '', caption: '' },
+      { tab: 'Design',   image: '', caption: '' },
+      { tab: 'Outcome',  image: '', caption: '' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>Our goal was to create a digital presence that showcased the agency's storytelling capabilities—combining cinematic video, editorial writing, and UX to create an experience that felt as crafted as the work itself.</p>
 
@@ -555,7 +661,13 @@ export const projects = [
     featured: false,
     cardColor: '#0c1e2d',
     caseStudyUrl: null,
-    content: `
+    showcase: [
+      { tab: 'Overview', image: '', caption: '' },
+      { tab: 'Process',  image: '', caption: '' },
+      { tab: 'Design',   image: '', caption: '' },
+      { tab: 'Outcome',  image: '', caption: '' },
+    ],
+        content: `
       <h2>Overview</h2>
       <p>The product allowed people to connect devices, automate their homes, and manage smart environments from a single mobile interface. As the IoT category was still maturing, the design challenge was making a technically complex platform feel simple and trustworthy.</p>
 
