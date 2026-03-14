@@ -1,26 +1,10 @@
 import { state, SHOWS, MONTH_NAMES } from './state.js';
-import { countryShort, esc, tourHtml, supportPillsHtml } from './data.js';
+import { countryShort, esc, tourHtml, supportPillsHtml, setlistLinkHtml } from './data.js';
 import { pushRoute, replaceRoute } from './router.js';
 import { closeOnThisDay } from './on-this-day.js';
 
 const MN = MONTH_NAMES;
 
-const SETLIST_COUNTRY = {
-  'US': 'us', 'UK': 'gb', 'IE': 'ie', 'DE': 'de',
-  'Scotland': 'gb', 'England': 'gb', 'Wales': 'gb', 'Northern Ireland': 'gb',
-  'Ireland': 'ie', 'Germany': 'de', 'Sweden': 'se', 'Norway': 'no', 'Canada': 'ca',
-};
-
-function setlistUrl(s) {
-  const [yr, mo, dy] = s.date.split('-');
-  const params = new URLSearchParams({ query: s.artist, year: yr });
-  const cc = SETLIST_COUNTRY[s.country];
-  if (cc) params.set('country', cc);
-  // Strip US state suffix (e.g. "Minneapolis, MN" → "Minneapolis") for better city matching
-  const city = s.city.replace(/,\s*[A-Z]{2}$/, '');
-  params.set('cityName', city);
-  return `https://www.setlist.fm/search?${params.toString()}`;
-}
 
 export function renderShows() {
   updateYearNav();
@@ -61,7 +45,6 @@ export function renderShows() {
     const ve = esc(s.venue).replace(/"/g, '&quot;');
     const ce = esc(s.city).replace(/"/g, '&quot;');
     const pills = supportPillsHtml(s.support);
-    const sUrl = setlistUrl(s);
     return `<div class="show-card" style="animation-delay:${idx * 40}ms">
       <div class="show-day">
         <span class="show-day-month">${MN[parseInt(mo)-1].slice(0,3)}</span>
@@ -71,9 +54,7 @@ export function renderShows() {
       <div class="show-artist-col">
         <div class="show-artist-row">
           <div class="show-artist show-link" data-tt="artist" data-name="${ae}" data-nav="artist">${esc(s.artist)}</div>
-          <a class="show-setlist-link" href="${sUrl}" target="_blank" rel="noopener" title="View setlist on setlist.fm" aria-label="View setlist for ${ae} on setlist.fm">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          </a>
+          ${setlistLinkHtml(s)}
         </div>
         ${tourHtml(s.tour)}
         ${pills ? `<div class="show-support">${pills}</div>` : ''}

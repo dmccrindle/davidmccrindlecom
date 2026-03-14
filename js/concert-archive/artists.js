@@ -1,5 +1,5 @@
 import { state, SHOWS, MONTH_NAMES, LOGO_URL } from './state.js';
-import { esc, countryShort } from './data.js';
+import { esc, countryShort, setlistLinkHtml } from './data.js';
 import { getMap, updateMapMarkers, flyToCity } from './map.js';
 import { loadAccordionImage, wikiCache, fetchWikiImage } from './api.js';
 import { pushRoute, replaceRoute } from './router.js';
@@ -107,9 +107,12 @@ export function renderArtists(animate) {
               <span class="show-day-num">${parseInt(dy)}</span>
               <span class="show-day-year">${yr}</span>
             </div>
-            <div class="show-venue-col">
-              <div class="show-venue">${esc(s.venue)}</div>
-              <div class="show-location">${esc(loc)}</div>
+            <div class="show-artist-col">
+              <div class="show-artist-row">
+                <div class="show-venue" style="font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(s.venue)}</div>
+                ${setlistLinkHtml(s)}
+              </div>
+              <div class="show-location" style="font-size:14px">${esc(loc)}</div>
             </div>
             ${rightText ? `<div class="show-support-right">${esc(rightText)}</div>` : ''}
           </div>`;

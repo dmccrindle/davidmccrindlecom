@@ -1,5 +1,5 @@
 import { state, SHOWS, MONTH_NAMES, LOGO_URL } from './state.js';
-import { countryDisplay, countryShort, esc, tourHtml, supportPillsHtml } from './data.js';
+import { countryDisplay, countryShort, esc, tourHtml, supportPillsHtml, setlistLinkHtml } from './data.js';
 import { flyToCity, flyToCountry, getMap, updateMapMarkers, clearHighlightedMarkers } from './map.js';
 import { loadAccordionImage, wikiCache, fetchWikiImage } from './api.js';
 import { pushRoute, replaceRoute } from './router.js';
@@ -118,7 +118,10 @@ export function renderPlaces(animate) {
                 <span class="show-day-year">${yr}</span>
               </div>
               <div class="show-artist-col">
-                <div class="show-artist show-link" data-tt="artist" data-name="${ae}" data-nav="artist">${esc(s.artist)}</div>
+                <div class="show-artist-row">
+                  <div class="show-artist show-link" data-tt="artist" data-name="${ae}" data-nav="artist">${esc(s.artist)}</div>
+                  ${setlistLinkHtml(s)}
+                </div>
                 ${tourHtml(s.tour)}
                 ${pills ? `<div class="show-support">${pills}</div>` : ''}
               </div>
@@ -226,7 +229,10 @@ function renderCityShowsList() {
         <span class="show-day-year">${yr}</span>
       </div>
       <div class="show-artist-col">
-        <div class="show-artist show-link" data-tt="artist" data-name="${ae}" data-nav="artist">${esc(s.artist)}</div>
+        <div class="show-artist-row">
+          <div class="show-artist show-link" data-tt="artist" data-name="${ae}" data-nav="artist">${esc(s.artist)}</div>
+          ${setlistLinkHtml(s)}
+        </div>
         ${tourHtml(s.tour)}
         ${pills ? `<div class="show-support">${pills}</div>` : ''}
       </div>

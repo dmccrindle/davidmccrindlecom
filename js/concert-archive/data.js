@@ -92,6 +92,29 @@ export function esc(s) {
   return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+// Setlist.fm link helpers
+const SETLIST_COUNTRY = {
+  'US': 'us', 'UK': 'gb', 'IE': 'ie', 'DE': 'de',
+  'Scotland': 'gb', 'England': 'gb', 'Wales': 'gb', 'Northern Ireland': 'gb',
+  'Ireland': 'ie', 'Germany': 'de', 'Sweden': 'se', 'Norway': 'no', 'Canada': 'ca',
+};
+
+export function setlistUrl(s) {
+  const [yr] = s.date.split('-');
+  const params = new URLSearchParams({ query: s.artist, year: yr });
+  const cc = SETLIST_COUNTRY[s.country];
+  if (cc) params.set('country', cc);
+  params.set('cityName', s.city.replace(/,\s*[A-Z]{2}$/, ''));
+  return `https://www.setlist.fm/search?${params.toString()}`;
+}
+
+const SETLIST_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+
+export function setlistLinkHtml(s) {
+  const ae = esc(s.artist).replace(/"/g, '&quot;');
+  return `<a class="show-setlist-link" href="${setlistUrl(s)}" target="_blank" rel="noopener" title="View setlist on setlist.fm" aria-label="View setlist for ${ae} on setlist.fm">${SETLIST_SVG}</a>`;
+}
+
 // CSV parser
 function parseCSVLine(line) {
   const r = [];
