@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /experience/portfolio/
+Disallow: /login/
+Disallow: /cms/
+
+Sitemap: https://davidmccrindle.com/sitemap.xml
