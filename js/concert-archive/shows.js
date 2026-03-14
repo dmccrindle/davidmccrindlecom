@@ -48,6 +48,12 @@ export function renderShows() {
     return;
   }
 
+  // Collapse On This Day when user scrolls the list
+  if (!c._otdScrollBound) {
+    c.closest('.list-scroll')?.addEventListener('scroll', () => closeOnThisDay(), { passive: true });
+    c._otdScrollBound = true;
+  }
+
   c.innerHTML = shows.map((s, idx) => {
     const [yr, mo, dy] = s.date.split('-');
     const cDisplay = countryShort(s.country);
