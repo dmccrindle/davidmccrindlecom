@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Good Vibes: AI Apps & Projects | David McCrindle</title>
+  <meta name="description" content="David McCrindle builds AI-powered apps spanning design, product, and engineering. See what's shipped: Pop Quiz Music, Pop Quiz Knockout, and Concert Archive.">
+  <meta property="og:title" content="Good Vibes: AI Apps & Projects | David McCrindle">
+  <meta property="og:description" content="David McCrindle builds AI-powered apps spanning design, product, and engineering. See what's shipped: Pop Quiz Music, Pop Quiz Knockout, and Concert Archive.">
+  <meta property="og:image" content="https://davidmccrindle.com/img/portfolio/david-mccrindle.jpg">
+  <meta property="og:url" content="https://davidmccrindle.com/apps/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://davidmccrindle.com/apps/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Good Vibes: AI Apps & Projects",
+    "description": "AI-powered apps built by David McCrindle spanning design, product, and engineering.",
+    "url": "https://davidmccrindle.com/apps/",
+    "author": { "@type": "Person", "name": "David McCrindle", "url": "https://davidmccrindle.com" },
+    "hasPart": [
+      { "@type": "SoftwareApplication", "name": "Pop Quiz Music", "url": "https://popquizparty.com", "applicationCategory": "GameApplication", "operatingSystem": "iOS" },
+      { "@type": "SoftwareApplication", "name": "Pop Quiz Knockout", "applicationCategory": "GameApplication", "operatingSystem": "iOS, macOS, tvOS" },
+      { "@type": "WebApplication", "name": "Concert Archive", "url": "https://davidmccrindle.com/concert-archive/", "applicationCategory": "EntertainmentApplication" }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { width: 100%; background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; touch-action: manipulation; }
+    button { border: none; cursor: pointer; font-family: 'Inter', sans-serif; touch-action: manipulation; }
+
+    /* ── Nav ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center;
+      padding: 25px 40px; height: 106px;
+      transition: background 0.3s, backdrop-filter 0.3s, height 0.3s, padding 0.3s;
+    }
+    #navbar.scrolled { background: rgba(10,10,10,0.92); backdrop-filter: blur(20px); height: 72px; padding: 18px 40px; }
+    .nav-logo-wrap { display: flex; align-items: center; gap: 14px; flex-shrink: 0; text-decoration: none; }
+    .nav-logo { width: 44px; height: 44px; flex-shrink: 0; display: flex; }
+    .nav-logo svg { width: 100%; height: 100%; }
+    .nav-name { font-size: 18px; font-weight: 700; color: #fff; white-space: nowrap; }
+    .nav-links { flex: 1; display: flex; gap: 40px; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; white-space: nowrap; }
+    .nav-links a { color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .nav-links a.active { color: #fff; text-decoration: underline; text-underline-offset: 6px; }
+    .nav-links a:hover { color: #fff; }
+    .nav-social { display: flex; gap: 18px; align-items: center; }
+    .nav-social a { color: #fff; transition: opacity 0.2s; display: flex; align-items: center; }
+    .nav-social a:hover { opacity: 0.6; }
+    .hamburger { display: none; width: 36px; height: 36px; background: none; flex-direction: column; align-items: center; justify-content: center; gap: 5px; z-index: 120; flex-shrink: 0; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; inset: 0; z-index: 110; background: rgba(0,0,0,0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 32px; font-size: 24px; font-weight: 700; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: #fff; transition: color 0.2s; }
+    .mobile-menu a.active { text-decoration: underline; text-underline-offset: 6px; }
+    .mobile-menu a:hover { color: rgba(255,255,255,0.6); }
+    .mobile-menu-social { display: flex; gap: 24px; margin-top: 16px; }
+    .mobile-menu-social a { color: #fff; display: flex; }
+
+    /* ── Animations ── */
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      position: relative; overflow: hidden;
+      background: radial-gradient(ellipse 90% 80% at 50% 50%, #061a0d 0%, #040c07 45%, #000 100%);
+    }
+
+    /* Center glow blob */
+    .hero-glow {
+      position: absolute; top: 50%; left: 50%;
+      width: 400px; height: 400px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(52,211,153,0.18) 0%, rgba(16,185,129,0.08) 40%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: glowPulse 5s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.8; }
+      50% { transform: translate(-50%,-50%) scale(1.4); opacity: 1; }
+    }
+
+    /* Rings shared base */
+    .hero-rings { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; }
+    .ring {
+      position: absolute; top: 50%; left: 50%;
+      border-radius: 50%;
+      transform: translate(-50%,-50%);
+    }
+
+    /* Static breathing rings — staggered delays ripple outward */
+    .ring-s1 { width: 140px;  height: 140px;  border: 1px solid rgba(134,239,172,0.55); animation: ringBreathe 5s ease-in-out 0s     infinite; }
+    .ring-s2 { width: 270px;  height: 270px;  border: 1px solid rgba(74,222,128,0.38);  animation: ringBreathe 5s ease-in-out 0.5s   infinite; }
+    .ring-s3 { width: 420px;  height: 420px;  border: 1px solid rgba(52,211,153,0.24);  animation: ringBreathe 5s ease-in-out 1.0s   infinite; }
+    .ring-s4 { width: 590px;  height: 590px;  border: 1px solid rgba(22,163,74,0.15);   animation: ringBreathe 5s ease-in-out 1.5s   infinite; }
+    .ring-s5 { width: 780px;  height: 780px;  border: 1px solid rgba(16,185,129,0.09);  animation: ringBreathe 5s ease-in-out 2.0s   infinite; }
+    .ring-s6 { width: 990px;  height: 990px;  border: 1px solid rgba(12,140,90,0.055);  animation: ringBreathe 5s ease-in-out 2.5s   infinite; }
+    .ring-s7 { width: 1230px; height: 1230px; border: 1px solid rgba(8,100,60,0.03);    animation: ringBreathe 5s ease-in-out 3.0s   infinite; }
+
+    @keyframes ringBreathe {
+      0%, 100% { opacity: 1;   transform: translate(-50%,-50%) scale(1); }
+      50%       { opacity: 0.2; transform: translate(-50%,-50%) scale(1.035); }
+    }
+
+    /* Tunnel rings — 6 rings, negative delays so all are mid-flight on load */
+    .ring-r1, .ring-r2, .ring-r3,
+    .ring-r4, .ring-r5, .ring-r6 {
+      width: 140px; height: 140px;
+      border: 1px solid rgba(134,239,172,0.65);
+      animation: ringTunnel 7s linear infinite;
+    }
+    .ring-r1 { animation-delay:  0s; }
+    .ring-r2 { animation-delay: -1.1667s; }
+    .ring-r3 { animation-delay: -2.3333s; }
+    .ring-r4 { animation-delay: -3.5s; }
+    .ring-r5 { animation-delay: -4.6667s; }
+    .ring-r6 { animation-delay: -5.8333s; }
+
+    @keyframes ringTunnel {
+      0%   { transform: translate(-50%,-50%) scale(0.05); opacity: 0; }
+      6%   { opacity: 0.75; }
+      75%  { opacity: 0.35; }
+      100% { transform: translate(-50%,-50%) scale(12); opacity: 0; }
+    }
+
+    /* Hero text layers above rings */
+    .hero-content { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(134,239,172,0.7); margin-bottom: 24px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.7s 0.4s forwards;
+    }
+    .hero-title {
+      font-size: clamp(56px, 7.5vw, 112px); font-weight: 700; line-height: 0.95;
+      letter-spacing: -0.02em;
+      max-width: 900px; margin: 0 auto 32px;
+      opacity: 0; transform: translateY(24px);
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+    .hero-subtitle {
+      font-size: 19px; line-height: 1.75; color: rgba(255,255,255,0.45);
+      max-width: 520px; margin: 0 auto;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.7s 0.85s forwards;
+    }
+
+    /* ── White content ── */
+    .content-wrap { background: #fff; color: #111; position: relative; z-index: 2; }
+    .grid-container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── Fade-up observer ── */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.d1 { transition-delay: 0.1s; }
+    .fade-up.d2 { transition-delay: 0.2s; }
+
+    /* ── Workflow intro section ── */
+    .workflow-section { padding: 100px 0 80px; }
+    .section-label { font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #999; margin-bottom: 16px; }
+    .section-heading { font-size: clamp(30px, 3.5vw, 48px); font-weight: 700; line-height: 1.1; color: #111; margin-bottom: 24px; max-width: 700px; }
+    .section-body { font-size: 17px; line-height: 1.8; color: #444; max-width: 660px; }
+
+    /* ── Process shifts ── */
+    .shifts-section { padding: 0 0 100px; }
+    .shifts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: #e5e5e5; border: 2px solid #e5e5e5; border-radius: 20px; overflow: hidden; }
+    .shift-item { background: #fff; padding: 36px 32px; }
+    .shift-before { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #767676; margin-bottom: 10px; }
+    .shift-arrow { font-size: 18px; color: #111; margin-bottom: 10px; }
+    .shift-after { font-size: 19px; font-weight: 700; color: #111; margin-bottom: 12px; line-height: 1.2; }
+    .shift-desc { font-size: 14px; line-height: 1.7; color: #666; }
+
+    /* ── Projects section ── */
+    .projects-section { padding: 0 0 120px; }
+    .projects-label { font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #999; margin-bottom: 48px; }
+
+    /* ── Project cards ── */
+    .project-card {
+      display: grid; grid-template-columns: 1fr 420px;
+      gap: 0; border: 1px solid #e5e5e5; border-radius: 24px;
+      overflow: hidden; margin-bottom: 24px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover { border-color: #ccc; box-shadow: 0 8px 48px rgba(0,0,0,0.07); }
+    .project-card-content { padding: 56px 56px; display: flex; flex-direction: column; justify-content: center; }
+    .project-tag-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .project-tag {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 100px; border: 1px solid #e5e5e5; color: #777;
+    }
+    .project-tag.live { background: #edfaf4; border-color: #b3ecd2; color: #0a8a52; }
+    .project-tag.coming-soon { background: #fff8ec; border-color: #fde6a8; color: #9a6800; }
+    .project-card-headline { font-size: clamp(26px, 2.5vw, 36px); font-weight: 700; color: #111; line-height: 1.15; margin-bottom: 8px; }
+    .project-card-subhead { font-size: 16px; font-weight: 600; color: #888; margin-bottom: 20px; }
+    .project-card-body { font-size: 15px; line-height: 1.8; color: #555; margin-bottom: 32px; flex: 1; }
+    .project-card-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 15px; font-weight: 700; color: #fff;
+      background: #111; border-radius: 12px; padding: 14px 24px;
+      transition: background 0.2s; align-self: flex-start;
+    }
+    .project-card-cta:hover { background: #333; }
+    .project-card-cta svg { transition: transform 0.2s; }
+    .project-card-cta:hover svg { transform: translateX(3px); }
+    .project-card-cta.disabled {
+      background: #f5f5f5; color: #bbb; cursor: default;
+      pointer-events: none;
+    }
+    .project-card-img {
+      background: #f7f7f7;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 320px; position: relative; overflow: hidden;
+    }
+    .project-card-img-inner {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Pop Quiz Music card accent */
+    .card-pqm .project-card-img { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); }
+    .card-pqk .project-card-img { background: linear-gradient(135deg, #1a1a1a, #2d1f3d); }
+    .card-ca .project-card-img { background: linear-gradient(135deg, #0a0a0a, #1c0e00); }
+
+    /* ── What's Next ── */
+    .whats-next-section { padding: 100px 0; background: #0a0a0a; }
+    .whats-next-section .grid-container { color: #fff; }
+    .whats-next-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .whats-next-label { font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 16px; }
+    .whats-next-heading { font-size: clamp(32px, 4vw, 52px); font-weight: 700; line-height: 1.1; color: #fff; margin-bottom: 20px; }
+    .whats-next-body { font-size: 17px; line-height: 1.8; color: rgba(255,255,255,0.5); margin-bottom: 36px; }
+    .whats-next-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 15px; font-weight: 700;
+      padding: 14px 28px; border-radius: 12px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .whats-next-cta.primary { background: #fff; color: #000; }
+    .whats-next-cta.primary:hover { background: rgba(255,255,255,0.88); }
+    .whats-next-cta svg { transition: transform 0.2s; }
+    .whats-next-cta:hover svg { transform: translateX(3px); }
+    .whats-next-items { display: flex; flex-direction: column; gap: 0; }
+    .whats-next-item {
+      padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: flex-start; gap: 20px;
+    }
+    .whats-next-item:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+    .whats-next-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(134,239,172,0.7); flex-shrink: 0; margin-top: 7px; }
+    .whats-next-item-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .whats-next-item-body { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.45); }
+    @media (max-width: 768px) {
+      .whats-next-inner { grid-template-columns: 1fr; gap: 48px; }
+      .whats-next-section { padding: 60px 0; }
+    }
+
+    /* ── Footer ── */
+    .site-footer { border-top: 1px solid #e5e5e5; padding: 40px 0; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-copy { font-size: 14px; color: #999; }
+    .footer-right { display: flex; align-items: center; gap: 40px; }
+    .footer-links { display: flex; gap: 32px; font-size: 14px; font-weight: 600; color: #111; }
+    .footer-links a { transition: color 0.2s; }
+    .footer-links a:hover { color: #999; }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { color: #111; display: flex; transition: opacity 0.2s; }
+    .footer-social a:hover { opacity: 0.5; }
+
+    /* ── Focus visible ── */
+    :focus-visible {
+      outline: 2px solid rgba(134,239,172,0.9);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ── Reduced motion — hide decorative animations, show content immediately ── */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-rings, .hero-glow { display: none; }
+      .hero-eyebrow, .hero-title, .hero-subtitle { opacity: 1; transform: none; animation: none; }
+      .fade-up { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 960px) {
+      .project-card { grid-template-columns: 1fr; }
+      .project-card-img { min-height: 240px; }
+      .project-card-content { padding: 36px 32px; }
+      .shifts-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links, .nav-social { display: none; }
+      .hamburger { display: flex; margin-left: auto; }
+      #navbar { padding: 20px 24px; height: 72px; }
+      .grid-container { padding: 0 20px; }
+      .hero { padding: 100px 24px 60px; }
+      .workflow-section { padding: 60px 0 48px; }
+      .shifts-section, .projects-section { padding-bottom: 60px; }
+      .project-card-content { padding: 28px 24px; }
+      .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
+      .footer-right { flex-direction: column; gap: 20px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar" aria-label="Main navigation">
+    <a class="nav-logo-wrap" href="/">
+      <div class="nav-logo">
+        <svg viewBox="0 0 113 113" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M56.5 0C25.2862 0 0 25.2862 0 56.5C0 87.7138 25.2862 113 56.5 113C87.7138 113 113 87.7138 113 56.5C113 25.2862 87.7138 0 56.5 0ZM88.9143 88.9143H67.4173L88.8018 67.5299V88.9143H88.9143ZM88.9143 64.3972L64.3972 88.9143H45.9203L88.9143 45.9203V64.3972ZM88.9143 42.7877L42.7877 88.9143H24.0857L88.8018 24.0857V42.7689H88.9143V42.7877Z" fill="white"/>
+        </svg>
+      </div>
+      <span class="nav-name">David McCrindle</span>
+    </a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/experience/">Experience</a>
+      <a href="/apps/" class="active">Vibin'</a>
+      <a href="/concert-archive/">Concert Archive</a>
+      <a href="/say-hi/">Say "Hi"</a>
+    </div>
+    <div class="nav-social">
+      <a href="https://www.linkedin.com/in/davidmccrindle/" aria-label="LinkedIn" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/davidmccrindle/" aria-label="Instagram" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <a href="/" onclick="toggleMobileMenu()">Home</a>
+    <a href="/experience/" onclick="toggleMobileMenu()">Experience</a>
+    <a href="/apps/" class="active" onclick="toggleMobileMenu()">Vibin'</a>
+    <a href="/concert-archive/" onclick="toggleMobileMenu()">Concert Archive</a>
+    <a href="/say-hi/" onclick="toggleMobileMenu()">Say "Hi"</a>
+    <div class="mobile-menu-social">
+      <a href="https://www.linkedin.com/in/davidmccrindle/" aria-label="LinkedIn" target="_blank" rel="noopener">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/davidmccrindle/" aria-label="Instagram" target="_blank" rel="noopener">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <!-- Rings -->
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="hero-rings" aria-hidden="true">
+      <div class="ring ring-r1"></div>
+      <div class="ring ring-r2"></div>
+      <div class="ring ring-r3"></div>
+      <div class="ring ring-r4"></div>
+      <div class="ring ring-r5"></div>
+      <div class="ring ring-r6"></div>
+      <div class="ring ring-s1"></div>
+      <div class="ring ring-s2"></div>
+      <div class="ring ring-s3"></div>
+      <div class="ring ring-s4"></div>
+      <div class="ring ring-s5"></div>
+      <div class="ring ring-s6"></div>
+      <div class="ring ring-s7"></div>
+    </div>
+    <!-- Text -->
+    <div class="hero-content">
+      <div class="hero-eyebrow">Design &times; Product &times; Engineering</div>
+      <h1 class="hero-title">Good Vibes</h1>
+      <p class="hero-subtitle">Twenty years across design, product management, and engineering, and AI finally let me use all three at once.</p>
+    </div>
+  </section>
+
+  <!-- WHITE CONTENT -->
+  <div class="content-wrap">
+
+    <!-- WORKFLOW INTRO -->
+    <section class="workflow-section">
+      <div class="grid-container">
+        <div class="fade-up">
+          <div class="section-label">The shift</div>
+          <h2 class="section-heading">Designer. Product manager. Engineer. Turns out, that's a useful combination.</h2>
+          <p class="section-body">Over twenty years I've led design, owned product roadmaps, and worked closely enough with engineering teams to write a ticket, review a PR, and argue about architecture with conviction. Those three perspectives rarely live in the same person, and for most of my career, I still needed a team to actually ship. AI changed that. Now I can take an idea through design, spec it like a PM, and build it myself. The whole product loop, closed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS SHIFTS -->
+    <section class="shifts-section">
+      <div class="grid-container">
+        <div class="section-label fade-up">What's changed</div>
+        <div class="shifts-grid fade-up d1">
+          <div class="shift-item">
+            <div class="shift-before">Before</div>
+            <div class="shift-before" style="color:#bbb; font-size:11px; margin-bottom:6px;">Prototyping took days and usually needed dev help</div>
+            <div class="shift-arrow">↓</div>
+            <div class="shift-after">Prototypes exist by end of day</div>
+            <p class="shift-desc">What used to require a handoff, a backlog ticket, and a sprint now happens in an afternoon. Idea velocity is a different game entirely.</p>
+          </div>
+          <div class="shift-item">
+            <div class="shift-before">Before</div>
+            <div class="shift-before" style="color:#bbb; font-size:11px; margin-bottom:6px;">Side projects stalled at "I'd need to code this"</div>
+            <div class="shift-arrow">↓</div>
+            <div class="shift-after">0→1 is genuinely within reach</div>
+            <p class="shift-desc">I shipped two real working apps in the time it used to take to spec one. The barrier between idea and product has collapsed.</p>
+          </div>
+          <div class="shift-item">
+            <div class="shift-before">Before</div>
+            <div class="shift-before" style="color:#bbb; font-size:11px; margin-bottom:6px;">Design and engineering stayed in their own lanes</div>
+            <div class="shift-arrow">↓</div>
+            <div class="shift-after">I'm the whole lane now</div>
+            <p class="shift-desc">Prompting is product thinking. Writing clear intent, anticipating edge cases, defining "done": those are design skills that translate directly into better output.</p>
+          </div>
+          <div class="shift-item">
+            <div class="shift-before">Before</div>
+            <div class="shift-before" style="color:#bbb; font-size:11px; margin-bottom:6px;">Creative bets required justifying the effort</div>
+            <div class="shift-arrow">↓</div>
+            <div class="shift-after">Low cost to experiment means I experiment more</div>
+            <p class="shift-desc">When iteration is cheap, you try more things. Most don't work. The ones that do are sharper because you found them faster.</p>
+          </div>
+          <div class="shift-item">
+            <div class="shift-before">Before</div>
+            <div class="shift-before" style="color:#bbb; font-size:11px; margin-bottom:6px;">Taste was an output: what you delivered</div>
+            <div class="shift-arrow">↓</div>
+            <div class="shift-after">Taste is the input: how you direct</div>
+            <p class="shift-desc">AI writes functional UI fast. Knowing when it looks wrong, and being able to name exactly why, is where 20 years of design experience pays off.</p>
+          </div>
+          <div class="shift-item">
+            <div class="shift-before">Before</div>
+            <div class="shift-before" style="color:#bbb; font-size:11px; margin-bottom:6px;">Shipping meant managing a team and a roadmap</div>
+            <div class="shift-arrow">↓</div>
+            <div class="shift-after">Shipping means opening Claude Code</div>
+            <p class="shift-desc">The feedback loop is now me, the code, and what I notice when I use the thing. That directness changes how you think about product quality.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="projects-section">
+      <div class="grid-container">
+        <div class="projects-label fade-up">What I've shipped</div>
+
+        <!-- Pop Quiz Music -->
+        <div class="project-card card-pqm fade-up">
+          <div class="project-card-content">
+            <div class="project-tag-row">
+              <span class="project-tag live">Live</span>
+              <span class="project-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="1" width="12" height="22" rx="2"/><circle cx="12" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+                iPhone
+              </span>
+              <span class="project-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="2" width="18" height="20" rx="2"/><circle cx="12" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+                iPad
+              </span>
+              <span class="project-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="4"/><line x1="9" y1="3" x2="9" y2="5"/><line x1="15" y1="3" x2="15" y2="5"/><line x1="9" y1="19" x2="9" y2="21"/><line x1="15" y1="19" x2="15" y2="21"/></svg>
+                Apple Watch
+              </span>
+            </div>
+            <h2 class="project-card-headline">Pop Quiz Music</h2>
+            <p class="project-card-subhead">11 Million Songs. Fastest Voice Wins.</p>
+            <p class="project-card-body">I wanted a music game anyone could pick up without downloading a thing. On iPhone, two players go head to head on a single screen. On iPad, up to four people can play together, no separate devices needed. You build your own lineup by adding any artist from Apple Music, so every game feels personal to the room you're in.</p>
+            <a href="https://popquizparty.com" target="_blank" rel="noopener noreferrer" class="project-card-cta" aria-label="Learn more about Pop Quiz Music (opens in new tab)">
+              Learn More
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </div>
+          <div class="project-card-img">
+            <img src="/img/popquiz-music.jpg" alt="Pop Quiz Music app screenshot" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+        </div>
+
+        <!-- Pop Quiz Knockout -->
+        <div class="project-card card-pqk fade-up d1">
+          <div class="project-card-content">
+            <div class="project-tag-row">
+              <span class="project-tag coming-soon">Coming Soon</span>
+              <span class="project-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="1" width="12" height="22" rx="2"/><circle cx="12" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+                iPhone
+              </span>
+              <span class="project-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="2" width="18" height="20" rx="2"/><circle cx="12" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+                iPad
+              </span>
+              <span class="project-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="22" x2="16" y2="22"/><line x1="12" y1="18" x2="12" y2="22"/></svg>
+                Apple TV
+              </span>
+              <span class="project-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+                macOS
+              </span>
+            </div>
+            <h2 class="project-card-headline">Pop Quiz Knockout</h2>
+            <p class="project-card-subhead">Voice-Powered Last One Standing Trivia</p>
+            <p class="project-card-body">The idea was simple: a trivia game you could play from one device using just your voice. No phones out, no apps to download. Apple TV turned out to be the perfect fit. Players take turns answering open-ended questions out loud, like "name a recurring Simpsons character", and wrong answers knock you out. Last one standing wins.</p>
+            <span class="project-card-cta disabled" role="status" aria-label="Pop Quiz Knockout: coming soon">
+              Coming Soon
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+          </div>
+          <div class="project-card-img">
+            <img src="/img/popquiz-knockout.jpg" alt="Pop Quiz Knockout app screenshot" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+        </div>
+
+        <!-- Concert Archive -->
+        <div class="project-card card-ca fade-up d2">
+          <div class="project-card-content">
+            <div class="project-tag-row">
+              <span class="project-tag live">Live</span>
+              <span class="project-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Desktop
+              </span>
+              <span class="project-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="1" width="12" height="22" rx="2"/><circle cx="12" cy="18" r="1" fill="currentColor" stroke="none"/></svg>
+                Mobile
+              </span>
+              <span class="project-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                CMS
+              </span>
+            </div>
+            <h2 class="project-card-headline">Concert Archive</h2>
+            <p class="project-card-subhead">Every show I've ever attended, mapped and searchable</p>
+            <p class="project-card-body">A personal archive of every concert I've attended, sortable by artist, venue, city, and year, plotted on a live map. Built for purely self-indulgent reasons and turned into a full data visualization app with stats, setlist history, and an interactive globe. The project that started this whole building habit.</p>
+            <a href="/concert-archive/" class="project-card-cta" aria-label="Learn more about Concert Archive">
+              Learn More
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </div>
+          <div class="project-card-img">
+            <img src="/img/concertarchive.jpg" alt="Concert Archive app screenshot" style="width:100%;height:100%;object-fit:cover;display:block;">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WHAT'S NEXT -->
+    <section class="whats-next-section">
+      <div class="grid-container">
+        <div class="whats-next-inner">
+          <div class="fade-up">
+            <div class="whats-next-label">What's Next</div>
+            <h2 class="whats-next-heading">Lots more in the pipeline.</h2>
+            <p class="whats-next-body">There's no shortage of ideas, just not enough hours in the day. New projects are taking shape, and I'm always up for a conversation about what's possible when design, product, and code work in the same hands.</p>
+            <a href="/say-hi/" class="whats-next-cta primary">
+              Get in touch
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </div>
+          <div class="whats-next-items fade-up d1">
+            <div class="whats-next-item">
+              <div class="whats-next-dot"></div>
+              <div>
+                <div class="whats-next-item-title">Pop Quiz Knockout</div>
+                <div class="whats-next-item-body">Real-time head-to-head music trivia. Multiplayer matchmaking, live scoring, and AI-generated questions that change every round.</div>
+              </div>
+            </div>
+            <div class="whats-next-item">
+              <div class="whats-next-dot"></div>
+              <div>
+                <div class="whats-next-item-title">More tools, more experiments</div>
+                <div class="whats-next-item-body">Ideas across productivity, music, and data. Some will ship. Some won't. All of them are worth trying to find out.</div>
+              </div>
+            </div>
+            <div class="whats-next-item">
+              <div class="whats-next-dot"></div>
+              <div>
+                <div class="whats-next-item-title">Want to build something together?</div>
+                <div class="whats-next-item-body">If you're working on something interesting and think a designer who can also think like a PM and build like an engineer might be useful, <a href="/say-hi/" style="color:rgba(134,239,172,0.9); text-decoration:underline; text-underline-offset:3px;">say hi</a>.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-copy">© David McCrindle 2026</div>
+        <div class="footer-right">
+          <nav class="footer-links" aria-label="Footer navigation">
+            <a href="/">Home</a>
+            <a href="/experience/">Experience</a>
+            <a href="/apps/">Vibin'</a>
+            <a href="/concert-archive/">Concert Archive</a>
+            <a href="/say-hi/">Say "Hi"</a>
+          </nav>
+          <div class="footer-social">
+            <a href="https://www.linkedin.com/in/davidmccrindle/" aria-label="LinkedIn" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/davidmccrindle/" aria-label="Instagram" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    window.toggleMobileMenu = function() {
+      const menu = document.getElementById('mobile-menu');
+      const btn = document.getElementById('hamburger');
+      const open = menu.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+      btn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+      if (open) menu.querySelector('a')?.focus();
+    };
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.06, rootMargin: '0px 0px -24px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
