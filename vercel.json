@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/apps/:path+", "destination": "/apps/index.html" },
     { "source": "/concert-archive/:path+", "destination": "/concert-archive/index.html" },
     { "source": "/experience/portfolio/:path+", "destination": "/experience/portfolio/index.html" },
     { "source": "/login/:path+", "destination": "/login/index.html" },
