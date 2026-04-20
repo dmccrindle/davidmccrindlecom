@@ -1,7 +1,7 @@
 {
   "rewrites": [
-    { "source": "/apps", "destination": "/apps/index.html" },
-    { "source": "/apps/", "destination": "/apps/index.html" },
+    { "source": "/vibin", "destination": "/vibin/index.html" },
+    { "source": "/vibin/", "destination": "/vibin/index.html" },
     { "source": "/concert-archive/:path+", "destination": "/concert-archive/index.html" },
     { "source": "/experience/portfolio/:path+", "destination": "/experience/portfolio/index.html" },
     { "source": "/login/:path+", "destination": "/login/index.html" },
