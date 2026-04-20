@@ -95,6 +95,8 @@ function mpaFallback() {
           req.url = '/say-hi/index.html'
         } else if (url.startsWith('/cms')) {
           req.url = '/cms/index.html'
+        } else if (url.startsWith('/vibin')) {
+          req.url = '/vibin/index.html'
         }
 
         next()
@@ -120,6 +122,7 @@ export default defineConfig({
         portfolio: resolve(__dirname, 'experience/portfolio/index.html'),
         login: resolve(__dirname, 'login/index.html'),
         cms: resolve(__dirname, 'cms/index.html'),
+        vibin: resolve(__dirname, 'vibin/index.html'),
       },
     },
   },
