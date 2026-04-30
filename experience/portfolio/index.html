@@ -820,8 +820,13 @@
         );
         const categoryLabel = CATEGORY_LABELS[p.industry] || p.industry || '';
 
+        const clickHandler = p.externalUrl
+          ? `window.open('${p.externalUrl}','_blank','noopener,noreferrer')`
+          : `window.navigateToProject('${p.slug}')`;
+        const ctaLabel = p.ctaLabel || 'Case Study';
+
         return `<div class="proj-card${isLight ? ' light-card' : ''}" style="background:${p.cardColor || '#111'}"
-          data-slug="${p.slug}" onclick="window.navigateToProject('${p.slug}')">
+          data-slug="${p.slug}" onclick="${clickHandler}">
           <div class="proj-card-content">
             <div class="proj-card-top">
               <div class="proj-category">${categoryLabel}</div>
@@ -829,7 +834,7 @@
               <div class="proj-subtitle">${p.subtitle}</div>
             </div>
             <div class="proj-card-bottom">
-              <span class="proj-cta">Case Study
+              <span class="proj-cta">${ctaLabel}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
               </span>
             </div>
@@ -931,7 +936,10 @@
           return;
         }
         const project = projects.find(p => p.slug === seg);
-        if (project) { showCaseStudy(project); return; }
+        if (project) {
+          if (project.externalUrl) { window.location.replace(project.externalUrl); return; }
+          showCaseStudy(project); return;
+        }
       }
       setActiveFilter('featured', false);
       showGallery();
@@ -1005,7 +1013,9 @@
       }).join('');
 
       buildShowcase(project.showcase || []);
-      buildNextSection(projects[projects.findIndex(p => p.slug === project.slug) + 1] || null);
+      const currentIdx = projects.findIndex(p => p.slug === project.slug);
+      const nextProject = projects.slice(currentIdx + 1).find(p => !p.externalUrl) || null;
+      buildNextSection(nextProject);
 
       window.scrollTo(0, 0);
       const leadEl = document.querySelector('.cs-lead');

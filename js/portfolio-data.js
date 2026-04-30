@@ -96,6 +96,20 @@ export const projects = [
     `
   },
   {
+    slug: 'popquiz',
+    title: 'Pop Quiz Music',
+    gridTitle: 'Pop Quiz Music',
+    subtitle: "A multiplayer music trivia game for iPhone and iPad, powered by Apple Music. Two players go head to head on iPhone, up to four on iPad, and any artist from Apple Music can be added to the game. I designed, built, and shipped it end to end as a self-directed exploration of AI-augmented product work.",
+    company: 'Independent',
+    tags: ['iOS', 'Multiplayer', 'Apple Music'],
+    thumbnail: '/img/popquiz-music.jpg',
+    industry: 'media-entertainment',
+    featured: true,
+    cardColor: '#0f0c29',
+    externalUrl: 'https://popquizparty.com',
+    ctaLabel: 'Visit Site',
+  },
+  {
     slug: 'chekt',
     title: 'Chekt',
     gridTitle: 'Chekt Food Lockers',
