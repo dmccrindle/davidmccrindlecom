@@ -106,8 +106,8 @@ export const projects = [
     industry: 'media-entertainment',
     featured: true,
     cardColor: '#0f0c29',
-    externalUrl: 'https://popquizparty.com',
-    ctaLabel: 'Visit Site',
+    externalUrl: 'https://apps.apple.com/us/app/pop-quiz-music/id6760779842',
+    ctaLabel: 'Download',
   },
   {
     slug: 'chekt',
