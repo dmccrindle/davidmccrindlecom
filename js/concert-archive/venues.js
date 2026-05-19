@@ -109,10 +109,11 @@ export function renderVenues(animate) {
   if (featuredVenues) requestAnimationFrame(() => loadFeaturedImages(venuesList));
 }
 
-export function toggleVenue(v) {
+export function toggleVenue(v, opts) {
+  const skipFly = opts && opts.skipFly;
   const wasExpanded = state.expandedVenue === v;
   state.expandedVenue = wasExpanded ? null : v;
-  if (!wasExpanded) {
+  if (!wasExpanded && !skipFly) {
     const show = SHOWS.find(s => s.venue === v);
     if (show) flyToCity(show.city);
   }

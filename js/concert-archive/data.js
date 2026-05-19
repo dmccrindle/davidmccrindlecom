@@ -1,10 +1,12 @@
 import { state, SHOWS, setSHOWS } from './state.js';
+import { loadVenueCoords, getVenueCoords, queueGeocode } from './venue-geocode.js';
 
 // City coordinates
 export const CITY_COORDS = {
   "Minneapolis, MN": [44.9778, -93.2650], "Minneapolis MN": [44.9778, -93.2650],
   "St Paul, MN": [44.9537, -93.0900], "St. Paul, MN": [44.9537, -93.0900], "Apple Valley, MN": [44.7319, -93.2177],
   "Maplewood MN": [44.9530, -93.0252], "Maplewood, MN": [44.9530, -93.0252],
+  "Prior Lake, MN": [44.7133, -93.4225],
   "Pasedena, CA": [34.1478, -118.1445], "Los Angeles, CA": [34.0522, -118.2437],
   "Los Angeles CA": [34.0522, -118.2437], "Los Angeles": [34.0522, -118.2437],
   "San Francisco, CA": [37.7749, -122.4194], "San Francisco CA": [37.7749, -122.4194],
@@ -140,6 +142,7 @@ const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/1gxpotmHLzFGaP7Gh
 // Fetch and parse CSV data
 export async function parseData() {
   try {
+    await loadVenueCoords();
     let response = await fetch(SHEETS_CSV_URL).catch(() => null);
     if (!response || !response.ok) response = await fetch('/data/concerts.csv');
     const text = await response.text();
@@ -168,8 +171,11 @@ export async function parseData() {
       const dp = rawDate.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
       const date = dp ? `${dp[3]}-${dp[1].padStart(2, '0')}-${dp[2].padStart(2, '0')}` : rawDate;
 
-      // Geocode
-      const coords = CITY_COORDS[city] || [0, 0];
+      // Prefer venue-level coords, fall back to city; queue uncached venues for background geocoding
+      const venueCoords = getVenueCoords(venue, city, country);
+      const coords = venueCoords || CITY_COORDS[city] || [0, 0];
+      if (!venueCoords && venue) queueGeocode(venue, city, country);
+
       shows.push({
         date,
         artist,
@@ -191,6 +197,20 @@ export async function parseData() {
     console.error('Error loading concert data:', error);
     return [];
   }
+}
+
+// Refresh SHOWS lat/lng from the venue cache (called after background geocoding completes)
+export function applyGeocodedCoords() {
+  let updated = 0;
+  for (const s of SHOWS) {
+    const c = getVenueCoords(s.venue, s.city, s.country);
+    if (c && (s.lat !== c[0] || s.lng !== c[1])) {
+      s.lat = c[0];
+      s.lng = c[1];
+      updated++;
+    }
+  }
+  return updated;
 }
 
 // Show card shared utilities

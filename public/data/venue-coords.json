@@ -1,0 +1,599 @@
+{
+  "irvine beach park|irvine|scotland": [
+    55.6032815,
+    -4.6855251
+  ],
+  "grand hall|ayr|scotland": null,
+  "barrowland ballroom|glasgow|scotland": [
+    55.855084,
+    -4.2367353
+  ],
+  "t in the park|balado|scotland": null,
+  "barrowland ballroom|glasgow|uk": [
+    55.855084,
+    -4.2367353
+  ],
+  "secc|glasgow|scotland": [
+    55.8610731,
+    -4.2887669
+  ],
+  "g2|glasgow|scotland": [
+    55.8619579,
+    -4.2601914
+  ],
+  "the garage|glasgow|scotland": [
+    55.8661693,
+    -4.2688003
+  ],
+  "liquid rooms|edinburgh|scotland": null,
+  "caird hall|dundee|scotland": [
+    56.4599834,
+    -2.9685566
+  ],
+  "music hall|aberdeen|scotland": [
+    57.1453568,
+    -2.1050564
+  ],
+  "academy|manchester|england": [
+    53.4812663,
+    -2.1928127
+  ],
+  "shepherds bush empire|london|england": null,
+  "buchanan st|glasgow|scotland": [
+    55.862413,
+    -4.253398
+  ],
+  "corn exchange|edinburgh|scotland": [
+    55.9272393,
+    -3.2480088
+  ],
+  "wembley stadium|london|uk": [
+    51.5560695,
+    -0.2796034
+  ],
+  "glasgow green|glasgow|scotland": [
+    55.8477254,
+    -4.2344144
+  ],
+  "the cathouse|glasgow|scotland": null,
+  "g2|glasgow|uk": [
+    55.8619579,
+    -4.2601914
+  ],
+  "the old fruitmarket|glasgow|uk": null,
+  "arches|glasgow|scotland": [
+    55.9319895,
+    -4.7047362
+  ],
+  "king tut's wah wah hut|glasgow|uk": [
+    55.862618,
+    -4.2649646
+  ],
+  "qmu|glasgow|scotland": null,
+  "13th note café|glasgow|uk": null,
+  "dublin castle|dublin|ireland": [
+    53.3426623,
+    -6.2670042
+  ],
+  "the cathouse|glasgow|uk": null,
+  "usher hall|edinburgh|scotland": [
+    55.9472591,
+    -3.2049304
+  ],
+  "astoria|london|england": [
+    51.4119159,
+    -0.3580411
+  ],
+  "glasgow school of art|glasgow|scotland": [
+    55.8663077,
+    -4.2639001
+  ],
+  "hultsfred|hultsfred|sweden": [
+    57.4867627,
+    15.8466075
+  ],
+  "frognerbadet|oslo|norway": [
+    59.9273231,
+    10.7066694
+  ],
+  "400 bar|minneapolis, mn|us": null,
+  "reading festival|reading|england": null,
+  "king tut's wah wah hut|glasgow|scotland": [
+    55.862618,
+    -4.2649646
+  ],
+  "brixton academy|london|england": [
+    51.4657019,
+    -0.1148726
+  ],
+  "northumbria university|newcastle|england": [
+    54.9787691,
+    -1.6096401
+  ],
+  "roy wilkins auditorium|st. paul, mn|us": [
+    44.9447618,
+    -93.0994119
+  ],
+  "first avenue|minneapolis, mn|us": [
+    44.9782607,
+    -93.2760295
+  ],
+  "empty bottle|chicago, il|us": [
+    41.9004807,
+    -87.6866529
+  ],
+  "cactus club|milwaukee, wi|us": [
+    42.9990304,
+    -87.890202
+  ],
+  "7th street entry|minneapolis, mn|us": [
+    44.9784413,
+    -93.2758168
+  ],
+  "irving plaza|new york city, ny|us": [
+    40.7349099,
+    -73.9882699
+  ],
+  "the quest|minneapolis, mn|us": null,
+  "fine line music cafe|minneapolis, mn|us": null,
+  "octagon|sheffield|england": [
+    53.3806398,
+    -1.4886055
+  ],
+  "town hall|leeds|england": [
+    53.7995964,
+    -1.5491021
+  ],
+  "princes street|edinburgh|scotland": [
+    55.9503534,
+    -3.2066066
+  ],
+  "birmingham academy|birmingham|england": [
+    52.4833267,
+    -1.8873887
+  ],
+  "cardiff university|cardiff|wales": [
+    51.4887426,
+    -3.1795999
+  ],
+  "bristol academy|bristol|wales": null,
+  "rock city|nottingham|england": [
+    52.9560623,
+    -1.1540253
+  ],
+  "norwich uea|norwich|england": null,
+  "camden underworld|london|england": null,
+  "death disco – notting hill arts club|london|england": null,
+  "the garage|london|england": [
+    51.5467543,
+    -0.1039603
+  ],
+  "barfly|london|england": [
+    51.5431079,
+    -0.1492355
+  ],
+  "brighton dome|brighton|england": [
+    50.8236451,
+    -0.1383446
+  ],
+  "the mill|preston|england": [
+    53.7224856,
+    -2.675453
+  ],
+  "mandela hall|belfast|northern ireland": null,
+  "ambassador hall|dublin|ireland": null,
+  "the forum|london|england": [
+    51.5521441,
+    -0.1422038
+  ],
+  "the botanic gardens|glasgow|scotland": [
+    55.8793567,
+    -4.2888811
+  ],
+  "whole music club|minneapolis, mn|us": [
+    44.9726108,
+    -93.2349882
+  ],
+  "little radio warehouse|los angeles, ca|us": null,
+  "brick by brick|san diego, ca|us": [
+    32.7686231,
+    -117.2011119
+  ],
+  "henry fonda theatre|los angeles, ca|us": [
+    34.1012784,
+    -118.3232534
+  ],
+  "varsity theater|minneapolis, mn|us": [
+    44.9806127,
+    -93.2368957
+  ],
+  "avalon ballroom|boston, ma|us": null,
+  "webster hall|new york city, ny|us": [
+    40.7317616,
+    -73.9890945
+  ],
+  "mississippi nights|st. louis, mo|us": null,
+  "roseland ballroom|portland, or|us": null,
+  "richard’s on richard’s cabaret|vancouver, bc|canada": null,
+  "showbox showroom & lounge|seattle, wa|us": null,
+  "13th note café|glasgow|scotland": null,
+  "o2 academy|glasgow|uk": [
+    55.8505142,
+    -4.2590887
+  ],
+  "trocaderos|minneapolis, mn|us": null,
+  "canopy club|urbana, il|us": [
+    40.106686,
+    -88.2233975
+  ],
+  "turner hall|milwaukee, wi|us": [
+    43.0438103,
+    -87.9155318
+  ],
+  "high noon saloon|madison, wi|us": [
+    43.0797191,
+    -89.3762962
+  ],
+  "metro|chicago, il|us": [
+    41.949842,
+    -87.6589453
+  ],
+  "star theatre|spokane, wa|us": null,
+  "great american music hall|san francisco, ca|us": [
+    37.7847659,
+    -122.4188356
+  ],
+  "xcel energy center|st paul, mn|us": [
+    44.9447277,
+    -93.1010971
+  ],
+  "orpheum theatre|minneapolis, mn|us": [
+    44.9766405,
+    -93.2780964
+  ],
+  "331 club|minneapolis, mn|us": [
+    45.0011006,
+    -93.2629161
+  ],
+  "target center|minneapolis, mn|us": [
+    44.9795917,
+    -93.2759828
+  ],
+  "vic theater|chicago, il|us": [
+    41.9395215,
+    -87.6537443
+  ],
+  "the uptown bar|minneapolis, mn|us": null,
+  "majestic theater|madison, wi|us": [
+    43.0744156,
+    -89.3808963
+  ],
+  "martyr's|chicago, il|us": [
+    41.7705891,
+    -87.6692176
+  ],
+  "triple rock social club|minneapolis, mn|us": [
+    44.9667591,
+    -93.2470533
+  ],
+  "turf club|st. paul, mn|us": [
+    44.9560579,
+    -93.167968
+  ],
+  "the basilica of saint mary|minneapolis, mn|us": null,
+  "o2 academy|glasgow|scotland": [
+    55.8505142,
+    -4.2590887
+  ],
+  "aragon ballroom|chicago, il|us": [
+    41.9694312,
+    -87.658026
+  ],
+  "cedar cultural center|minneapolis, mn|us": [
+    44.9694317,
+    -93.2476569
+  ],
+  "club epic|minneapolis, mn|us": null,
+  "nomad world pub|minneapolis, mn|us": null,
+  "the bowery|sheffield, england|england": null,
+  "o2 academy newcastle|newcastle, england|england": null,
+  "o2 academy sheffield|sheffield, england|england": [
+    53.381407,
+    -1.4654685
+  ],
+  "the engine shed|lincoln, england|england": [
+    53.2272875,
+    -0.5455222
+  ],
+  "crooked pint|minneapolis, mn|us": [
+    44.9783219,
+    -93.2611917
+  ],
+  "hymie's records|minneapolis, mn|us": null,
+  "amsterdam bar and hall|st paul, mn|us": null,
+  "apple store chicago|chicago, il|us": [
+    41.8894215,
+    -87.6235164
+  ],
+  "pabst theater|milwaukee, wi|us": [
+    43.0411402,
+    -87.9104618
+  ],
+  "unknown houseparty|minneapolis, mn|us": null,
+  "electric fetus|minneapolis, mn|us": [
+    44.9623832,
+    -93.2705033
+  ],
+  "cause|minneapolis, mn|us": null,
+  "hexagon|minneapolis, mn|us": null,
+  "turf club|st paul, mn|us": [
+    44.9560579,
+    -93.167968
+  ],
+  "memory lanes|minneapolis, mn|us": [
+    44.9566821,
+    -93.2351483
+  ],
+  "grumpy's|minneapolis, mn|us": [
+    45.0101306,
+    -93.2617492
+  ],
+  "kitty cat klub|minneapolis, mn|us": null,
+  "weisman art museum|minneapolis, mn|us": [
+    44.9730862,
+    -93.2370455
+  ],
+  "the chamber of secrets|minneapolis, mn|us": null,
+  "stone arch|minneapolis, mn|us": [
+    44.8827829,
+    -93.2121959
+  ],
+  "aster cafe|minneapolis, mn|us": [
+    44.9844954,
+    -93.2550643
+  ],
+  "the cedar cultural center|minneapolis, mn|us": null,
+  "edinburgh festival|edinburgh|scotland": [
+    55.9525428,
+    -3.2078886
+  ],
+  "hell's kitchen|minneapolis, mn|us": [
+    44.9748378,
+    -93.2728307
+  ],
+  "women's club|minneapolis, mn|us": null,
+  "mill city nights|minneapolis, mn|us": null,
+  "andy's garage|minneapolis, mn|us": [
+    44.9490258,
+    -93.2608128
+  ],
+  "carmichael lynch|minneapolis, mn|us": null,
+  "honey bar|minneapolis, mn|us": null,
+  "eagles club|minneapolis, mn|us": null,
+  "memory lanes block party|minneapolis, mn|us": null,
+  "minneapolis institute of art|minneapolis, mn|us": [
+    44.9585946,
+    -93.2741526
+  ],
+  "downtown minneapolis|minneapolis, mn|us": [
+    44.9736154,
+    -93.2574663
+  ],
+  "loring park|minneapolis, mn|us": [
+    44.9696824,
+    -93.2796553
+  ],
+  "lake harriet bandshell|minneapolis, mn|us": [
+    44.9281483,
+    -93.3077314
+  ],
+  "the potterrow|edinburgh|scotland": [
+    55.9453787,
+    -3.187412
+  ],
+  "warsaw|brooklyn, ny|us": [
+    40.7223925,
+    -73.9484696
+  ],
+  "cat's cradle|carrboro, nc|us": [
+    35.9100634,
+    -79.0684411
+  ],
+  "the music farm|charleston, sc|us": null,
+  "skyway theater|minneapolis, mn|us": [
+    44.9773641,
+    -93.2749916
+  ],
+  "the cabooze|minneapolis, mn|us": [
+    44.9633924,
+    -93.2470632
+  ],
+  "turf club|minneapolis, mn|us": null,
+  "icehouse|minneapolis, mn|us": [
+    44.9563475,
+    -93.2780696
+  ],
+  "uppercut boxing|minneapolis, mn|us": null,
+  "target field|minneapolis, mn|us": [
+    44.9816845,
+    -93.2778643
+  ],
+  "staples center|los angeles, ca|us": [
+    34.0429979,
+    -118.2671352
+  ],
+  "tilia block party|minneapolis, mn|us": null,
+  "midway stadium|minneapolis, mn|us": null,
+  "middle east upstairs|boston, ma|us": null,
+  "max schmeling halle|berlin|germany": [
+    52.5447995,
+    13.4044944
+  ],
+  "the academy|dublin|ireland": [
+    53.3444859,
+    -6.250113
+  ],
+  "the old fruitmarket|glasgow|scotland": null,
+  "northeast minneapolis|minneapolis, mn|us": [
+    45.0032475,
+    -93.2289607
+  ],
+  "the joint at hard rock hotel|las vegas, nv|us": null,
+  "hotel utah saloon|san francisco, ca|us": [
+    37.7793831,
+    -122.3981059
+  ],
+  "slim's|san francisco, ca|us": null,
+  "the nether bar|minneapolis, mn|us": null,
+  "myth|maplewood, mn|us": [
+    45.0347206,
+    -93.0249507
+  ],
+  "indeed brewing company|minneapolis, mn|us": null,
+  "hollywood bowl|los angeles, ca|us": [
+    34.1121836,
+    -118.3392774
+  ],
+  "mgm grand garden arena|las vegas, nv|us": [
+    36.1048311,
+    -115.1685689
+  ],
+  "mayslacks|minneapolis, mn|us": null,
+  "marquee theater|tempe, az|us": [
+    33.4369664,
+    -111.9439888
+  ],
+  "the chapel|san francisco ca|us": [
+    37.7604879,
+    -122.421201
+  ],
+  "cannery ballroom|nashville, tn|us": null,
+  "minnesota state fairgrounds|st paul, mn|us": [
+    44.9823728,
+    -93.1732274
+  ],
+  "the marquee theater|tempe, az|us": null,
+  "palace theatre|st paul, mn|us": [
+    44.9471334,
+    -93.0967302
+  ],
+  "the steve allen theater|los angeles, ca|us": null,
+  "harvard & stone|los angeles, ca|us": [
+    34.1018931,
+    -118.3043117
+  ],
+  "hampden park|glasgow|scotland": [
+    55.8260141,
+    -4.2519271
+  ],
+  "us bank stadium|minneapolis, mn|us": [
+    44.9736154,
+    -93.2574663
+  ],
+  "park west|chicago, il|us": [
+    41.9185714,
+    -87.6374384
+  ],
+  "hmv glasgow (argyle)|glasgow|scotland": [
+    55.8576877,
+    -4.2521037
+  ],
+  "medina entertainment center|medina, mn|us": [
+    45.0455355,
+    -93.5344909
+  ],
+  "edinburgh castle|edinburgh|scotland": [
+    55.9486884,
+    -3.2004184
+  ],
+  "mystic lake casino|prior lake, mn|us": [
+    44.730983,
+    -93.4737521
+  ],
+  "the fitzgerald theater|st paul, mn|us": null,
+  "valley bar|phoenix, az|us": null,
+  "minnesota zoo|apple valley, mn|us": [
+    44.7700407,
+    -93.1957165
+  ],
+  "tempe beach park|tempe, az|us": [
+    33.4309227,
+    -111.9418067
+  ],
+  "the fillmore minneapolis|minneapolis, mn|us": [
+    44.9839395,
+    -93.2788889
+  ],
+  "gracie's tax bar|phoenix, az|us": [
+    33.4563608,
+    -112.0822602
+  ],
+  "allegiant stadium|las vegas, nv|us": [
+    36.0907359,
+    -115.1833303
+  ],
+  "the armory|minneapolis, mn|us": null,
+  "acl live at the moody theater|austin, tx|us": null,
+  "green room|minneapolis, mn|us": [
+    44.9490987,
+    -93.2968063
+  ],
+  "state theatre|minneapolis, mn|us": [
+    44.976662,
+    -93.2757131
+  ],
+  "talking stick resort amphitheatre|phoenix, az|us": null,
+  "assai records|glasgow|scotland": null,
+  "the sphere|las vegas, nv|us": [
+    36.1212076,
+    -115.1620674
+  ],
+  "ovo hydro|glasgow|scotland": [
+    55.8601411,
+    -4.2852072
+  ],
+  "bbc scotland studios|glasgow|scotland": null,
+  "falling knife brewing company|minneapolis, mn|us": [
+    44.9983868,
+    -93.2213629
+  ],
+  "insight brewing|minneapolis, mn|us": [
+    44.9918507,
+    -93.2129575
+  ],
+  "harriet island|st paul, mn|us": [
+    44.9353391,
+    -93.0986935
+  ],
+  "green note|london|uk": [
+    51.5372895,
+    -0.1459464
+  ],
+  "dublin castle|london|uk": [
+    51.5375102,
+    -0.1457031
+  ],
+  "surly field|st paul, mn|us": null,
+  "hollywood palladium|los angeles, ca|us": [
+    34.0984937,
+    -118.3242932
+  ],
+  "rose bowl|pasedena, ca|us": null,
+  "brit's pub|minneapolis, mn|us": [
+    44.9726619,
+    -93.2761026
+  ],
+  "parkway theater|minneapolis, mn|us": [
+    44.9156113,
+    -93.2630143
+  ],
+  "cloudland theater|minneapolis, mn|us": [
+    44.9481854,
+    -93.2209074
+  ],
+  "elias metal|minneapolis, mn|us": null,
+  "bauhaus brew labs|minneapolis, mn|us": [
+    45.0007686,
+    -93.2447195
+  ]
+}

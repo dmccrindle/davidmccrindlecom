@@ -3,8 +3,9 @@
 import './analytics.js';
 import '../css/global.css';
 import '../css/concert-archive.css';
-import { parseData, deriveYears } from './concert-archive/data.js';
+import { parseData, deriveYears, applyGeocodedCoords } from './concert-archive/data.js';
 import { initMap, updateMapMarkers } from './concert-archive/map.js';
+import { setOnBatchComplete } from './concert-archive/venue-geocode.js';
 import { render, setView, setSection, openInfo, closeInfo, maybeShowInfo } from './concert-archive/render.js';
 import { renderShows, toggleYearDropdown, selectYear, changeYear, toggleSearch, onSearch, setShowType, focusShowsSearch, toggleShowTypeDropdown } from './concert-archive/shows.js';
 import { renderArtists, setSortMode, toggleArtist } from './concert-archive/artists.js';
@@ -169,6 +170,12 @@ async function init() {
     initMap();
     updateMapMarkers();
   }));
+
+  // When background geocoding finishes a batch, refresh marker positions
+  setOnBatchComplete(() => {
+    applyGeocodedCoords();
+    updateMapMarkers(state._filteredShows || null);
+  });
 }
 
 if (document.readyState === 'loading') {

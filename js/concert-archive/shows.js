@@ -15,7 +15,6 @@ export function renderShows() {
     const yr = parseInt(s.date.split('-')[0]);
     if (yr !== state.year) return false;
     if (state.showType === 'festivals' && !s.festival) return false;
-    if (state.showType === 'concerts' && s.festival) return false;
     if (state.showsSearch) {
       const q = state.showsSearch.toLowerCase();
       return s.artist.toLowerCase().includes(q) ||
@@ -73,7 +72,7 @@ function updateShowTypeLabel() {
   const count = SHOWS.filter(s => {
     const yr = parseInt(s.date.split('-')[0]);
     if (yr !== state.year) return false;
-    return state.showType === 'festivals' ? s.festival : !s.festival;
+    return state.showType === 'festivals' ? s.festival : true;
   }).length;
   const text = state.showType === 'festivals' ? 'Festivals' : 'Concerts';
   lbl.textContent = `${text} (${count})`;
