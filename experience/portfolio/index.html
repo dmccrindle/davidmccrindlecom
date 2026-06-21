@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio — davidmccrindle</title>
+  <title>Portfolio | davidmccrindle</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -415,6 +415,336 @@
     .cs-end a { font-size: 15px; font-weight: 700; color: rgba(0,0,0,0.6); display: inline-flex; align-items: center; gap: 8px; transition: color 0.2s; }
     .cs-end a:hover { color: #000; }
 
+    /* ── Sprout custom case-study layout ─────── */
+    .cs-sprout { background: #fff; color: #111; }
+    .cs-sprout .cs-sprout-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+
+    /* Stats strip */
+    .cs-sprout-stats {
+      background: #fff;
+      padding: 32px 40px 80px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+    .cs-sprout-stats-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+    .cs-sprout-stat { border-top: 1px solid rgba(0,0,0,0.12); padding-top: 20px; }
+    .cs-sprout-stat-num {
+      font-size: clamp(28px, 3.4vw, 44px);
+      font-weight: 800; letter-spacing: -0.02em;
+      line-height: 1.05; color: #111; margin-bottom: 10px;
+    }
+    .cs-sprout-stat-lbl {
+      font-size: 13px; font-weight: 500;
+      color: rgba(0,0,0,0.55); line-height: 1.4;
+    }
+
+    /* Section heading */
+    .cs-sprout-section { padding: 80px 0 88px; }
+    .cs-sprout-section.alt { background: #fafafa; }
+    .cs-sprout-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(0,0,0,0.4); margin-bottom: 14px;
+    }
+    .cs-sprout-h2 {
+      font-size: clamp(28px, 3.6vw, 44px);
+      font-weight: 800; letter-spacing: -0.02em;
+      line-height: 1.1; margin-bottom: 18px; color: #111;
+    }
+    .cs-sprout-intro {
+      font-size: 17px; line-height: 1.65; color: rgba(0,0,0,0.7);
+      max-width: 720px; margin-bottom: 48px;
+    }
+
+    /* Structure triptych */
+    .cs-sprout-triptych {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .cs-sprout-trip-card {
+      background: #fff; border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .cs-sprout-trip-card:hover { box-shadow: 0 14px 40px rgba(0,0,0,0.08); transform: translateY(-3px); }
+    .cs-sprout-trip-img {
+      background: #1f5b32;
+      display: flex; align-items: stretch; justify-content: center;
+      overflow: hidden;
+    }
+    .cs-sprout-trip-img img { width: 100%; height: auto; display: block; }
+    .cs-sprout-trip-body { padding: 26px 26px 30px; }
+    .cs-sprout-trip-title { font-size: 18px; font-weight: 800; margin-bottom: 8px; color: #111; }
+    .cs-sprout-trip-text { font-size: 14px; line-height: 1.65; color: rgba(0,0,0,0.65); }
+
+    /* Ecosystem grid 2x2 */
+    .cs-sprout-eco {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+    .cs-sprout-eco-card {
+      background: #fff; border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px; overflow: hidden;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .cs-sprout-eco-card:hover { box-shadow: 0 14px 40px rgba(0,0,0,0.08); transform: translateY(-3px); }
+    .cs-sprout-eco-img { background: #f4f4f4; aspect-ratio: 16 / 9; overflow: hidden; }
+    .cs-sprout-eco-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-sprout-eco-body { padding: 28px 30px 32px; }
+    .cs-sprout-eco-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(0,0,0,0.4); margin-bottom: 10px;
+    }
+    .cs-sprout-eco-title { font-size: 20px; font-weight: 800; color: #111; margin-bottom: 10px; letter-spacing: -0.01em; }
+    .cs-sprout-eco-text { font-size: 14.5px; line-height: 1.6; color: rgba(0,0,0,0.65); }
+
+    /* AI-first dark feature band */
+    .cs-sprout-ai {
+      background: #0b0d0c;
+      color: #fff; padding: 110px 0 120px; position: relative; overflow: hidden;
+    }
+    .cs-sprout-ai-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(60% 50% at 18% 30%, rgba(105,234,134,0.10) 0%, rgba(0,0,0,0) 70%);
+    }
+    .cs-sprout-ai-inner {
+      position: relative; max-width: 1200px; margin: 0 auto; padding: 0 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .cs-sprout-ai-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(105,234,134,0.85); margin-bottom: 18px;
+    }
+    .cs-sprout-ai-title {
+      font-size: clamp(34px, 4.8vw, 60px); font-weight: 800;
+      letter-spacing: -0.025em; line-height: 1.05; margin-bottom: 22px;
+    }
+    .cs-sprout-ai-text {
+      font-size: 16.5px; line-height: 1.75; color: rgba(255,255,255,0.7);
+      margin-bottom: 18px;
+    }
+    .cs-sprout-ai-text strong { color: #fff; font-weight: 600; }
+    .cs-sprout-ai-pills {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px;
+    }
+    .cs-sprout-ai-pill {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+      padding: 8px 14px; border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.85);
+    }
+    .cs-sprout-ai-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 18px; padding: 36px 36px 40px;
+    }
+    .cs-sprout-ai-card-title {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(105,234,134,0.85); margin-bottom: 16px;
+    }
+    .cs-sprout-ai-card-h {
+      font-size: 26px; font-weight: 800; letter-spacing: -0.02em;
+      line-height: 1.2; margin-bottom: 14px; color: #fff;
+    }
+    .cs-sprout-ai-card-text { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.65); }
+
+    /* UI Checker video block */
+    .cs-sprout-video-wrap {
+      max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    }
+    .cs-sprout-video {
+      border-radius: 18px; overflow: hidden;
+      background: #111; border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.18);
+      aspect-ratio: 16 / 10;
+    }
+    .cs-sprout-video video, .cs-sprout-video img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+
+    /* Adoption / Governance two-col */
+    .cs-sprout-two {
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px;
+    }
+    .cs-sprout-two h3 {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(0,0,0,0.45); margin-bottom: 16px;
+    }
+    .cs-sprout-two p {
+      font-size: 16px; line-height: 1.7; color: rgba(0,0,0,0.7); margin-bottom: 14px;
+    }
+
+    /* Forward look strip */
+    .cs-sprout-forward {
+      background: #fff; padding: 80px 40px 100px;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      text-align: center;
+    }
+    .cs-sprout-forward p {
+      font-size: clamp(20px, 2.2vw, 26px);
+      line-height: 1.45; letter-spacing: -0.015em;
+      max-width: 820px; margin: 0 auto;
+      color: rgba(0,0,0,0.7); font-weight: 500;
+    }
+
+    /* Highlights pills */
+    .cs-sprout-highlights {
+      background: #fff;
+      padding: 0 40px 72px;
+    }
+    .cs-sprout-highlights-inner {
+      max-width: 1200px; margin: 0 auto;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      padding-top: 32px;
+    }
+    .cs-sprout-highlights-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(0,0,0,0.4); margin-bottom: 18px;
+    }
+    .cs-sprout-pills {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .cs-sprout-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 600;
+      padding: 8px 14px; border-radius: 999px;
+      background: #f5f5f5; color: #111;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .cs-sprout-pill svg { width: 14px; height: 14px; color: #2c8f4d; }
+
+    /* Examples carousel */
+    .cs-sprout-examples {
+      padding: 0 0 90px; background: #fff;
+    }
+    .cs-sprout-examples-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .cs-sprout-examples-head {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 24px; margin-bottom: 28px;
+    }
+    .cs-sprout-examples-head h3 {
+      font-size: 22px; font-weight: 800; letter-spacing: -0.01em; color: #111;
+    }
+    .cs-sprout-examples-head p {
+      font-size: 14.5px; color: rgba(0,0,0,0.55); max-width: 480px; line-height: 1.6;
+    }
+    .cs-sprout-examples-arrows { display: flex; gap: 8px; }
+    .cs-sprout-arrow {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: #fff; border: 1px solid rgba(0,0,0,0.12);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.2s, border-color 0.2s;
+    }
+    .cs-sprout-arrow:hover { background: #f6f6f6; border-color: rgba(0,0,0,0.2); }
+    .cs-sprout-arrow svg { width: 16px; height: 16px; color: #111; }
+    .cs-sprout-carousel {
+      display: flex; gap: 20px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      scrollbar-width: none; -ms-overflow-style: none;
+      scroll-behavior: smooth;
+      padding-bottom: 4px;
+    }
+    .cs-sprout-carousel::-webkit-scrollbar { display: none; }
+    .cs-sprout-carousel-item {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      border-radius: 14px; overflow: hidden;
+      background: transparent;
+      display: flex; align-items: center;
+    }
+    .cs-sprout-carousel-item img {
+      width: auto; height: 460px; max-width: none; display: block;
+    }
+
+    /* Gallery marquee */
+    .cs-sprout-marquee {
+      padding: 80px 0; background: #0b0d0c; overflow: hidden;
+      position: relative;
+    }
+    .cs-sprout-marquee-label {
+      max-width: 1200px; margin: 0 auto 36px; padding: 0 40px;
+      color: rgba(255,255,255,0.45);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .cs-sprout-marquee-track {
+      display: flex; gap: 28px;
+      width: max-content;
+      animation: cs-sprout-marquee-scroll 60s linear infinite;
+    }
+    .cs-sprout-marquee-item {
+      flex: 0 0 auto; width: 380px;
+      border-radius: 14px; overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .cs-sprout-marquee-item img {
+      width: 100%; height: auto; display: block;
+    }
+    @keyframes cs-sprout-marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* Design checker with tabs */
+    .cs-sprout-checker { padding: 90px 0; background: #fafafa; }
+    .cs-sprout-checker-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .cs-sprout-checker-tabs {
+      display: inline-flex; gap: 4px; padding: 4px;
+      background: #ececec; border-radius: 999px; margin-bottom: 28px;
+    }
+    .cs-sprout-checker-tab {
+      padding: 9px 18px; border-radius: 999px;
+      font-size: 13.5px; font-weight: 600; color: rgba(0,0,0,0.55);
+      cursor: pointer; transition: background 0.2s, color 0.2s;
+      background: transparent; border: none;
+    }
+    .cs-sprout-checker-tab.active {
+      background: #fff; color: #111;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .cs-sprout-checker-panel { display: none; }
+    .cs-sprout-checker-panel.active { display: block; }
+    .cs-sprout-checker-video {
+      border-radius: 18px; overflow: hidden;
+      background: #111; border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.18);
+      aspect-ratio: 16 / 10;
+    }
+    .cs-sprout-checker-video video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .cs-sprout-checker-caption {
+      margin-top: 16px; font-size: 14px; color: rgba(0,0,0,0.55);
+      line-height: 1.6; max-width: 760px;
+    }
+    .cs-sprout-checker-caption strong { color: #111; font-weight: 700; }
+
+    /* Collaboration section */
+    .cs-sprout-collab-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px; margin-top: 12px;
+    }
+    .cs-sprout-collab-card {
+      background: #fff; border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px; padding: 32px 30px 36px;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .cs-sprout-collab-card:hover { box-shadow: 0 14px 40px rgba(0,0,0,0.08); transform: translateY(-3px); }
+    .cs-sprout-collab-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: #ecf6ee;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .cs-sprout-collab-icon svg { width: 22px; height: 22px; color: #2c8f4d; }
+    .cs-sprout-collab-card h4 { font-size: 18px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.01em; color: #111; }
+    .cs-sprout-collab-card p { font-size: 14.5px; line-height: 1.65; color: rgba(0,0,0,0.65); }
+
     /* ── Mobile ─────────────────────────────── */
     @media (max-width: 900px) {
       #navbar { padding: 12px 20px; height: 60px; }
@@ -444,6 +774,25 @@
       .showcase-tabs { overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; flex-wrap: nowrap; }
       .showcase-tabs::-webkit-scrollbar { display: none; }
       .showcase-tab { padding: 10px 14px; font-size: 13px; flex-shrink: 0; }
+
+      .cs-sprout-stats { padding: 28px 24px 56px; }
+      .cs-sprout-stats-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .cs-sprout .cs-sprout-inner { padding: 0 24px; }
+      .cs-sprout-section { padding: 56px 0 64px; }
+      .cs-sprout-triptych, .cs-sprout-eco, .cs-sprout-two { grid-template-columns: 1fr; gap: 20px; }
+      .cs-sprout-ai { padding: 70px 0 80px; }
+      .cs-sprout-ai-inner { grid-template-columns: 1fr; gap: 40px; padding: 0 24px; }
+      .cs-sprout-video-wrap { padding: 0 24px; }
+      .cs-sprout-forward { padding: 56px 24px 72px; }
+
+      .cs-sprout-highlights { padding: 0 24px 56px; }
+      .cs-sprout-examples-inner { padding: 0 24px; }
+      .cs-sprout-examples-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .cs-sprout-carousel-item { flex: 0 0 88%; }
+      .cs-sprout-checker-inner { padding: 0 24px; }
+      .cs-sprout-marquee-item { width: 260px; }
+      .cs-sprout-marquee-label { padding: 0 24px; }
+      .cs-sprout-collab-grid { grid-template-columns: 1fr; gap: 16px; }
     }
 
     /* ── Industries Filter Bar (Portfolio) ── */
@@ -721,18 +1070,21 @@
     <div class="cs-banner" id="cs-banner"></div>
 
     <!-- White body -->
-    <div class="cs-body-white">
+    <div class="cs-body-white" id="cs-body-white">
       <div class="cs-lead">
         <p id="cs-lead-text"></p>
       </div>
-      <div class="cs-body">
+      <div class="cs-body" id="cs-body">
         <div class="cs-accordion" id="cs-accordion"></div>
         <div class="cs-panel" id="cs-panel"></div>
       </div>
     </div>
 
+    <!-- Custom case-study body (injected for projects with customLayout) -->
+    <div id="cs-custom"></div>
+
     <!-- Image showcase with tabs -->
-    <div class="cs-showcase">
+    <div class="cs-showcase" id="cs-showcase">
       <div class="showcase-inner">
         <div class="showcase-img-wrap">
           <img class="showcase-img" id="showcase-img" src="" alt="">
@@ -949,7 +1301,7 @@
       currentSlug = null;
       document.getElementById('gallery-view').classList.add('active');
       document.getElementById('case-study-view').classList.remove('active');
-      document.title = 'Portfolio — davidmccrindle';
+      document.title = 'Portfolio | davidmccrindle';
 
       navbar.classList.remove('cs-mode');
       navbar.classList.add('gallery-mode');
@@ -971,7 +1323,7 @@
       document.getElementById('cs-company').textContent = CATEGORY_LABELS[project.industry] || project.company || '';
       document.getElementById('cs-title').textContent = project.title;
       document.getElementById('cs-subtitle').textContent = project.subtitle;
-      document.title = project.title + ' — davidmccrindle';
+      document.title = project.title + ' | davidmccrindle';
 
       const banner = document.getElementById('cs-banner');
       if (project.bannerImage) {
@@ -980,6 +1332,23 @@
       } else {
         banner.style.display = 'none';
       }
+
+      // Custom layouts replace the standard accordion + showcase
+      const customEl = document.getElementById('cs-custom');
+      const bodyEl = document.getElementById('cs-body');
+      const showcaseEl = document.getElementById('cs-showcase');
+      if (project.customLayout === 'sprout') {
+        document.getElementById('cs-lead-text').textContent = project.intro || '';
+        customEl.innerHTML = renderSproutLayout();
+        bodyEl.style.display = 'none';
+        showcaseEl.style.display = 'none';
+        buildNextSection(projects.slice(projects.findIndex(p => p.slug === project.slug) + 1).find(p => !p.externalUrl) || null);
+        window.scrollTo(0, 0);
+        return;
+      }
+      customEl.innerHTML = '';
+      bodyEl.style.display = '';
+      showcaseEl.style.display = '';
 
       const { lead, sections } = parseContent(project.content);
       document.getElementById('cs-lead-text').textContent = project.intro || lead;
@@ -1145,6 +1514,292 @@
         history.pushState(null, '', url);
         showGallery();
       }
+    };
+
+    // ── Sprout custom case-study layout ──────────
+    const SPROUT_GALLERY_COUNT = 11;
+    const SPROUT_EXAMPLES = ['color', 'fonts', 'buttons'];
+    const SPROUT_HIGHLIGHTS = [
+      'Code Connect', 'MCP Server', 'AI-First', 'Figma Slots',
+      'Component Descriptions', 'Design Tokens', 'Auto-Layout', 'Variants',
+      'WCAG AA', 'Responsive', 'Tiered Contribution', 'Multi-Brand Ready',
+    ];
+
+    function checkSvg() {
+      return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    }
+
+    function renderSproutLayout() {
+      const pillsHtml = SPROUT_HIGHLIGHTS.map(h => `<span class="cs-sprout-pill">${checkSvg()}${h}</span>`).join('');
+
+      const examplesHtml = SPROUT_EXAMPLES.map(name =>
+        `<div class="cs-sprout-carousel-item"><img src="/sprout/examples/${name}.png" alt="Sprout ${name} example" loading="lazy"></div>`
+      ).join('');
+
+      const galleryItems = Array.from({ length: SPROUT_GALLERY_COUNT }, (_, i) =>
+        `<div class="cs-sprout-marquee-item"><img src="/sprout/gallery/gallery-${i + 1}.png" alt="Sprout in production" loading="lazy"></div>`
+      ).join('');
+      const galleryTrack = galleryItems + galleryItems;
+
+      return `
+      <section class="cs-sprout-stats">
+        <div class="cs-sprout-stats-inner">
+          <div class="cs-sprout-stat">
+            <div class="cs-sprout-stat-num">30+</div>
+            <div class="cs-sprout-stat-lbl">Product teams building on Sprout</div>
+          </div>
+          <div class="cs-sprout-stat">
+            <div class="cs-sprout-stat-num">325k+</div>
+            <div class="cs-sprout-stat-lbl">Component insertions across Cargill</div>
+          </div>
+          <div class="cs-sprout-stat">
+            <div class="cs-sprout-stat-num">3&times; faster</div>
+            <div class="cs-sprout-stat-lbl">To reach the adoption level of our previous system</div>
+          </div>
+          <div class="cs-sprout-stat">
+            <div class="cs-sprout-stat-num">$580k&ndash;$870k</div>
+            <div class="cs-sprout-stat-lbl">Estimated design-phase savings</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-sprout-highlights">
+        <div class="cs-sprout-highlights-inner">
+          <div class="cs-sprout-highlights-label">What's inside</div>
+          <div class="cs-sprout-pills">${pillsHtml}</div>
+        </div>
+      </section>
+
+      <section class="cs-sprout cs-sprout-section">
+        <div class="cs-sprout-inner">
+          <div class="cs-sprout-eyebrow">Structure</div>
+          <h2 class="cs-sprout-h2">Three layers, one system</h2>
+          <p class="cs-sprout-intro">Sprout is organized so teams always know where to look. Foundations hold the tokens, type, and accessibility primitives. Components are the responsive, accessible building blocks. Collections are the opinionated patterns and templates teams reach for first instead of designing from scratch.</p>
+          <div class="cs-sprout-triptych">
+            <div class="cs-sprout-trip-card">
+              <div class="cs-sprout-trip-img"><img src="/sprout/structure/foundations.png" alt="Sprout foundations" loading="lazy"></div>
+              <div class="cs-sprout-trip-body">
+                <div class="cs-sprout-trip-title">Foundations</div>
+                <div class="cs-sprout-trip-text">Color, typography, spacing, motion, and the accessibility primitives every component inherits. The shared vocabulary every product team draws from.</div>
+              </div>
+            </div>
+            <div class="cs-sprout-trip-card">
+              <div class="cs-sprout-trip-img"><img src="/sprout/structure/components.png" alt="Sprout components" loading="lazy"></div>
+              <div class="cs-sprout-trip-body">
+                <div class="cs-sprout-trip-title">Components</div>
+                <div class="cs-sprout-trip-text">A library of responsive, accessible building blocks. Each ships with variants, auto-layout, usage guidance, and code parity via Code Connect, so designers and developers stay aligned by default.</div>
+              </div>
+            </div>
+            <div class="cs-sprout-trip-card">
+              <div class="cs-sprout-trip-img"><img src="/sprout/structure/collections.png" alt="Sprout collections" loading="lazy"></div>
+              <div class="cs-sprout-trip-body">
+                <div class="cs-sprout-trip-title">Collections</div>
+                <div class="cs-sprout-trip-text">Composed patterns and starter templates. The opinionated, vetted starting points teams use to ship faster without reinventing the same screens.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-sprout-examples">
+        <div class="cs-sprout-examples-inner">
+          <div class="cs-sprout-examples-head">
+            <div>
+              <h3>The system, up close</h3>
+              <p>Color tokens, typography stacks, and component variants in the same shape teams see them inside Figma and the docs.</p>
+            </div>
+            <div class="cs-sprout-examples-arrows">
+              <button class="cs-sprout-arrow" onclick="sproutCarouselNav(-1)" aria-label="Previous example">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="cs-sprout-arrow" onclick="sproutCarouselNav(1)" aria-label="Next example">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="cs-sprout-carousel" id="cs-sprout-carousel">${examplesHtml}</div>
+        </div>
+      </section>
+
+      <section class="cs-sprout cs-sprout-section alt">
+        <div class="cs-sprout-inner">
+          <div class="cs-sprout-eyebrow">The ecosystem</div>
+          <h2 class="cs-sprout-h2">Sprout is a platform, not a library</h2>
+          <p class="cs-sprout-intro">A design system earns adoption when it shows up everywhere teams already work, and proves it deserves to be there. Sprout extends from the Figma library into documentation, analytics, validation, and a gallery of real production work.</p>
+          <div class="cs-sprout-eco">
+            <div class="cs-sprout-eco-card">
+              <div class="cs-sprout-eco-img"><img src="/sprout/docs/docs-1.png" alt="Sprout docs" loading="lazy"></div>
+              <div class="cs-sprout-eco-body">
+                <div class="cs-sprout-eco-tag">sprout.cargill.com</div>
+                <div class="cs-sprout-eco-title">Docs</div>
+                <div class="cs-sprout-eco-text">A self-service home with principles, code snippets, and interactive playgrounds so teams can evaluate, adopt, and answer their own questions without involving the Sprout team.</div>
+              </div>
+            </div>
+            <div class="cs-sprout-eco-card">
+              <div class="cs-sprout-eco-img"><img src="/sprout/analytics/analytics-1.png" alt="Sprout Insights analytics" loading="lazy"></div>
+              <div class="cs-sprout-eco-body">
+                <div class="cs-sprout-eco-tag">Sprout Insights</div>
+                <div class="cs-sprout-eco-title">Adoption analytics</div>
+                <div class="cs-sprout-eco-text">Translates raw Figma library data into business-legible metrics: adoption by team, estimated time saved, component health. Leadership sees Sprout's footprint at a glance.</div>
+              </div>
+            </div>
+            <div class="cs-sprout-eco-card">
+              <div class="cs-sprout-eco-img"><img src="/sprout/gallery/gallery-3.png" alt="Sprout in production" loading="lazy"></div>
+              <div class="cs-sprout-eco-body">
+                <div class="cs-sprout-eco-tag">Gallery</div>
+                <div class="cs-sprout-eco-title">Sprout in production</div>
+                <div class="cs-sprout-eco-text">Live Cargill products built on Sprout, across food and agriculture, supply chain operations, internal tooling, and customer-facing apps.</div>
+              </div>
+            </div>
+            <div class="cs-sprout-eco-card">
+              <div class="cs-sprout-eco-img"><img src="/sprout/ui-checker/preview.png" alt="Design Checker"></div>
+              <div class="cs-sprout-eco-body">
+                <div class="cs-sprout-eco-tag">Design Checker</div>
+                <div class="cs-sprout-eco-title">Validation, automated</div>
+                <div class="cs-sprout-eco-text">A tool I built that validates any design against Sprout from a URL, a Figma link, or a screenshot. Compliance feedback scales without scaling the team.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-sprout-marquee">
+        <div class="cs-sprout-marquee-label">In production across Cargill</div>
+        <div class="cs-sprout-marquee-track">${galleryTrack}</div>
+      </section>
+
+      <section class="cs-sprout-ai">
+        <div class="cs-sprout-ai-bg"></div>
+        <div class="cs-sprout-ai-inner">
+          <div>
+            <div class="cs-sprout-ai-eyebrow">AI-first overhaul</div>
+            <h2 class="cs-sprout-ai-title">The system is the assistant.</h2>
+            <p class="cs-sprout-ai-text">We rebuilt Sprout to be <strong>AI-first</strong>. Components, descriptions, accessibility constraints, and brand rules are now machine-legible, so product teams can vibe-code surfaces and trust the UI underneath.</p>
+            <p class="cs-sprout-ai-text">A from-scratch <strong>Sprout MCP server</strong> turns the system itself into the context that agents work from. Agents reach for the right component, query the right token, and ship Sprout-compliant interfaces by default. AI workflows aren't bolted on. Sprout is the source of truth they depend on.</p>
+            <div class="cs-sprout-ai-pills">
+              <span class="cs-sprout-ai-pill">MCP server</span>
+              <span class="cs-sprout-ai-pill">Component descriptions</span>
+              <span class="cs-sprout-ai-pill">Agent-aware tokens</span>
+              <span class="cs-sprout-ai-pill">Pattern selection guidance</span>
+            </div>
+          </div>
+          <div class="cs-sprout-ai-card">
+            <div class="cs-sprout-ai-card-title">Why it matters</div>
+            <div class="cs-sprout-ai-card-h">AI is only as good as the system feeding it.</div>
+            <div class="cs-sprout-ai-card-text">Without a structured, opinionated source of truth, AI-assisted design produces work that drifts from brand, accessibility, and product conventions. Sprout closes that gap so an agent picking a component is as reliable as a designer reaching for one.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-sprout-checker">
+        <div class="cs-sprout-checker-inner">
+          <div class="cs-sprout-eyebrow">In action</div>
+          <h2 class="cs-sprout-h2">Design Checker</h2>
+          <p class="cs-sprout-intro">A side tool I built and ship as part of the Sprout ecosystem. Upload a screenshot, paste a live URL into the website, install the Chrome extension to audit any page in place, or run the Figma plugin to score, and auto-correct, work before it ships. Quality reviews used to be a bottleneck; now they're systematic.</p>
+          <div class="cs-sprout-checker-tabs" role="tablist">
+            <button class="cs-sprout-checker-tab active" data-checker-tab="web" onclick="sproutCheckerTab('web')">Website</button>
+            <button class="cs-sprout-checker-tab" data-checker-tab="chrome" onclick="sproutCheckerTab('chrome')">Chrome extension</button>
+            <button class="cs-sprout-checker-tab" data-checker-tab="figma" onclick="sproutCheckerTab('figma')">Figma plugin</button>
+          </div>
+          <div class="cs-sprout-checker-panel active" data-checker-panel="web">
+            <div class="cs-sprout-checker-video">
+              <video autoplay loop muted playsinline poster="/sprout/ui-checker/preview.png">
+                <source src="/sprout/ui-checker/checker-1.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cs-sprout-checker-caption">Paste a URL or upload a screenshot on the Design Checker site. It scores the work against Sprout's standards and reports back where it aligns and where it drifts.</p>
+          </div>
+          <div class="cs-sprout-checker-panel" data-checker-panel="chrome">
+            <div class="cs-sprout-checker-video">
+              <video loop muted playsinline poster="/sprout/ui-checker/preview.png">
+                <source src="/sprout/ui-checker/checker-2.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cs-sprout-checker-caption">Install the Chrome extension and audit any live page in place. It runs the same scoring without leaving the tab, so engineering and design can validate as they build.</p>
+          </div>
+          <div class="cs-sprout-checker-panel" data-checker-panel="figma">
+            <div class="cs-sprout-checker-video">
+              <video loop muted playsinline poster="/sprout/ui-checker/preview.png">
+                <source src="/sprout/ui-checker/checker-3.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cs-sprout-checker-caption">Inside Figma, the plugin reads the selected frame, flags detached components, off-token color, and pattern mismatches, and <strong>auto-corrects non-compliant files</strong> back to Sprout. Drift gets fixed before it ever reaches code.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-sprout cs-sprout-section">
+        <div class="cs-sprout-inner">
+          <div class="cs-sprout-eyebrow">Collaboration</div>
+          <h2 class="cs-sprout-h2">Sprout is built with the company, not just for it</h2>
+          <p class="cs-sprout-intro">Sprout earns adoption by treating product teams as collaborators, not consumers. They design components, attend office hours, pitch patterns, and show what they've shipped. The system grows because the company grows it.</p>
+          <div class="cs-sprout-collab-grid">
+            <div class="cs-sprout-collab-card">
+              <div class="cs-sprout-collab-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
+              </div>
+              <h4>Anyone can contribute</h4>
+              <p>Any team can design a component and bring it to Sprout. A tiered review model lets vetted work ship fast without bottlenecking on the core team, so the people closest to the problem get their solution into the system that everyone else builds on.</p>
+            </div>
+            <div class="cs-sprout-collab-card">
+              <div class="cs-sprout-collab-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
+              </div>
+              <h4>Weekly office hours</h4>
+              <p>Recurring drop-in sessions where any designer or engineer can ask questions, troubleshoot a layout, or pitch a new pattern. The recurring problems become roadmap inputs, so the system stays close to the work that's actually happening.</p>
+            </div>
+            <div class="cs-sprout-collab-card">
+              <div class="cs-sprout-collab-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="17" x2="12" y2="20"/></svg>
+              </div>
+              <h4>Demos &amp; showcases</h4>
+              <p>Regular demos highlight what teams have built with Sprout and what's new in the library. Adoption stays visible across the company, contributors get a venue to share their work, and quiet wins turn into vocal advocacy.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-sprout cs-sprout-section alt">
+        <div class="cs-sprout-inner">
+          <div class="cs-sprout-two">
+            <div>
+              <h3>Adoption</h3>
+              <p>Sprout went from launch to 30+ active product teams in 14 months, three times the pace of the system it replaced. The growth tracks because Sprout is treated as a product, not a side project: visible, documented, evaluated, and improved every cycle.</p>
+              <p>Measured impact: 325,000+ component insertions across Cargill's portfolio and an estimated $580k to $870k in design-phase time savings against teams building equivalent work from scratch.</p>
+            </div>
+            <div>
+              <h3>Governance</h3>
+              <p>Sprout meets WCAG accessibility standards before components ship. Design-to-code parity is enforced through Figma Code Connect, so tokens, variants, and naming stay aligned across the library and the front-end. A clear ownership and review model keeps the system stable as it scales.</p>
+              <p>My role: I lead the strategy, the team that builds it, and the partnerships across product, engineering, brand, and accessibility that keep Sprout positioned as a strategic platform, not a side library.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-sprout-forward">
+        <p>Sprout's foundation makes the next chapter possible: deeper coverage of Cargill's most complex data surfaces, broader multi-platform reach, and AI-augmented workflows that stay as reliable as the system they draw from.</p>
+      </section>
+      `;
+    }
+
+    window.sproutCarouselNav = function(direction) {
+      const car = document.getElementById('cs-sprout-carousel');
+      if (!car) return;
+      const item = car.querySelector('.cs-sprout-carousel-item');
+      const step = item ? item.getBoundingClientRect().width + 20 : 600;
+      car.scrollBy({ left: direction * step, behavior: 'smooth' });
+    };
+
+    window.sproutCheckerTab = function(name) {
+      document.querySelectorAll('.cs-sprout-checker-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.checkerTab === name);
+      });
+      document.querySelectorAll('.cs-sprout-checker-panel').forEach(p => {
+        const active = p.dataset.checkerPanel === name;
+        p.classList.toggle('active', active);
+        const v = p.querySelector('video');
+        if (v) { if (active) { v.currentTime = 0; v.play().catch(() => {}); } else { v.pause(); } }
+      });
     };
 
     init();

@@ -4,3 +4,7 @@ dist/
 *.local
 .claude/
 .vercel
+
+# Internal Sprout reference docs (kept locally, never shipped)
+public/sprout/*.pdf
+public/sprout/*.md
