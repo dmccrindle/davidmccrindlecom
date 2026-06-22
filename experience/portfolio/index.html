@@ -822,6 +822,80 @@
       overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
     }
 
+    /* "Built for Figma" craft section: Apple-style horizontal media carousel */
+    .cs-sprout-figma { padding: 90px 0 96px; background: #f6f6f6; }
+    .cs-sprout-figma-inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+    .cs-sprout-figma-head { max-width: 720px; margin-bottom: 40px; }
+
+    .cs-sprout-figma-carousel {
+      display: flex; gap: 24px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none; -ms-overflow-style: none;
+      padding-top: 6px; padding-bottom: 4px;
+      padding-left: max(40px, calc((100vw - 1400px) / 2 + 40px));
+      padding-right: 24px;
+      scroll-padding-left: max(40px, calc((100vw - 1400px) / 2 + 40px));
+    }
+    .cs-sprout-figma-carousel::-webkit-scrollbar { display: none; }
+    .cs-sprout-figma-item {
+      flex: 0 0 auto;
+      display: flex; flex-direction: column;
+      scroll-snap-align: start;
+    }
+    .cs-sprout-figma-media {
+      position: relative;
+      height: 360px;
+      background: #1e1e1e;
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 14px 44px rgba(0,0,0,0.14);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cs-sprout-figma-media video,
+    .cs-sprout-figma-media img {
+      height: 100%; width: auto; display: block;
+    }
+    .cs-sprout-figma-media.is-pad img { padding: 24px; box-sizing: border-box; }
+    .cs-sprout-figma-tag {
+      position: absolute; top: 14px; left: 14px;
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 5px 11px; border-radius: 999px;
+      background: rgba(0,0,0,0.65); backdrop-filter: blur(8px);
+      color: rgba(255,255,255,0.88);
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      z-index: 2;
+    }
+    .cs-sprout-figma-tag .cs-sprout-figma-pulse {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #ff5a4f;
+      animation: cs-sprout-figma-rec 1.6s ease-in-out infinite;
+    }
+    @keyframes cs-sprout-figma-rec {
+      0%, 100% { opacity: 1; }
+      50%      { opacity: 0.4; }
+    }
+    .cs-sprout-figma-caption {
+      margin-top: 20px;
+      min-width: 220px; max-width: 340px;
+      font-size: 14px; line-height: 1.55;
+      color: rgba(0,0,0,0.7);
+    }
+    .cs-sprout-figma-caption strong { color: #111; font-weight: 800; display: block; margin-bottom: 4px; }
+
+    .cs-sprout-figma-controls {
+      margin-top: 32px;
+      display: flex; justify-content: flex-end; gap: 10px;
+    }
+    .cs-sprout-figma-controls .cs-sprout-arrow {
+      width: 44px; height: 44px;
+      background: #fff;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cs-sprout-figma-carousel { scroll-behavior: auto; }
+      .cs-sprout-figma-tag .cs-sprout-figma-pulse { animation: none; }
+    }
+
     /* Collaboration section */
     .cs-sprout-collab-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
@@ -891,6 +965,14 @@
       .cs-sprout-marquee-item { width: 260px; }
       .cs-sprout-marquee-label { padding: 0 24px; }
       .cs-sprout-collab-grid { grid-template-columns: 1fr; gap: 16px; }
+      .cs-sprout-figma { padding: 64px 0 72px; }
+      .cs-sprout-figma-inner { padding: 0 24px; }
+      .cs-sprout-figma-head { margin-bottom: 28px; }
+      .cs-sprout-figma-media { height: 270px; }
+      .cs-sprout-figma-carousel {
+        padding-left: 24px;
+        scroll-padding-left: 24px;
+      }
     }
 
     /* ── Industries Filter Bar (Portfolio) ── */
@@ -1763,6 +1845,60 @@
         </div>
       </section>
 
+      <section class="cs-sprout-figma">
+        <div class="cs-sprout-figma-inner">
+          <div class="cs-sprout-figma-head">
+            <div class="cs-sprout-eyebrow">Figma craft</div>
+            <h2 class="cs-sprout-h2">Built for Figma, aligned with code</h2>
+            <p class="cs-sprout-intro">If a design system lives in Figma, it has to be designed like software: token-aligned, variant-driven, auto-laid-out, and accountable to code. Sprout is built around those principles end to end, so designers compose with intent and engineers receive a contract instead of a guess.</p>
+          </div>
+        </div>
+        <div class="cs-sprout-figma-carousel" id="cs-sprout-figma-carousel">
+            <div class="cs-sprout-figma-item">
+              <div class="cs-sprout-figma-media">
+                <video autoplay loop muted playsinline aria-label="Demo of a Sprout Card component changing through its variants in Figma. Media position, state, heading size, and slot toggles drive the component without detaching from the library.">
+                  <source src="/sprout/figma/card-variants.mp4" type="video/mp4">
+                </video>
+              </div>
+              <p class="cs-sprout-figma-caption"><strong>Components, in motion.</strong>Card variants change through media position, state, slots, and heading size without ever detaching from the library.</p>
+            </div>
+            <div class="cs-sprout-figma-item">
+              <div class="cs-sprout-figma-media">
+                <img src="/sprout/figma/variables.png" alt="Sprout Variables panel in Figma showing token collections with Light, Dark, and Wireframe modes" loading="lazy">
+              </div>
+              <p class="cs-sprout-figma-caption"><strong>Three modes, one token set.</strong>Light, Dark, and Wireframe themes generated from a single source, with names that mirror the engineering namespace.</p>
+            </div>
+            <div class="cs-sprout-figma-item">
+              <div class="cs-sprout-figma-media">
+                <img src="/sprout/figma/typography.png" alt="Sprout typography styles in Figma: a heading ramp with h1 through h6, plus Subtitle, Body, UI, and font-size scales" loading="lazy">
+              </div>
+              <p class="cs-sprout-figma-caption"><strong>One vocabulary across products.</strong>A shared heading ramp, body sizes, and UI styles applied from data-dense dashboards to brand surfaces.</p>
+            </div>
+            <div class="cs-sprout-figma-item">
+              <div class="cs-sprout-figma-media">
+                <img src="/sprout/figma/variants.png" alt="Sprout Card component properties panel in Figma showing variant toggles for Media Position, State, Heading Size, plus boolean slots for Minimal, Actions, Media, Heading, and Description" loading="lazy">
+              </div>
+              <p class="cs-sprout-figma-caption"><strong>A component API.</strong>Every Sprout component ships with thoughtful variants, boolean slots, and structured properties for designers and engineers alike.</p>
+            </div>
+            <div class="cs-sprout-figma-item">
+              <div class="cs-sprout-figma-media">
+                <img src="/sprout/figma/code-connect.png" alt="Figma MCP panel mapping a Sprout Action Button component to its code counterpart with variant, color, and state props exposed" loading="lazy">
+              </div>
+              <p class="cs-sprout-figma-caption"><strong>A contract with code.</strong>Mapped via Figma Code Connect so designers, engineers, and AI agents pull the right import and props automatically.</p>
+            </div>
+        </div>
+        <div class="cs-sprout-figma-inner">
+          <div class="cs-sprout-figma-controls">
+            <button class="cs-sprout-arrow" onclick="sproutFigmaNav(-1)" aria-label="Previous Figma craft example">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="cs-sprout-arrow" onclick="sproutFigmaNav(1)" aria-label="Next Figma craft example">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
       <section class="cs-sprout cs-sprout-section alt">
         <div class="cs-sprout-inner">
           <div class="cs-sprout-eyebrow">The ecosystem</div>
@@ -1907,6 +2043,22 @@
       const item = car.querySelector('.cs-sprout-carousel-item');
       const step = item ? item.getBoundingClientRect().width + 20 : 600;
       car.scrollBy({ left: direction * step, behavior: 'smooth' });
+    };
+
+    window.sproutFigmaNav = function(direction) {
+      const car = document.getElementById('cs-sprout-figma-carousel');
+      if (!car) return;
+      // Find the first item whose left edge is at or past the current scroll position,
+      // then step one item in the requested direction.
+      const items = Array.from(car.querySelectorAll('.cs-sprout-figma-item'));
+      if (!items.length) return;
+      const scrollLeft = car.scrollLeft;
+      let activeIdx = 0;
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].offsetLeft <= scrollLeft + 4) activeIdx = i;
+      }
+      const nextIdx = Math.max(0, Math.min(items.length - 1, activeIdx + direction));
+      car.scrollTo({ left: items[nextIdx].offsetLeft, behavior: 'smooth' });
     };
 
     let sproutMcpTimer = null;
