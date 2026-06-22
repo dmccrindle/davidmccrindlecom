@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio | davidmccrindle</title>
+  <title>Portfolio | Experience | David McCrindle</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -419,11 +419,17 @@
     .cs-sprout { background: #fff; color: #111; }
     .cs-sprout .cs-sprout-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
 
+    /* Override standard lead spacing/divider when Sprout layout is active */
+    body.cs-sprout-layout .cs-lead {
+      border-bottom: none;
+      padding: 56px 60px 24px;
+    }
+    body.cs-sprout-layout .cs-body-white { padding-bottom: 0; }
+
     /* Stats strip */
     .cs-sprout-stats {
       background: #fff;
-      padding: 32px 40px 80px;
-      border-top: 1px solid rgba(0,0,0,0.06);
+      padding: 0 40px 64px;
     }
     .cs-sprout-stats-inner {
       max-width: 1200px; margin: 0 auto;
@@ -446,7 +452,7 @@
     .cs-sprout-section.alt { background: #fafafa; }
     .cs-sprout-eyebrow {
       font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: rgba(0,0,0,0.4); margin-bottom: 14px;
+      text-transform: uppercase; color: rgba(0,0,0,0.55); margin-bottom: 14px;
     }
     .cs-sprout-h2 {
       font-size: clamp(28px, 3.6vw, 44px);
@@ -496,7 +502,7 @@
     .cs-sprout-eco-body { padding: 28px 30px 32px; }
     .cs-sprout-eco-tag {
       font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: rgba(0,0,0,0.4); margin-bottom: 10px;
+      text-transform: uppercase; color: rgba(0,0,0,0.55); margin-bottom: 10px;
     }
     .cs-sprout-eco-title { font-size: 20px; font-weight: 800; color: #111; margin-bottom: 10px; letter-spacing: -0.01em; }
     .cs-sprout-eco-text { font-size: 14.5px; line-height: 1.6; color: rgba(0,0,0,0.65); }
@@ -537,20 +543,86 @@
       border: 1px solid rgba(255,255,255,0.12);
       color: rgba(255,255,255,0.85);
     }
-    .cs-sprout-ai-card {
+    /* MCP "Ask Sprout" animated chat */
+    .cs-sprout-mcp-chat {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 18px; padding: 36px 36px 40px;
+      border-radius: 18px;
+      padding: 24px 24px 28px;
+      min-height: 320px;
+      display: flex; flex-direction: column;
+      overflow: hidden;
     }
-    .cs-sprout-ai-card-title {
-      font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: rgba(105,234,134,0.85); margin-bottom: 16px;
+    .cs-sprout-mcp-head {
+      display: flex; align-items: center; gap: 10px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 22px;
     }
-    .cs-sprout-ai-card-h {
-      font-size: 26px; font-weight: 800; letter-spacing: -0.02em;
-      line-height: 1.2; margin-bottom: 14px; color: #fff;
+    .cs-sprout-mcp-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #69ea86; box-shadow: 0 0 0 4px rgba(105,234,134,0.18);
+      animation: cs-sprout-mcp-pulse 2.4s ease-in-out infinite;
     }
-    .cs-sprout-ai-card-text { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.65); }
+    @keyframes cs-sprout-mcp-pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(105,234,134,0.18); }
+      50%      { box-shadow: 0 0 0 8px rgba(105,234,134,0.05); }
+    }
+    .cs-sprout-mcp-app {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.6);
+    }
+    /* Card-stack version */
+    .cs-sprout-mcp-stack {
+      position: relative; flex: 1;
+      min-height: 220px; margin-top: 8px;
+    }
+    .cs-sprout-mcp-card {
+      position: absolute; top: 18px; left: 0; right: 0;
+      transform-origin: 50% 50%;
+      transition:
+        transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.5s ease,
+        filter 0.5s ease;
+      will-change: transform, opacity, filter;
+      filter: blur(0);
+    }
+    .cs-sprout-mcp-card[data-depth="0"] { transform: translateY(0) scale(1) rotate(0); opacity: 1; z-index: 3; filter: blur(0); }
+    .cs-sprout-mcp-card[data-depth="1"] { transform: translateY(-14px) scale(0.96) rotate(-1deg); opacity: 0.55; z-index: 2; filter: blur(1.5px); }
+    .cs-sprout-mcp-card[data-depth="2"] { transform: translateY(-26px) scale(0.92) rotate(1.2deg); opacity: 0.3; z-index: 1; filter: blur(3px); }
+    .cs-sprout-mcp-card[data-depth="3"] { transform: translateY(-26px) scale(0.9) rotate(1.2deg); opacity: 0; z-index: 0; filter: blur(6px); }
+    .cs-sprout-mcp-card.dropping {
+      transform: translateY(280px) scale(0.86) rotate(var(--drop-rotate, -14deg));
+      opacity: 0;
+      transition:
+        transform 0.7s cubic-bezier(0.55, 0.05, 0.7, 0.2),
+        opacity 0.55s ease;
+    }
+    .cs-sprout-mcp-role {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(105,234,134,0.85);
+      margin-bottom: 10px;
+    }
+    .cs-sprout-mcp-bubble {
+      position: relative;
+      background: #1a1d1c;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px 14px 14px 4px;
+      padding: 16px 18px;
+      font-size: 16px; line-height: 1.55;
+      color: #fff;
+      min-height: 60px;
+    }
+    .cs-sprout-mcp-cursor {
+      display: none;
+      width: 2px; height: 1em; background: rgba(105,234,134,0.9);
+      margin-left: 2px; transform: translateY(2px);
+      animation: cs-sprout-mcp-blink 1s steps(2) infinite;
+    }
+    .cs-sprout-mcp-card.active[data-depth="0"] .cs-sprout-mcp-cursor { display: inline-block; }
+    @keyframes cs-sprout-mcp-blink {
+      50% { opacity: 0; }
+    }
 
     /* UI Checker video block */
     .cs-sprout-video-wrap {
@@ -572,7 +644,7 @@
     }
     .cs-sprout-two h3 {
       font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
-      text-transform: uppercase; color: rgba(0,0,0,0.45); margin-bottom: 16px;
+      text-transform: uppercase; color: rgba(0,0,0,0.6); margin-bottom: 16px;
     }
     .cs-sprout-two p {
       font-size: 16px; line-height: 1.7; color: rgba(0,0,0,0.7); margin-bottom: 14px;
@@ -594,16 +666,14 @@
     /* Highlights pills */
     .cs-sprout-highlights {
       background: #fff;
-      padding: 0 40px 72px;
+      padding: 0 40px 56px;
     }
     .cs-sprout-highlights-inner {
       max-width: 1200px; margin: 0 auto;
-      border-top: 1px solid rgba(0,0,0,0.06);
-      padding-top: 32px;
     }
     .cs-sprout-highlights-label {
       font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-      text-transform: uppercase; color: rgba(0,0,0,0.4); margin-bottom: 18px;
+      text-transform: uppercase; color: rgba(0,0,0,0.55); margin-bottom: 18px;
     }
     .cs-sprout-pills {
       display: flex; flex-wrap: wrap; gap: 8px;
@@ -667,7 +737,7 @@
     }
     .cs-sprout-marquee-label {
       max-width: 1200px; margin: 0 auto 36px; padding: 0 40px;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.62);
       font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
       text-transform: uppercase;
     }
@@ -723,6 +793,34 @@
       line-height: 1.6; max-width: 760px;
     }
     .cs-sprout-checker-caption strong { color: #111; font-weight: 700; }
+
+    /* Sprout: keyboard focus indicators */
+    .cs-sprout-checker-tab:focus-visible,
+    .cs-sprout-arrow:focus-visible {
+      outline: 2px solid #2c8f4d;
+      outline-offset: 2px;
+    }
+    .cs-sprout-checker-tab:focus:not(:focus-visible),
+    .cs-sprout-arrow:focus:not(:focus-visible) { outline: none; }
+
+    /* Sprout: respect reduced-motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      .cs-sprout-marquee-track { animation: none; }
+      .cs-sprout-mcp-dot { animation: none; }
+      .cs-sprout-mcp-cursor { animation: none; opacity: 1; }
+      .cs-sprout-mcp-card,
+      .cs-sprout-mcp-card.dropping { transition: none !important; }
+      .cs-sprout-trip-card:hover,
+      .cs-sprout-eco-card:hover,
+      .cs-sprout-collab-card:hover { transform: none; }
+      .cs-sprout-carousel { scroll-behavior: auto; }
+    }
+
+    /* Sprout: visually-hidden helper for screen-reader-only content */
+    .cs-sprout-sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
 
     /* Collaboration section */
     .cs-sprout-collab-grid {
@@ -1299,9 +1397,11 @@
 
     function showGallery() {
       currentSlug = null;
+      stopSproutMcpTyper();
+      document.body.classList.remove('cs-sprout-layout');
       document.getElementById('gallery-view').classList.add('active');
       document.getElementById('case-study-view').classList.remove('active');
-      document.title = 'Portfolio | davidmccrindle';
+      document.title = 'Portfolio | Experience | David McCrindle';
 
       navbar.classList.remove('cs-mode');
       navbar.classList.add('gallery-mode');
@@ -1323,7 +1423,7 @@
       document.getElementById('cs-company').textContent = CATEGORY_LABELS[project.industry] || project.company || '';
       document.getElementById('cs-title').textContent = project.title;
       document.getElementById('cs-subtitle').textContent = project.subtitle;
-      document.title = project.title + ' | davidmccrindle';
+      document.title = project.title + ' | Portfolio | David McCrindle';
 
       const banner = document.getElementById('cs-banner');
       if (project.bannerImage) {
@@ -1342,10 +1442,14 @@
         customEl.innerHTML = renderSproutLayout();
         bodyEl.style.display = 'none';
         showcaseEl.style.display = 'none';
+        document.body.classList.add('cs-sprout-layout');
         buildNextSection(projects.slice(projects.findIndex(p => p.slug === project.slug) + 1).find(p => !p.externalUrl) || null);
         window.scrollTo(0, 0);
+        startSproutMcpTyper();
         return;
       }
+      document.body.classList.remove('cs-sprout-layout');
+      stopSproutMcpTyper();
       customEl.innerHTML = '';
       bodyEl.style.display = '';
       showcaseEl.style.display = '';
@@ -1520,9 +1624,21 @@
     const SPROUT_GALLERY_COUNT = 11;
     const SPROUT_EXAMPLES = ['color', 'fonts', 'buttons'];
     const SPROUT_HIGHLIGHTS = [
-      'Code Connect', 'MCP Server', 'AI-First', 'Figma Slots',
-      'Component Descriptions', 'Design Tokens', 'Auto-Layout', 'Variants',
-      'WCAG AA', 'Responsive', 'Tiered Contribution', 'Multi-Brand Ready',
+      'AI-First', 'MCP Server', 'Code Connect', 'React', 'Sprout CSS',
+      'Figma Slots', 'Component Descriptions', 'Design Tokens', 'Auto-Layout', 'Variants',
+      'WCAG AA', 'Responsive', 'Tiered Contribution', 'SaaS Support', 'Multi-Brand Ready',
+    ];
+
+    const SPROUT_MCP_QUESTIONS = [
+      { role: 'Designer', text: "What are the variants of Button in Sprout, and when is each one appropriate?" },
+      { role: 'Engineer', text: "Give me the import and required props for Sprout DataTable, with a minimal example." },
+      { role: 'PM',       text: "Does Sprout already cover this, or is it net-new build work?" },
+      { role: 'Designer', text: "Modal or side panel for editing flows, what does Sprout recommend?" },
+      { role: 'Engineer', text: "Generate a form using Sprout Input, Select, and Button with inline validation." },
+      { role: 'PM',       text: "Is this component stable, or is it on a sunset path?" },
+      { role: 'Designer', text: "Show me Sprout's spacing scale and what each token maps to in pixels." },
+      { role: 'Engineer', text: "What's the token name for medium border radius, and what does it resolve to?" },
+      { role: 'PM',       text: "What WCAG standard does Sprout claim to meet, so I can speak to it in review?" },
     ];
 
     function checkSvg() {
@@ -1545,11 +1661,11 @@
       <section class="cs-sprout-stats">
         <div class="cs-sprout-stats-inner">
           <div class="cs-sprout-stat">
-            <div class="cs-sprout-stat-num">30+</div>
+            <div class="cs-sprout-stat-num">50+</div>
             <div class="cs-sprout-stat-lbl">Product teams building on Sprout</div>
           </div>
           <div class="cs-sprout-stat">
-            <div class="cs-sprout-stat-num">325k+</div>
+            <div class="cs-sprout-stat-num">800k</div>
             <div class="cs-sprout-stat-lbl">Component insertions across Cargill</div>
           </div>
           <div class="cs-sprout-stat">
@@ -1557,8 +1673,8 @@
             <div class="cs-sprout-stat-lbl">To reach the adoption level of our previous system</div>
           </div>
           <div class="cs-sprout-stat">
-            <div class="cs-sprout-stat-num">$580k&ndash;$870k</div>
-            <div class="cs-sprout-stat-lbl">Estimated design-phase savings</div>
+            <div class="cs-sprout-stat-num">$1M+</div>
+            <div class="cs-sprout-stat-lbl">Estimated annual design-phase savings</div>
           </div>
         </div>
       </section>
@@ -1567,6 +1683,32 @@
         <div class="cs-sprout-highlights-inner">
           <div class="cs-sprout-highlights-label">What's inside</div>
           <div class="cs-sprout-pills">${pillsHtml}</div>
+        </div>
+      </section>
+
+      <section class="cs-sprout-ai">
+        <div class="cs-sprout-ai-bg"></div>
+        <div class="cs-sprout-ai-inner">
+          <div>
+            <div class="cs-sprout-ai-eyebrow">AI-first overhaul</div>
+            <h2 class="cs-sprout-ai-title">The system is the assistant.</h2>
+            <p class="cs-sprout-ai-text">We rebuilt Sprout to be <strong>AI-first</strong>. Components, descriptions, accessibility constraints, and brand rules are now machine-legible, so product teams can vibe-code surfaces and trust the UI underneath.</p>
+            <p class="cs-sprout-ai-text">A from-scratch <strong>Sprout MCP server</strong> turns the system itself into the context that agents work from. Agents reach for the right component, query the right token, and ship Sprout-compliant interfaces by default. AI workflows aren't bolted on. Sprout is the source of truth they depend on.</p>
+            <div class="cs-sprout-ai-pills">
+              <span class="cs-sprout-ai-pill">MCP server</span>
+              <span class="cs-sprout-ai-pill">Component descriptions</span>
+              <span class="cs-sprout-ai-pill">Agent-aware tokens</span>
+              <span class="cs-sprout-ai-pill">Pattern selection guidance</span>
+            </div>
+          </div>
+          <div class="cs-sprout-mcp-chat" id="cs-sprout-mcp-chat" aria-hidden="true">
+            <div class="cs-sprout-mcp-head">
+              <span class="cs-sprout-mcp-dot"></span>
+              <span class="cs-sprout-mcp-app">Ask Sprout</span>
+            </div>
+            <div class="cs-sprout-mcp-stack" id="cs-sprout-mcp-stack"></div>
+          </div>
+          <p class="cs-sprout-sr-only">Animated demo of designers, engineers, and PMs asking Sprout's MCP server questions like component variants, required props, accessibility standards, and adoption coverage.</p>
         </div>
       </section>
 
@@ -1605,7 +1747,7 @@
         <div class="cs-sprout-examples-inner">
           <div class="cs-sprout-examples-head">
             <div>
-              <h3>The system, up close</h3>
+              <h2 class="cs-sprout-h2" style="font-size:22px;margin-bottom:6px;">The system, up close</h2>
               <p>Color tokens, typography stacks, and component variants in the same shape teams see them inside Figma and the docs.</p>
             </div>
             <div class="cs-sprout-examples-arrows">
@@ -1663,32 +1805,9 @@
         </div>
       </section>
 
-      <section class="cs-sprout-marquee">
+      <section class="cs-sprout-marquee" aria-hidden="true">
         <div class="cs-sprout-marquee-label">In production across Cargill</div>
         <div class="cs-sprout-marquee-track">${galleryTrack}</div>
-      </section>
-
-      <section class="cs-sprout-ai">
-        <div class="cs-sprout-ai-bg"></div>
-        <div class="cs-sprout-ai-inner">
-          <div>
-            <div class="cs-sprout-ai-eyebrow">AI-first overhaul</div>
-            <h2 class="cs-sprout-ai-title">The system is the assistant.</h2>
-            <p class="cs-sprout-ai-text">We rebuilt Sprout to be <strong>AI-first</strong>. Components, descriptions, accessibility constraints, and brand rules are now machine-legible, so product teams can vibe-code surfaces and trust the UI underneath.</p>
-            <p class="cs-sprout-ai-text">A from-scratch <strong>Sprout MCP server</strong> turns the system itself into the context that agents work from. Agents reach for the right component, query the right token, and ship Sprout-compliant interfaces by default. AI workflows aren't bolted on. Sprout is the source of truth they depend on.</p>
-            <div class="cs-sprout-ai-pills">
-              <span class="cs-sprout-ai-pill">MCP server</span>
-              <span class="cs-sprout-ai-pill">Component descriptions</span>
-              <span class="cs-sprout-ai-pill">Agent-aware tokens</span>
-              <span class="cs-sprout-ai-pill">Pattern selection guidance</span>
-            </div>
-          </div>
-          <div class="cs-sprout-ai-card">
-            <div class="cs-sprout-ai-card-title">Why it matters</div>
-            <div class="cs-sprout-ai-card-h">AI is only as good as the system feeding it.</div>
-            <div class="cs-sprout-ai-card-text">Without a structured, opinionated source of truth, AI-assisted design produces work that drifts from brand, accessibility, and product conventions. Sprout closes that gap so an agent picking a component is as reliable as a designer reaching for one.</div>
-          </div>
-        </div>
       </section>
 
       <section class="cs-sprout-checker">
@@ -1696,30 +1815,30 @@
           <div class="cs-sprout-eyebrow">In action</div>
           <h2 class="cs-sprout-h2">Design Checker</h2>
           <p class="cs-sprout-intro">A side tool I built and ship as part of the Sprout ecosystem. Upload a screenshot, paste a live URL into the website, install the Chrome extension to audit any page in place, or run the Figma plugin to score, and auto-correct, work before it ships. Quality reviews used to be a bottleneck; now they're systematic.</p>
-          <div class="cs-sprout-checker-tabs" role="tablist">
-            <button class="cs-sprout-checker-tab active" data-checker-tab="web" onclick="sproutCheckerTab('web')">Website</button>
-            <button class="cs-sprout-checker-tab" data-checker-tab="chrome" onclick="sproutCheckerTab('chrome')">Chrome extension</button>
-            <button class="cs-sprout-checker-tab" data-checker-tab="figma" onclick="sproutCheckerTab('figma')">Figma plugin</button>
+          <div class="cs-sprout-checker-tabs" role="tablist" aria-label="Design Checker surfaces">
+            <button class="cs-sprout-checker-tab active" id="cs-sprout-tab-web" role="tab" aria-selected="true" aria-controls="cs-sprout-panel-web" tabindex="0" data-checker-tab="web" onclick="sproutCheckerTab('web')">Website</button>
+            <button class="cs-sprout-checker-tab" id="cs-sprout-tab-chrome" role="tab" aria-selected="false" aria-controls="cs-sprout-panel-chrome" tabindex="-1" data-checker-tab="chrome" onclick="sproutCheckerTab('chrome')">Chrome extension</button>
+            <button class="cs-sprout-checker-tab" id="cs-sprout-tab-figma" role="tab" aria-selected="false" aria-controls="cs-sprout-panel-figma" tabindex="-1" data-checker-tab="figma" onclick="sproutCheckerTab('figma')">Figma plugin</button>
           </div>
-          <div class="cs-sprout-checker-panel active" data-checker-panel="web">
+          <div class="cs-sprout-checker-panel active" id="cs-sprout-panel-web" role="tabpanel" aria-labelledby="cs-sprout-tab-web" data-checker-panel="web">
             <div class="cs-sprout-checker-video">
-              <video autoplay loop muted playsinline poster="/sprout/ui-checker/preview.png">
+              <video autoplay loop muted playsinline poster="/sprout/ui-checker/preview.png" aria-label="Demo of the Sprout Design Checker website: a URL or screenshot is submitted and the tool returns a Sprout compliance score with detailed drift reports.">
                 <source src="/sprout/ui-checker/checker-1.mp4" type="video/mp4">
               </video>
             </div>
             <p class="cs-sprout-checker-caption">Paste a URL or upload a screenshot on the Design Checker site. It scores the work against Sprout's standards and reports back where it aligns and where it drifts.</p>
           </div>
-          <div class="cs-sprout-checker-panel" data-checker-panel="chrome">
+          <div class="cs-sprout-checker-panel" id="cs-sprout-panel-chrome" role="tabpanel" aria-labelledby="cs-sprout-tab-chrome" data-checker-panel="chrome" hidden>
             <div class="cs-sprout-checker-video">
-              <video loop muted playsinline poster="/sprout/ui-checker/preview.png">
+              <video loop muted playsinline poster="/sprout/ui-checker/preview.png" aria-label="Demo of the Sprout Design Checker Chrome extension auditing a live webpage in place.">
                 <source src="/sprout/ui-checker/checker-2.mp4" type="video/mp4">
               </video>
             </div>
             <p class="cs-sprout-checker-caption">Install the Chrome extension and audit any live page in place. It runs the same scoring without leaving the tab, so engineering and design can validate as they build.</p>
           </div>
-          <div class="cs-sprout-checker-panel" data-checker-panel="figma">
+          <div class="cs-sprout-checker-panel" id="cs-sprout-panel-figma" role="tabpanel" aria-labelledby="cs-sprout-tab-figma" data-checker-panel="figma" hidden>
             <div class="cs-sprout-checker-video">
-              <video loop muted playsinline poster="/sprout/ui-checker/preview.png">
+              <video loop muted playsinline poster="/sprout/ui-checker/preview.png" aria-label="Demo of the Sprout Design Checker Figma plugin scanning a frame, flagging detached components and off-token colors, and auto-correcting non-compliant files back to Sprout standards.">
                 <source src="/sprout/ui-checker/checker-3.mp4" type="video/mp4">
               </video>
             </div>
@@ -1764,8 +1883,8 @@
           <div class="cs-sprout-two">
             <div>
               <h3>Adoption</h3>
-              <p>Sprout went from launch to 30+ active product teams in 14 months, three times the pace of the system it replaced. The growth tracks because Sprout is treated as a product, not a side project: visible, documented, evaluated, and improved every cycle.</p>
-              <p>Measured impact: 325,000+ component insertions across Cargill's portfolio and an estimated $580k to $870k in design-phase time savings against teams building equivalent work from scratch.</p>
+              <p>Sprout went from launch to 50+ active product teams, three times the pace of the system it replaced. The growth tracks because Sprout is treated as a product, not a side project: visible, documented, evaluated, and improved every cycle.</p>
+              <p>Measured impact: 800,000 component insertions across Cargill's portfolio and an estimated $1M+ in annual design-phase time savings against teams building equivalent work from scratch.</p>
             </div>
             <div>
               <h3>Governance</h3>
@@ -1790,17 +1909,127 @@
       car.scrollBy({ left: direction * step, behavior: 'smooth' });
     };
 
-    window.sproutCheckerTab = function(name) {
+    let sproutMcpTimer = null;
+    function stopSproutMcpTyper() {
+      if (sproutMcpTimer) clearTimeout(sproutMcpTimer);
+      sproutMcpTimer = null;
+    }
+    function startSproutMcpTyper() {
+      stopSproutMcpTyper();
+      const stack = document.getElementById('cs-sprout-mcp-stack');
+      if (!stack) return;
+      stack.innerHTML = '';
+
+      const STACK_SIZE = 3;
+      const cards = [];
+      let queueIdx = 0;
+
+      function nextQuestion() {
+        const q = SPROUT_MCP_QUESTIONS[queueIdx];
+        queueIdx = (queueIdx + 1) % SPROUT_MCP_QUESTIONS.length;
+        return q;
+      }
+      function makeCard(question) {
+        const card = document.createElement('div');
+        card.className = 'cs-sprout-mcp-card';
+        card.dataset.text = question.text;
+        card.innerHTML = `
+          <div class="cs-sprout-mcp-role">${question.role}</div>
+          <div class="cs-sprout-mcp-bubble">
+            <span class="cs-sprout-mcp-typed"></span><span class="cs-sprout-mcp-cursor">|</span>
+          </div>
+        `;
+        return card;
+      }
+      function updateDepths() {
+        cards.forEach((c, i) => { c.dataset.depth = String(i); });
+      }
+      function typeFront() {
+        const front = cards[0];
+        if (!front) return;
+        front.classList.add('active');
+        const typedEl = front.querySelector('.cs-sprout-mcp-typed');
+        const text = front.dataset.text;
+        let i = 0;
+        typedEl.textContent = '';
+        const type = () => {
+          if (i < text.length) {
+            typedEl.textContent += text[i++];
+            const ch = text[i - 1];
+            const wait = (ch === ',' || ch === '?' || ch === '.') ? 110 : 18;
+            sproutMcpTimer = setTimeout(type, wait);
+          } else {
+            sproutMcpTimer = setTimeout(dropFront, 1700);
+          }
+        };
+        type();
+      }
+      function dropFront() {
+        const front = cards.shift();
+        if (!front) return;
+        const rot = (Math.random() > 0.5 ? 1 : -1) * (10 + Math.random() * 8);
+        front.style.setProperty('--drop-rotate', rot + 'deg');
+        front.classList.remove('active');
+        front.classList.add('dropping');
+
+        // Pre-append next card in invisible (depth=3) state so it can fade in
+        const newCard = makeCard(nextQuestion());
+        newCard.dataset.depth = '3';
+        stack.appendChild(newCard);
+        cards.push(newCard);
+
+        // Next two frames: let the browser register the depth=3 initial state,
+        // then promote all cards to their proper depths so the CSS transition runs.
+        requestAnimationFrame(() => requestAnimationFrame(updateDepths));
+
+        sproutMcpTimer = setTimeout(() => {
+          front.remove();
+          typeFront();
+        }, 680);
+      }
+
+      for (let i = 0; i < STACK_SIZE; i++) {
+        const c = makeCard(nextQuestion());
+        cards.push(c);
+        stack.appendChild(c);
+      }
+      updateDepths();
+      typeFront();
+    }
+
+    window.sproutCheckerTab = function(name, opts) {
+      const focusTab = opts && opts.focus;
       document.querySelectorAll('.cs-sprout-checker-tab').forEach(t => {
-        t.classList.toggle('active', t.dataset.checkerTab === name);
+        const active = t.dataset.checkerTab === name;
+        t.classList.toggle('active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+        t.setAttribute('tabindex', active ? '0' : '-1');
+        if (active && focusTab) t.focus();
       });
       document.querySelectorAll('.cs-sprout-checker-panel').forEach(p => {
         const active = p.dataset.checkerPanel === name;
         p.classList.toggle('active', active);
+        if (active) p.removeAttribute('hidden'); else p.setAttribute('hidden', '');
         const v = p.querySelector('video');
         if (v) { if (active) { v.currentTime = 0; v.play().catch(() => {}); } else { v.pause(); } }
       });
     };
+
+    // Arrow-key navigation across the Design Checker tablist
+    document.addEventListener('keydown', (e) => {
+      const tab = e.target.closest && e.target.closest('.cs-sprout-checker-tab');
+      if (!tab) return;
+      const tabs = Array.from(document.querySelectorAll('.cs-sprout-checker-tab'));
+      const i = tabs.indexOf(tab);
+      let next = -1;
+      if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = tabs.length - 1;
+      if (next === -1) return;
+      e.preventDefault();
+      window.sproutCheckerTab(tabs[next].dataset.checkerTab, { focus: true });
+    });
 
     init();
   </script>
