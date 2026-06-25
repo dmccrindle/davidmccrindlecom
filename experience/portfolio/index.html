@@ -822,6 +822,262 @@
       overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
     }
 
+    /* ── Pop Quiz custom case-study layout ───── */
+    body.cs-popquiz-layout .cs-lead {
+      border-bottom: none;
+      padding: 56px 60px 24px;
+    }
+    body.cs-popquiz-layout .cs-body-white { padding-bottom: 0; }
+    .cs-pq { color: #111; }
+    .cs-pq-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .cs-pq-section { padding: 90px 0 100px; }
+    .cs-pq-section.alt { background: #fafafa; }
+    .cs-pq-section.dark {
+      background: linear-gradient(180deg, #100620 0%, #1a0a32 100%);
+      color: #fff;
+    }
+    .cs-pq-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(0,0,0,0.55); margin-bottom: 14px;
+    }
+    .cs-pq-section.dark .cs-pq-eyebrow { color: rgba(190,150,255,0.95); }
+    .cs-pq-h2 {
+      font-size: clamp(28px, 3.6vw, 44px);
+      font-weight: 800; letter-spacing: -0.02em;
+      line-height: 1.1; margin-bottom: 18px; color: #111;
+    }
+    .cs-pq-section.dark .cs-pq-h2 { color: #fff; }
+    .cs-pq-intro {
+      font-size: 17px; line-height: 1.65; color: rgba(0,0,0,0.7);
+      max-width: 720px;
+    }
+    .cs-pq-section.dark .cs-pq-intro { color: rgba(255,255,255,0.75); }
+
+    /* Stats strip */
+    .cs-pq-stats {
+      background: #fff;
+      padding: 0 40px 64px;
+    }
+    .cs-pq-stats-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+    .cs-pq-stat { border-top: 1px solid rgba(0,0,0,0.12); padding-top: 20px; }
+    .cs-pq-stat-num {
+      font-size: clamp(28px, 3.4vw, 44px);
+      font-weight: 800; letter-spacing: -0.02em;
+      line-height: 1.05; color: #111; margin-bottom: 10px;
+    }
+    .cs-pq-stat-lbl { font-size: 13px; font-weight: 500; color: rgba(0,0,0,0.55); line-height: 1.4; }
+
+    /* Voice feature with hero video */
+    .cs-pq-voice { padding: 100px 0 110px; background: #0a0414; color: #fff; position: relative; overflow: hidden; }
+    .cs-pq-voice-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(50% 60% at 20% 30%, rgba(155, 60, 240, 0.20), transparent 70%),
+        radial-gradient(40% 50% at 80% 80%, rgba(255, 80, 160, 0.18), transparent 70%);
+    }
+    .cs-pq-voice-inner {
+      position: relative; max-width: 1400px; margin: 0 auto; padding: 0 40px;
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: 64px; align-items: center;
+    }
+    .cs-pq-voice-text { max-width: 500px; }
+    .cs-pq-voice-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(255,140,220,0.95); margin-bottom: 18px;
+    }
+    .cs-pq-voice-title {
+      font-size: clamp(34px, 4.6vw, 56px); font-weight: 800;
+      letter-spacing: -0.025em; line-height: 1.05; margin-bottom: 22px;
+    }
+    .cs-pq-voice-body {
+      font-size: 16.5px; line-height: 1.7; color: rgba(255,255,255,0.75);
+      margin-bottom: 18px;
+    }
+    .cs-pq-voice-body strong { color: #fff; font-weight: 700; }
+    .cs-pq-video {
+      border-radius: 18px; overflow: hidden;
+      background: #000; aspect-ratio: 16 / 10;
+      box-shadow: 0 24px 80px rgba(180, 80, 255, 0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .cs-pq-video video, .cs-pq-video img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+
+    /* Three modes row */
+    .cs-pq-modes {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 44px;
+    }
+    .cs-pq-mode {
+      background: #fff; border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .cs-pq-mode:hover { box-shadow: 0 14px 40px rgba(0,0,0,0.08); transform: translateY(-3px); }
+    .cs-pq-mode-video {
+      background: #0a0414;
+      aspect-ratio: 16 / 11;
+    }
+    .cs-pq-mode-video video, .cs-pq-mode-video img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .cs-pq-mode-body { padding: 22px 24px 26px; }
+    .cs-pq-mode-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(0,0,0,0.5); margin-bottom: 6px;
+    }
+    .cs-pq-mode-title { font-size: 19px; font-weight: 800; color: #111; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .cs-pq-mode-text { font-size: 14.5px; line-height: 1.6; color: rgba(0,0,0,0.65); }
+
+    /* Personalize: artist + categories side-by-side */
+    .cs-pq-two {
+      display: grid; grid-template-columns: 1.05fr 1fr;
+      gap: 60px; align-items: center; margin-top: 32px;
+    }
+    .cs-pq-two .cs-pq-two-text p {
+      font-size: 16px; line-height: 1.7; color: rgba(0,0,0,0.7); margin-bottom: 14px;
+    }
+    .cs-pq-genres { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .cs-pq-genre {
+      font-size: 13px; font-weight: 600;
+      padding: 7px 14px; border-radius: 999px;
+      background: #fff; color: #1a0a32;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* Admin portal grid */
+    .cs-pq-admin-grid {
+      display: grid; grid-template-columns: 1.4fr 1fr;
+      gap: 24px; margin-top: 44px;
+    }
+    .cs-pq-admin-grid > .cs-pq-admin-card:first-child { grid-row: span 2; }
+    .cs-pq-admin-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    .cs-pq-admin-img {
+      background: #1a0a32;
+      flex: 1; min-height: 220px;
+      overflow: hidden;
+    }
+    .cs-pq-admin-img img {
+      width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block;
+    }
+    .cs-pq-admin-body { padding: 18px 22px 22px; }
+    .cs-pq-admin-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(190,150,255,0.85); margin-bottom: 6px;
+    }
+    .cs-pq-admin-title { font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .cs-pq-admin-text { font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.65); }
+
+    /* Content pipeline diagram */
+    .cs-pq-pipeline {
+      margin-top: 40px;
+      display: grid; grid-template-columns: repeat(5, 1fr) auto;
+      align-items: stretch; gap: 0;
+    }
+    .cs-pq-pipe-step {
+      position: relative;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 14px;
+      padding: 22px 20px;
+      text-align: center;
+      z-index: 1;
+    }
+    .cs-pq-pipe-step + .cs-pq-pipe-step { margin-left: -1px; }
+    .cs-pq-pipe-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: #f4ecff; color: #6a1ec9;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 12px;
+    }
+    .cs-pq-pipe-icon svg { width: 20px; height: 20px; }
+    .cs-pq-pipe-tag {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(0,0,0,0.5); margin-bottom: 4px;
+    }
+    .cs-pq-pipe-title { font-size: 15px; font-weight: 800; color: #111; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .cs-pq-pipe-text { font-size: 12.5px; line-height: 1.5; color: rgba(0,0,0,0.62); }
+    .cs-pq-pipe-arrow {
+      align-self: center;
+      width: 24px; height: 24px;
+      color: rgba(0,0,0,0.35);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cs-pq-pipe-arrow svg { width: 18px; height: 18px; }
+
+    /* Try it CTA */
+    .cs-pq-cta {
+      padding: 100px 40px 110px;
+      background: linear-gradient(180deg, #0a0414 0%, #1a0a32 100%);
+      color: #fff; text-align: center;
+    }
+    .cs-pq-cta-inner { max-width: 720px; margin: 0 auto; }
+    .cs-pq-cta-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(190,150,255,0.95); margin-bottom: 18px;
+    }
+    .cs-pq-cta-title {
+      font-size: clamp(32px, 4.2vw, 50px); font-weight: 800;
+      letter-spacing: -0.025em; line-height: 1.05; margin-bottom: 18px;
+    }
+    .cs-pq-cta-body {
+      font-size: 16.5px; line-height: 1.65; color: rgba(255,255,255,0.7);
+      margin-bottom: 30px;
+    }
+    .cs-pq-cta-buttons {
+      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+    }
+    .cs-pq-btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 24px; border-radius: 999px;
+      background: #fff; color: #111;
+      font-size: 15px; font-weight: 700;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cs-pq-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,255,255,0.18); }
+    .cs-pq-btn-secondary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 24px; border-radius: 999px;
+      background: rgba(255,255,255,0.08); color: #fff;
+      font-size: 15px; font-weight: 700;
+      border: 1px solid rgba(255,255,255,0.18);
+      transition: background 0.2s;
+    }
+    .cs-pq-btn-secondary:hover { background: rgba(255,255,255,0.14); }
+
+    @media (max-width: 900px) {
+      .cs-pq-section { padding: 64px 0 72px; }
+      .cs-pq-stats { padding: 0 24px 56px; }
+      .cs-pq-stats-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .cs-pq-inner { padding: 0 24px; }
+      .cs-pq-voice { padding: 70px 0 80px; }
+      .cs-pq-voice-inner { grid-template-columns: 1fr; gap: 36px; padding: 0 24px; }
+      .cs-pq-modes { grid-template-columns: 1fr; gap: 16px; margin-top: 28px; }
+      .cs-pq-two { grid-template-columns: 1fr; gap: 32px; }
+      .cs-pq-admin-grid { grid-template-columns: 1fr; gap: 16px; }
+      .cs-pq-admin-grid > .cs-pq-admin-card:first-child { grid-row: auto; }
+      .cs-pq-pipeline { grid-template-columns: 1fr; gap: 8px; }
+      .cs-pq-pipe-step + .cs-pq-pipe-step { margin-left: 0; }
+      .cs-pq-pipe-arrow { transform: rotate(90deg); }
+      .cs-pq-cta { padding: 70px 24px 80px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cs-pq-mode:hover { transform: none; }
+      .cs-pq-btn-primary:hover { transform: none; }
+    }
+
     /* "Built for Figma" craft section: Apple-style horizontal media carousel */
     .cs-sprout-figma { padding: 90px 0 96px; background: #f6f6f6; }
     .cs-sprout-figma-inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
@@ -1481,6 +1737,7 @@
       currentSlug = null;
       stopSproutMcpTyper();
       document.body.classList.remove('cs-sprout-layout');
+      document.body.classList.remove('cs-popquiz-layout');
       document.getElementById('gallery-view').classList.add('active');
       document.getElementById('case-study-view').classList.remove('active');
       document.title = 'Portfolio | Experience | David McCrindle';
@@ -1525,12 +1782,26 @@
         bodyEl.style.display = 'none';
         showcaseEl.style.display = 'none';
         document.body.classList.add('cs-sprout-layout');
+        document.body.classList.remove('cs-popquiz-layout');
         buildNextSection(projects.slice(projects.findIndex(p => p.slug === project.slug) + 1).find(p => !p.externalUrl) || null);
         window.scrollTo(0, 0);
         startSproutMcpTyper();
         return;
       }
+      if (project.customLayout === 'popquiz') {
+        document.getElementById('cs-lead-text').textContent = project.intro || '';
+        customEl.innerHTML = renderPopQuizLayout();
+        bodyEl.style.display = 'none';
+        showcaseEl.style.display = 'none';
+        document.body.classList.add('cs-popquiz-layout');
+        document.body.classList.remove('cs-sprout-layout');
+        stopSproutMcpTyper();
+        buildNextSection(projects.slice(projects.findIndex(p => p.slug === project.slug) + 1).find(p => !p.externalUrl) || null);
+        window.scrollTo(0, 0);
+        return;
+      }
       document.body.classList.remove('cs-sprout-layout');
+      document.body.classList.remove('cs-popquiz-layout');
       stopSproutMcpTyper();
       customEl.innerHTML = '';
       bodyEl.style.display = '';
@@ -2060,6 +2331,246 @@
       const nextIdx = Math.max(0, Math.min(items.length - 1, activeIdx + direction));
       car.scrollTo({ left: items[nextIdx].offsetLeft, behavior: 'smooth' });
     };
+
+    // ── Pop Quiz custom case-study layout ────────
+    function renderPopQuizLayout() {
+      const APP_STORE = 'https://apps.apple.com/us/app/pop-quiz-music/id6760779842';
+      const SITE = 'https://popquizparty.com';
+      const genres = ['Britpop', 'Classic Rock', '90s Hip-Hop', 'Indie', 'Country', 'K-Pop', 'One Hit Wonders', 'Boy Bands', 'Legendary Divas'];
+      const genresHtml = genres.map(g => `<span class="cs-pq-genre">${g}</span>`).join('');
+
+      const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>';
+      const appleSvg = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.49-.12-1.06.396-2.18 1.103-2.97.703-.79 2.05-1.42 3.061-1.6zM20.94 17.35c-.46 1.05-.69 1.52-1.28 2.45-.85 1.34-2.05 3-3.55 3.02-1.32.02-1.66-.86-3.46-.85-1.8.01-2.18.86-3.5.85-1.5-.02-2.65-1.5-3.5-2.84-2.4-3.74-2.66-8.13-1.18-10.46 1.06-1.66 2.72-2.62 4.28-2.62 1.59 0 2.6.88 3.92.88 1.28 0 2.06-.88 3.91-.88 1.39 0 2.86.76 3.91 2.07-3.44 1.88-2.88 6.79.06 8.38z"/></svg>';
+
+      return `
+      <section class="cs-pq-stats">
+        <div class="cs-pq-stats-inner">
+          <div class="cs-pq-stat">
+            <div class="cs-pq-stat-num">100M+</div>
+            <div class="cs-pq-stat-lbl">Songs reachable through Apple Music</div>
+          </div>
+          <div class="cs-pq-stat">
+            <div class="cs-pq-stat-num">3 platforms</div>
+            <div class="cs-pq-stat-lbl">iPhone, iPad, Apple Watch</div>
+          </div>
+          <div class="cs-pq-stat">
+            <div class="cs-pq-stat-num">4 players</div>
+            <div class="cs-pq-stat-lbl">Party mode on a single iPad, no extra downloads</div>
+          </div>
+          <div class="cs-pq-stat">
+            <div class="cs-pq-stat-num">1 builder</div>
+            <div class="cs-pq-stat-lbl">Solo designed, built, and shipped with AI</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-pq-voice">
+        <div class="cs-pq-voice-bg" aria-hidden="true"></div>
+        <div class="cs-pq-voice-inner">
+          <div class="cs-pq-voice-text">
+            <div class="cs-pq-voice-eyebrow">Voice input</div>
+            <h2 class="cs-pq-voice-title">Not multiple choice. Hit the mic.</h2>
+            <p class="cs-pq-voice-body">Every music trivia app I've played is multiple choice. You're just tapping buttons. Pop Quiz Music uses on-device speech recognition so you <strong>shout the answer out loud</strong>, the way you would at a bar quiz with friends.</p>
+            <p class="cs-pq-voice-body">Voice input changes the energy completely. It turns a quiz into a party game show, and it makes every wrong answer funnier than the last.</p>
+          </div>
+          <div class="cs-pq-video">
+            <video autoplay loop muted playsinline poster="/pop-quiz/hero-devices.png" aria-label="Pop Quiz Music gameplay: a player hits the mic and shouts an artist name. The app captures the answer with on-device speech recognition.">
+              <source src="/pop-quiz/popquizmusic.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-pq cs-pq-section">
+        <div class="cs-pq-inner">
+          <div class="cs-pq-eyebrow">How it plays</div>
+          <h2 class="cs-pq-h2">Three modes. One device.</h2>
+          <p class="cs-pq-intro">No second download for your friends, no AirPlay setup, no second account. Whatever screen you're already holding, the game runs on it.</p>
+          <div class="cs-pq-modes">
+            <div class="cs-pq-mode">
+              <div class="cs-pq-mode-video">
+                <video autoplay loop muted playsinline aria-label="Head to Head mode on iPhone showing two players sharing one device.">
+                  <source src="/pop-quiz/head2head.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="cs-pq-mode-body">
+                <div class="cs-pq-mode-tag">iPhone</div>
+                <div class="cs-pq-mode-title">Head to Head</div>
+                <div class="cs-pq-mode-text">Two players, one phone. Pass it across the table, take turns calling the mic. Fastest correct voice steals the round.</div>
+              </div>
+            </div>
+            <div class="cs-pq-mode">
+              <div class="cs-pq-mode-video">
+                <video autoplay loop muted playsinline aria-label="Party mode on iPad with four players gathered around one device.">
+                  <source src="/pop-quiz/4players.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="cs-pq-mode-body">
+                <div class="cs-pq-mode-tag">iPad</div>
+                <div class="cs-pq-mode-title">Party Mode</div>
+                <div class="cs-pq-mode-text">Up to four players around one iPad. Pick your genres, shout your answers, watch the podium crown a winner. No extra hardware.</div>
+              </div>
+            </div>
+            <div class="cs-pq-mode">
+              <div class="cs-pq-mode-video">
+                <video autoplay loop muted playsinline aria-label="Daily Trivia: three free questions a day across iPhone, iPad, and Apple Watch.">
+                  <source src="/pop-quiz/howtoplay.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="cs-pq-mode-body">
+                <div class="cs-pq-mode-tag">Daily Trivia</div>
+                <div class="cs-pq-mode-title">Three a day, every day</div>
+                <div class="cs-pq-mode-text">Free for everyone. Build a streak, share a scorecard, and yes: it runs on the Apple Watch too. Quick rounds straight from your wrist.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-pq cs-pq-section alt">
+        <div class="cs-pq-inner">
+          <div class="cs-pq-eyebrow">Make it yours</div>
+          <h2 class="cs-pq-h2">Built around your music</h2>
+          <p class="cs-pq-intro">If you're obsessed with Radiohead or Dolly Parton or Bad Bunny, your game should reflect that. Add any artist from Apple Music's catalog, or dive into a curated playlist when you want a starting point.</p>
+          <div class="cs-pq-two">
+            <div class="cs-pq-video" style="aspect-ratio: 16 / 11;">
+              <video autoplay loop muted playsinline aria-label="Adding artists and switching curated genre playlists.">
+                <source src="/pop-quiz/categories.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="cs-pq-two-text">
+              <p>Search any artist, add them to your roster, and the questions adapt. The whole Apple Music catalog is on the table.</p>
+              <p>Or pick a curated playlist when you want a fresh challenge. Each is hand-built, not algorithm-spun. New ones drop regularly.</p>
+              <div class="cs-pq-genres">${genresHtml}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-pq cs-pq-section">
+        <div class="cs-pq-inner">
+          <div class="cs-pq-eyebrow">Why I built it</div>
+          <h2 class="cs-pq-h2">A bar quiz, in your pocket</h2>
+          <p class="cs-pq-intro">I love music trivia. I play it with friends, badly, often. Every existing app either forces multiple-choice button-tapping or asks everyone in the room to download something. I wanted a game where you shout the answer, where the artist list is yours, and where one device is all the room needs. Pop Quiz Music is that game, and it's a love letter to bar trivia.</p>
+        </div>
+      </section>
+
+      <section class="cs-pq cs-pq-section alt">
+        <div class="cs-pq-inner">
+          <div class="cs-pq-eyebrow">How I built it</div>
+          <h2 class="cs-pq-h2">Solo, end to end, with AI as a collaborator</h2>
+          <p class="cs-pq-intro">Pop Quiz Music was an experiment in what one person can ship across three Apple platforms with AI in the loop. Twenty years of design and product thinking, paired with an AI partner that handles a lot of the engineering plumbing, lets one person move at the speed of a small team without losing taste or care.</p>
+          <div class="cs-pq-two" style="margin-top: 20px;">
+            <div class="cs-pq-two-text">
+              <p><strong>SwiftUI across three platforms.</strong> iPhone, iPad, and Apple Watch targets share a single SwiftUI codebase, with adaptive layouts for each form factor and platform conventions where they matter.</p>
+              <p><strong>On-device speech recognition.</strong> Voice answers stay on the device for speed and privacy. No round-trip to a server, no waiting on a transcript.</p>
+              <p><strong>Apple Music + MusicKit.</strong> Artist search and roster building hook into Apple's MusicKit framework, so the entire 100M+ song catalog is one tap away.</p>
+              <p><strong>AI as a build partner.</strong> Claude pair-programs the scaffolding, refactors I'd rather not, and the long tail of platform plumbing. The design and product decisions stay mine; the rote work goes faster.</p>
+            </div>
+            <div class="cs-pq-video" style="aspect-ratio: 4 / 5;">
+              <img src="/pop-quiz/hero-devices.png" alt="Pop Quiz Music running across iPhone, iPad, and Apple Watch.">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-pq cs-pq-section dark">
+        <div class="cs-pq-inner">
+          <div class="cs-pq-eyebrow">The back office</div>
+          <h2 class="cs-pq-h2">An admin portal I use every day</h2>
+          <p class="cs-pq-intro" style="color: rgba(255,255,255,0.75);">Shipping the app was half the work. To run it like a product, I built a custom admin at <code style="color:rgba(190,150,255,0.95)">admin.popquizparty.com</code>: a trivia editor, a content calendar, and an AI-generated daily brief that turns "what should I post today?" into a five-minute task.</p>
+          <div class="cs-pq-admin-grid">
+            <div class="cs-pq-admin-card">
+              <div class="cs-pq-admin-img" style="min-height: 320px;">
+                <img src="/pop-quiz/admin-daily-brief.png" alt="Daily Brief admin screen: AI-generated music moments worth posting, with copy and quick actions to schedule.">
+              </div>
+              <div class="cs-pq-admin-body">
+                <div class="cs-pq-admin-tag">Daily Brief</div>
+                <div class="cs-pq-admin-title">AI-generated music moments</div>
+                <div class="cs-pq-admin-text">Each morning, Claude surfaces what's worth posting: anniversaries, album drops, release-week reminders, daily streak callouts. Each card comes with copy, tags, and a "Schedule" button.</div>
+              </div>
+            </div>
+            <div class="cs-pq-admin-card">
+              <div class="cs-pq-admin-img">
+                <img src="/pop-quiz/admin-editor.png" alt="Trivia Editor admin screen: edit daily questions with question type, artist lookup, and fun fact fields.">
+              </div>
+              <div class="cs-pq-admin-body">
+                <div class="cs-pq-admin-tag">Trivia Editor</div>
+                <div class="cs-pq-admin-title">Curated, not generated</div>
+                <div class="cs-pq-admin-text">Every Daily Trivia question is hand-written or hand-edited. The editor pulls Apple Music metadata so the answers stay verifiable.</div>
+              </div>
+            </div>
+            <div class="cs-pq-admin-card">
+              <div class="cs-pq-admin-img">
+                <img src="/pop-quiz/admin-calendar.png" alt="Content calendar admin screen: month view with days that have trivia questions highlighted.">
+              </div>
+              <div class="cs-pq-admin-body">
+                <div class="cs-pq-admin-tag">Calendar</div>
+                <div class="cs-pq-admin-title">Plan a month at a glance</div>
+                <div class="cs-pq-admin-text">Months of trivia scheduled and visible at once. Jump to any day, edit in place, or fill gaps before they go live.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-pq cs-pq-section alt">
+        <div class="cs-pq-inner">
+          <div class="cs-pq-eyebrow">Content pipeline</div>
+          <h2 class="cs-pq-h2">From "music news" to scheduled posts in minutes</h2>
+          <p class="cs-pq-intro">I built the social pipeline the same way I built the app: small, opinionated, and assembled around tools I already use. AI handles the research and drafting. I keep the editorial veto. Buffer handles the scheduling.</p>
+          <div class="cs-pq-pipeline">
+            <div class="cs-pq-pipe-step">
+              <div class="cs-pq-pipe-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M5 6l3 3M19 6l-3 3M2 12h4M22 12h-4M5 18l3-3M19 18l-3-3M12 22v-4"/><circle cx="12" cy="12" r="3"/></svg></div>
+              <div class="cs-pq-pipe-tag">Step 1</div>
+              <div class="cs-pq-pipe-title">Daily Brief</div>
+              <div class="cs-pq-pipe-text">Claude scans the day's music news, anniversaries, and releases.</div>
+            </div>
+            <div class="cs-pq-pipe-arrow" aria-hidden="true">${arrow}</div>
+            <div class="cs-pq-pipe-step">
+              <div class="cs-pq-pipe-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l9-7-9-7-9 7 9 7z"/><path d="M12 19v-7"/></svg></div>
+              <div class="cs-pq-pipe-tag">Step 2</div>
+              <div class="cs-pq-pipe-title">Curate</div>
+              <div class="cs-pq-pipe-text">I keep what's interesting, kill what isn't, edit the copy in place.</div>
+            </div>
+            <div class="cs-pq-pipe-arrow" aria-hidden="true">${arrow}</div>
+            <div class="cs-pq-pipe-step">
+              <div class="cs-pq-pipe-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 15l-5-5L8 18"/></svg></div>
+              <div class="cs-pq-pipe-tag">Step 3</div>
+              <div class="cs-pq-pipe-title">Trivia card</div>
+              <div class="cs-pq-pipe-text">SVG card auto-generated from the moment, branded and ready.</div>
+            </div>
+            <div class="cs-pq-pipe-arrow" aria-hidden="true">${arrow}</div>
+            <div class="cs-pq-pipe-step">
+              <div class="cs-pq-pipe-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+              <div class="cs-pq-pipe-tag">Step 4</div>
+              <div class="cs-pq-pipe-title">Buffer</div>
+              <div class="cs-pq-pipe-text">Send to Buffer, scheduled across the right channels.</div>
+            </div>
+            <div class="cs-pq-pipe-arrow" aria-hidden="true">${arrow}</div>
+            <div class="cs-pq-pipe-step">
+              <div class="cs-pq-pipe-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l3 3"/></svg></div>
+              <div class="cs-pq-pipe-tag">Step 5</div>
+              <div class="cs-pq-pipe-title">Posted on time</div>
+              <div class="cs-pq-pipe-text">No "I forgot to post today" moments. The schedule runs itself.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-pq-cta">
+        <div class="cs-pq-cta-inner">
+          <div class="cs-pq-cta-eyebrow">Play it</div>
+          <h2 class="cs-pq-cta-title">Free Daily Trivia. $2.99 unlocks the party.</h2>
+          <p class="cs-pq-cta-body">Three new questions every day at no cost. A one-time purchase opens up Head to Head and Party Mode for the room. Built solo, shipped on iPhone, iPad, and Apple Watch.</p>
+          <div class="cs-pq-cta-buttons">
+            <a class="cs-pq-btn-primary" href="${APP_STORE}" target="_blank" rel="noopener">${appleSvg}Download on the App Store</a>
+            <a class="cs-pq-btn-secondary" href="${SITE}" target="_blank" rel="noopener">popquizparty.com</a>
+          </div>
+        </div>
+      </section>
+      `;
+    }
 
     let sproutMcpTimer = null;
     function stopSproutMcpTyper() {

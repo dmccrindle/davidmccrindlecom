@@ -5,6 +5,8 @@ dist/
 .claude/
 .vercel
 
-# Internal Sprout reference docs (kept locally, never shipped)
+# Internal reference docs (kept locally, never shipped)
 public/sprout/*.pdf
 public/sprout/*.md
+public/pop-quiz/*.pdf
+public/pop-quiz/*.md
