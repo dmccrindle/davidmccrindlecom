@@ -133,6 +133,7 @@ export const projects = [
     intro: "Restaurant kitchens often operate with a patchwork of disconnected tools. Kitchen Blueprint was designed to bring those systems together into one operational hub.",
     company: 'Cargill',
     tags: ['AI/ML', 'Data Visualization', 'Operations'],
+    customLayout: 'kb',
     thumbnail: '/img/portfolio/kb-1.jpg',
     heroImg: '/img/portfolio/kb-1.jpg',
     industry: 'food-agriculture',
