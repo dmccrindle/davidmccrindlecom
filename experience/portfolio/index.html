@@ -1262,10 +1262,85 @@
       .cs-ck-approach { grid-template-columns: 1fr; gap: 14px; }
       .cs-ck-outcomes { grid-template-columns: 1fr; gap: 0; margin-top: 24px; }
       .cs-ck-press { grid-template-columns: 1fr; gap: 14px; }
+      .cs-ck-photos { padding: 64px 0 72px; }
+      .cs-ck-photos-inner { padding: 0 24px; }
+      .cs-ck-photos-grid { grid-template-columns: 1fr; grid-template-rows: auto; min-height: 0; gap: 14px; }
+      .cs-ck-photo.hero { grid-row: auto; }
+      .cs-ck-photo { aspect-ratio: 16 / 10; }
+      .cs-ck-brandbook { aspect-ratio: 16 / 10; }
     }
 
     @media (prefers-reduced-motion: reduce) {
       .cs-ck-approach-card:hover { transform: none; }
+    }
+
+    /* "In the wild" photo section */
+    .cs-ck-photos { background: #f7f5fc; padding: 90px 0 100px; }
+    .cs-ck-photos-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .cs-ck-photos-head { margin-bottom: 36px; max-width: 720px; }
+    .cs-ck-photo {
+      cursor: zoom-in;
+      position: relative;
+      background: #ede5ff;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 18px 56px rgba(82,32,205,0.12);
+      border: none; padding: 0;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .cs-ck-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-ck-photo:hover { transform: translateY(-3px); }
+    .cs-ck-photo:focus-visible { outline: 2px solid #5220CD; outline-offset: 3px; }
+    .cs-ck-photo .cs-ck-zoom-icon {
+      position: absolute; top: 14px; right: 14px;
+      width: 36px; height: 36px;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+      border-radius: 50%; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0.8);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none;
+    }
+    .cs-ck-photo:hover .cs-ck-zoom-icon { opacity: 1; transform: scale(1); }
+    .cs-ck-photo .cs-ck-zoom-icon svg { width: 16px; height: 16px; }
+    .cs-ck-photos-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 20px; min-height: 560px;
+    }
+    .cs-ck-photo.hero { grid-row: span 2; }
+
+    /* Brand book banner above design approach */
+    .cs-ck-brandbook {
+      cursor: zoom-in; position: relative;
+      border-radius: 16px; overflow: hidden;
+      background: #1a0a32;
+      box-shadow: 0 18px 56px rgba(82,32,205,0.10);
+      margin-bottom: 44px;
+      aspect-ratio: 16 / 6;
+      border: none; padding: 0;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .cs-ck-brandbook:hover { transform: translateY(-3px); }
+    .cs-ck-brandbook:focus-visible { outline: 2px solid #5220CD; outline-offset: 3px; }
+    .cs-ck-brandbook img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-ck-brandbook .cs-ck-zoom-icon {
+      position: absolute; top: 14px; right: 14px;
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.18); backdrop-filter: blur(8px);
+      border-radius: 50%; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(0.8);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none;
+    }
+    .cs-ck-brandbook:hover .cs-ck-zoom-icon { opacity: 1; transform: scale(1); }
+    .cs-ck-brandbook .cs-ck-zoom-icon svg { width: 16px; height: 16px; }
+    .cs-ck-brandbook-tag {
+      position: absolute; bottom: 18px; left: 22px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(255,255,255,0.78);
+      background: rgba(0,0,0,0.45); backdrop-filter: blur(8px);
+      padding: 6px 12px; border-radius: 999px;
     }
 
     /* Click-to-zoom affordance on surface images */
@@ -2880,10 +2955,15 @@
 
     // ── Chekt lightbox ──────────────────────────
     let chektLightboxIdx = 0;
+    let chektLightboxSet = 'surfaces';
     let chektLightboxLastFocused = null;
-    function chektLightboxOpen(idx) {
-      const surfaces = window._chektSurfaces;
-      if (!surfaces || !surfaces.length) return;
+    function chektCurrentSet() {
+      return (window._chektSets && window._chektSets[chektLightboxSet]) || [];
+    }
+    function chektLightboxOpen(setName, idx) {
+      const set = (window._chektSets && window._chektSets[setName]) || [];
+      if (!set.length) return;
+      chektLightboxSet = setName;
       chektLightboxIdx = idx;
       chektLightboxLastFocused = document.activeElement;
       chektLightboxRender();
@@ -2896,20 +2976,28 @@
       }
     }
     function chektLightboxRender() {
-      const surfaces = window._chektSurfaces || [];
-      const s = surfaces[chektLightboxIdx];
+      const set = chektCurrentSet();
+      const s = set[chektLightboxIdx];
       if (!s) return;
       const img = document.getElementById('cs-ck-lightbox-img');
       const cap = document.getElementById('cs-ck-lightbox-caption');
       const cnt = document.getElementById('cs-ck-lightbox-counter');
-      if (img) { img.src = s.img; img.alt = s.title + ' interface'; }
-      if (cap) cap.innerHTML = `<span class="num">${s.num}</span>${s.title}`;
-      if (cnt) cnt.textContent = `${chektLightboxIdx + 1} / ${surfaces.length}`;
+      const prev = document.querySelector('.cs-ck-lightbox-prev');
+      const next = document.querySelector('.cs-ck-lightbox-next');
+      if (img) { img.src = s.img; img.alt = s.alt || s.title || ''; }
+      if (cap) cap.innerHTML = s.num
+        ? `<span class="num">${s.num}</span>${s.title || ''}`
+        : (s.title || '');
+      if (cnt) cnt.textContent = `${chektLightboxIdx + 1} / ${set.length}`;
+      // Hide nav when only one item in set
+      const single = set.length <= 1;
+      if (prev) prev.style.display = single ? 'none' : '';
+      if (next) next.style.display = single ? 'none' : '';
     }
     window.chektLightboxNav = function(direction) {
-      const surfaces = window._chektSurfaces || [];
-      if (!surfaces.length) return;
-      chektLightboxIdx = (chektLightboxIdx + direction + surfaces.length) % surfaces.length;
+      const set = chektCurrentSet();
+      if (set.length <= 1) return;
+      chektLightboxIdx = (chektLightboxIdx + direction + set.length) % set.length;
       chektLightboxRender();
     };
     window.chektLightboxClose = function() {
@@ -2921,10 +3009,12 @@
       }
     };
     document.addEventListener('click', (e) => {
-      const trigger = e.target.closest('[data-ck-lightbox]');
+      const trigger = e.target.closest('[data-ck-lightbox-set]');
       if (trigger) {
         e.preventDefault();
-        chektLightboxOpen(parseInt(trigger.dataset.ckLightbox, 10) || 0);
+        const setName = trigger.dataset.ckLightboxSet;
+        const idx = parseInt(trigger.dataset.ckLightboxIdx, 10) || 0;
+        chektLightboxOpen(setName, idx);
         return;
       }
       const box = document.getElementById('cs-ck-lightbox');
@@ -2998,7 +3088,7 @@
       const zoomIcon = '<span class="cs-ck-zoom-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>';
       const surfacesHtml = surfaces.map((s, i) => `
         <article class="cs-ck-surface${i % 2 === 1 ? ' reverse' : ''}">
-          <button class="cs-ck-surface-img ${s.imgClass}" data-ck-lightbox="${i}" aria-label="View ${s.title} larger" type="button" style="border:none;padding:0;font:inherit;text-align:inherit;color:inherit;">
+          <button class="cs-ck-surface-img ${s.imgClass}" data-ck-lightbox-set="surfaces" data-ck-lightbox-idx="${i}" aria-label="View ${s.title} larger" type="button" style="border:none;padding:0;font:inherit;text-align:inherit;color:inherit;">
             <img src="${s.img}" alt="${s.title} interface" loading="lazy">
             ${zoomIcon}
           </button>
@@ -3011,7 +3101,14 @@
         </article>
       `).join('');
 
-      window._chektSurfaces = surfaces;
+      const photos = [
+        { img: '/chekt/lockers.webp', title: 'Branded Chekt Food Lockers', alt: 'Chekt branded purple food lockers stacked, with logo on the wall behind.' },
+        { img: '/chekt/kiosk.webp', title: 'A locker, in use', alt: 'Close up of a Chekt locker with a coffee cup waiting for pickup.' },
+        { img: '/chekt/pickup-real.webp', title: 'Customer pickup moment', alt: 'A customer handing off a takeout container in front of a row of Chekt lockers.' },
+        { img: '/chekt/guidelines.webp', title: 'Chekt brand guidelines', alt: 'Pages from the Chekt brand book: typography, color, photography, and design elements.' },
+      ];
+
+      window._chektSets = { surfaces, photos };
 
       const outcomes = [
         'Improved customer confidence and speed during pickup.',
@@ -3080,6 +3177,30 @@
         </div>
       </section>
 
+      <section class="cs-ck-photos">
+        <div class="cs-ck-photos-inner">
+          <div class="cs-ck-photos-head">
+            <div class="cs-ck-eyebrow">In the wild</div>
+            <h2 class="cs-ck-h2">Hardware, software, and one purple paint chip</h2>
+            <p class="cs-ck-intro">Before any of the digital surfaces existed, the lockers had to look and feel like a Chekt product. Branded, photographed, and tested in real spaces.</p>
+          </div>
+          <div class="cs-ck-photos-grid">
+            <button class="cs-ck-photo hero" type="button" data-ck-lightbox-set="photos" data-ck-lightbox-idx="0" aria-label="View branded Chekt food lockers larger">
+              <img src="/chekt/lockers.webp" alt="Chekt branded purple food lockers stacked in an editorial setup with the Chekt logo on the wall." loading="lazy">
+              ${zoomIcon}
+            </button>
+            <button class="cs-ck-photo" type="button" data-ck-lightbox-set="photos" data-ck-lightbox-idx="1" aria-label="View locker close-up larger">
+              <img src="/chekt/kiosk.webp" alt="Close up of a Chekt locker with a coffee cup waiting for pickup." loading="lazy">
+              ${zoomIcon}
+            </button>
+            <button class="cs-ck-photo" type="button" data-ck-lightbox-set="photos" data-ck-lightbox-idx="2" aria-label="View pickup moment larger">
+              <img src="/chekt/pickup-real.webp" alt="A customer handing off a takeout container in front of a row of Chekt lockers." loading="lazy">
+              ${zoomIcon}
+            </button>
+          </div>
+        </div>
+      </section>
+
       <section class="cs-ck cs-ck-section">
         <div class="cs-ck-inner">
           <div class="cs-ck-eyebrow">The challenge</div>
@@ -3101,7 +3222,12 @@
         <div class="cs-ck-inner">
           <div class="cs-ck-eyebrow">Design approach</div>
           <h2 class="cs-ck-h2">Principles that held across every surface</h2>
-          <p class="cs-ck-intro">A system this connected needed shared principles so independent teams could ship aligned work. Four principles guided every surface, every hardware decision, and every operational pattern.</p>
+          <p class="cs-ck-intro" style="margin-bottom: 36px;">A system this connected needed shared principles, plus a brand book that gave every team the same vocabulary. Color, type, photography, and design elements all came out of one foundation, so independent teams could ship aligned work.</p>
+          <button class="cs-ck-brandbook" type="button" data-ck-lightbox-set="photos" data-ck-lightbox-idx="3" aria-label="View Chekt brand guidelines larger">
+            <img src="/chekt/guidelines.webp" alt="Pages from the Chekt brand book showing typography, color, photography, and design elements." loading="lazy">
+            <span class="cs-ck-brandbook-tag">Chekt brand book</span>
+            ${zoomIcon}
+          </button>
           <div class="cs-ck-approach">
             <div class="cs-ck-approach-card">
               <div class="cs-ck-approach-num">01</div>
