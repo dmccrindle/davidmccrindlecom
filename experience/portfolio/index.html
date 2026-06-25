@@ -1078,6 +1078,296 @@
       .cs-pq-btn-primary:hover { transform: none; }
     }
 
+    /* ── Chekt custom case-study layout ──────── */
+    body.cs-chekt-layout .cs-lead { border-bottom: none; padding: 56px 60px 24px; }
+    body.cs-chekt-layout .cs-body-white { padding-bottom: 0; }
+    .cs-ck { color: #111; }
+    .cs-ck-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .cs-ck-section { padding: 90px 0 100px; }
+    .cs-ck-section.alt { background: #f7f5fc; }
+    .cs-ck-section.dark { background: #160a30; color: #fff; }
+    .cs-ck-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(0,0,0,0.55); margin-bottom: 14px;
+    }
+    .cs-ck-section.dark .cs-ck-eyebrow { color: rgba(180,140,255,0.92); }
+    .cs-ck-h2 {
+      font-size: clamp(28px, 3.6vw, 44px);
+      font-weight: 800; letter-spacing: -0.02em;
+      line-height: 1.1; margin-bottom: 18px; color: #111;
+    }
+    .cs-ck-section.dark .cs-ck-h2 { color: #fff; }
+    .cs-ck-intro {
+      font-size: 17px; line-height: 1.65; color: rgba(0,0,0,0.7);
+      max-width: 720px;
+    }
+    .cs-ck-section.dark .cs-ck-intro { color: rgba(255,255,255,0.75); }
+
+    /* Stats strip */
+    .cs-ck-stats { background: #fff; padding: 0 40px 64px; }
+    .cs-ck-stats-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
+    }
+    .cs-ck-stat { border-top: 1px solid rgba(0,0,0,0.12); padding-top: 20px; }
+    .cs-ck-stat-num {
+      font-size: clamp(26px, 3.2vw, 40px);
+      font-weight: 800; letter-spacing: -0.02em;
+      line-height: 1.05; color: #111; margin-bottom: 10px;
+    }
+    .cs-ck-stat-lbl { font-size: 13px; font-weight: 500; color: rgba(0,0,0,0.55); line-height: 1.4; }
+
+    /* YouTube video embed */
+    .cs-ck-video-section { background: #0a0420; padding: 90px 0 100px; }
+    .cs-ck-video-wrap {
+      max-width: 1200px; margin: 0 auto; padding: 0 40px;
+    }
+    .cs-ck-video-head { text-align: center; margin-bottom: 36px; color: #fff; }
+    .cs-ck-video-head .cs-ck-eyebrow { color: rgba(180,140,255,0.92); }
+    .cs-ck-video-head h2 {
+      font-size: clamp(28px, 3.4vw, 40px); font-weight: 800;
+      letter-spacing: -0.02em; color: #fff; margin-bottom: 0;
+    }
+    .cs-ck-video-frame {
+      position: relative;
+      border-radius: 16px; overflow: hidden;
+      background: #000;
+      box-shadow: 0 24px 80px rgba(82,32,205,0.3);
+      aspect-ratio: 16 / 9;
+    }
+    .cs-ck-video-frame iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; border: 0;
+    }
+
+    /* Six surfaces alternating layout */
+    .cs-ck-surfaces { display: flex; flex-direction: column; gap: 110px; margin-top: 64px; }
+    .cs-ck-surface {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+    }
+    .cs-ck-surface.reverse > .cs-ck-surface-img { order: 2; }
+    .cs-ck-surface-img {
+      background: #fff;
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 18px 56px rgba(82,32,205,0.10);
+      aspect-ratio: 16 / 11;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cs-ck-surface-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-ck-surface-img.dark { background: #0d0420; }
+    .cs-ck-surface-text { max-width: 480px; }
+    .cs-ck-surface-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #5220CD; margin-bottom: 12px;
+    }
+    .cs-ck-surface-num {
+      font-size: 11px; font-weight: 800;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: #5220CD; color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .cs-ck-surface-h {
+      font-size: clamp(24px, 2.6vw, 32px); font-weight: 800;
+      letter-spacing: -0.02em; line-height: 1.15;
+      color: #111; margin-bottom: 16px;
+    }
+    .cs-ck-surface-sub {
+      font-size: 13px; font-weight: 700; color: rgba(0,0,0,0.5);
+      margin-bottom: 18px;
+    }
+    .cs-ck-surface-body {
+      font-size: 15.5px; line-height: 1.7; color: rgba(0,0,0,0.7);
+    }
+
+    /* Design approach 2x2 */
+    .cs-ck-approach {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 28px; margin-top: 40px;
+    }
+    .cs-ck-approach-card {
+      background: #fff; border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px; padding: 32px 32px 36px;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .cs-ck-approach-card:hover { box-shadow: 0 14px 40px rgba(82,32,205,0.10); transform: translateY(-3px); }
+    .cs-ck-approach-num {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #ede5ff; color: #5220CD;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .cs-ck-approach-card h4 { font-size: 17px; font-weight: 800; color: #111; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .cs-ck-approach-card p { font-size: 14.5px; line-height: 1.65; color: rgba(0,0,0,0.65); }
+
+    /* Outcomes list */
+    .cs-ck-outcomes {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 20px 40px; margin-top: 36px;
+    }
+    .cs-ck-outcome {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 16px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .cs-ck-outcome-icon {
+      flex-shrink: 0; width: 24px; height: 24px;
+      color: rgba(180,140,255,0.95);
+    }
+    .cs-ck-outcome-icon svg { width: 100%; height: 100%; }
+    .cs-ck-outcome-text {
+      font-size: 15.5px; line-height: 1.55;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* Press recognition */
+    .cs-ck-press {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 24px; margin-top: 36px;
+    }
+    .cs-ck-press-card {
+      background: #fff; border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px; padding: 28px 30px 32px;
+    }
+    .cs-ck-press-tag {
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #5220CD;
+      background: #ede5ff;
+      padding: 5px 11px; border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .cs-ck-press-title {
+      font-size: 18px; font-weight: 800; color: #111;
+      letter-spacing: -0.01em; margin-bottom: 10px; line-height: 1.3;
+    }
+    .cs-ck-press-text {
+      font-size: 14.5px; line-height: 1.6; color: rgba(0,0,0,0.65);
+      margin-bottom: 14px;
+    }
+    .cs-ck-press-source { font-size: 13px; font-weight: 700; color: #5220CD; }
+
+    @media (max-width: 900px) {
+      .cs-ck-section { padding: 64px 0 72px; }
+      .cs-ck-stats { padding: 0 24px 56px; }
+      .cs-ck-stats-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .cs-ck-inner { padding: 0 24px; }
+      .cs-ck-video-section { padding: 64px 0 72px; }
+      .cs-ck-video-wrap { padding: 0 24px; }
+      .cs-ck-surfaces { gap: 64px; margin-top: 40px; }
+      .cs-ck-surface { grid-template-columns: 1fr; gap: 28px; }
+      .cs-ck-surface.reverse > .cs-ck-surface-img { order: 0; }
+      .cs-ck-approach { grid-template-columns: 1fr; gap: 14px; }
+      .cs-ck-outcomes { grid-template-columns: 1fr; gap: 0; margin-top: 24px; }
+      .cs-ck-press { grid-template-columns: 1fr; gap: 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cs-ck-approach-card:hover { transform: none; }
+    }
+
+    /* Click-to-zoom affordance on surface images */
+    .cs-ck-surface-img {
+      cursor: zoom-in;
+      position: relative;
+    }
+    .cs-ck-surface-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(82,32,205,0.18));
+      opacity: 0; transition: opacity 0.25s;
+      pointer-events: none;
+    }
+    .cs-ck-surface-img:hover::after { opacity: 1; }
+    .cs-ck-surface-img .cs-ck-zoom-icon {
+      position: absolute; top: 14px; right: 14px;
+      width: 36px; height: 36px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      opacity: 0; transform: scale(0.8);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none;
+    }
+    .cs-ck-surface-img .cs-ck-zoom-icon svg { width: 16px; height: 16px; }
+    .cs-ck-surface-img:hover .cs-ck-zoom-icon { opacity: 1; transform: scale(1); }
+    .cs-ck-surface-img.dark .cs-ck-zoom-icon { background: rgba(255,255,255,0.18); }
+
+    /* Lightbox overlay */
+    .cs-ck-lightbox {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(8, 4, 20, 0.92);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 60px 80px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s;
+    }
+    .cs-ck-lightbox.open { opacity: 1; visibility: visible; }
+    .cs-ck-lightbox-stage {
+      position: relative;
+      max-width: 100%; max-height: 100%;
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
+    }
+    .cs-ck-lightbox-img {
+      max-width: 100%; max-height: calc(100vh - 200px);
+      display: block;
+      border-radius: 8px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      transform: scale(0.96); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .cs-ck-lightbox.open .cs-ck-lightbox-img { transform: scale(1); }
+    .cs-ck-lightbox-caption {
+      color: rgba(255,255,255,0.85);
+      font-size: 14px; font-weight: 600;
+      text-align: center;
+    }
+    .cs-ck-lightbox-caption .num {
+      color: rgba(180,140,255,0.92);
+      font-size: 11px; letter-spacing: 0.16em;
+      text-transform: uppercase; margin-right: 8px;
+    }
+    .cs-ck-lightbox-btn {
+      position: absolute;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.16);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .cs-ck-lightbox-btn:hover { background: rgba(255,255,255,0.18); }
+    .cs-ck-lightbox-btn:focus-visible { outline: 2px solid rgba(180,140,255,0.9); outline-offset: 3px; }
+    .cs-ck-lightbox-btn svg { width: 20px; height: 20px; }
+    .cs-ck-lightbox-close { top: 24px; right: 24px; }
+    .cs-ck-lightbox-prev { left: 24px; top: 50%; transform: translateY(-50%); }
+    .cs-ck-lightbox-next { right: 24px; top: 50%; transform: translateY(-50%); }
+    .cs-ck-lightbox-counter {
+      position: absolute; top: 30px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.55);
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    @media (max-width: 700px) {
+      .cs-ck-lightbox { padding: 40px 16px; }
+      .cs-ck-lightbox-close { top: 12px; right: 12px; }
+      .cs-ck-lightbox-prev { left: 12px; }
+      .cs-ck-lightbox-next { right: 12px; }
+      .cs-ck-lightbox-img { max-height: calc(100vh - 160px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cs-ck-lightbox, .cs-ck-lightbox-img { transition: none; }
+      .cs-ck-lightbox-img { transform: none !important; }
+    }
+
     /* "Built for Figma" craft section: Apple-style horizontal media carousel */
     .cs-sprout-figma { padding: 90px 0 96px; background: #f6f6f6; }
     .cs-sprout-figma-inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
@@ -1738,6 +2028,7 @@
       stopSproutMcpTyper();
       document.body.classList.remove('cs-sprout-layout');
       document.body.classList.remove('cs-popquiz-layout');
+      document.body.classList.remove('cs-chekt-layout');
       document.getElementById('gallery-view').classList.add('active');
       document.getElementById('case-study-view').classList.remove('active');
       document.title = 'Portfolio | Experience | David McCrindle';
@@ -1795,6 +2086,20 @@
         showcaseEl.style.display = 'none';
         document.body.classList.add('cs-popquiz-layout');
         document.body.classList.remove('cs-sprout-layout');
+        document.body.classList.remove('cs-chekt-layout');
+        stopSproutMcpTyper();
+        buildNextSection(projects.slice(projects.findIndex(p => p.slug === project.slug) + 1).find(p => !p.externalUrl) || null);
+        window.scrollTo(0, 0);
+        return;
+      }
+      if (project.customLayout === 'chekt') {
+        document.getElementById('cs-lead-text').textContent = project.intro || '';
+        customEl.innerHTML = renderChektLayout();
+        bodyEl.style.display = 'none';
+        showcaseEl.style.display = 'none';
+        document.body.classList.add('cs-chekt-layout');
+        document.body.classList.remove('cs-sprout-layout');
+        document.body.classList.remove('cs-popquiz-layout');
         stopSproutMcpTyper();
         buildNextSection(projects.slice(projects.findIndex(p => p.slug === project.slug) + 1).find(p => !p.externalUrl) || null);
         window.scrollTo(0, 0);
@@ -1802,6 +2107,7 @@
       }
       document.body.classList.remove('cs-sprout-layout');
       document.body.classList.remove('cs-popquiz-layout');
+      document.body.classList.remove('cs-chekt-layout');
       stopSproutMcpTyper();
       customEl.innerHTML = '';
       bodyEl.style.display = '';
@@ -2566,6 +2872,288 @@
           <div class="cs-pq-cta-buttons">
             <a class="cs-pq-btn-primary" href="${APP_STORE}" target="_blank" rel="noopener">${appleSvg}Download on the App Store</a>
             <a class="cs-pq-btn-secondary" href="${SITE}" target="_blank" rel="noopener">popquizparty.com</a>
+          </div>
+        </div>
+      </section>
+      `;
+    }
+
+    // ── Chekt lightbox ──────────────────────────
+    let chektLightboxIdx = 0;
+    let chektLightboxLastFocused = null;
+    function chektLightboxOpen(idx) {
+      const surfaces = window._chektSurfaces;
+      if (!surfaces || !surfaces.length) return;
+      chektLightboxIdx = idx;
+      chektLightboxLastFocused = document.activeElement;
+      chektLightboxRender();
+      const box = document.getElementById('cs-ck-lightbox');
+      if (box) {
+        box.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        const closeBtn = box.querySelector('.cs-ck-lightbox-close');
+        if (closeBtn) setTimeout(() => closeBtn.focus(), 50);
+      }
+    }
+    function chektLightboxRender() {
+      const surfaces = window._chektSurfaces || [];
+      const s = surfaces[chektLightboxIdx];
+      if (!s) return;
+      const img = document.getElementById('cs-ck-lightbox-img');
+      const cap = document.getElementById('cs-ck-lightbox-caption');
+      const cnt = document.getElementById('cs-ck-lightbox-counter');
+      if (img) { img.src = s.img; img.alt = s.title + ' interface'; }
+      if (cap) cap.innerHTML = `<span class="num">${s.num}</span>${s.title}`;
+      if (cnt) cnt.textContent = `${chektLightboxIdx + 1} / ${surfaces.length}`;
+    }
+    window.chektLightboxNav = function(direction) {
+      const surfaces = window._chektSurfaces || [];
+      if (!surfaces.length) return;
+      chektLightboxIdx = (chektLightboxIdx + direction + surfaces.length) % surfaces.length;
+      chektLightboxRender();
+    };
+    window.chektLightboxClose = function() {
+      const box = document.getElementById('cs-ck-lightbox');
+      if (box) box.classList.remove('open');
+      document.body.style.overflow = '';
+      if (chektLightboxLastFocused && chektLightboxLastFocused.focus) {
+        chektLightboxLastFocused.focus();
+      }
+    };
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('[data-ck-lightbox]');
+      if (trigger) {
+        e.preventDefault();
+        chektLightboxOpen(parseInt(trigger.dataset.ckLightbox, 10) || 0);
+        return;
+      }
+      const box = document.getElementById('cs-ck-lightbox');
+      if (box && box.classList.contains('open') && e.target === box) {
+        chektLightboxClose();
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      const box = document.getElementById('cs-ck-lightbox');
+      if (!box || !box.classList.contains('open')) return;
+      if (e.key === 'Escape') { e.preventDefault(); chektLightboxClose(); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); window.chektLightboxNav(1); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); window.chektLightboxNav(-1); }
+    });
+
+    // ── Chekt custom case-study layout ───────────
+    function renderChektLayout() {
+      const check = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+      const surfaces = [
+        {
+          num: '01', tag: 'Customer-facing',
+          title: 'Mobile Pickup',
+          sub: 'iPhone app for customers',
+          body: 'The mobile pickup experience connects the entire Chekt ecosystem. Customers place orders on their phone and receive a notification when their food is ready, along with a locker number or unlock method. This removes friction from the pickup process and creates a fast, contactless experience.',
+          img: '/chekt/mobile-pickup/hero.jpg',
+          imgClass: '',
+        },
+        {
+          num: '02', tag: 'Vendor staff',
+          title: 'PDS, Pod Display System',
+          sub: 'Tablet for kitchen and locker staff',
+          body: 'The Pod Display System gives kitchen staff a clear operational view of incoming orders and locker assignments. Designed for speed and clarity at distance, it helps staff quickly identify orders, track preparation status, and confirm food is placed in the correct locker. Two modes (Normal and Focused) flex to the energy of the moment.',
+          img: '/chekt/pds/normal.jpg',
+          imgClass: '',
+        },
+        {
+          num: '03', tag: 'Vendor setup',
+          title: 'Onboarding',
+          sub: 'Self-service locker provisioning',
+          body: 'Vendors set up their lockers without a Chekt engineer in the room. The onboarding flow walks an operator through powering up the unit, pairing it with the network, confirming the layout, and going live. Hardware that ships and configures itself.',
+          img: '/chekt/onboarding/power.png',
+          imgClass: 'dark',
+        },
+        {
+          num: '04', tag: 'Chekt operations',
+          title: 'Admin',
+          sub: 'Internal control plane',
+          body: 'The kitchen dashboard acts as the operational control center for Chekt deployments. It provides real-time visibility into order volume, locker availability, and fulfillment status, and lets the Chekt team manage throughput across every deployment from one place.',
+          img: '/chekt/admin/analytics.png',
+          imgClass: 'dark',
+        },
+        {
+          num: '05', tag: 'Public displays',
+          title: 'Fan Dashboard',
+          sub: 'TV display for stadiums and restaurants',
+          body: 'A large-format display shown on screens above the locker bank. Fans watch their order progress across categories at a glance, and venues get a branded, glanceable surface that anchors the pickup area visually.',
+          img: '/chekt/fan-dashboard/dark.png',
+          imgClass: 'dark',
+        },
+        {
+          num: '06', tag: 'No-app fallback',
+          title: 'SMS Flow',
+          sub: 'For customers without the app',
+          body: 'Not every customer downloads an app, especially at one-off venues. The SMS flow keeps the no-app experience first-class: customers get a text when their order is ready with a locker number and unlock link, so the pickup is as fast as the in-app version.',
+          img: '/chekt/sms/messages.png',
+          imgClass: 'dark',
+        },
+      ];
+
+      const zoomIcon = '<span class="cs-ck-zoom-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="20" y1="20" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>';
+      const surfacesHtml = surfaces.map((s, i) => `
+        <article class="cs-ck-surface${i % 2 === 1 ? ' reverse' : ''}">
+          <button class="cs-ck-surface-img ${s.imgClass}" data-ck-lightbox="${i}" aria-label="View ${s.title} larger" type="button" style="border:none;padding:0;font:inherit;text-align:inherit;color:inherit;">
+            <img src="${s.img}" alt="${s.title} interface" loading="lazy">
+            ${zoomIcon}
+          </button>
+          <div class="cs-ck-surface-text">
+            <div class="cs-ck-surface-tag"><span class="cs-ck-surface-num">${s.num}</span>${s.tag}</div>
+            <h3 class="cs-ck-surface-h">${s.title}</h3>
+            <div class="cs-ck-surface-sub">${s.sub}</div>
+            <p class="cs-ck-surface-body">${s.body}</p>
+          </div>
+        </article>
+      `).join('');
+
+      window._chektSurfaces = surfaces;
+
+      const outcomes = [
+        'Improved customer confidence and speed during pickup.',
+        'Reduced order theft through clearer structure and visibility.',
+        'Faster staff onboarding due to mobile-like interaction patterns.',
+        'Stronger alignment between digital tools and physical environments.',
+        'A scalable pickup model adaptable across restaurant and venue formats.',
+        'A platform that earned industry recognition and partnered with major venues.',
+      ];
+
+      const outcomesHtml = outcomes.map(o => `
+        <div class="cs-ck-outcome">
+          <div class="cs-ck-outcome-icon">${check}</div>
+          <div class="cs-ck-outcome-text">${o}</div>
+        </div>
+      `).join('');
+
+      return `
+      <div class="cs-ck-lightbox" id="cs-ck-lightbox" role="dialog" aria-modal="true" aria-label="Chekt image viewer">
+        <div class="cs-ck-lightbox-counter" id="cs-ck-lightbox-counter"></div>
+        <button class="cs-ck-lightbox-btn cs-ck-lightbox-close" type="button" aria-label="Close" onclick="chektLightboxClose()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <button class="cs-ck-lightbox-btn cs-ck-lightbox-prev" type="button" aria-label="Previous image" onclick="chektLightboxNav(-1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="cs-ck-lightbox-btn cs-ck-lightbox-next" type="button" aria-label="Next image" onclick="chektLightboxNav(1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="cs-ck-lightbox-stage">
+          <img class="cs-ck-lightbox-img" id="cs-ck-lightbox-img" src="" alt="">
+          <div class="cs-ck-lightbox-caption" id="cs-ck-lightbox-caption"></div>
+        </div>
+      </div>
+
+      <section class="cs-ck-stats">
+        <div class="cs-ck-stats-inner">
+          <div class="cs-ck-stat">
+            <div class="cs-ck-stat-num">6 surfaces</div>
+            <div class="cs-ck-stat-lbl">Connected systems from customer to ops</div>
+          </div>
+          <div class="cs-ck-stat">
+            <div class="cs-ck-stat-num">4 user types</div>
+            <div class="cs-ck-stat-lbl">Customers, FOH/BOH, vendors, ops</div>
+          </div>
+          <div class="cs-ck-stat">
+            <div class="cs-ck-stat-num">PPG Arena</div>
+            <div class="cs-ck-stat-lbl">First stadium-scale deployment with Aramark</div>
+          </div>
+          <div class="cs-ck-stat">
+            <div class="cs-ck-stat-num">BIG Innovation</div>
+            <div class="cs-ck-stat-lbl">2023 award winner at Cargill</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-ck-video-section">
+        <div class="cs-ck-video-wrap">
+          <div class="cs-ck-video-head">
+            <div class="cs-ck-eyebrow">See it in action</div>
+            <h2>Chekt at PPG Paints Arena</h2>
+          </div>
+          <div class="cs-ck-video-frame">
+            <iframe src="https://www.youtube-nocookie.com/embed/Al6h1kIt5fs?rel=0" title="Chekt food lockers at PPG Paints Arena" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-ck cs-ck-section">
+        <div class="cs-ck-inner">
+          <div class="cs-ck-eyebrow">The challenge</div>
+          <h2 class="cs-ck-h2">Digital ordering outgrew the pickup counter</h2>
+          <p class="cs-ck-intro">The rapid growth of digital ordering introduced new complexity at pickup. Customers encountered unclear pickup flows and confusing handoff points. Open pickup areas increased order theft. Hardware platforms were optimized for POS, not customer-facing workflows. And restaurants vary widely in size, layout, and staffing, making rigid designs ineffective. Chekt needed to be a system, not a single screen.</p>
+        </div>
+      </section>
+
+      <section class="cs-ck cs-ck-section alt">
+        <div class="cs-ck-inner">
+          <div class="cs-ck-eyebrow">The system</div>
+          <h2 class="cs-ck-h2">Six connected surfaces, one pickup experience</h2>
+          <p class="cs-ck-intro">As design lead, I shaped a holistic system that combined software, physical hardware, and spatial considerations so the experience worked across every restaurant layout, staffing model, and venue type. Six distinct surfaces, designed to feel like one product.</p>
+          <div class="cs-ck-surfaces">${surfacesHtml}</div>
+        </div>
+      </section>
+
+      <section class="cs-ck cs-ck-section">
+        <div class="cs-ck-inner">
+          <div class="cs-ck-eyebrow">Design approach</div>
+          <h2 class="cs-ck-h2">Principles that held across every surface</h2>
+          <p class="cs-ck-intro">A system this connected needed shared principles so independent teams could ship aligned work. Four principles guided every surface, every hardware decision, and every operational pattern.</p>
+          <div class="cs-ck-approach">
+            <div class="cs-ck-approach-card">
+              <div class="cs-ck-approach-num">01</div>
+              <h4>Improving the pickup experience</h4>
+              <p>Pickup interactions were designed to be immediately understandable, low-interruption for staff, and confident and self-directed for customers. No second guesses, no awkward handoffs.</p>
+            </div>
+            <div class="cs-ck-approach-card">
+              <div class="cs-ck-approach-num">02</div>
+              <h4>Deterring theft through structure</h4>
+              <p>Rather than adding complex verification steps, the design relied on clear ownership signals tied to order state and visibility that reinforced staff awareness without confrontation.</p>
+            </div>
+            <div class="cs-ck-approach-card">
+              <div class="cs-ck-approach-num">03</div>
+              <h4>Designing for Elo tablets</h4>
+              <p>We intentionally mimicked mobile interaction patterns: single-column layouts with large tap targets, familiar navigation, glanceable content readable at distance, and touch interactions optimized for speed and repetition.</p>
+            </div>
+            <div class="cs-ck-approach-card">
+              <div class="cs-ck-approach-num">04</div>
+              <h4>Modular design for real-world layouts</h4>
+              <p>The system was intentionally modular: components rearranged based on space and volume, digital workflows flexed to match physical constraints, and FOH and BOH responsibilities adjusted based on staffing models.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-ck cs-ck-section dark">
+        <div class="cs-ck-inner">
+          <div class="cs-ck-eyebrow">Outcomes &amp; impact</div>
+          <h2 class="cs-ck-h2">A pickup model that scaled with the venues using it</h2>
+          <p class="cs-ck-intro" style="color: rgba(255,255,255,0.75);">Chekt moved from prototype to production in major venues. The same design system that ran a restaurant pickup counter could handle a stadium event night without redesign.</p>
+          <div class="cs-ck-outcomes">${outcomesHtml}</div>
+        </div>
+      </section>
+
+      <section class="cs-ck cs-ck-section alt">
+        <div class="cs-ck-inner">
+          <div class="cs-ck-eyebrow">Press &amp; recognition</div>
+          <h2 class="cs-ck-h2">In the field, on the wall, in the press</h2>
+          <p class="cs-ck-intro">Chekt was recognized inside Cargill as an innovation milestone, and the first stadium-scale deployment with Aramark and the Pittsburgh Penguins brought temperature-controlled food lockers to PPG Paints Arena.</p>
+          <div class="cs-ck-press">
+            <div class="cs-ck-press-card">
+              <span class="cs-ck-press-tag">2023 Award</span>
+              <div class="cs-ck-press-title">Cargill wins the BIG Innovation Award for Chekt</div>
+              <div class="cs-ck-press-text">Business Intelligence Group recognized Chekt as one of the standout product innovations of the year, alongside Cargill's broader push to bring digital products to foodservice operations.</div>
+              <div class="cs-ck-press-source">Cargill press release · 2023</div>
+            </div>
+            <div class="cs-ck-press-card">
+              <span class="cs-ck-press-tag">First deployment</span>
+              <div class="cs-ck-press-title">Aramark and the Pittsburgh Penguins bring the first temperature-controlled food lockers to PPG Paints Arena</div>
+              <div class="cs-ck-press-text">Fans at PPG Paints Arena order from their phones, walk to the locker bank, and pick up hot food during games without waiting at concession lines. The first major sports-venue deployment of Chekt.</div>
+              <div class="cs-ck-press-source">Aramark press release</div>
+            </div>
           </div>
         </div>
       </section>

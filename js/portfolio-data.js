@@ -90,13 +90,14 @@ export const projects = [
     subtitle: 'Chekt reimagines food pickup through smart locker technology used in stadiums, restaurants, and high-volume venues. I led the product design strategy spanning kiosks, mobile ordering, locker interfaces, and operational tools, creating a seamless system that connects physical hardware with digital ordering experiences.',
     intro: "Chekt was built around a simple idea: remove friction from food pickup in high-volume environments. I led the design strategy across the entire ecosystem, customer ordering, locker interaction, and operational tools.",
     company: 'Cargill',
-    tags: ['Hardware UX', 'FOH/BOH', 'Service Design'],
+    tags: ['Hardware UX', 'FOH/BOH', 'Service Design', 'Multi-Surface'],
     thumbnail: '/img/portfolio/chekt-1.jpg',
     heroImg: '/img/portfolio/chekt-hero.jpg',
     industry: 'retail',
     featured: true,
     cardColor: '#5220CD',
-    showcase: [
+    customLayout: 'chekt',
+    _legacyShowcase: [
       { tab: 'PPG Arena', image: '/img/portfolio/chekt-1.jpg', caption: 'Chekt lockers were deployed at PPG Arena to streamline food pickup during high-volume events. The experience connects mobile ordering, locker assignment, and digital notifications so fans can grab their food quickly without waiting in long concession lines. The system was designed to work seamlessly within the fast-paced environment of a stadium.' },
       { tab: 'PDS Pod Display System',  image: '/img/portfolio/chekt-2.jpg', caption: 'The Pod Display System (PDS) provides kitchen staff with a clear operational view of incoming orders and locker assignments. Designed for speed and clarity, the interface helps staff quickly identify orders, track preparation status, and ensure food is placed in the correct locker. The system reduces errors and keeps operations moving during peak demand.' },
       { tab: 'Kitchen Dashboard',   image: '/img/portfolio/chekt-3.jpg', caption: 'The kitchen dashboard acts as the operational control center for Chekt deployments. It provides real-time visibility into order volume, locker availability, and fulfillment status, allowing teams to manage throughput and respond quickly to changing demand.' },
