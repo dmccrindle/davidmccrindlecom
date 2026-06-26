@@ -223,8 +223,28 @@
       overflow: hidden;
       transition: box-shadow 0.15s;
     }
-    .pf-card { transition: transform 0.22s ease, box-shadow 0.22s ease; }
-    .pf-card:hover { transform: scale(1.04); box-shadow: inset 0 0 0 2px #fff; }
+    .pf-card { transition: transform 0.22s ease; }
+    .pf-card::after {
+      content: ''; position: absolute; inset: 0;
+      border-radius: 12px; border: 2px solid transparent;
+      transition: border-color 0.22s; z-index: 10; pointer-events: none;
+    }
+    .pf-card:hover { transform: scale(1.04); }
+    .pf-card:hover::after { border-color: #fff; }
+    .pf-card-video {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; pointer-events: none;
+    }
+    .pf-card-img {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: contain; pointer-events: none;
+    }
+    .pf-card-img--overflow {
+      top: 50%; left: 50%;
+      width: 180%; height: auto;
+      transform: translate(-50%, -50%);
+    }
     .pf-card-overlay {
       position: absolute; inset: 0; pointer-events: none;
     }
@@ -257,8 +277,7 @@
       font-size: 24px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
     }
     .pf-copy-tagline {
-      font-size: 15px; color: rgba(255,255,255,0.4); max-width: 340px; line-height: 1.5;
-      max-width: 280px; line-height: 1.5;
+      font-size: 15px; color: rgba(255,255,255,0.4); max-width: 420px; line-height: 1.5;
     }
 
     /* Right filter panel */
@@ -272,7 +291,7 @@
     }
     .pf-filter-fade {
       position: absolute; inset: 0;
-      background: linear-gradient(to right, transparent 0%, rgba(10,10,10,0.88) 30%, #0a0a0a 62%);
+      background: linear-gradient(to right, transparent 0%, rgba(10,10,10,0.65) 28%, rgba(10,10,10,0.96) 62%);
       pointer-events: none;
     }
     .pf-filter-list {
@@ -285,14 +304,14 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid transparent;
       border-radius: 8px;
-      color: rgba(255,255,255,0.38);
+      color: #fff;
       font-size: 11px; font-weight: 700;
       letter-spacing: 0.06em; text-transform: uppercase;
       cursor: pointer; padding: 7px 10px; text-align: left;
       transition: background 0.16s, color 0.16s, border-color 0.16s;
       white-space: nowrap; width: 100%;
     }
-    .pf-filter-btn svg { flex-shrink: 0; opacity: 0.6; }
+    .pf-filter-btn svg { flex-shrink: 0; opacity: 0.75; }
     .pf-filter-btn:hover {
       background: rgba(255,255,255,0.12);
       color: rgba(255,255,255,0.75);
@@ -306,6 +325,46 @@
     .pf-filter-btn.pf-active svg { opacity: 1; }
 
     .pf-gallery-footer { display: none; }
+
+    /* Mobile select – hidden on desktop */
+    .pf-mobile-select { display: none; }
+
+    @media (max-width: 768px) {
+      body.gallery-active { overflow: hidden; position: fixed; width: 100%; }
+
+      /* Hide desktop filter panel and its gradient */
+      .pf-filter-panel { display: none; }
+      .pf-filter-fade { display: none; }
+
+      /* Hide navbar logout on mobile (it's in the select) */
+      .gallery-mode .logout-btn { display: none; }
+
+      /* Mobile filter select */
+      .pf-mobile-select {
+        display: block;
+        background: rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 8px;
+        color: #fff;
+        font-size: 12px; font-weight: 700;
+        letter-spacing: 0.05em;
+        padding: 6px 10px;
+        cursor: pointer;
+        min-width: 120px;
+      }
+
+      /* Reduce copy size on mobile */
+      .pf-copy { left: 20px; bottom: 28px; gap: 12px; }
+      .pf-copy-avatar { width: 40px; height: 40px; }
+      .pf-copy-name { font-size: 18px; }
+      .pf-copy-tagline { font-size: 12px; max-width: 220px; }
+
+      /* Rail padding on mobile */
+      .pf-rail { padding: 0 20px 0 20px; }
+    }
+    @media (max-width: 480px) {
+      .pf-copy-tagline { display: none; }
+    }
 
     /* Rotating dot background */
     .circles-bg-wrap {
@@ -2188,6 +2247,19 @@
     <a class="nav-logo" href="/">
       <svg width="44" height="44" viewBox="0 0 113 113" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M56.5 0C25.2862 0 0 25.2862 0 56.5C0 87.7138 25.2862 113 56.5 113C87.7138 113 113 87.7138 113 56.5C113 25.2862 87.7138 0 56.5 0ZM88.9143 88.9143H67.4173L88.8018 67.5299V88.9143H88.9143ZM88.9143 64.3972L64.3972 88.9143H45.9203L88.9143 45.9203V64.3972ZM88.9143 42.7877L42.7877 88.9143H24.0857L88.8018 24.0857V42.7689H88.9143V42.7877Z" fill="currentColor"/></svg>
     </a>
+    <select class="pf-mobile-select" id="pf-mobile-select" aria-label="Filter by industry">
+      <option value="all">All</option>
+      <option value="featured">Featured</option>
+      <option value="food-agriculture">Food &amp; Agriculture</option>
+      <option value="consumer-tech">Consumer Tech</option>
+      <option value="design-systems">Design Systems</option>
+      <option value="media-entertainment">Media &amp; Entertainment</option>
+      <option value="commerce-payments">Commerce</option>
+      <option value="enterprise-saas">Enterprise</option>
+      <option value="retail">Retail</option>
+      <option value="security">Security</option>
+      <option value="__logout__">Log Out</option>
+    </select>
     <button class="logout-btn" onclick="doLogout()">Logout</button>
   </nav>
 
@@ -2205,15 +2277,16 @@
         <img class="pf-copy-avatar" src="/img/david.png" alt="David McCrindle">
         <div class="pf-copy-text">
           <div class="pf-copy-name">David McCrindle</div>
-          <div class="pf-copy-tagline">Design leader &mdash; 20+ years shaping digital products at scale across food, retail, and technology.</div>
+          <div class="pf-copy-tagline">Design leader. 20+ years shaping digital products at scale across food, retail, and technology.</div>
         </div>
       </div>
 
-      <!-- Right filter panel -->
+      <!-- Right filter panel (desktop) -->
       <div class="pf-filter-panel" id="pf-filter-panel">
         <div class="pf-filter-fade"></div>
         <nav class="pf-filter-list" id="pf-filter-list" aria-label="Filter by industry"></nav>
       </div>
+
 
     </div>
 
@@ -2352,8 +2425,11 @@
     };
 
     function getFilteredProjects() {
+      if (activeFilter === 'all') return projects;
       if (activeFilter === 'featured') return projects.filter(p => p.featured);
-      return projects.filter(p => p.industry === activeFilter);
+      return projects.filter(p =>
+        p.industry === activeFilter || (p.industries && p.industries.includes(activeFilter))
+      );
     }
 
     // ── Helpers ──────────────────────────────────
@@ -2369,6 +2445,7 @@
     }
 
     const FILTER_META = {
+      'all':                { label: 'All',             icon: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>' },
       'featured':           { label: 'Featured',        icon: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>' },
       'food-agriculture':   { label: 'Food & Ag',       icon: '<path d="M12 22V12"/><path d="M12 12c0-4 3.5-7 7-8-1 4-4 7-7 8z"/><path d="M12 12c0-4-3.5-7-7-8 1 4 4 7 7 8z"/><path d="M8.5 19c1-1.5 2-2.5 3.5-2"/>' },
       'consumer-tech':      { label: 'Consumer Tech',   icon: '<circle cx="12" cy="12" r="2"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><path d="M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M19.07 4.93l-2.83 2.83M7.76 16.24l-2.83 2.83"/>' },
@@ -2379,7 +2456,7 @@
       'retail':             { label: 'Retail',          icon: '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>' },
       'security':           { label: 'Security',        icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
     };
-    var FILTER_SLUGS = ['featured','food-agriculture','consumer-tech','design-systems','media-entertainment','commerce-payments','enterprise-saas','retail','security'];
+    var FILTER_SLUGS = ['all','featured','food-agriculture','consumer-tech','design-systems','media-entertainment','commerce-payments','enterprise-saas','retail','security'];
 
     // ── Rail (scrollable) ─────────────────────────
     function buildRail() {
@@ -2393,8 +2470,23 @@
         const c = p.cardColor || '#1a1a1a';
         const card = document.createElement('div');
         card.className = 'pf-card';
-        card.style.backgroundImage = `url('${p.heroImg || p.thumbnail}')`;
+        if (p.cardVideo || p.cardImg) {
+          card.style.background = c;
+        } else {
+          card.style.backgroundImage = `url('${p.heroImg || p.thumbnail}')`;
+        }
+        if (p.cardImg && !p.cardImgOverflow) {
+          card.style.backgroundImage = `url('${p.cardImg}')`;
+          card.style.backgroundSize = 'cover';
+          card.style.backgroundPosition = 'center';
+        }
+        if (p.cardImgOverflow) {
+          card.style.overflow = 'visible';
+          card.style.clipPath = 'inset(0 round 12px)';
+        }
         card.innerHTML = `
+          ${p.cardVideo ? `<video class="pf-card-video" src="${p.cardVideo}" autoplay muted loop playsinline></video>` : ''}
+          ${p.cardImgOverflow ? `<img class="pf-card-img pf-card-img--overflow" src="${p.cardImg}" alt="">` : ''}
           <div class="pf-card-overlay" style="background:linear-gradient(to top,${hexToRgba(c,0.85)} 0%,${hexToRgba(c,0.22)} 45%,transparent 68%)"></div>
           <div class="pf-card-text">
             <div class="pf-card-company">${p.company || ''}</div>
@@ -2448,6 +2540,8 @@
       document.querySelectorAll('.pf-filter-btn').forEach(b => {
         b.classList.toggle('pf-active', b.dataset.filter === filter);
       });
+      const mob = document.getElementById('pf-mobile-select');
+      if (mob) mob.value = filter;
       if (pushUrl !== false) {
         const url = filter === 'featured' ? '/experience/portfolio/' : '/experience/portfolio/' + filter;
         history.pushState(null, '', url);
@@ -2455,9 +2549,19 @@
       buildRail();
     }
 
+    function initMobileSelect() {
+      const sel = document.getElementById('pf-mobile-select');
+      if (!sel) return;
+      sel.addEventListener('change', () => {
+        if (sel.value === '__logout__') { sel.value = activeFilter; doLogout(); return; }
+        setActiveFilter(sel.value);
+      });
+    }
+
     function init() {
       buildFilters();
       buildRail();
+      initMobileSelect();
       handleRoute();
       window.addEventListener('popstate', handleRoute);
     }
@@ -2492,6 +2596,7 @@
       document.body.classList.remove('cs-kb-layout');
       document.getElementById('gallery-view').classList.add('active');
       document.getElementById('case-study-view').classList.remove('active');
+      document.body.classList.add('gallery-active');
       document.title = 'Portfolio | Experience | David McCrindle';
 
       navbar.classList.remove('cs-mode');
@@ -2505,6 +2610,7 @@
       currentSlug = project.slug;
       document.getElementById('gallery-view').classList.remove('active');
       document.getElementById('case-study-view').classList.add('active');
+      document.body.classList.remove('gallery-active');
 
       navbar.classList.remove('gallery-mode', 'hero-mode', 'scrolled');
       navbar.classList.add('cs-mode');
