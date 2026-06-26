@@ -2608,6 +2608,7 @@
     // ── Case study ───────────────────────────────
     function showCaseStudy(project) {
       currentSlug = project.slug;
+      history.pushState(null, '', '/experience/portfolio/' + project.slug);
       document.getElementById('gallery-view').classList.remove('active');
       document.getElementById('case-study-view').classList.add('active');
       document.body.classList.remove('gallery-active');
