@@ -899,7 +899,7 @@
   <!-- Bottom ticker -->
   <div class="bottom-ticker">
     <div class="bottom-ticker-track" id="ticker-track">
-      <span class="bottom-ticker-text" style="padding-left:80px"><span style="font-weight:400;text-transform:none;letter-spacing:0.05em">Helping for the past 20+ years:</span> &nbsp;✦&nbsp; FOOD &amp; AGRICULTURE &nbsp;✦&nbsp; CONSUMER TECHNOLOGY &nbsp;✦&nbsp; DESIGN SYSTEMS &nbsp;✦&nbsp; MEDIA &amp; ENTERTAINMENT &nbsp;✦&nbsp; COMMERCE &nbsp;✦&nbsp; ENTERPRISE &nbsp;✦&nbsp; RETAIL &nbsp;✦&nbsp; FRIENDS AND WELLWISHERS &nbsp;✦&nbsp; ROBERT LEVON BEEN &nbsp;✦</span>
+      <span class="bottom-ticker-text"><span style="font-weight:400;text-transform:none;letter-spacing:0.05em">Helping for the past 20+ years:</span> &nbsp;✦&nbsp; FOOD &amp; AGRICULTURE &nbsp;✦&nbsp; CONSUMER TECHNOLOGY &nbsp;✦&nbsp; DESIGN SYSTEMS &nbsp;✦&nbsp; MEDIA &amp; ENTERTAINMENT &nbsp;✦&nbsp; COMMERCE &nbsp;✦&nbsp; ENTERPRISE &nbsp;✦&nbsp; RETAIL &nbsp;✦&nbsp; FRIENDS AND WELLWISHERS &nbsp;✦&nbsp; ROBERT LEVON BEEN &nbsp;✦</span>
     </div>
   </div>
 
@@ -913,11 +913,10 @@
         track.appendChild(text.cloneNode(true));
       }
       const totalW = text.offsetWidth;
-      let x = 0;
-      let running = false;
+      let x = -80; // lead-in gap on first play only; resets to 0 on loop
       function tick() {
         x -= 0.3;
-        if (Math.abs(x) >= totalW) x += totalW;
+        if (x <= -totalW) x += totalW;
         track.style.transform = `translate3d(${x}px,0,0)`;
         requestAnimationFrame(tick);
       }
