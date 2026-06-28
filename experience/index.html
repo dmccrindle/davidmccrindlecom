@@ -76,6 +76,11 @@
     .mobile-menu-social a { color: #fff; display: flex; }
 
     /* ── Hero ── */
+    .hero-outer {
+      position: relative;
+      overflow: hidden;
+      background: #000;
+    }
     .hero {
       min-height: 100vh;
       display: flex;
@@ -83,9 +88,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 120px 40px 0;
-      position: relative;
-      overflow: hidden;
+      padding: 106px 40px 300px;
     }
     .hero-intro {
       font-size: 20px; font-weight: 700;
@@ -93,15 +96,15 @@
       animation: fadeUp 0.8s 0.3s forwards;
     }
     .hero-title {
-      font-size: clamp(40px, 5.5vw, 80px);
+      font-size: clamp(32px, 4vw, 58px);
       font-weight: 700; line-height: 1.05;
-      max-width: 968px; margin: 16px auto;
+      max-width: 1200px; margin: 6px auto 16px; white-space: nowrap;
       opacity: 0; transform: translateY(20px);
       animation: fadeUp 0.8s 0.6s forwards;
     }
     .hero-subtitle {
       font-size: 20px; font-weight: 700;
-      margin-bottom: 48px;
+      margin-bottom: 20px;
       opacity: 0; transform: translateY(20px);
       animation: fadeUp 0.8s 0.9s forwards;
     }
@@ -136,26 +139,26 @@
 
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* ── Wireframe marquee ── */
+    /* ── Image marquee ── */
     .marquee-wrap {
       width: 100vw; overflow: hidden;
-      position: relative; padding: 20px 0 40px;
+      position: absolute; bottom: -60px; left: 0;
       opacity: 0; animation: fadeUp 1s 1.3s forwards;
+      pointer-events: none;
     }
     .marquee-track {
-      display: flex; gap: 32px;
+      display: flex; gap: 16px;
       width: max-content;
-      animation: marqueeScroll 30s linear infinite;
     }
     @keyframes marqueeScroll {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
-    .wf-device {
-      flex-shrink: 0; border: 3px solid rgba(255,255,255,0.4);
-      border-radius: 10px; position: relative; overflow: hidden;
+    .marquee-img {
+      flex-shrink: 0; height: 320px; width: auto;
+      border-radius: 12px; object-fit: cover;
+      display: block;
     }
-    .wf-device svg { display: block; }
 
     /* ── White content ── */
     .content-wrap { background: #fff; color: #111; position: relative; z-index: 2; }
@@ -330,11 +333,14 @@
       #navbar { padding: 16px 20px; height: 60px; justify-content: space-between; }
       .nav-logo { width: 36px; height: 36px; }
 
-      .hero { padding: 80px 24px 0; }
-      .hero-intro { font-size: 16px; }
-      .hero-subtitle { font-size: 16px; margin-bottom: 32px; }
+      .hero { padding: 60px 24px 220px; }
+      .hero-title { font-size: clamp(28px, 7vw, 42px); white-space: normal; max-width: 100%; }
+      .hero-intro { font-size: 15px; }
+      .hero-subtitle { font-size: 15px; margin-bottom: 28px; }
       .hero-gate { flex-wrap: wrap; justify-content: center; }
-      .hero-gate-input { width: 220px; }
+      .hero-gate-input { width: 200px; }
+      .marquee-img { height: 200px; }
+      .marquee-wrap { bottom: -40px; }
 
       .grid-container { padding: 0 20px; }
       .pillars-section { padding: 64px 0 48px; }
@@ -508,105 +514,29 @@
   </div>
 
   <!-- ═══ HERO ═══ -->
-  <section class="hero">
-    <p class="hero-intro">Hi, I'm David.</p>
-    <h1 class="hero-title">I build products, systems, and the teams behind them.</h1>
-    <p class="hero-subtitle">…and I have strong opinions about 90s Britpop.</p>
+  <div class="hero-outer">
+    <section class="hero">
+      <p class="hero-intro">Hi, I'm David.</p>
+      <h1 class="hero-title">Apps, agents, voice, hardware.<br>The system has to work everywhere.</h1>
+      <p class="hero-subtitle">I build AI-native design platforms and the teams that ship them.</p>
 
-    <p class="hero-gate-error" id="gate-error">That's not quite right. Try again.</p>
-    <div class="hero-gate" id="gate-wrap">
-      <input type="password" class="hero-gate-input" id="gate-input" placeholder="See the cool stuff" autocomplete="new-password">
-      <button class="hero-gate-btn" onclick="handleGateSubmit()" aria-label="Unlock">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="2"/>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Wireframe marquee -->
-    <div class="marquee-wrap">
-      <div class="marquee-track" id="marquee-track">
-        <div class="wf-device" style="width:120px;height:220px">
-          <svg width="120" height="220" viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="16" y="30" width="88" height="14" rx="7" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <rect x="16" y="54" width="88" height="14" rx="7" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <rect x="16" y="78" width="88" height="14" rx="7" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <rect x="16" y="120" width="88" height="14" rx="7" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <rect x="16" y="144" width="88" height="14" rx="7" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <rect x="16" y="168" width="88" height="14" rx="7" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
+      <p class="hero-gate-error" id="gate-error">That's not quite right. Try again.</p>
+      <div class="hero-gate" id="gate-wrap">
+        <input type="password" class="hero-gate-input" id="gate-input" placeholder="See the cool stuff" autocomplete="new-password">
+        <button class="hero-gate-btn" onclick="handleGateSubmit()" aria-label="Unlock">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
           </svg>
-        </div>
-        <div class="wf-device" style="width:260px;height:200px">
-          <svg width="260" height="200" viewBox="0 0 260 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="20" y="16" width="12" height="12" rx="2" fill="white" fill-opacity="0.5"/>
-            <rect x="20" y="44" width="220" height="80" rx="4" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="20" y1="145" x2="100" y2="145" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="20" y1="155" x2="80" y2="155" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="120" y1="145" x2="200" y2="145" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="120" y1="155" x2="180" y2="155" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="20" y1="175" x2="100" y2="175" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="20" y1="185" x2="80" y2="185" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="120" y1="175" x2="200" y2="175" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="120" y1="185" x2="180" y2="185" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-          </svg>
-        </div>
-        <div class="wf-device" style="width:260px;height:220px">
-          <svg width="260" height="220" viewBox="0 0 260 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M90 60 L90 30 A30 30 0 1 1 68 81 Z" fill="white" fill-opacity="0.5"/>
-            <line x1="140" y1="36" x2="220" y2="36" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="140" y1="50" x2="200" y2="50" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="140" y1="64" x2="180" y2="64" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <polyline points="30,140 70,125 110,135 150,110 190,120 230,105" stroke="white" stroke-width="3" fill="none" stroke-opacity="0.5"/>
-            <rect x="30" y="170" width="24" height="30" fill="white" rx="2" fill-opacity="0.5"/>
-            <rect x="62" y="160" width="24" height="40" fill="white" rx="2" fill-opacity="0.5"/>
-            <rect x="94" y="150" width="24" height="50" fill="white" rx="2" fill-opacity="0.5"/>
-            <rect x="126" y="165" width="24" height="35" fill="white" rx="2" fill-opacity="0.5"/>
-            <rect x="158" y="155" width="24" height="45" fill="white" rx="2" fill-opacity="0.5"/>
-          </svg>
-        </div>
-        <div class="wf-device" style="width:280px;height:200px">
-          <svg width="280" height="200" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="40" cy="80" r="12" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <circle cx="100" cy="80" r="12" fill="white" fill-opacity="0.5"/>
-            <circle cx="160" cy="80" r="8" stroke="white" stroke-width="3" stroke-dasharray="3 3" stroke-opacity="0.5"/>
-            <circle cx="160" cy="80" r="3" fill="white" fill-opacity="0.5"/>
-            <circle cx="220" cy="80" r="12" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <circle cx="62" cy="80" r="2" fill="white" fill-opacity="0.5"/>
-            <circle cx="72" cy="80" r="2" fill="white" fill-opacity="0.5"/>
-            <circle cx="122" cy="80" r="2" fill="white" fill-opacity="0.5"/>
-            <circle cx="132" cy="80" r="2" fill="white" fill-opacity="0.5"/>
-            <circle cx="182" cy="80" r="2" fill="white" fill-opacity="0.5"/>
-            <circle cx="192" cy="80" r="2" fill="white" fill-opacity="0.5"/>
-            <line x1="20" y1="130" x2="80" y2="130" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="100" y1="130" x2="160" y2="130" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="200" y1="130" x2="260" y2="130" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-          </svg>
-        </div>
-        <div class="wf-device" style="width:200px;height:220px">
-          <svg width="200" height="220" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="20" y="20" width="160" height="80" rx="6" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <circle cx="100" cy="52" r="16" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <polygon points="95,44 95,60 108,52" fill="white" fill-opacity="0.5"/>
-            <rect x="20" y="120" width="160" height="80" rx="6" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <circle cx="100" cy="152" r="16" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <polygon points="95,144 95,160 108,152" fill="white" fill-opacity="0.5"/>
-          </svg>
-        </div>
-        <div class="wf-device" style="width:220px;height:200px">
-          <svg width="220" height="200" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="20" y="20" width="180" height="30" rx="4" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="30" y1="35" x2="80" y2="35" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <rect x="20" y="65" width="85" height="55" rx="4" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <rect x="115" y="65" width="85" height="55" rx="4" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="20" y1="140" x2="100" y2="140" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="20" y1="155" x2="80" y2="155" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-            <line x1="20" y1="170" x2="120" y2="170" stroke="white" stroke-width="3" stroke-opacity="0.5"/>
-          </svg>
-        </div>
+        </button>
       </div>
+    </section>
+
+    <!-- Image marquee — populated by JS, sits at the bottom of the hero, clipped by hero-outer -->
+    <div class="marquee-wrap">
+      <div class="marquee-track" id="marquee-track"></div>
     </div>
-  </section>
+  </div>
 
   <!-- ═══ WHITE CONTENT ═══ -->
   <div class="content-wrap">
@@ -846,9 +776,29 @@
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
     }, { passive: true });
 
-    // Duplicate marquee for seamless loop
-    const track = document.getElementById('marquee-track');
-    track.innerHTML += track.innerHTML;
+    // Build image marquee — tries img_1 … img_20, skips 404s, then duplicates for loop
+    (async function buildMarquee() {
+      const track = document.getElementById('marquee-track');
+      const MAX = 20;
+      const loaded = [];
+      await Promise.all(Array.from({ length: MAX }, (_, i) => {
+        return new Promise(resolve => {
+          const img = new Image();
+          img.src = `/img/img_${i + 1}.jpg`;
+          img.onload  = () => { loaded.push({ index: i, src: img.src }); resolve(); };
+          img.onerror = () => resolve();
+        });
+      }));
+      loaded.sort((a, b) => a.index - b.index);
+      const html = loaded.map(({ src }) =>
+        `<img class="marquee-img" src="${src}" alt="" loading="eager">`
+      ).join('');
+      track.innerHTML = html + html; // duplicate for seamless loop
+      // Start animation after images are in the DOM
+      requestAnimationFrame(() => {
+        track.style.animation = 'marqueeScroll 40s linear infinite';
+      });
+    })();
 
     // Portfolio gate
     window.handleGateSubmit = async function() {
