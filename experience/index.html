@@ -133,7 +133,9 @@
     .hero-gate-hint {
       font-size: 13px; color: rgba(255,255,255,0.35);
       margin-top: 12px; font-style: italic;
+      transition: color 0.4s ease;
     }
+    .hero-gate-hint.revealed { color: #fff; font-style: normal; }
 
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
@@ -325,8 +327,9 @@
     #jp-overlay {
       display: none; position: fixed; inset: 0; z-index: 9999;
       background-image: url('/img/jurassic-park.gif');
-      background-size: 400px auto;
-      background-repeat: repeat;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       opacity: 0;
       pointer-events: none;
     }
@@ -553,7 +556,7 @@
           </svg>
         </button>
       </div>
-      <p class="hero-gate-hint">psst — it's ok if you get the wrong password 😉</p>
+      <p class="hero-gate-hint" id="gate-hint">psst — it's ok if you get the wrong password 😉</p>
     </section>
 
     <!-- Image marquee — populated by JS, sits at the bottom of the hero, clipped by hero-outer -->
@@ -863,6 +866,9 @@
         } else {
           wrap.style.animation = 'gateShake 0.4s ease-in-out';
           window._showJP && window._showJP();
+          const hint = document.getElementById('gate-hint');
+          hint.classList.add('revealed');
+          hint.innerHTML = 'Guess you need to <a href="/say-hi/" style="color:#fff;text-decoration:underline;text-underline-offset:3px">Say Hi</a> to see the work 😉😉😉';
           input.value = ''; input.focus();
           setTimeout(() => { wrap.style.animation = ''; }, 420);
         }
