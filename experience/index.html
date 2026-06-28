@@ -151,10 +151,6 @@
       width: max-content;
       will-change: transform;
     }
-    @keyframes marqueeScroll {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-50%, 0, 0); }
-    }
     .marquee-img {
       flex-shrink: 0; height: 320px; width: auto;
       border-radius: 12px; object-fit: cover;
@@ -777,9 +773,11 @@
       document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
     }, { passive: true });
 
-    // Build image marquee — tries img_1 … img_20, skips 404s, then duplicates for loop
+    // Build image/video marquee with flicker-free RAF scroll
     (async function buildMarquee() {
       const track = document.getElementById('marquee-track');
+
+      // Discover jpg images img_1…img_20
       const MAX = 20;
       const loaded = [];
       await Promise.all(Array.from({ length: MAX }, (_, i) => {
@@ -791,14 +789,31 @@
         });
       }));
       loaded.sort((a, b) => a.index - b.index);
-      const html = loaded.map(({ src }) =>
+
+      // Build one set of items (images + video)
+      const imgHtml = loaded.map(({ src }) =>
         `<img class="marquee-img" src="${src}" alt="" loading="eager">`
       ).join('');
-      track.innerHTML = html + html; // duplicate for seamless loop
-      // Start animation after images are in the DOM
-      requestAnimationFrame(() => {
-        track.style.animation = 'marqueeScroll 40s linear infinite';
-      });
+      const videoHtml = `<video class="marquee-img" src="/pop-quiz/popquizmusic.mp4" autoplay muted loop playsinline></video>`;
+      const oneSet = imgHtml + videoHtml;
+
+      track.innerHTML = oneSet + oneSet; // duplicate for seamless loop
+
+      // Wait for layout so scrollWidth is accurate
+      await new Promise(r => requestAnimationFrame(r));
+      await new Promise(r => requestAnimationFrame(r));
+
+      const halfWidth = track.scrollWidth / 2;
+      let x = 0;
+      const speed = 0.5; // px per frame ~30px/s at 60fps
+
+      function tick() {
+        x -= speed;
+        if (x <= -halfWidth) x += halfWidth;
+        track.style.transform = `translate3d(${x}px, 0, 0)`;
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
     })();
 
     // Portfolio gate
