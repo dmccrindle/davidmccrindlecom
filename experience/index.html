@@ -342,6 +342,7 @@
       font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
       text-transform: uppercase; overflow: hidden;
       height: 28px; display: flex; align-items: center;
+      opacity: 0; transition: opacity 0.5s ease;
     }
     .bottom-ticker-track {
       display: flex; white-space: nowrap;
@@ -913,14 +914,18 @@
         track.appendChild(text.cloneNode(true));
       }
       const totalW = text.offsetWidth;
-      let x = 80; // lead-in gap on first play only
+      let x = 0;
       function tick() {
         x -= 0.3;
-        if (x <= -totalW) x = 0; // reset tight on every subsequent loop
+        if (x <= -totalW) x += totalW;
         track.style.transform = `translate3d(${x}px,0,0)`;
         requestAnimationFrame(tick);
       }
-      setTimeout(() => requestAnimationFrame(tick), 2000);
+      const ticker = document.querySelector('.bottom-ticker');
+      setTimeout(() => {
+        ticker.style.opacity = '1';
+        requestAnimationFrame(tick);
+      }, 2000);
     })();
 
     // Jurassic Park wrong-password easter egg
