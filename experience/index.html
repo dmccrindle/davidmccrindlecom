@@ -820,14 +820,15 @@
       }));
       loaded.sort((a, b) => a.index - b.index);
 
-      // Build one set: img_1, img_2, img_6, video, then the rest in order (excluding img_6)
-      const videoHtml = `<video class="marquee-img" src="/pop-quiz/popquizmusic.mp4" autoplay muted loop playsinline style="aspect-ratio:4/3;width:auto"></video>`;
+      // Build one set: img_1, img_2, img_6, popquiz video, rest, concert-archive video
+      const popquizVideo = `<video class="marquee-img" src="/pop-quiz/popquizmusic.mp4" autoplay muted loop playsinline style="aspect-ratio:4/3;width:auto"></video>`;
+      const concertVideo = `<video class="marquee-img" src="/img/concert-archive.mp4" autoplay muted loop playsinline style="aspect-ratio:16/9;width:auto"></video>`;
       const img = src => `<img class="marquee-img" src="${src}" alt="" loading="eager">`;
       const byIndex = Object.fromEntries(loaded.map(l => [l.index, l.src]));
       const first2 = [0, 1].filter(i => byIndex[i]).map(i => img(byIndex[i])).join('');
       const img6 = byIndex[5] ? img(byIndex[5]) : '';
       const rest = loaded.filter(l => l.index !== 5 && l.index > 1).map(l => img(l.src)).join('');
-      const oneSet = first2 + img6 + videoHtml + rest;
+      const oneSet = first2 + img6 + popquizVideo + rest + concertVideo;
 
       track.innerHTML = oneSet + oneSet; // duplicate for seamless loop
 
