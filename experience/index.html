@@ -832,7 +832,10 @@
 
       track.innerHTML = oneSet + oneSet; // duplicate for seamless loop
 
-      // Wait for layout so scrollWidth is accurate
+      // Wait for all videos to load metadata so their dimensions are known before measuring
+      await Promise.all([...track.querySelectorAll('video')].map(v =>
+        v.readyState >= 1 ? Promise.resolve() : new Promise(r => v.addEventListener('loadedmetadata', r, { once: true }))
+      ));
       await new Promise(r => requestAnimationFrame(r));
       await new Promise(r => requestAnimationFrame(r));
 
