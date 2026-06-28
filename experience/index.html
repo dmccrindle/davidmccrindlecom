@@ -130,12 +130,10 @@
       transition: background 0.2s;
     }
     .hero-gate-btn:hover { background: rgba(255,0,217,1); }
-    .hero-gate-error {
-      font-size: 13px; color: #ff6b6b;
-      margin-top: -24px; margin-bottom: 8px;
-      height: 16px; opacity: 0; transition: opacity 0.3s;
+    .hero-gate-hint {
+      font-size: 13px; color: rgba(255,255,255,0.35);
+      margin-top: 12px; font-style: italic;
     }
-    .hero-gate-error.show { opacity: 1; }
 
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
@@ -327,7 +325,7 @@
     #jp-overlay {
       display: none; position: fixed; inset: 0; z-index: 9999;
       background-image: url('/img/jurassic-park.gif');
-      background-size: 200px auto;
+      background-size: 400px auto;
       background-repeat: repeat;
       opacity: 0;
       pointer-events: none;
@@ -545,7 +543,6 @@
       <h1 class="hero-title">Apps, agents, voice, hardware.<br>The system has to work everywhere.</h1>
       <p class="hero-subtitle">I build AI-native design platforms and the teams that ship them.</p>
 
-      <p class="hero-gate-error" id="gate-error">That's not quite right. Try again.</p>
       <div class="hero-gate" id="gate-wrap">
         <input type="password" class="hero-gate-input" id="gate-input" placeholder="See the cool stuff" autocomplete="new-password">
         <button class="hero-gate-btn" onclick="handleGateSubmit()" aria-label="Unlock">
@@ -555,6 +552,7 @@
           </svg>
         </button>
       </div>
+      <p class="hero-gate-hint">psst — it's ok if you get the wrong password 😉</p>
     </section>
 
     <!-- Image marquee — populated by JS, sits at the bottom of the hero, clipped by hero-outer -->
@@ -849,7 +847,6 @@
     // Portfolio gate
     window.handleGateSubmit = async function() {
       const input = document.getElementById('gate-input');
-      const error = document.getElementById('gate-error');
       const wrap  = document.getElementById('gate-wrap');
       const password = input?.value?.trim();
       if (!password) return;
@@ -863,12 +860,10 @@
         if (res.ok) {
           window.location.href = '/experience/portfolio/';
         } else {
-          error.classList.add('show');
           wrap.style.animation = 'gateShake 0.4s ease-in-out';
           window._showJP && window._showJP();
           input.value = ''; input.focus();
           setTimeout(() => { wrap.style.animation = ''; }, 420);
-          setTimeout(() => error.classList.remove('show'), 3000);
         }
       } catch(e) {
         input.value = '';
@@ -920,7 +915,7 @@
       const totalW = text.offsetWidth;
       let x = 0;
       function tick() {
-        x -= 0.6;
+        x -= 0.3;
         if (Math.abs(x) >= totalW) x += totalW;
         track.style.transform = `translate3d(${x}px,0,0)`;
         requestAnimationFrame(tick);
