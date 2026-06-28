@@ -132,7 +132,7 @@
     .hero-gate-btn:hover { background: rgba(255,0,217,1); }
     .hero-gate-hint {
       font-size: 13px; color: rgba(255,255,255,0.35);
-      margin-top: 12px; font-style: italic;
+      margin-top: 6px; font-style: italic;
       transition: color 0.4s ease;
     }
     .hero-gate-hint.revealed { color: #fff; font-style: normal; }
@@ -335,7 +335,7 @@
     }
     #jp-overlay.jp-in  { animation: jpFadeIn 0.4s ease forwards; }
     #jp-overlay.jp-out { animation: jpFadeOut 0.25s ease forwards; }
-    @keyframes jpFadeIn  { to { opacity: 0.92; } }
+    @keyframes jpFadeIn  { to { opacity: 1; } }
     @keyframes jpFadeOut { to { opacity: 0; } }
 
     /* ── Bottom ticker ── */
@@ -556,7 +556,7 @@
           </svg>
         </button>
       </div>
-      <p class="hero-gate-hint" id="gate-hint">psst — it's ok if you get the wrong password 😉</p>
+      <p class="hero-gate-hint" id="gate-hint">psst, it's ok if you get the wrong password 😉</p>
     </section>
 
     <!-- Image marquee — populated by JS, sits at the bottom of the hero, clipped by hero-outer -->
@@ -947,7 +947,7 @@
         el.classList.remove('jp-in');
         el.classList.add('jp-out');
         setTimeout(() => { el.style.display = 'none'; el.classList.remove('jp-out'); }, 260);
-      }, 1200);
+      }, 2200);
     };
   </script>
 </body>
