@@ -323,6 +323,34 @@
     .footer-social a { color: #111; display: flex; transition: opacity 0.2s; }
     .footer-social a:hover { opacity: 0.45; }
 
+    /* ── Jurassic Park wrong-password overlay ── */
+    #jp-overlay {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background-image: url('/img/jurassic-park.gif');
+      background-size: 200px auto;
+      background-repeat: repeat;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #jp-overlay.jp-in  { animation: jpFadeIn 0.4s ease forwards; }
+    #jp-overlay.jp-out { animation: jpFadeOut 0.25s ease forwards; }
+    @keyframes jpFadeIn  { to { opacity: 0.92; } }
+    @keyframes jpFadeOut { to { opacity: 0; } }
+
+    /* ── Bottom ticker ── */
+    .bottom-ticker {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+      background: #000; color: #fff;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; overflow: hidden;
+      height: 28px; display: flex; align-items: center;
+    }
+    .bottom-ticker-track {
+      display: flex; white-space: nowrap;
+      will-change: transform;
+    }
+    .bottom-ticker-text { padding-right: 60px; }
+
     /* ── Mobile ── */
     @media (max-width: 900px) {
       .hamburger { display: flex; }
@@ -837,6 +865,7 @@
         } else {
           error.classList.add('show');
           wrap.style.animation = 'gateShake 0.4s ease-in-out';
+          window._showJP && window._showJP();
           input.value = ''; input.focus();
           setTimeout(() => { wrap.style.animation = ''; }, 420);
           setTimeout(() => error.classList.remove('show'), 3000);
@@ -868,5 +897,49 @@
       80% { transform: translateX(4px); }
     }
   </style>
+
+  <!-- Jurassic Park overlay -->
+  <div id="jp-overlay"></div>
+
+  <!-- Bottom ticker -->
+  <div class="bottom-ticker">
+    <div class="bottom-ticker-track" id="ticker-track">
+      <span class="bottom-ticker-text">FOOD &amp; AGRICULTURE &nbsp;✦&nbsp; CONSUMER TECHNOLOGY &nbsp;✦&nbsp; DESIGN SYSTEMS &nbsp;✦&nbsp; MEDIA &amp; ENTERTAINMENT &nbsp;✦&nbsp; COMMERCE &nbsp;✦&nbsp; ENTERPRISE &nbsp;✦&nbsp; RETAIL &nbsp;✦&nbsp; FRIENDS AND WELLWISHERS &nbsp;✦&nbsp; ROBERT LEVON BEEN &nbsp;✦&nbsp;</span>
+    </div>
+  </div>
+
+  <script>
+    // Bottom ticker RAF scroll
+    (function() {
+      const track = document.getElementById('ticker-track');
+      const text = track.querySelector('.bottom-ticker-text');
+      // Duplicate until it fills 3x viewport width for seamless loop
+      while (track.scrollWidth < window.innerWidth * 3) {
+        track.appendChild(text.cloneNode(true));
+      }
+      const totalW = text.offsetWidth;
+      let x = 0;
+      function tick() {
+        x -= 0.6;
+        if (Math.abs(x) >= totalW) x += totalW;
+        track.style.transform = `translate3d(${x}px,0,0)`;
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
+
+    // Jurassic Park wrong-password easter egg
+    window._showJP = function() {
+      const el = document.getElementById('jp-overlay');
+      el.style.display = 'block';
+      el.classList.remove('jp-out');
+      el.classList.add('jp-in');
+      setTimeout(() => {
+        el.classList.remove('jp-in');
+        el.classList.add('jp-out');
+        setTimeout(() => { el.style.display = 'none'; el.classList.remove('jp-out'); }, 260);
+      }, 1200);
+    };
+  </script>
 </body>
 </html>
