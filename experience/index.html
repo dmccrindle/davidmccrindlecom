@@ -913,10 +913,10 @@
         track.appendChild(text.cloneNode(true));
       }
       const totalW = text.offsetWidth;
-      let x = -80; // lead-in gap on first play only; resets to 0 on loop
+      let x = 80; // lead-in gap on first play only
       function tick() {
         x -= 0.3;
-        if (x <= -totalW) x += totalW;
+        if (x <= -totalW) x = 0; // reset tight on every subsequent loop
         track.style.transform = `translate3d(${x}px,0,0)`;
         requestAnimationFrame(tick);
       }
