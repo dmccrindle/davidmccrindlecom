@@ -795,6 +795,98 @@
       border: 1px solid rgba(255,255,255,0.12);
       color: rgba(255,255,255,0.85);
     }
+    /* Token savings 2-col section */
+    .cs-sprout-tokens {
+      background: #0b0d0c; color: #fff;
+      padding: 64px 0 72px; position: relative;
+      border-top: 1px solid rgba(105,234,134,0.15);
+    }
+    .cs-sprout-tokens-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 40px;
+      display: grid; grid-template-columns: 1fr 1.6fr; gap: 64px; align-items: center;
+    }
+    .cs-sprout-tokens-left { display: flex; flex-direction: column; }
+    .cs-sprout-tokens-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(105,234,134,0.85); margin-bottom: 16px;
+    }
+    .cs-sprout-tokens-stat {
+      font-size: clamp(52px, 7vw, 80px); font-weight: 900;
+      letter-spacing: -0.04em; line-height: 1;
+      color: #69ea86; margin-bottom: 12px;
+    }
+    .cs-sprout-tokens-sub {
+      font-size: clamp(17px, 2vw, 22px); font-weight: 700;
+      letter-spacing: -0.015em; color: #fff; margin-bottom: 10px;
+    }
+    .cs-sprout-tokens-desc {
+      font-size: 14.5px; color: rgba(255,255,255,0.5); line-height: 1.65;
+    }
+    /* Inline table (desktop) */
+    .cs-sprout-tokens-right { display: block; }
+    .cs-tokens-table {
+      width: 100%; border-collapse: collapse;
+    }
+    .cs-tokens-table th {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35); padding: 0 10px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      text-align: left;
+    }
+    .cs-tokens-table th:not(:first-child) { text-align: right; }
+    .cs-tokens-table td {
+      font-size: 13px; color: rgba(255,255,255,0.7);
+      padding: 9px 10px; border-bottom: 1px solid rgba(255,255,255,0.05);
+      vertical-align: top;
+    }
+    .cs-tokens-table td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+    .cs-tokens-table tr:last-child td { border-bottom: none; }
+    .cs-tokens-table tr.subtotal td { border-top: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.025); }
+    .cs-tokens-table tr.total td {
+      border-top: 2px solid rgba(105,234,134,0.3);
+      font-weight: 800; font-size: 14px; color: #fff;
+      padding-top: 12px; padding-bottom: 2px; background: none;
+    }
+    .cs-tokens-table .green { color: #69ea86; }
+    .cs-tokens-table .dim { color: rgba(255,255,255,0.3); }
+    .cs-tokens-savings-callout {
+      margin-top: 16px; padding: 12px 14px;
+      background: rgba(105,234,134,0.06); border: 1px solid rgba(105,234,134,0.18);
+      border-radius: 10px; font-size: 12.5px; color: rgba(255,255,255,0.55); line-height: 1.6;
+    }
+    .cs-tokens-savings-callout strong { color: #69ea86; }
+    /* Modal (mobile only -- hidden on desktop) */
+    .cs-sprout-tokens-btn { display: none; }
+    .cs-tokens-modal-overlay {
+      position: fixed; inset: 0; z-index: 10000;
+      background: rgba(0,0,0,0.82); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .cs-tokens-modal-overlay.open { opacity: 1; pointer-events: all; }
+    .cs-tokens-modal {
+      background: #141716; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; width: min(680px, calc(100vw - 32px));
+      max-height: calc(100vh - 64px); overflow-y: auto;
+      padding: 32px 28px 36px; position: relative;
+      transform: translateY(16px) scale(0.98); transition: transform 0.25s;
+    }
+    .cs-tokens-modal-overlay.open .cs-tokens-modal { transform: translateY(0) scale(1); }
+    .cs-tokens-modal-close {
+      position: absolute; top: 14px; right: 16px;
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 50%; width: 30px; height: 30px;
+      cursor: pointer; color: rgba(255,255,255,0.6); font-size: 17px; line-height: 30px;
+      text-align: center; transition: background 0.15s;
+    }
+    .cs-tokens-modal-close:hover { background: rgba(255,255,255,0.14); }
+    .cs-tokens-modal-title {
+      font-size: 18px; font-weight: 800; letter-spacing: -0.02em;
+      color: #fff; margin-bottom: 4px;
+    }
+    .cs-tokens-modal-note {
+      font-size: 12px; color: rgba(255,255,255,0.35); margin-bottom: 22px;
+    }
     /* MCP "Ask Sprout" animated chat */
     .cs-sprout-mcp-chat {
       background: rgba(255,255,255,0.04);
@@ -2098,6 +2190,12 @@
       .cs-sprout-triptych, .cs-sprout-eco, .cs-sprout-two { grid-template-columns: 1fr; gap: 20px; }
       .cs-sprout-ai { padding: 70px 0 80px; }
       .cs-sprout-ai-inner { grid-template-columns: 1fr; gap: 40px; padding: 0 24px; }
+      .cs-sprout-tokens { padding: 56px 0 64px; }
+      .cs-sprout-tokens-inner { grid-template-columns: 1fr; gap: 32px; padding: 0 24px; }
+      .cs-sprout-tokens-right { display: none; }
+      .cs-sprout-tokens-btn { display: inline-flex; margin-top: 20px; }
+      .cs-tokens-modal { padding: 28px 20px 32px; }
+      .cs-tokens-table th, .cs-tokens-table td { padding: 9px 8px; font-size: 12.5px; }
       .cs-sprout-video-wrap { padding: 0 24px; }
       .cs-sprout-forward { padding: 56px 24px 72px; }
 
@@ -2645,6 +2743,15 @@
         buildNextSection(projects.slice(projects.findIndex(p => p.slug === project.slug) + 1).find(p => !p.externalUrl) || null);
         window.scrollTo(0, 0);
         startSproutMcpTyper();
+        // Token savings modal
+        const tokensOverlay = document.getElementById('cs-tokens-modal-overlay');
+        const tokensOpen = document.getElementById('sprout-tokens-open');
+        const tokensClose = document.getElementById('cs-tokens-modal-close');
+        if (tokensOpen && tokensOverlay && tokensClose) {
+          tokensOpen.addEventListener('click', () => tokensOverlay.classList.add('open'));
+          tokensClose.addEventListener('click', () => tokensOverlay.classList.remove('open'));
+          tokensOverlay.addEventListener('click', e => { if (e.target === tokensOverlay) tokensOverlay.classList.remove('open'); });
+        }
         return;
       }
       if (project.customLayout === 'popquiz') {
@@ -3248,6 +3355,73 @@
           <p class="cs-sprout-sr-only">Animated demo of designers, engineers, and PMs asking Sprout's MCP server questions like component variants, required props, accessibility standards, and adoption coverage.</p>
         </div>
       </section>
+
+      <!-- Token savings callout -->
+      <section class="cs-sprout-tokens">
+        <div class="cs-sprout-tokens-inner">
+          <!-- Left: stat -->
+          <div class="cs-sprout-tokens-left">
+            <div class="cs-sprout-tokens-eyebrow">Efficiency</div>
+            <div class="cs-sprout-tokens-stat">~90%</div>
+            <div class="cs-sprout-tokens-sub">fewer tokens. Better output.</div>
+            <p class="cs-sprout-tokens-desc">Sprout's MCP server gives agents the right component and token on the first pass.</p>
+            <p class="cs-sprout-tokens-desc" style="font-weight:700;color:rgba(255,255,255,0.8);margin-top:8px;">Fewer correction rounds, less context bloat, faster builds.</p>
+            <!-- Mobile only: opens modal -->
+            <button class="cs-sprout-tokens-btn" id="sprout-tokens-open">
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 5h6M4 7h6M4 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              See the breakdown
+            </button>
+          </div>
+          <!-- Right: inline table (desktop only) -->
+          <div class="cs-sprout-tokens-right">
+            <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.75);margin-bottom:12px;">Tokens used to build a settings page</p>
+            <table class="cs-tokens-table">
+              <thead>
+                <tr>
+                  <th>Element</th>
+                  <th>From scratch</th>
+                  <th>With Sprout</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>8 form fields</td><td class="dim">~1,200</td><td class="green">~250</td></tr>
+                <tr><td>3 buttons</td><td class="dim">~900</td><td class="green">~60</td></tr>
+                <tr><td>Data grid (sortable + filterable)</td><td class="dim">~4,000</td><td class="green">~200</td></tr>
+                <tr><td>2 modals</td><td class="dim">~1,500</td><td class="green">~300</td></tr>
+                <tr><td>Layout + hardcoded tokens</td><td class="dim">~1,200</td><td class="green">~250</td></tr>
+                <tr><td>Iteration tax (2-3 correction rounds)</td><td class="dim">~+7,000</td><td class="green">~+500</td></tr>
+                <tr class="total"><td>Total</td><td>~15,800</td><td class="green">~1,560</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Token savings modal (mobile) -->
+      <div class="cs-tokens-modal-overlay" id="cs-tokens-modal-overlay" role="dialog" aria-modal="true" aria-label="Token savings breakdown">
+        <div class="cs-tokens-modal">
+          <button class="cs-tokens-modal-close" id="cs-tokens-modal-close" aria-label="Close">&times;</button>
+          <div class="cs-tokens-modal-title">Token usage: from scratch vs. Sprout</div>
+          <div class="cs-tokens-modal-note" style="color:rgba(255,255,255,0.75);">Tokens used to build a settings page</div>
+          <table class="cs-tokens-table">
+            <thead>
+              <tr><th>Element</th><th>Scratch</th><th>Sprout</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>8 form fields</td><td class="dim">~1,200</td><td class="green">~250</td></tr>
+              <tr><td>3 buttons</td><td class="dim">~900</td><td class="green">~60</td></tr>
+              <tr><td>Data grid</td><td class="dim">~4,000</td><td class="green">~200</td></tr>
+              <tr><td>2 modals</td><td class="dim">~1,500</td><td class="green">~300</td></tr>
+              <tr><td>Layout + tokens</td><td class="dim">~1,200</td><td class="green">~250</td></tr>
+              <tr><td>Iteration tax</td><td class="dim">~+7,000</td><td class="green">~+500</td></tr>
+              <tr class="total"><td>Total</td><td>~15,800</td><td class="green">~1,560</td></tr>
+            </tbody>
+          </table>
+          <div class="cs-tokens-savings-callout">
+            <strong>~90% reduction</strong> in token usage. Fewer corrections, less context bloat, faster builds.
+          </div>
+        </div>
+      </div>
 
       <section class="cs-sprout cs-sprout-section">
         <div class="cs-sprout-inner">
