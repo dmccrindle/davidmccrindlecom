@@ -63,7 +63,7 @@ export const projects = [
     tags: ['Design Systems', 'Multi-Platform', 'AI-First', 'Governance'],
     thumbnail: '/img/portfolio/sprout-1.jpg',
     heroImg: '/img/portfolio/sprout-hero.jpg',
-    cardVideo: '/sprout/figma/card-variants.mp4',
+    cardImg: '/sprout-screen.png',
     industry: 'design-systems',
     featured: true,
     cardColor: '#111111',

@@ -3362,7 +3362,7 @@
           <!-- Left: stat -->
           <div class="cs-sprout-tokens-left">
             <div class="cs-sprout-tokens-eyebrow">Efficiency</div>
-            <div class="cs-sprout-tokens-stat">~90%</div>
+            <div class="cs-sprout-tokens-stat">~60%</div>
             <div class="cs-sprout-tokens-sub">fewer tokens. Better output.</div>
             <p class="cs-sprout-tokens-desc">Sprout's MCP server gives agents the right component and token on the first pass.</p>
             <p class="cs-sprout-tokens-desc" style="font-weight:700;color:rgba(255,255,255,0.8);margin-top:8px;">Fewer correction rounds, less context bloat, faster builds.</p>
@@ -3384,13 +3384,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr><td>8 form fields</td><td class="dim">~1,200</td><td class="green">~250</td></tr>
-                <tr><td>3 buttons</td><td class="dim">~900</td><td class="green">~60</td></tr>
-                <tr><td>Data grid (sortable + filterable)</td><td class="dim">~4,000</td><td class="green">~200</td></tr>
-                <tr><td>2 modals</td><td class="dim">~1,500</td><td class="green">~300</td></tr>
-                <tr><td>Layout + hardcoded tokens</td><td class="dim">~1,200</td><td class="green">~250</td></tr>
-                <tr><td>Iteration tax (2-3 correction rounds)</td><td class="dim">~+7,000</td><td class="green">~+500</td></tr>
-                <tr class="total"><td>Total</td><td>~15,800</td><td class="green">~1,560</td></tr>
+                <tr><td>8 form fields</td><td class="dim">~1,200</td><td class="green">~500</td></tr>
+                <tr><td>3 buttons</td><td class="dim">~900</td><td class="green">~360</td></tr>
+                <tr><td>Data grid (sortable + filterable)</td><td class="dim">~4,000</td><td class="green">~1,600</td></tr>
+                <tr><td>2 modals</td><td class="dim">~1,500</td><td class="green">~600</td></tr>
+                <tr><td>Layout + hardcoded tokens</td><td class="dim">~1,200</td><td class="green">~500</td></tr>
+                <tr><td>Iteration tax (2-3 correction rounds)</td><td class="dim">~+7,000</td><td class="green">~+2,800</td></tr>
+                <tr class="total"><td>Total</td><td>~15,800</td><td class="green">~6,360</td></tr>
               </tbody>
             </table>
           </div>
@@ -3408,17 +3408,17 @@
               <tr><th>Element</th><th>Scratch</th><th>Sprout</th></tr>
             </thead>
             <tbody>
-              <tr><td>8 form fields</td><td class="dim">~1,200</td><td class="green">~250</td></tr>
-              <tr><td>3 buttons</td><td class="dim">~900</td><td class="green">~60</td></tr>
-              <tr><td>Data grid</td><td class="dim">~4,000</td><td class="green">~200</td></tr>
-              <tr><td>2 modals</td><td class="dim">~1,500</td><td class="green">~300</td></tr>
-              <tr><td>Layout + tokens</td><td class="dim">~1,200</td><td class="green">~250</td></tr>
-              <tr><td>Iteration tax</td><td class="dim">~+7,000</td><td class="green">~+500</td></tr>
-              <tr class="total"><td>Total</td><td>~15,800</td><td class="green">~1,560</td></tr>
+              <tr><td>8 form fields</td><td class="dim">~1,200</td><td class="green">~500</td></tr>
+              <tr><td>3 buttons</td><td class="dim">~900</td><td class="green">~360</td></tr>
+              <tr><td>Data grid</td><td class="dim">~4,000</td><td class="green">~1,600</td></tr>
+              <tr><td>2 modals</td><td class="dim">~1,500</td><td class="green">~600</td></tr>
+              <tr><td>Layout + tokens</td><td class="dim">~1,200</td><td class="green">~500</td></tr>
+              <tr><td>Iteration tax</td><td class="dim">~+7,000</td><td class="green">~+2,800</td></tr>
+              <tr class="total"><td>Total</td><td>~15,800</td><td class="green">~6,360</td></tr>
             </tbody>
           </table>
           <div class="cs-tokens-savings-callout">
-            <strong>~90% reduction</strong> in token usage. Fewer corrections, less context bloat, faster builds.
+            <strong>~60% reduction</strong> in token usage. Fewer corrections, less context bloat, faster builds.
           </div>
         </div>
       </div>
@@ -3584,6 +3584,7 @@
             <button class="cs-sprout-checker-tab active" id="cs-sprout-tab-web" role="tab" aria-selected="true" aria-controls="cs-sprout-panel-web" tabindex="0" data-checker-tab="web" onclick="sproutCheckerTab('web')">Website</button>
             <button class="cs-sprout-checker-tab" id="cs-sprout-tab-chrome" role="tab" aria-selected="false" aria-controls="cs-sprout-panel-chrome" tabindex="-1" data-checker-tab="chrome" onclick="sproutCheckerTab('chrome')">Chrome extension</button>
             <button class="cs-sprout-checker-tab" id="cs-sprout-tab-figma" role="tab" aria-selected="false" aria-controls="cs-sprout-panel-figma" tabindex="-1" data-checker-tab="figma" onclick="sproutCheckerTab('figma')">Figma plugin</button>
+            <button class="cs-sprout-checker-tab" id="cs-sprout-tab-sproutify" role="tab" aria-selected="false" aria-controls="cs-sprout-panel-sproutify" tabindex="-1" data-checker-tab="sproutify" onclick="sproutCheckerTab('sproutify')">Sprout-ify</button>
           </div>
           <div class="cs-sprout-checker-panel active" id="cs-sprout-panel-web" role="tabpanel" aria-labelledby="cs-sprout-tab-web" data-checker-panel="web">
             <div class="cs-sprout-checker-video">
@@ -3608,6 +3609,13 @@
               </video>
             </div>
             <p class="cs-sprout-checker-caption">Inside Figma, the plugin reads the selected frame, flags detached components, off-token color, and pattern mismatches, and <strong>auto-corrects non-compliant files</strong> back to Sprout. Drift gets fixed before it ever reaches code.</p>
+          <div class="cs-sprout-checker-panel" id="cs-sprout-panel-sproutify" role="tabpanel" aria-labelledby="cs-sprout-tab-sproutify" data-checker-panel="sproutify" hidden>
+            <div class="cs-sprout-checker-video">
+              <video loop muted playsinline poster="/sprout/ui-checker/preview.png" aria-label="Demo of Sprout-ify automatically converting non-compliant components to Sprout standards.">
+                <source src="/sprout/ui-checker/sproutify.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="cs-sprout-checker-caption">Sprout-ify scans any design or live surface and <strong>automatically converts non-compliant components</strong> to their Sprout equivalents -- right token, right variant, right spec, in one pass.</p>
           </div>
         </div>
       </section>
