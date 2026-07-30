@@ -11,7 +11,7 @@ export const projects = [
     thumbnail: '/cargillcom/cargillcom.jpg',
     heroImg: '/cargillcom/cargillcom.jpg',
     industry: 'food-agriculture',
-    featured: true,
+    featured: false,
     cardColor: '#03441F',
     showcase: [
       { tab: 'Homepage', image: '/img/portfolio/cargill-1.jpg', caption: 'The Cargill.com homepage was redesigned to better communicate the scale and impact of the company while improving clarity, storytelling, and navigation. The new experience balances brand storytelling with direct pathways to products, insights, and industry solutions, helping diverse audiences, from customers to job seekers, quickly understand Cargill’s role in the global food system.' },
