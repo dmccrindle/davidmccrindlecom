@@ -2058,6 +2058,114 @@
       .cs-kb-lightbox-img { transform: none !important; }
     }
 
+    /* ── Thrivent case study ───────────────────── */
+    body.cs-thrivent-layout .cs-lead { border-bottom: none; padding: 56px 60px 24px; }
+    body.cs-thrivent-layout .cs-body-white { padding-bottom: 0; }
+    .cs-tv { color: #111; }
+    .cs-tv-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+    .cs-tv-section { padding: 88px 0 96px; }
+    .cs-tv-section.alt { background: #f4f6f9; }
+    .cs-tv-section.dark { background: #1a2e4a; color: #fff; }
+    .cs-tv-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(0,0,0,0.45); margin-bottom: 14px;
+    }
+    .cs-tv-section.dark .cs-tv-eyebrow { color: rgba(255,255,255,0.45); }
+    .cs-tv-h2 {
+      font-size: clamp(28px, 3.5vw, 42px); font-weight: 800;
+      letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; color: #111;
+    }
+    .cs-tv-section.dark .cs-tv-h2 { color: #fff; }
+    .cs-tv-intro {
+      font-size: 17px; line-height: 1.65; color: rgba(0,0,0,0.65);
+      max-width: 700px; margin-bottom: 48px;
+    }
+    .cs-tv-section.dark .cs-tv-intro { color: rgba(255,255,255,0.7); }
+    /* Initiative banner */
+    .cs-tv-banner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+      margin-bottom: 64px;
+    }
+    .cs-tv-banner-item {
+      padding: 32px 36px; background: #1a2e4a; color: #fff;
+    }
+    .cs-tv-banner-item:first-child { border-radius: 14px 0 0 14px; }
+    .cs-tv-banner-item:last-child { border-radius: 0 14px 14px 0; background: #243d60; }
+    .cs-tv-banner-num {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); margin-bottom: 10px;
+    }
+    .cs-tv-banner-title {
+      font-size: clamp(18px, 2vw, 22px); font-weight: 800; letter-spacing: -0.01em;
+      color: #fff; margin-bottom: 8px;
+    }
+    .cs-tv-banner-sub { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.55; }
+    /* Two-col image + text */
+    .cs-tv-split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .cs-tv-split.reverse .cs-tv-split-img { order: 1; }
+    .cs-tv-split-img {
+      border-radius: 14px; overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.08); background: #f0f2f5;
+    }
+    .cs-tv-section.dark .cs-tv-split-img { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); }
+    .cs-tv-split-img img { width: 100%; display: block; }
+    .cs-tv-split-tag {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(0,0,0,0.4); margin-bottom: 12px;
+    }
+    .cs-tv-section.dark .cs-tv-split-tag { color: rgba(255,255,255,0.4); }
+    .cs-tv-split-h { font-size: clamp(20px, 2.4vw, 28px); font-weight: 800; letter-spacing: -0.015em; margin-bottom: 14px; }
+    .cs-tv-split-body { font-size: 15.5px; line-height: 1.7; color: rgba(0,0,0,0.65); }
+    .cs-tv-section.dark .cs-tv-split-body { color: rgba(255,255,255,0.7); }
+    /* Role pills */
+    .cs-tv-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .cs-tv-pill {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+      padding: 7px 14px; border-radius: 999px;
+      background: rgba(26,46,74,0.08); border: 1px solid rgba(26,46,74,0.18);
+      color: #1a2e4a;
+    }
+    .cs-tv-section.dark .cs-tv-pill {
+      background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.16); color: rgba(255,255,255,0.85);
+    }
+    /* Full-width image */
+    .cs-tv-full-img {
+      border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,0.08);
+      margin-top: 48px;
+    }
+    .cs-tv-full-img img { width: 100%; display: block; }
+    /* brightpeak section accent */
+    .cs-tv-section.bp { background: #f9f5ff; }
+    .cs-tv-section.bp .cs-tv-eyebrow { color: rgba(90,40,160,0.65); }
+    .cs-tv-section.bp .cs-tv-pill { background: rgba(90,40,160,0.08); border-color: rgba(90,40,160,0.2); color: #5a28a0; }
+    /* Research callouts */
+    .cs-tv-callouts {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px;
+    }
+    .cs-tv-callout {
+      padding: 28px; border-radius: 14px; background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .cs-tv-callout-icon { font-size: 22px; margin-bottom: 12px; }
+    .cs-tv-callout-title { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: #111; }
+    .cs-tv-callout-body { font-size: 14px; line-height: 1.6; color: rgba(0,0,0,0.6); }
+    .cs-tv-section.dark .cs-tv-callout { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.1); }
+    .cs-tv-section.dark .cs-tv-callout-title { color: #fff; }
+    .cs-tv-section.dark .cs-tv-callout-body { color: rgba(255,255,255,0.6); }
+    @media (max-width: 900px) {
+      body.cs-thrivent-layout .cs-lead { padding: 40px 24px 20px; }
+      .cs-tv-inner { padding: 0 24px; }
+      .cs-tv-section { padding: 60px 0 68px; }
+      .cs-tv-banner { grid-template-columns: 1fr; }
+      .cs-tv-banner-item:first-child { border-radius: 14px 14px 0 0; }
+      .cs-tv-banner-item:last-child { border-radius: 0 0 14px 14px; }
+      .cs-tv-split { grid-template-columns: 1fr; gap: 32px; }
+      .cs-tv-split.reverse .cs-tv-split-img { order: 0; }
+      .cs-tv-callouts { grid-template-columns: 1fr; gap: 14px; }
+    }
+
     /* "Built for Figma" craft section: Apple-style horizontal media carousel */
     .cs-sprout-figma { padding: 90px 0 96px; background: #f6f6f6; }
     .cs-sprout-figma-inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
@@ -2795,10 +2903,26 @@
         window.scrollTo(0, 0);
         return;
       }
+      if (project.customLayout === 'thrivent') {
+        document.getElementById('cs-lead-text').textContent = project.intro || '';
+        customEl.innerHTML = renderThriventLayout();
+        bodyEl.style.display = 'none';
+        showcaseEl.style.display = 'none';
+        document.body.classList.add('cs-thrivent-layout');
+        document.body.classList.remove('cs-sprout-layout');
+        document.body.classList.remove('cs-popquiz-layout');
+        document.body.classList.remove('cs-chekt-layout');
+        document.body.classList.remove('cs-kb-layout');
+        stopSproutMcpTyper();
+        buildNextSection(projects.slice(projects.findIndex(p => p.slug === project.slug) + 1).find(p => !p.externalUrl) || null);
+        window.scrollTo(0, 0);
+        return;
+      }
       document.body.classList.remove('cs-sprout-layout');
       document.body.classList.remove('cs-popquiz-layout');
       document.body.classList.remove('cs-chekt-layout');
       document.body.classList.remove('cs-kb-layout');
+      document.body.classList.remove('cs-thrivent-layout');
       stopSproutMcpTyper();
       customEl.innerHTML = '';
       bodyEl.style.display = '';
@@ -3698,6 +3822,130 @@
       const nextIdx = Math.max(0, Math.min(items.length - 1, activeIdx + direction));
       car.scrollTo({ left: items[nextIdx].offsetLeft, behavior: 'smooth' });
     };
+
+    // ── Thrivent custom case-study layout ────────
+    function renderThriventLayout() {
+      return `
+        <!-- Initiative overview -->
+        <section class="cs-tv-section">
+          <div class="cs-tv-inner">
+            <div class="cs-tv-eyebrow">Two initiatives</div>
+            <h2 class="cs-tv-h2">Rethinking how members and reps work with Thrivent</h2>
+            <p class="cs-tv-intro">I worked with Thrivent across two distinct engagements -- one focused on member onboarding, the other on modernizing tools for financial reps through brightpeak financial, Thrivent's digital-first division targeting younger demographics.</p>
+            <div class="cs-tv-banner">
+              <div class="cs-tv-banner-item">
+                <div class="cs-tv-banner-num">Initiative 01</div>
+                <div class="cs-tv-banner-title">Member Onboarding</div>
+                <div class="cs-tv-banner-sub">Redesigning a paper-based new member flow into a self-service digital experience -- usable independently or alongside a financial rep.</div>
+              </div>
+              <div class="cs-tv-banner-item">
+                <div class="cs-tv-banner-num">Initiative 02</div>
+                <div class="cs-tv-banner-title">brightpeak financial</div>
+                <div class="cs-tv-banner-sub">Evolving a legacy Windows app into a modern web product for financial reps, in partnership with brightpeak's PM, lead engineer, and strategists.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Member onboarding: context -->
+        <section class="cs-tv-section alt">
+          <div class="cs-tv-inner">
+            <div class="cs-tv-eyebrow">Initiative 01 -- Member Onboarding</div>
+            <h2 class="cs-tv-h2">From paper forms to a flexible self-service flow</h2>
+            <p class="cs-tv-intro">Thrivent's member onboarding process was built around a paper-based workflow that required a financial rep to guide every new member through setup. The initiative -- run in partnership with Thrivent's VP of Digital Transformation -- explored how onboarding could be redesigned to work independently or alongside a rep.</p>
+            <div class="cs-tv-callouts">
+              <div class="cs-tv-callout">
+                <div class="cs-tv-callout-icon">🎙️</div>
+                <div class="cs-tv-callout-title">Rep interviews</div>
+                <div class="cs-tv-callout-body">Conducted in-depth interviews with financial reps to understand their role in the current onboarding process, where they added value, and where the paper-based flow created friction for both them and the member.</div>
+              </div>
+              <div class="cs-tv-callout">
+                <div class="cs-tv-callout-icon">👥</div>
+                <div class="cs-tv-callout-title">Member research</div>
+                <div class="cs-tv-callout-body">Interviewed new and prospective members to assess their comfort with self-service onboarding, their expectations around financial guidance, and where they wanted a human in the loop.</div>
+              </div>
+              <div class="cs-tv-callout">
+                <div class="cs-tv-callout-icon">📋</div>
+                <div class="cs-tv-callout-title">Existing flow audit</div>
+                <div class="cs-tv-callout-body">Mapped the full paper-based onboarding process end-to-end, identifying redundancy, required touchpoints, and decision points where a digital flow could reduce friction without losing the trust the rep relationship provides.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Onboarding: design work -->
+        <section class="cs-tv-section dark">
+          <div class="cs-tv-inner">
+            <div class="cs-tv-eyebrow">Design work</div>
+            <div class="cs-tv-split">
+              <div class="cs-tv-split-img">
+                <img src="/thrivent/thrivent - brainstorm.png" alt="Ideation and brainstorming session for Thrivent member onboarding" loading="lazy">
+              </div>
+              <div>
+                <div class="cs-tv-split-tag">Ideation</div>
+                <h3 class="cs-tv-split-h">Ideating a dual-mode onboarding experience</h3>
+                <p class="cs-tv-split-body">The core design challenge was building a single flow that worked in two modes: fully self-service for members who wanted to go it alone, and as a guided co-session where a rep could step in, take over steps, or annotate alongside the member. Ideation sessions mapped decision trees, trust signals, and handoff moments.</p>
+                <div class="cs-tv-pills">
+                  <span class="cs-tv-pill">Service blueprinting</span>
+                  <span class="cs-tv-pill">User journey mapping</span>
+                  <span class="cs-tv-pill">Co-design sessions</span>
+                  <span class="cs-tv-pill">Stakeholder interviews</span>
+                </div>
+              </div>
+            </div>
+            <div class="cs-tv-full-img">
+              <img src="/thrivent/thrivent - member setup wizard.png" alt="Wireframes for the Thrivent member onboarding self-service wizard" loading="lazy">
+            </div>
+          </div>
+        </section>
+
+        <!-- brightpeak section -->
+        <section class="cs-tv-section bp">
+          <div class="cs-tv-inner">
+            <div class="cs-tv-eyebrow">Initiative 02 -- brightpeak financial</div>
+            <h2 class="cs-tv-h2">Modernizing the rep tool for a digital-first audience</h2>
+            <p class="cs-tv-intro">brightpeak financial was Thrivent's digital-first personal finance and literacy division, launched in 2012 to reach younger demographics -- millennials and Gen X -- who weren't being served by traditional financial products. I partnered with brightpeak's product manager, lead engineer, and strategists to redesign their legacy Windows desktop app as a modern, responsive web application for financial reps.</p>
+            <div class="cs-tv-split reverse">
+              <div class="cs-tv-split-img">
+                <img src="/thrivent/brightpeak - wireframes.png" alt="Wireframes for the brightpeak financial web app redesign" loading="lazy">
+              </div>
+              <div>
+                <div class="cs-tv-split-tag">Approach</div>
+                <h3 class="cs-tv-split-h">Windows app to modern web -- with the team in the room</h3>
+                <p class="cs-tv-split-body">The engagement was grounded in close collaboration with brightpeak's cross-functional team. I facilitated workshops at Thrivent's headquarters in Appleton, WI, working directly with the PM, lead engineer, and strategists to map the existing app's workflows, identify what to preserve and what to rethink, and define the interaction model for the web product.</p>
+                <div class="cs-tv-pills">
+                  <span class="cs-tv-pill">Workshop facilitation</span>
+                  <span class="cs-tv-pill">Appleton, WI on-site</span>
+                  <span class="cs-tv-pill">Cross-functional collaboration</span>
+                  <span class="cs-tv-pill">Legacy modernization</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- brightpeak: take it anywhere -->
+        <section class="cs-tv-section">
+          <div class="cs-tv-inner">
+            <div class="cs-tv-split">
+              <div>
+                <div class="cs-tv-split-tag">Web app design</div>
+                <h3 class="cs-tv-split-h">Designed to move with the rep</h3>
+                <p class="cs-tv-split-body">The Windows app had tied reps to their desks. The new web product was designed to work wherever a rep had a browser -- in a client meeting, at a kitchen table, at a coffee shop. The design preserved the depth of the existing tool while stripping out the overhead that made it feel heavy and desktop-bound.</p>
+                <div class="cs-tv-pills">
+                  <span class="cs-tv-pill">Responsive design</span>
+                  <span class="cs-tv-pill">Rep workflows</span>
+                  <span class="cs-tv-pill">Financial literacy UX</span>
+                </div>
+              </div>
+              <div class="cs-tv-split-img">
+                <img src="/thrivent/brightpeak - take it anywhere.png" alt="brightpeak financial web app shown across devices" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
 
     // ── Pop Quiz custom case-study layout ────────
     function renderPopQuizLayout() {

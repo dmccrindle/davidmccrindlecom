@@ -660,5 +660,20 @@ export const projects = [
       <h2>Outcomes</h2>
       <p>The platform saw strong growth in downloads and helped establish an active community around the SmartThings ecosystem, contributing to Samsung's acquisition and expansion of the platform.</p>
     `
-  }
-];
+  },
+  {
+    slug: 'thrivent',
+    title: 'Thrivent',
+    gridTitle: 'Thrivent Financial',
+    subtitle: "Two engagements with Thrivent Financial: reimagining member onboarding as a self-service digital flow, and partnering with brightpeak financial to modernize a Windows-based rep tool into a modern web app.",
+    intro: "Thrivent is a Fortune 500 financial services organization serving over 2 million members. I worked across two initiatives -- redesigning the member onboarding experience from a paper-based process into a flexible self-service flow, and helping brightpeak financial evolve their rep-facing Windows app into a responsive, modern web product.",
+    company: 'Thrivent Financial',
+    tags: ['UX Research', 'Service Design', 'Web App', 'Financial Services'],
+    thumbnail: '/thrivent/thrivent.png',
+    heroImg: '/thrivent/thrivent.png',
+    cardImg: '/thrivent/thrivent.png',
+    industry: 'enterprise',
+    featured: false,
+    cardColor: '#1a2e4a',
+    customLayout: 'thrivent',
+  },
