@@ -73,14 +73,15 @@ async function logEvent({ event, viewer, project, ua }) {
   });
 
   try {
-    await fetch(`${url}/lpush/portfolio:events`, {
+    await fetch(url, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify([entry]),
+      body: JSON.stringify(['LPUSH', 'portfolio_events', entry]),
     });
-    await fetch(`${url}/ltrim/portfolio:events/0/999`, {
+    await fetch(url, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(['LTRIM', 'portfolio_events', 0, 999]),
     });
   } catch (_) {}
 }
