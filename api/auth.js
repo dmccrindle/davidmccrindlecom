@@ -42,7 +42,7 @@ export default async function handler(req, res) {
   }
 
   const token = crypto.createHmac('sha256', process.env.PORTFOLIO_SECRET)
-    .update('portfolio:authenticated:' + viewerName)
+    .update('portfolio:authenticated')
     .digest('hex');
 
   const base = 'Secure; SameSite=Strict; Path=/; Max-Age=86400';
