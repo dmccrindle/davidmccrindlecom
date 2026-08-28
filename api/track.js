@@ -33,8 +33,14 @@ export default async function handler(req, res) {
   // GET: view events (protected by TRACK_SECRET)
   if (req.method === 'GET') {
     const { secret, format, clear } = req.query;
-    if (!process.env.TRACK_SECRET || secret !== process.env.TRACK_SECRET) {
+    const trackSecret = process.env.TRACK_SECRET;
+    if (!trackSecret || secret !== trackSecret) {
       return res.status(401).end('Unauthorized');
+    }
+
+    if (!url || !token) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      return res.end('<p style="font-family:system-ui;padding:40px">Upstash env vars not configured yet (UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN).</p>');
     }
 
     if (clear === '1') {
