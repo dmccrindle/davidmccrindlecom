@@ -52,11 +52,36 @@ export default async function handler(req, res) {
     `portfolio_viewer=${viewerName}; ${base}`,
   ]);
 
-  // Log the login event
-  await logEvent({ event: 'login', viewer: viewerName, project: null,
-    ua: req.headers['user-agent'] });
+  // Log + notify
+  await Promise.all([
+    logEvent({ event: 'login', viewer: viewerName, project: null, ua: req.headers['user-agent'] }),
+    sendLoginEmail(viewerName, req.headers['user-agent'] || ''),
+  ]);
 
   return res.status(200).json({ ok: true, viewer: viewerName });
+}
+
+async function sendLoginEmail(viewer, ua) {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return;
+  const time = new Date().toUTCString();
+  try {
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: 'Portfolio <noreply@davidmccrindle.com>',
+        to: 'davidmccrindle@mac.com',
+        subject: `${viewer} just logged into your portfolio`,
+        html: `
+          <p style="font-family:system-ui;font-size:15px">
+            <strong>${viewer}</strong> logged in at ${time}.
+          </p>
+          <p style="font-family:system-ui;font-size:13px;color:#999">${ua.substring(0, 120)}</p>
+        `,
+      }),
+    });
+  } catch (_) {}
 }
 
 async function logEvent({ event, viewer, project, ua }) {
