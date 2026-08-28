@@ -820,7 +820,7 @@
       }));
       loaded.sort((a, b) => a.index - b.index);
 
-      // Build one set: img_1, Thrivent, img_6, video, img_3, img_4, img_5, concert video, img_2 (Carl's Grill) at end
+      // Build one set: img_1, Thrivent, img_2, video, img_3, img_4, img_5, concert video, img_6 (Carl's Grill) at end
       const videoHtml = `<video class="marquee-img" src="/pop-quiz/popquizmusic.mp4" autoplay muted loop playsinline style="aspect-ratio:4/3;width:auto"></video>`;
       const img = src => `<img class="marquee-img" src="${src}" alt="" loading="eager">`;
       const thriventCard = `<div class="marquee-img" style="background:#c0132b;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;width:auto;aspect-ratio:4/3;"><img src="/thrivent/thrivent.png" alt="Thrivent" style="max-width:100%;max-height:100%;object-fit:contain;display:block;"></div>`;
@@ -829,7 +829,7 @@
       const img2 = byIndex[1] ? img(byIndex[1]) : '';
       const img6 = byIndex[5] ? img(byIndex[5]) : '';
       const rest = loaded.filter(l => l.index !== 5 && l.index > 1).map(l => img(l.src)).join('');
-      const oneSet = img1 + thriventCard + img6 + videoHtml + rest + img2;
+      const oneSet = img1 + thriventCard + img2 + videoHtml + rest + img6;
 
       track.innerHTML = oneSet + oneSet; // duplicate for seamless loop
 
