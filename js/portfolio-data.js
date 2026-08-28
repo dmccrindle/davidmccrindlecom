@@ -670,7 +670,7 @@ export const projects = [
     company: 'Thrivent Financial',
     tags: ['UX Research', 'Service Design', 'Web App', 'Financial Services'],
     thumbnail: '/thrivent/thrivent.png',
-    heroImg: '/thrivent/thrivent.png',
+    heroImg: '/thrivent/thrivent - brainstorm.png',
     cardImg: '/thrivent/thrivent.png',
     industry: 'enterprise',
     featured: true,
