@@ -677,3 +677,4 @@ export const projects = [
     cardColor: '#1a2e4a',
     customLayout: 'thrivent',
   },
+];
