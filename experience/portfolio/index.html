@@ -2855,10 +2855,24 @@
       window.scrollTo(0, 0);
     }
 
+    function getCookie(name) {
+      const m = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : null;
+    }
+    function trackView(project) {
+      const viewer = getCookie('portfolio_viewer') || 'unknown';
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event: 'view', project: project.slug, viewer }),
+      }).catch(() => {});
+    }
+
     // ── Case study ───────────────────────────────
     function showCaseStudy(project) {
       currentSlug = project.slug;
       history.pushState(null, '', '/experience/portfolio/' + project.slug);
+      trackView(project);
       document.getElementById('gallery-view').classList.remove('active');
       document.getElementById('case-study-view').classList.add('active');
       document.body.classList.remove('gallery-active');
