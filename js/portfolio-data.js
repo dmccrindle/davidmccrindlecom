@@ -140,7 +140,7 @@ export const projects = [
     thumbnail: '/img/portfolio/kb-1.jpg',
     heroImg: '/img/portfolio/kb-1.jpg',
     industry: 'food-agriculture',
-    featured: true,
+    featured: false,
     cardColor: '#2B5219',
     showcase: [
       { tab: 'Family', image: '/img/portfolio/kb-1.jpg', caption: 'Kitchen Blueprint was designed as a connected family of products that help restaurants manage kitchen operations more effectively. The platform brings together inventory management, forecasting, alerts, and operational insights into a single system that helps teams reduce waste, anticipate demand, and keep kitchens running smoothly.' },
@@ -673,7 +673,7 @@ export const projects = [
     heroImg: '/thrivent/thrivent.png',
     cardImg: '/thrivent/thrivent.png',
     industry: 'enterprise',
-    featured: false,
+    featured: true,
     cardColor: '#1a2e4a',
     customLayout: 'thrivent',
   },

@@ -2061,6 +2061,10 @@
     /* ── Thrivent case study ───────────────────── */
     body.cs-thrivent-layout .cs-lead { border-bottom: none; padding: 56px 60px 24px; }
     body.cs-thrivent-layout .cs-body-white { padding-bottom: 0; }
+    .cs-tv-lead-img {
+      width: 100%; max-height: 520px; object-fit: cover; object-position: center top;
+      display: block; border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
     .cs-tv { color: #111; }
     .cs-tv-inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
     .cs-tv-section { padding: 88px 0 96px; }
@@ -3826,6 +3830,9 @@
     // ── Thrivent custom case-study layout ────────
     function renderThriventLayout() {
       return `
+        <!-- Hero image -->
+        <img class="cs-tv-lead-img" src="/thrivent/thrivent.png" alt="Thrivent member onboarding and brightpeak financial web app" loading="eager">
+
         <!-- Initiative overview -->
         <section class="cs-tv-section">
           <div class="cs-tv-inner">
