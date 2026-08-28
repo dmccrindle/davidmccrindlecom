@@ -4011,18 +4011,18 @@
       `;
     }
 
-    function tvLightbox(src) {
+    window.tvLightbox = function(src) {
       const lb = document.getElementById('cs-tv-lightbox');
       const img = document.getElementById('cs-tv-lightbox-img');
       if (!lb || !img) return;
       img.src = src;
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
-      lb.onclick = e => { if (e.target === lb) tvLightboxClose(); };
-      const esc = e => { if (e.key === 'Escape') { tvLightboxClose(); document.removeEventListener('keydown', esc); } };
+      lb.onclick = e => { if (e.target === lb) window.tvLightboxClose(); };
+      const esc = e => { if (e.key === 'Escape') { window.tvLightboxClose(); document.removeEventListener('keydown', esc); } };
       document.addEventListener('keydown', esc);
     }
-    function tvLightboxClose() {
+    window.tvLightboxClose = function() {
       const lb = document.getElementById('cs-tv-lightbox');
       if (lb) lb.classList.remove('open');
       document.body.style.overflow = '';
