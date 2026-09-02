@@ -2663,8 +2663,7 @@
     var activeFilter = 'featured';
     var audienceConfig = null; // set if viewer has a custom audience
 
-    // Fetch audience config for this viewer and apply it
-    (async function initAudience() {
+    async function initAudience() {
       const viewer = getCookie('portfolio_viewer');
       if (!viewer || viewer === 'default') return;
       try {
@@ -2683,7 +2682,7 @@
         // Re-render rail with audience projects
         buildRail();
       } catch (_) {}
-    })();
+    }
 
     const CATEGORY_LABELS = {
       'featured':           'Featured',
@@ -2838,10 +2837,10 @@
 
     function init() {
       buildFilters();
-      buildRail();
       initMobileSelect();
       handleRoute();
       window.addEventListener('popstate', handleRoute);
+      initAudience(); // async; re-renders rail after audience config is fetched
     }
 
     // ── Routing ──────────────────────────────────
