@@ -2527,7 +2527,7 @@
         <img class="pf-copy-avatar" src="/img/david.png" alt="David McCrindle">
         <div class="pf-copy-text">
           <div class="pf-copy-name">David McCrindle</div>
-          <div class="pf-copy-tagline">Design leader. 20+ years shaping digital products at scale across food, retail, and technology.</div>
+          <div class="pf-copy-tagline" id="gallery-intro">Design leader. 20+ years shaping digital products at scale across food, retail, and technology.</div>
         </div>
       </div>
 
@@ -2661,6 +2661,29 @@
 
     // ── Active industry filter ───────────────────
     var activeFilter = 'featured';
+    var audienceConfig = null; // set if viewer has a custom audience
+
+    // Fetch audience config for this viewer and apply it
+    (async function initAudience() {
+      const viewer = getCookie('portfolio_viewer');
+      if (!viewer || viewer === 'default') return;
+      try {
+        const r = await fetch(`/api/audiences?viewer=${encodeURIComponent(viewer)}`);
+        if (!r.ok) return;
+        const cfg = await r.json();
+        if (!cfg || !cfg.projects?.length) return;
+        audienceConfig = cfg;
+
+        // Apply custom intro if set
+        if (cfg.intro) {
+          const introEl = document.getElementById('gallery-intro');
+          if (introEl) introEl.textContent = cfg.intro;
+        }
+
+        // Re-render rail with audience projects
+        buildRail();
+      } catch (_) {}
+    })();
 
     const CATEGORY_LABELS = {
       'featured':           'Featured',
@@ -2675,6 +2698,11 @@
     };
 
     function getFilteredProjects() {
+      // Audience override: when on 'featured' filter, show audience projects in defined order
+      if (audienceConfig && activeFilter === 'featured') {
+        const slugs = audienceConfig.projects;
+        return slugs.map(s => projects.find(p => p.slug === s)).filter(Boolean);
+      }
       if (activeFilter === 'all') return projects;
       if (activeFilter === 'featured') return projects.filter(p => p.featured);
       return projects.filter(p =>

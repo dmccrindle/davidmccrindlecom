@@ -316,6 +316,7 @@
     <div class="cms-tabs">
       <button class="cms-tab active" onclick="switchTab('add')">Add Show</button>
       <button class="cms-tab" onclick="switchTab('edit')">Edit Shows</button>
+      <button class="cms-tab" onclick="switchTab('audiences')">Audiences</button>
     </div>
 
     <!-- Add tab -->
@@ -424,6 +425,42 @@
       <div class="edit-list" id="edit-list"></div>
     </div>
 
+    <!-- Audiences tab -->
+    <div id="tab-audiences" class="tab-panel">
+      <div style="display:grid;grid-template-columns:260px 1fr;gap:32px;margin-top:8px;min-height:500px">
+
+        <!-- Left: list -->
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <span style="font-size:13px;font-weight:600;color:#ccc">Groups</span>
+            <button onclick="audienceNew()" style="font-size:12px;padding:5px 12px;border-radius:6px;background:#333;border:1px solid #555;color:#fff;cursor:pointer">+ New</button>
+          </div>
+          <div id="aud-list" style="display:flex;flex-direction:column;gap:6px"></div>
+        </div>
+
+        <!-- Right: editor -->
+        <div id="aud-editor" style="display:none">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+            <input id="aud-name" placeholder="Group name (e.g. thrivent)" style="font-size:18px;font-weight:700;background:none;border:none;border-bottom:2px solid #444;color:#fff;padding:4px 0;width:280px;outline:none" />
+            <div style="display:flex;gap:10px">
+              <button onclick="audienceSave()" style="padding:8px 20px;background:#fff;color:#111;border:none;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer">Save</button>
+              <button onclick="audienceDelete()" style="padding:8px 16px;background:transparent;color:#f66;border:1px solid #f66;border-radius:8px;font-size:13px;cursor:pointer">Delete</button>
+            </div>
+          </div>
+
+          <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:8px">Custom intro</label>
+          <textarea id="aud-intro" rows="3" placeholder="Hi! I put together a few projects that are most relevant to your team..." style="width:100%;background:#1a1a1a;border:1px solid #444;border-radius:8px;color:#fff;font-size:14px;line-height:1.6;padding:12px 14px;box-sizing:border-box;resize:vertical;font-family:inherit;margin-bottom:24px"></textarea>
+
+          <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:12px">Featured projects <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">(checked = shown first)</span></label>
+          <div id="aud-projects" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px"></div>
+
+          <div id="aud-msg" style="margin-top:16px;font-size:13px;color:#6f6;display:none"></div>
+        </div>
+
+        <div id="aud-empty" style="color:#555;font-size:14px;padding-top:40px">Select a group or create a new one.</div>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -436,14 +473,16 @@
 
     // ── Tabs ────────────────────────────────────────
 
+    const TAB_NAMES = ['add', 'edit', 'audiences'];
     function switchTab(name) {
       currentTab = name;
       document.querySelectorAll('.cms-tab').forEach((btn, i) => {
-        btn.classList.toggle('active', ['add', 'edit'][i] === name);
+        btn.classList.toggle('active', TAB_NAMES[i] === name);
       });
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       document.getElementById('tab-' + name).classList.add('active');
       if (name === 'edit') renderEditList();
+      if (name === 'audiences') loadAudiences();
     }
 
     // ── Add form ────────────────────────────────────
@@ -885,6 +924,109 @@
 
     initAutocompletes();
     loadData();
+
+    // ── Audiences ───────────────────────────────────
+    // All portfolio project slugs + display titles (kept in sync with portfolio-data.js)
+    const ALL_PROJECTS = [
+      { slug: 'sprout',            title: 'Sprout Design System' },
+      { slug: 'chekt',             title: 'Chekt Food Lockers' },
+      { slug: 'kitchen-blueprint', title: 'Kitchen Blueprint' },
+      { slug: 'cargill',           title: 'Cargill.com' },
+      { slug: 'thrivent',          title: 'Thrivent / brightpeak' },
+      { slug: 'popquiz',           title: 'Pop Quiz Music' },
+      { slug: 'nosh',              title: 'Nosh' },
+      { slug: 'sleep-number',      title: 'Sleep Number' },
+      { slug: 'samsung',           title: 'Samsung SmartThings' },
+    ];
+
+    let audiences = [];
+    let currentAudience = null;
+
+    async function loadAudiences() {
+      try {
+        const r = await fetch('/api/audiences');
+        audiences = r.ok ? await r.json() : [];
+      } catch { audiences = []; }
+      renderAudList();
+    }
+
+    function renderAudList() {
+      const el = document.getElementById('aud-list');
+      if (!audiences.length) {
+        el.innerHTML = '<p style="color:#555;font-size:13px">No groups yet.</p>';
+        return;
+      }
+      el.innerHTML = audiences.map(a => `
+        <button onclick="audienceSelect(${JSON.stringify(a.name)})"
+          style="text-align:left;padding:10px 14px;border-radius:8px;border:1px solid ${currentAudience?.name===a.name?'#888':'#333'};background:${currentAudience?.name===a.name?'#2a2a2a':'transparent'};color:#fff;cursor:pointer;font-size:14px;font-weight:600;width:100%">
+          ${a.name}
+          <span style="font-weight:400;color:#666;font-size:12px;display:block">${(a.projects||[]).length} projects</span>
+        </button>`).join('');
+    }
+
+    function audienceSelect(name) {
+      currentAudience = audiences.find(a => a.name === name) || null;
+      renderAudEditor();
+      renderAudList();
+    }
+
+    function audienceNew() {
+      currentAudience = { name: '', intro: '', projects: [] };
+      renderAudEditor();
+    }
+
+    function renderAudEditor() {
+      document.getElementById('aud-empty').style.display = 'none';
+      document.getElementById('aud-editor').style.display = 'block';
+      document.getElementById('aud-name').value = currentAudience?.name || '';
+      document.getElementById('aud-intro').value = currentAudience?.intro || '';
+      document.getElementById('aud-msg').style.display = 'none';
+
+      const sel = new Set(currentAudience?.projects || []);
+      document.getElementById('aud-projects').innerHTML = ALL_PROJECTS.map(p => `
+        <label style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:#1a1a1a;border:1px solid #333;cursor:pointer">
+          <input type="checkbox" value="${p.slug}" ${sel.has(p.slug)?'checked':''} style="width:16px;height:16px;accent-color:#fff">
+          <span style="font-size:13px;color:#ddd">${p.title}</span>
+        </label>`).join('');
+    }
+
+    async function audienceSave() {
+      const name = document.getElementById('aud-name').value.trim();
+      const intro = document.getElementById('aud-intro').value.trim();
+      const projects = [...document.querySelectorAll('#aud-projects input:checked')].map(i => i.value);
+      if (!name) { alert('Group name required'); return; }
+
+      const r = await fetch('/api/audiences', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, intro, projects }),
+      });
+      if (r.ok) {
+        const { audience } = await r.json();
+        currentAudience = audience;
+        await loadAudiences();
+        const msg = document.getElementById('aud-msg');
+        msg.textContent = 'Saved!';
+        msg.style.display = 'block';
+        setTimeout(() => msg.style.display = 'none', 2000);
+      } else {
+        alert('Save failed');
+      }
+    }
+
+    async function audienceDelete() {
+      if (!currentAudience?.name || !confirm(`Delete group "${currentAudience.name}"?`)) return;
+      await fetch('/api/audiences', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: currentAudience.name }),
+      });
+      currentAudience = null;
+      document.getElementById('aud-editor').style.display = 'none';
+      document.getElementById('aud-empty').style.display = 'block';
+      await loadAudiences();
+    }
+
   </script>
 </body>
 </html>
