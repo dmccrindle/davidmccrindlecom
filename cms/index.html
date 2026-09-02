@@ -957,7 +957,7 @@
         return;
       }
       el.innerHTML = audiences.map(a => `
-        <button onclick="audienceSelect(${JSON.stringify(a.name)})"
+        <button onclick='audienceSelect(${JSON.stringify(a.name)})'
           style="text-align:left;padding:10px 14px;border-radius:8px;border:1px solid ${currentAudience?.name===a.name?'#888':'#333'};background:${currentAudience?.name===a.name?'#2a2a2a':'transparent'};color:#fff;cursor:pointer;font-size:14px;font-weight:600;width:100%">
           ${a.name}
           <span style="font-weight:400;color:#666;font-size:12px;display:block">${(a.projects||[]).length} projects</span>
