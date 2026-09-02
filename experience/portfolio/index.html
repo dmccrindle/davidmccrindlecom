@@ -2665,12 +2665,13 @@
 
     async function initAudience() {
       const viewer = getCookie('portfolio_viewer');
+      console.log('[audience] viewer cookie:', viewer);
       if (!viewer || viewer === 'default') return;
       try {
         const r = await fetch(`/api/audiences?viewer=${encodeURIComponent(viewer)}`);
-        if (!r.ok) return;
         const cfg = await r.json();
-        if (!cfg || !cfg.projects?.length) return;
+        console.log('[audience] config from API:', cfg);
+        if (!r.ok || !cfg || !cfg.projects?.length) return;
         audienceConfig = cfg;
 
         // Apply custom intro if set
