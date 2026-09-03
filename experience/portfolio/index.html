@@ -2736,29 +2736,35 @@
         const dr = await fetch('/api/audiences?viewer=default');
         if (dr.ok) {
           const dcfg = await dr.json();
-          if (dcfg?.projects?.length) defaultConfig = dcfg;
+          if (dcfg) defaultConfig = dcfg;
         }
       } catch (_) {}
 
       const viewer = getCookie('portfolio_viewer');
-      if (!viewer || viewer === 'default') return;
+      if (!viewer || viewer === 'default') {
+        applyConfig(defaultConfig);
+        return;
+      }
       try {
         const r = await fetch(`/api/audiences?viewer=${encodeURIComponent(viewer)}`);
-        if (!r.ok) return;
+        if (!r.ok) { applyConfig(defaultConfig); return; }
         const cfg = await r.json();
-        if (!cfg) return;
+        if (!cfg) { applyConfig(defaultConfig); return; }
         audienceConfig = cfg.projects?.length ? cfg : null;
+        applyConfig(audienceConfig || defaultConfig);
+      } catch (_) { applyConfig(defaultConfig); }
+    }
 
-        const active = audienceConfig || defaultConfig;
-        if (active?.greeting) {
-          const el = document.getElementById('bento-greeting');
-          if (el) el.textContent = active.greeting;
-        }
-        if (active?.intro) {
-          const el = document.getElementById('gallery-intro');
-          if (el) el.innerHTML = parseIntro(active.intro);
-        }
-      } catch (_) {}
+    function applyConfig(cfg) {
+      if (!cfg) return;
+      if (cfg.greeting) {
+        const el = document.getElementById('bento-greeting');
+        if (el) el.textContent = cfg.greeting;
+      }
+      if (cfg.intro) {
+        const el = document.getElementById('gallery-intro');
+        if (el) el.innerHTML = parseIntro(cfg.intro);
+      }
     }
 
     const CATEGORY_LABELS = {
