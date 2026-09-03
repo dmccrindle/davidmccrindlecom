@@ -2849,9 +2849,6 @@
       grid.innerHTML = '';
 
       const config = audienceConfig || defaultConfig;
-      console.log('[portfolio] audienceConfig:', audienceConfig);
-      console.log('[portfolio] defaultConfig:', defaultConfig);
-      console.log('[portfolio] using config:', config?.name, 'projects:', config?.projects?.length);
       const projList = normalizeProjList(config?.projects);
       const largeSet = new Set(projList.filter(i => i.large).map(i => i.slug));
 
