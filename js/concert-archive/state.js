@@ -2,7 +2,7 @@
 
 export let SHOWS = [];
 
-export const LOGO_URL = 'https://www.figma.com/api/mcp/asset/2158519e-b52a-49f2-bc23-32b3c5e1d7a2';
+export const LOGO_URL = '/img/favicon.svg';
 
 export const state = {
   view: 'list',

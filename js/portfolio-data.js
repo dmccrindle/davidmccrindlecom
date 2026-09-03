@@ -671,6 +671,84 @@ export const projects = [
     `
   },
   {
+    slug: 'concert-archive',
+    title: 'Concert Archive',
+    gridTitle: 'Concert Archive',
+    description: 'A personal web app tracking every concert I\'ve ever attended -- 500+ shows, mapped, charted, and searchable.',
+    subtitle: 'A self-built personal concert archive tracking over 500 shows attended since 1995. Features an interactive Leaflet map, artist timelines, venue histories, Wikipedia-powered artist profiles, and a statistics dashboard. Designed, built, and shipped solo.',
+    intro: "I started my career in the music industry building fan sites and tour archives for bands -- pre-social media communities where fans could register attendance, upload photos, and connect. For purely self-indulgent reasons, I decided to build my own personal version. The Concert Archive tracks every show I've attended since 1995: mapped by venue, browsable by artist and year, and enriched with artist imagery from Wikipedia and MusicBrainz.",
+    company: 'Personal',
+    tags: ['Product Design', 'Front-End Development', 'Data Visualization', 'Solo Build'],
+    thumbnail: '/img/concertarchive.jpg',
+    heroImg: '/img/concertarchive.jpg',
+    cardImg: '/img/concertarchive.jpg',
+    cardVideo: '/img/concert-archive.mp4',
+    industry: 'media-entertainment',
+    featured: false,
+    cardColor: '#0a0a0a',
+    showcase: [
+      { tab: 'Map View', image: '/img/concertarchive.jpg', caption: 'An interactive Leaflet map plots every venue I\'ve attended, clustered by geography. Clicking a cluster zooms to individual pins; clicking a pin filters the show list to that location.' },
+      { tab: 'Artist Profiles', image: '/img/highlights/brmc-amps.jpg', caption: 'Each artist entry pulls a photo from Wikipedia and MusicBrainz, shows total shows attended, first and last seen, and links to the setlist history.' },
+      { tab: 'Concert Photography', image: '/img/highlights/babybabybaby.jpg', caption: 'Concert highlights from the pit -- select photos from years of shooting live music.' },
+      { tab: 'Statistics', image: '/img/highlights/gotta-go-fast.jpg', caption: 'A statistics dashboard surfaces top artists, busiest years, most visited venues, and geographic spread across 30 years of concert-going.' },
+    ],
+    content: `
+      <h2>Overview</h2>
+      <p>The Concert Archive is a personal project I designed and built to track every concert I've attended since 1995 -- over 500 shows spanning 30 years, 100+ venues, and artists ranging from intimate club sets to stadium tours. It's part data visualization, part personal archive, part tribute to a career that started in the music industry.</p>
+
+      <h2>Background</h2>
+      <p>Early in my career I built fan communities and tour archives for bands -- custom sites where fans could register attendance, write reviews, upload photos, and connect with other concertgoers. Pre-social media, these were genuinely useful spaces. Years later, I wanted to build something similar for myself. Not for an audience, just for the archive value and the engineering challenge.</p>
+
+      <h2>What It Does</h2>
+      <p>The archive ingests a CSV of every show I've attended and builds several views on top of it. An interactive Leaflet map plots every venue geographically, with clustered markers that zoom into individual shows. The artist browser groups shows by performer with Wikipedia-powered profile images fetched via the MusicBrainz API. A venue history view tracks every show at each location. A statistics dashboard surfaces top artists by frequency, busiest years, city and country breakdowns, and a 30-year timeline.</p>
+      <p>New venues that aren't in the static coordinate file get geocoded automatically via Nominatim (OpenStreetMap) and cached in localStorage so the cost is paid once per browser.</p>
+
+      <h2>Design Decisions</h2>
+      <p>The whole thing runs client-side from a CSV and a static JSON file -- no database, no server, no build step beyond Vite. Data is loaded once on mount and all filtering, sorting, and search happens in memory. This makes it fast and free to host.</p>
+      <p>The visual language leans dark and music-forward: deep blacks, tight typography, and a map that feels more like an album liner than a data dashboard. Show cards are minimal -- date, artist, venue, city -- because the data itself is the content.</p>
+
+      <h2>Stack</h2>
+      <p>Vite, vanilla JS ES modules, Leaflet with MarkerCluster, Wikipedia REST API, MusicBrainz API, Nominatim for geocoding, and a hand-curated venue coordinates JSON built up over time. Deployed on Vercel.</p>
+    `
+  },
+  {
+    slug: 'music-photography',
+    title: 'Music Photography',
+    gridTitle: 'Music Photography',
+    description: 'Published concert photographer. Shot from the pit at venues across the US, UK, and Europe.',
+    subtitle: 'Outside of product design, I\'m a published photographer drawn to the lights, noise, and chaos of live music. I\'ve shot from the photo pit at venues across the US, UK, and Europe -- festivals, club shows, arena tours.',
+    intro: "Photography started as something I did because I was already in the room. I had a camera, I had access, and I wanted a record of the shows that mattered to me. Over time it became its own practice -- reading the room, anticipating the moment, working with whatever light the production gave me.",
+    company: 'Independent',
+    tags: ['Photography', 'Live Music', 'Editorial', 'Published Work'],
+    thumbnail: '/img/howler.jpg',
+    heroImg: '/img/polica.jpg',
+    cardImg: '/img/howler.jpg',
+    industry: 'media-entertainment',
+    featured: false,
+    cardColor: '#111111',
+    showcase: [
+      { tab: 'Howler', image: '/img/howler.jpg', caption: 'Howler at First Avenue, Minneapolis. Shot from the photo pit during a sold-out hometown show.' },
+      { tab: 'Polica', image: '/img/polica.jpg', caption: 'Polica, Minneapolis. Available light, no flash -- leaning into the mood of the room.' },
+      { tab: 'Live', image: '/img/highlights/babybabybaby.jpg', caption: 'The pit gives you three songs, no flash sometimes, and whatever light the production designed for a completely different purpose. That constraint is what makes it interesting.' },
+      { tab: 'BRMC', image: '/img/highlights/brmc-amps.jpg', caption: 'Black Rebel Motorcycle Club. The amp stacks are as much the subject as the band.' },
+      { tab: 'The pit', image: '/img/highlights/gotta-go-fast.jpg', caption: 'Concert photography is about reading the room before anything happens -- knowing where to stand, what\'s about to change, and being patient enough to wait for it.' },
+    ],
+    content: `
+      <h2>Overview</h2>
+      <p>I'm a published concert photographer. I've shot from the photo pit at venues across the United States, United Kingdom, and Europe -- club shows, festival stages, arena tours. The work has appeared in print and online music publications.</p>
+
+      <h2>How It Started</h2>
+      <p>I started my career in the music industry, building communities and websites for bands. I was already in the room for a lot of shows, already paying attention to what was happening onstage. Photography was a natural extension of that attention -- a way to make something durable out of a moment that's designed to disappear.</p>
+
+      <h2>The Approach</h2>
+      <p>Pit photography gives you three songs, sometimes no flash, and whatever light the production designed for a completely different purpose. Those constraints aren't limitations -- they're the whole game. You have to read the room before anything happens, know where to stand based on what the artist does, and be patient enough to wait for the moment rather than chasing it.</p>
+      <p>I prefer available light when I can get it. Flash flattens everything that makes live performance interesting. The blown highlights, the color casts, the motion blur -- those are the photograph.</p>
+
+      <h2>Published Work</h2>
+      <p>Photos have appeared in music publications and editorial contexts. Subjects include Howler, Polica, Black Rebel Motorcycle Club, and artists across indie, rock, and electronic genres.</p>
+    `
+  },
+  {
     slug: 'thrivent',
     title: 'Thrivent',
     gridTitle: 'Thrivent Financial',

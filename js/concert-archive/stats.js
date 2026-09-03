@@ -2,7 +2,7 @@ import { SHOWS } from './state.js';
 import { esc } from './data.js';
 import { getArtistData } from './artists.js';
 
-const BRMC_IMG = 'https://www.figma.com/api/mcp/asset/b8c57ea7-5d7e-4ffe-abe1-cab5379d4413';
+const BRMC_IMG = '/img/highlights/brmc-amps.jpg';
 
 function top5Artists() {
   const { counts } = getArtistData();
