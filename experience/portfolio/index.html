@@ -2533,24 +2533,38 @@
       position: fixed; inset: 0; z-index: 200;
       background: #0a0a0a;
       display: flex; align-items: center; justify-content: center;
-      transition: opacity 0.7s ease;
+      transition: opacity 0.75s ease;
     }
     #intro-splash.fade-out { opacity: 0; pointer-events: none; }
     #intro-text {
       text-align: center; color: #fff;
-      opacity: 0; transform: scale(0.93);
-      transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1);
+      display: flex; flex-direction: column; align-items: center;
+      transform: translateY(0);
+      transition: transform 0.75s cubic-bezier(0.16,1,0.3,1);
     }
-    #intro-text.visible { opacity: 1; transform: scale(1); }
+    #intro-text.shift-up { transform: translateY(-1.1em); }
     #intro-hey {
       font-size: clamp(36px, 5.5vw, 72px);
       font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
+      opacity: 0; transform: scale(0.93);
+      transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1);
     }
+    #intro-hey.visible { opacity: 1; transform: scale(1); }
     #intro-sub {
       font-size: clamp(14px, 1.6vw, 20px);
       color: rgba(255,255,255,0.38);
       font-weight: 400; letter-spacing: 0.01em;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.6s ease 0.1s, transform 0.6s ease 0.1s;
+    }
+    #intro-sub.visible { opacity: 1; transform: translateY(0); }
+    @keyframes card-pop {
+      from { opacity: 0; transform: scale(0.95) translateY(10px); }
+      to   { opacity: 1; transform: scale(1)    translateY(0);    }
+    }
+    .bento-card-pop {
+      animation: card-pop 0.45s cubic-bezier(0.16,1,0.3,1) both;
     }
   </style>
 </head>
@@ -3028,24 +3042,40 @@
       Promise.all([loadProjectMeta(), initAudience()]).finally(() => {
         buildBento();
 
-        // Set greeting name in splash
         const cfg = audienceConfig || defaultConfig;
         const name = cfg?.greeting || 'there';
         const nameEl = document.getElementById('intro-name');
         if (nameEl) nameEl.textContent = name;
 
-        // Pop-fade text in, then dissolve splash to reveal portfolio
-        requestAnimationFrame(() => {
-          const text = document.getElementById('intro-text');
-          if (text) text.classList.add('visible');
+        const hey   = document.getElementById('intro-hey');
+        const sub   = document.getElementById('intro-sub');
+        const text  = document.getElementById('intro-text');
+        const splash = document.getElementById('intro-splash');
 
+        // Phase 1: pop in the greeting
+        requestAnimationFrame(() => {
+          if (hey) hey.classList.add('visible');
+
+          // Phase 2: shift heading up, fade in sub
           setTimeout(() => {
-            const splash = document.getElementById('intro-splash');
-            if (splash) {
-              splash.classList.add('fade-out');
-              setTimeout(() => splash.remove(), 700);
-            }
-          }, 2200);
+            if (text) text.classList.add('shift-up');
+            if (sub)  sub.classList.add('visible');
+
+            // Phase 3: dissolve splash
+            setTimeout(() => {
+              if (splash) splash.classList.add('fade-out');
+
+              // Phase 4: stagger-pop the cards after splash is gone
+              setTimeout(() => {
+                if (splash) splash.remove();
+                const cards = document.querySelectorAll('#bento-grid .bento-card, #bento-grid .bento-highlight');
+                cards.forEach((card, i) => {
+                  card.style.animationDelay = Math.min(i * 55, 350) + 'ms';
+                  card.classList.add('bento-card-pop');
+                });
+              }, 750);
+            }, 1400);
+          }, 750);
         });
       });
     }
