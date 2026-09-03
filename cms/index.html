@@ -534,18 +534,27 @@
     // ── Tabs ────────────────────────────────────────
 
     const TAB_NAMES = ['add', 'edit', 'audiences', 'projects', 'default'];
-    function switchTab(name) {
+    function switchTab(name, pushState = true) {
       currentTab = name;
       document.querySelectorAll('.cms-tab').forEach((btn, i) => {
         btn.classList.toggle('active', TAB_NAMES[i] === name);
       });
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       document.getElementById('tab-' + name).classList.add('active');
+      if (pushState) history.pushState(null, '', '#' + name);
       if (name === 'edit') renderEditList();
       if (name === 'audiences') loadAudiences();
       if (name === 'projects') loadProjects();
       if (name === 'default') loadDefault();
     }
+
+    function handleCmsRoute() {
+      const hash = location.hash.replace('#', '');
+      const tab = TAB_NAMES.includes(hash) ? hash : 'add';
+      switchTab(tab, false);
+    }
+
+    window.addEventListener('popstate', handleCmsRoute);
 
     // ── Add form ────────────────────────────────────
 
@@ -986,6 +995,7 @@
 
     initAutocompletes();
     loadData();
+    handleCmsRoute();
 
     // ── Audiences ───────────────────────────────────
     // All portfolio project slugs + display titles (kept in sync with portfolio-data.js)
