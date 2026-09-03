@@ -759,7 +759,7 @@ export const projects = [
     tags: ['UX Research', 'Service Design', 'Web App', 'Financial Services'],
     thumbnail: '/thrivent/thrivent.png',
     heroImg: '/thrivent/thrivent - brainstorm.png',
-    cardImg: '/thrivent/thrivent.png',
+    cardImg: '/thrivent/thumb_thrivent.png',
     industry: 'enterprise',
     featured: true,
     cardColor: '#1a2e4a',
