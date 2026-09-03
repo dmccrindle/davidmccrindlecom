@@ -182,188 +182,175 @@
       display: block !important;
     }
 
-    /* ── Portfolio Shell ── */
-    .pf-shell {
-      position: relative;
-      width: 100vw;
+    /* ── Bento portfolio layout ── */
+    .bento-layout {
+      display: flex;
       height: 100vh;
       overflow: hidden;
       background: #0a0a0a;
     }
-
-    /* Card rail */
-    .pf-rail-wrap {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      overflow-x: auto;
-      overflow-y: hidden;
+    .bento-left {
+      width: 38%;
+      flex-shrink: 0;
+      overflow-y: auto;
       scrollbar-width: none;
-      -ms-overflow-style: none;
-      cursor: grab;
-    }
-    .pf-rail-wrap::-webkit-scrollbar { display: none; }
-    .pf-rail-wrap.grabbing { cursor: grabbing; }
-    .pf-rail {
-      display: flex;
-      gap: 14px;
-      padding: 0 220px 0 52px;
-      flex-shrink: 0;
-    }
-    .pf-card {
-      flex-shrink: 0;
-      width: 260px;
-      height: 58vh;
-      border-radius: 12px;
-      background-size: cover;
-      background-position: center;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: box-shadow 0.15s;
-    }
-    .pf-card { transition: transform 0.22s ease; }
-    .pf-card::after {
-      content: ''; position: absolute; inset: 0;
-      border-radius: 12px; border: 2px solid transparent;
-      transition: border-color 0.22s; z-index: 10; pointer-events: none;
-    }
-    .pf-card:hover { transform: scale(1.04); }
-    .pf-card:hover::after { border-color: #fff; }
-    .pf-card-video {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; pointer-events: none;
-    }
-    .pf-card-img {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      object-fit: contain; pointer-events: none;
-    }
-    .pf-card-img--overflow {
-      top: 50%; left: 50%;
-      width: 180%; height: auto;
-      transform: translate(-50%, -50%);
-    }
-    .pf-card-overlay {
-      position: absolute; inset: 0; pointer-events: none;
-    }
-    .pf-card-text {
-      position: absolute; left: 18px; right: 18px; bottom: 20px; z-index: 2;
-    }
-    .pf-card-company {
-      font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
-      text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 5px;
-    }
-    .pf-card-title {
-      font-size: 16px; font-weight: 800; color: #fff;
-      letter-spacing: -0.02em; line-height: 1.15;
-    }
-
-    /* Bottom-left copy */
-    .pf-copy {
-      position: absolute;
-      left: 52px; bottom: 44px;
-      z-index: 20; color: #fff;
-      display: flex; flex-direction: row; align-items: center; gap: 16px;
-    }
-    .pf-copy-avatar {
-      width: 52px; height: 52px; border-radius: 50%;
-      object-fit: cover; flex-shrink: 0;
-      border: 2px solid rgba(255,255,255,0.2);
-    }
-    .pf-copy-text { display: flex; flex-direction: column; gap: 6px; }
-    .pf-copy-name {
-      font-size: 24px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
-    }
-    .pf-copy-tagline {
-      font-size: 15px; color: rgba(255,255,255,0.4); max-width: 420px; line-height: 1.5;
-    }
-
-    /* Right filter panel */
-    .pf-filter-panel {
-      position: absolute;
-      right: 0; top: 0; bottom: 0;
-      width: 220px;
-      z-index: 20;
       display: flex;
       align-items: center;
+      padding: 100px 52px 60px;
+      border-right: 1px solid rgba(255,255,255,0.07);
     }
-    .pf-filter-fade {
-      position: absolute; inset: 0;
-      background: linear-gradient(to right, transparent 0%, rgba(10,10,10,0.65) 28%, rgba(10,10,10,0.96) 62%);
-      pointer-events: none;
+    .bento-left::-webkit-scrollbar { display: none; }
+    .bento-left-inner { width: 100%; }
+    .bento-label {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); margin-bottom: 10px;
     }
-    .pf-filter-list {
-      position: relative; z-index: 1;
-      display: flex; flex-direction: column; gap: 8px;
-      padding: 0 24px 0 44px; width: 100%;
+    .bento-hello {
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      color: #fff;
+      margin-bottom: 28px;
     }
+    .bento-intro {
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.5);
+    }
+    .bento-intro p { margin: 0 0 1em; }
+    .bento-intro p:last-child { margin-bottom: 0; }
+    .bento-intro a { color: rgba(255,255,255,0.85); text-decoration: underline; text-underline-offset: 3px; }
+    .bento-intro strong { color: rgba(255,255,255,0.85); font-weight: 700; }
+    .bento-right {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: none;
+      padding: 24px 28px 48px;
+      position: relative;
+    }
+    .bento-right::-webkit-scrollbar { display: none; }
+
+    /* Filter toggle */
+    .bento-filter-toggle {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      color: rgba(255,255,255,0.7);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 7px 14px; cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      position: absolute; top: 24px; right: 28px; z-index: 20;
+    }
+    .bento-filter-toggle:hover { background: rgba(255,255,255,0.14); color: #fff; }
+    .bento-filter-toggle.active { background: #fff; color: #0a0a0a; border-color: #fff; }
+    .bento-filter-toggle.active svg { opacity: 1; }
+    .bento-filter-toggle svg { opacity: 0.8; }
+
+    /* Filter drawer */
+    .bento-filter-drawer {
+      display: none;
+      position: absolute; top: 60px; right: 28px;
+      background: #181818;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px; padding: 10px;
+      z-index: 30; min-width: 196px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+    }
+    .bento-filter-drawer.open { display: block; }
+    .pf-filter-list { display: flex; flex-direction: column; gap: 3px; }
     .pf-filter-btn {
       display: flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid transparent;
-      border-radius: 8px;
-      color: #fff;
+      background: transparent; border: none; border-radius: 7px;
+      color: rgba(255,255,255,0.6);
       font-size: 11px; font-weight: 700;
       letter-spacing: 0.06em; text-transform: uppercase;
-      cursor: pointer; padding: 7px 10px; text-align: left;
-      transition: background 0.16s, color 0.16s, border-color 0.16s;
-      white-space: nowrap; width: 100%;
+      cursor: pointer; padding: 8px 12px;
+      text-align: left; width: 100%; white-space: nowrap;
+      transition: background 0.12s, color 0.12s;
     }
-    .pf-filter-btn svg { flex-shrink: 0; opacity: 0.75; }
-    .pf-filter-btn:hover {
-      background: rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.75);
-    }
-    .pf-filter-btn:hover svg { opacity: 0.85; }
-    .pf-filter-btn.pf-active {
-      background: #fff;
-      border-color: #fff;
-      color: #0a0a0a;
-    }
+    .pf-filter-btn svg { flex-shrink: 0; opacity: 0.7; }
+    .pf-filter-btn:hover { background: rgba(255,255,255,0.08); color: #fff; }
+    .pf-filter-btn:hover svg { opacity: 0.9; }
+    .pf-filter-btn.pf-active { background: #fff; color: #0a0a0a; }
     .pf-filter-btn.pf-active svg { opacity: 1; }
 
-    .pf-gallery-footer { display: none; }
+    /* Bento grid */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: 178px;
+      gap: 10px;
+      margin-top: 64px;
+    }
+    .bento-card {
+      border-radius: 12px; overflow: hidden;
+      position: relative; cursor: pointer;
+      grid-column: span 2; grid-row: span 1;
+      background: #1a1a1a;
+      transition: transform 0.25s ease;
+    }
+    .bento-card.bento-featured { grid-column: span 3; grid-row: span 2; }
+    .bento-card:hover { transform: scale(1.015); }
+    .bento-card-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; pointer-events: none;
+      transition: transform 0.35s ease;
+    }
+    .bento-card-img.contain { object-fit: contain; }
+    .bento-card:hover .bento-card-img { transform: scale(1.06); }
+    .bento-card-hover {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.35) 55%, transparent 100%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 20px 22px;
+      opacity: 0; transition: opacity 0.22s ease;
+    }
+    .bento-card:hover .bento-card-hover { opacity: 1; }
+    .bento-card-name {
+      font-size: 16px; font-weight: 800; color: #fff;
+      letter-spacing: -0.02em; margin-bottom: 4px; line-height: 1.2;
+    }
+    .bento-card.bento-featured .bento-card-name { font-size: 20px; }
+    .bento-card-desc {
+      font-size: 12px; color: rgba(255,255,255,0.65);
+      line-height: 1.5; margin-bottom: 14px;
+    }
+    .bento-card-btn {
+      align-self: flex-start; padding: 7px 18px;
+      background: #fff; color: #0a0a0a;
+      border: none; border-radius: 7px;
+      font-size: 11px; font-weight: 800;
+      letter-spacing: 0.05em; cursor: pointer;
+      pointer-events: none;
+    }
 
-    /* Mobile select – hidden on desktop */
+    .pf-gallery-footer { display: none; }
     .pf-mobile-select { display: none; }
 
-    @media (max-width: 768px) {
-      body.gallery-active { overflow: hidden; position: fixed; width: 100%; }
-
-      /* Hide desktop filter panel and its gradient */
-      .pf-filter-panel { display: none; }
-      .pf-filter-fade { display: none; }
-
-      /* Hide navbar logout on mobile (it's in the select) */
-      .gallery-mode .logout-btn { display: none; }
-
-      /* Mobile filter select */
-      .pf-mobile-select {
-        display: block;
-        background: rgba(255,255,255,0.12);
-        border: 1px solid rgba(255,255,255,0.2);
-        border-radius: 8px;
-        color: #fff;
-        font-size: 12px; font-weight: 700;
-        letter-spacing: 0.05em;
-        padding: 6px 10px;
-        cursor: pointer;
-        min-width: 120px;
+    @media (max-width: 900px) {
+      .bento-layout { flex-direction: column; height: auto; overflow: visible; }
+      .bento-left {
+        width: 100%; border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        padding: 88px 28px 40px; align-items: flex-start;
       }
-
-      /* Reduce copy size on mobile */
-      .pf-copy { left: 20px; bottom: 28px; gap: 12px; }
-      .pf-copy-avatar { width: 40px; height: 40px; }
-      .pf-copy-name { font-size: 18px; }
-      .pf-copy-tagline { font-size: 12px; max-width: 220px; }
-
-      /* Rail padding on mobile */
-      .pf-rail { padding: 0 20px 0 20px; }
+      .bento-right { padding: 20px 16px 48px; }
+      .bento-hello { font-size: 40px; }
+      .bento-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 145px; margin-top: 56px; }
+      .bento-card.bento-featured { grid-column: span 4; grid-row: span 2; }
+      .bento-card { grid-column: span 2; }
+      .bento-filter-toggle { position: fixed; bottom: 20px; right: 20px; top: auto; z-index: 50; }
+      .bento-filter-drawer { bottom: 60px; top: auto; right: 20px; position: fixed; }
+      body.gallery-active { overflow: auto; position: static; }
     }
     @media (max-width: 480px) {
-      .pf-copy-tagline { display: none; }
+      .bento-intro { font-size: 14px; }
+      .bento-hello { font-size: 34px; }
     }
 
     /* Rotating dot background */
@@ -2515,28 +2502,28 @@
 
   <!-- ══ GALLERY VIEW ══════════════════════════ -->
   <div class="portfolio-page gallery-page" id="gallery-view">
-    <div class="pf-shell">
+    <div class="bento-layout">
 
-      <!-- Card rail -->
-      <div class="pf-rail-wrap" id="pf-rail-wrap">
-        <div class="pf-rail" id="pf-rail"></div>
-      </div>
-
-      <!-- Bottom-left copy -->
-      <div class="pf-copy">
-        <img class="pf-copy-avatar" src="/img/david.png" alt="David McCrindle">
-        <div class="pf-copy-text">
-          <div class="pf-copy-name">David McCrindle</div>
-          <div class="pf-copy-tagline" id="gallery-intro">Design leader. 20+ years shaping digital products at scale across food, retail, and technology.</div>
+      <!-- Left column: audience-aware intro -->
+      <div class="bento-left" id="bento-left">
+        <div class="bento-left-inner">
+          <div class="bento-label">I'm David</div>
+          <h1 class="bento-hello">Hello,<br><span id="bento-greeting">I'm David</span></h1>
+          <div class="bento-intro" id="gallery-intro"><p>Design leader. 20+ years shaping digital products at scale across food, retail, and technology.</p></div>
         </div>
       </div>
 
-      <!-- Right filter panel (desktop) -->
-      <div class="pf-filter-panel" id="pf-filter-panel">
-        <div class="pf-filter-fade"></div>
-        <nav class="pf-filter-list" id="pf-filter-list" aria-label="Filter by industry"></nav>
+      <!-- Right column: bento grid + filter -->
+      <div class="bento-right" id="bento-right">
+        <button class="bento-filter-toggle" id="bento-filter-toggle" onclick="window.toggleFilterDrawer()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+          Filter
+        </button>
+        <div class="bento-filter-drawer" id="bento-filter-drawer">
+          <nav class="pf-filter-list" id="pf-filter-list" aria-label="Filter by industry"></nav>
+        </div>
+        <div class="bento-grid" id="bento-grid"></div>
       </div>
-
 
     </div>
 
@@ -2661,7 +2648,26 @@
 
     // ── Active industry filter ───────────────────
     var activeFilter = 'featured';
-    var audienceConfig = null; // set if viewer has a custom audience
+    var audienceConfig = null;
+    var projectMeta = {};
+
+    async function loadProjectMeta() {
+      try {
+        const r = await fetch('/api/projects');
+        if (r.ok) {
+          const data = await r.json();
+          (data || []).forEach(m => { if (m.slug) projectMeta[m.slug] = m; });
+        }
+      } catch (_) {}
+    }
+
+    function parseIntro(text) {
+      const safe = text
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\[(.*?)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+      return '<p>' + safe.replace(/\n\n+/g, '</p><p>').replace(/\n/g, '<br>') + '</p>';
+    }
 
     async function initAudience() {
       const viewer = getCookie('portfolio_viewer');
@@ -2670,17 +2676,17 @@
         const r = await fetch(`/api/audiences?viewer=${encodeURIComponent(viewer)}`);
         if (!r.ok) return;
         const cfg = await r.json();
-        if (!cfg || !cfg.projects?.length) return;
-        audienceConfig = cfg;
+        if (!cfg) return;
+        audienceConfig = cfg.projects?.length ? cfg : null;
 
-        // Apply custom intro if set
-        if (cfg.intro) {
-          const introEl = document.getElementById('gallery-intro');
-          if (introEl) introEl.textContent = cfg.intro;
+        if (cfg.greeting) {
+          const el = document.getElementById('bento-greeting');
+          if (el) el.textContent = cfg.greeting;
         }
-
-        // Re-render rail with audience projects
-        buildRail();
+        if (cfg.intro) {
+          const el = document.getElementById('gallery-intro');
+          if (el) el.innerHTML = parseIntro(cfg.intro);
+        }
       } catch (_) {}
     }
 
@@ -2735,65 +2741,33 @@
     };
     var FILTER_SLUGS = ['all','featured','food-agriculture','consumer-tech','design-systems','media-entertainment','commerce-payments','enterprise-saas','retail','security'];
 
-    // ── Rail (scrollable) ─────────────────────────
-    function buildRail() {
-      const wrap = document.getElementById('pf-rail-wrap');
-      const rail = document.getElementById('pf-rail');
-      if (!rail || !wrap) return;
-      rail.innerHTML = '';
+    // ── Bento grid ────────────────────────────────
+    function buildBento() {
+      const grid = document.getElementById('bento-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
 
       const projs = getFilteredProjects().filter(p => !p.externalUrl);
       projs.forEach(p => {
-        const c = p.cardColor || '#1a1a1a';
+        const meta = projectMeta[p.slug] || {};
+        const bgColor = meta.bgColor || p.cardColor || '#1a1a1a';
+        const description = meta.description || p.description || '';
+        const imgSrc = p.cardImg || p.heroImg || p.thumbnail;
+
         const card = document.createElement('div');
-        card.className = 'pf-card';
-        if (p.cardVideo || p.cardImg) {
-          card.style.background = c;
-        } else {
-          card.style.backgroundImage = `url('${p.heroImg || p.thumbnail}')`;
-        }
-        if (p.cardImg && !p.cardImgOverflow) {
-          card.style.backgroundImage = `url('${p.cardImg}')`;
-          card.style.backgroundSize = 'cover';
-          card.style.backgroundPosition = 'center';
-        }
-        if (p.cardImgOverflow) {
-          card.style.overflow = 'visible';
-          card.style.clipPath = 'inset(0 round 12px)';
-        }
+        card.className = 'bento-card' + (p.featured ? ' bento-featured' : '');
+        card.style.background = bgColor;
+
         card.innerHTML = `
-          ${p.cardVideo ? `<video class="pf-card-video" src="${p.cardVideo}" autoplay muted loop playsinline></video>` : ''}
-          ${p.cardImgOverflow ? `<img class="pf-card-img pf-card-img--overflow" src="${p.cardImg}" alt="">` : ''}
-          <div class="pf-card-overlay" style="background:linear-gradient(to top,${hexToRgba(c,0.85)} 0%,${hexToRgba(c,0.22)} 45%,transparent 68%)"></div>
-          <div class="pf-card-text">
-            <div class="pf-card-company">${p.company || ''}</div>
-            <div class="pf-card-title">${p.gridTitle || p.title}</div>
+          ${imgSrc ? `<img class="bento-card-img" src="${imgSrc}" alt="${p.title}">` : ''}
+          <div class="bento-card-hover">
+            <div class="bento-card-name">${p.gridTitle || p.title}</div>
+            ${description ? `<div class="bento-card-desc">${description}</div>` : ''}
+            <button class="bento-card-btn">View</button>
           </div>`;
         card.addEventListener('click', () => showCaseStudy(p));
-        rail.appendChild(card);
+        grid.appendChild(card);
       });
-
-      // reset scroll
-      wrap.scrollLeft = 0;
-
-      // wheel → horizontal scroll
-      wrap._wheelHandler && wrap.removeEventListener('wheel', wrap._wheelHandler);
-      wrap._wheelHandler = e => { e.preventDefault(); wrap.scrollLeft += e.deltaY + e.deltaX; };
-      wrap.addEventListener('wheel', wrap._wheelHandler, { passive: false });
-
-      // drag to scroll
-      let isDragging = false, startX = 0, startScroll = 0;
-      wrap._mdHandler && wrap.removeEventListener('mousedown', wrap._mdHandler);
-      wrap._mdHandler = e => {
-        isDragging = true; startX = e.pageX; startScroll = wrap.scrollLeft;
-        wrap.classList.add('grabbing');
-      };
-      wrap.addEventListener('mousedown', wrap._mdHandler);
-      document.addEventListener('mousemove', e => {
-        if (!isDragging) return;
-        wrap.scrollLeft = startScroll - (e.pageX - startX);
-      });
-      document.addEventListener('mouseup', () => { isDragging = false; wrap.classList.remove('grabbing'); });
     }
 
     // ── Filters ───────────────────────────────────
@@ -2823,7 +2797,9 @@
         const url = filter === 'featured' ? '/experience/portfolio/' : '/experience/portfolio/' + filter;
         history.pushState(null, '', url);
       }
-      buildRail();
+      buildBento();
+      document.getElementById('bento-filter-drawer')?.classList.remove('open');
+      document.getElementById('bento-filter-toggle')?.classList.remove('active');
     }
 
     function initMobileSelect() {
@@ -2835,17 +2811,36 @@
       });
     }
 
+    window.toggleFilterDrawer = function() {
+      const drawer = document.getElementById('bento-filter-drawer');
+      const btn = document.getElementById('bento-filter-toggle');
+      if (!drawer) return;
+      drawer.classList.toggle('open');
+      btn?.classList.toggle('active', drawer.classList.contains('open'));
+    };
+
+    // Close drawer on outside click
+    document.addEventListener('click', e => {
+      const drawer = document.getElementById('bento-filter-drawer');
+      const btn = document.getElementById('bento-filter-toggle');
+      if (drawer?.classList.contains('open') && !drawer.contains(e.target) && !btn?.contains(e.target)) {
+        drawer.classList.remove('open');
+        btn?.classList.remove('active');
+      }
+    });
+
     function init() {
       buildFilters();
       initMobileSelect();
       handleRoute();
       window.addEventListener('popstate', handleRoute);
-      const rail = document.getElementById('pf-rail-wrap');
-      if (rail) rail.style.opacity = '0';
-      initAudience().finally(() => {
-        if (rail) {
-          rail.style.transition = 'opacity 0.4s ease';
-          rail.style.opacity = '1';
+      const right = document.getElementById('bento-right');
+      if (right) right.style.opacity = '0';
+      Promise.all([loadProjectMeta(), initAudience()]).finally(() => {
+        buildBento();
+        if (right) {
+          right.style.transition = 'opacity 0.4s ease';
+          right.style.opacity = '1';
         }
       });
     }

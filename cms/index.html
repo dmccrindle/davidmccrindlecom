@@ -317,6 +317,7 @@
       <button class="cms-tab active" onclick="switchTab('add')">Add Show</button>
       <button class="cms-tab" onclick="switchTab('edit')">Edit Shows</button>
       <button class="cms-tab" onclick="switchTab('audiences')">Audiences</button>
+      <button class="cms-tab" onclick="switchTab('projects')">Projects</button>
     </div>
 
     <!-- Add tab -->
@@ -448,8 +449,11 @@
             </div>
           </div>
 
-          <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:8px">Custom intro</label>
-          <textarea id="aud-intro" rows="3" placeholder="Hi! I put together a few projects that are most relevant to your team..." style="width:100%;background:#1a1a1a;border:1px solid #444;border-radius:8px;color:#fff;font-size:14px;line-height:1.6;padding:12px 14px;box-sizing:border-box;resize:vertical;font-family:inherit;margin-bottom:24px"></textarea>
+          <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:8px">Greeting <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">-- shown as "Hello, [greeting]"</span></label>
+          <input id="aud-greeting" placeholder="e.g. Thrivent" style="width:100%;background:#1a1a1a;border:1px solid #444;border-radius:8px;color:#fff;font-size:14px;padding:10px 14px;box-sizing:border-box;margin-bottom:20px;outline:none;font-family:inherit" />
+
+          <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:8px">Custom intro <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">-- supports **bold** and [link](url)</span></label>
+          <textarea id="aud-intro" rows="4" placeholder="Design leader with 20+ years shipping..." style="width:100%;background:#1a1a1a;border:1px solid #444;border-radius:8px;color:#fff;font-size:14px;line-height:1.6;padding:12px 14px;box-sizing:border-box;resize:vertical;font-family:inherit;margin-bottom:24px"></textarea>
 
           <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:12px">Featured projects <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">(checked = shown first)</span></label>
           <div id="aud-projects" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px"></div>
@@ -459,6 +463,13 @@
 
         <div id="aud-empty" style="color:#555;font-size:14px;padding-top:40px">Select a group or create a new one.</div>
       </div>
+    </div>
+
+    <!-- Projects tab -->
+    <div id="tab-projects" class="tab-panel">
+      <p style="font-size:13px;color:#666;margin-bottom:24px">Override per-project card color and hover description. Leave blank to use defaults from the code.</p>
+      <div id="proj-list" style="display:flex;flex-direction:column;gap:0"></div>
+      <div id="proj-msg" style="margin-top:16px;font-size:13px;color:#6f6;display:none"></div>
     </div>
 
   </div>
@@ -473,7 +484,7 @@
 
     // ── Tabs ────────────────────────────────────────
 
-    const TAB_NAMES = ['add', 'edit', 'audiences'];
+    const TAB_NAMES = ['add', 'edit', 'audiences', 'projects'];
     function switchTab(name) {
       currentTab = name;
       document.querySelectorAll('.cms-tab').forEach((btn, i) => {
@@ -483,6 +494,7 @@
       document.getElementById('tab-' + name).classList.add('active');
       if (name === 'edit') renderEditList();
       if (name === 'audiences') loadAudiences();
+      if (name === 'projects') loadProjects();
     }
 
     // ── Add form ────────────────────────────────────
@@ -971,7 +983,7 @@
     }
 
     function audienceNew() {
-      currentAudience = { name: '', intro: '', projects: [] };
+      currentAudience = { name: '', greeting: '', intro: '', projects: [] };
       renderAudEditor();
     }
 
@@ -979,6 +991,7 @@
       document.getElementById('aud-empty').style.display = 'none';
       document.getElementById('aud-editor').style.display = 'block';
       document.getElementById('aud-name').value = currentAudience?.name || '';
+      document.getElementById('aud-greeting').value = currentAudience?.greeting || '';
       document.getElementById('aud-intro').value = currentAudience?.intro || '';
       document.getElementById('aud-msg').style.display = 'none';
 
@@ -992,6 +1005,7 @@
 
     async function audienceSave() {
       const name = document.getElementById('aud-name').value.trim();
+      const greeting = document.getElementById('aud-greeting').value.trim();
       const intro = document.getElementById('aud-intro').value.trim();
       const projects = [...document.querySelectorAll('#aud-projects input:checked')].map(i => i.value);
       if (!name) { alert('Group name required'); return; }
@@ -999,7 +1013,7 @@
       const r = await fetch('/api/audiences', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, intro, projects }),
+        body: JSON.stringify({ name, greeting, intro, projects }),
       });
       if (r.ok) {
         const { audience } = await r.json();
@@ -1025,6 +1039,65 @@
       document.getElementById('aud-editor').style.display = 'none';
       document.getElementById('aud-empty').style.display = 'block';
       await loadAudiences();
+    }
+
+    // ── Projects tab ─────────────────────────────────
+    var projectOverrides = {};
+
+    async function loadProjects() {
+      try {
+        const r = await fetch('/api/projects');
+        const data = r.ok ? await r.json() : [];
+        projectOverrides = {};
+        (data || []).forEach(p => { if (p.slug) projectOverrides[p.slug] = p; });
+      } catch { projectOverrides = {}; }
+      renderProjList();
+    }
+
+    function renderProjList() {
+      const el = document.getElementById('proj-list');
+      el.innerHTML = ALL_PROJECTS.map(p => {
+        const ov = projectOverrides[p.slug] || {};
+        return `<div style="display:grid;grid-template-columns:180px 1fr 140px auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #222">
+          <span style="font-size:13px;font-weight:600;color:#ddd">${p.title}</span>
+          <input type="text" placeholder="Short hover description..." value="${(ov.description||'').replace(/"/g,'&quot;')}"
+            id="pdesc-${p.slug}"
+            style="background:#1a1a1a;border:1px solid #333;border-radius:6px;color:#fff;font-size:13px;padding:7px 10px;width:100%;box-sizing:border-box;font-family:inherit">
+          <div style="display:flex;align-items:center;gap:8px">
+            <input type="color" value="${ov.bgColor || '#1a1a1a'}" id="pbg-${p.slug}"
+              style="width:36px;height:34px;border-radius:6px;border:1px solid #333;background:none;cursor:pointer;padding:2px">
+            <span style="font-size:11px;color:#666" id="pbglabel-${p.slug}">${ov.bgColor || ''}</span>
+          </div>
+          <button onclick="saveProject('${p.slug}')" style="padding:7px 14px;background:#333;border:1px solid #555;color:#fff;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">Save</button>
+        </div>`;
+      }).join('');
+
+      ALL_PROJECTS.forEach(p => {
+        const colorInput = document.getElementById(`pbg-${p.slug}`);
+        const label = document.getElementById(`pbglabel-${p.slug}`);
+        if (colorInput && label) {
+          colorInput.addEventListener('input', () => { label.textContent = colorInput.value; });
+        }
+      });
+    }
+
+    async function saveProject(slug) {
+      const desc = document.getElementById(`pdesc-${slug}`)?.value.trim() || '';
+      const bgColor = document.getElementById(`pbg-${slug}`)?.value || '';
+      const r = await fetch('/api/projects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug, description: desc, bgColor }),
+      });
+      const msg = document.getElementById('proj-msg');
+      if (r.ok) {
+        projectOverrides[slug] = { slug, description: desc, bgColor };
+        msg.textContent = `${slug} saved!`;
+        msg.style.display = 'block';
+        setTimeout(() => msg.style.display = 'none', 2000);
+      } else {
+        alert('Save failed');
+      }
     }
 
   </script>
