@@ -195,12 +195,20 @@
       overflow-y: auto;
       scrollbar-width: none;
       display: flex;
-      align-items: center;
-      padding: 100px 52px 60px;
+      align-items: flex-start;
+      padding: 0 52px;
       border-right: 1px solid rgba(255,255,255,0.07);
     }
     .bento-left::-webkit-scrollbar { display: none; }
-    .bento-left-inner { width: 100%; }
+    .bento-left-inner {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 0 60px;
+      box-sizing: border-box;
+    }
     .bento-label {
       font-size: 12px; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
@@ -337,7 +345,12 @@
       .bento-left {
         width: 100%; border-right: none;
         border-bottom: 1px solid rgba(255,255,255,0.07);
-        padding: 88px 28px 40px; align-items: flex-start;
+        padding: 0 28px;
+      }
+      .bento-left-inner {
+        min-height: auto;
+        padding: 88px 0 40px;
+        justify-content: flex-start;
       }
       .bento-right { padding: 20px 16px 48px; }
       .bento-hello { font-size: 40px; }
