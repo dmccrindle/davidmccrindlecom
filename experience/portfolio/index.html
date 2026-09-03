@@ -2527,6 +2527,31 @@
       .footer-right { flex-direction: column; align-items: flex-start; gap: 16px; }
       .footer-links { flex-wrap: wrap; gap: 16px; }
     }
+
+    /* ── Intro splash ── */
+    #intro-splash {
+      position: fixed; inset: 0; z-index: 200;
+      background: #0a0a0a;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.7s ease;
+    }
+    #intro-splash.fade-out { opacity: 0; pointer-events: none; }
+    #intro-text {
+      text-align: center; color: #fff;
+      opacity: 0; transform: scale(0.93);
+      transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1);
+    }
+    #intro-text.visible { opacity: 1; transform: scale(1); }
+    #intro-hey {
+      font-size: clamp(36px, 5.5vw, 72px);
+      font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    #intro-sub {
+      font-size: clamp(14px, 1.6vw, 20px);
+      color: rgba(255,255,255,0.38);
+      font-weight: 400; letter-spacing: 0.01em;
+    }
   </style>
 </head>
 <body>
@@ -2559,6 +2584,14 @@
 
   <!-- ══ GALLERY VIEW ══════════════════════════ -->
   <div class="portfolio-page gallery-page" id="gallery-view">
+    <!-- Intro splash -->
+    <div id="intro-splash">
+      <div id="intro-text">
+        <div id="intro-hey">Hey there, <span id="intro-name"></span></div>
+        <div id="intro-sub">Let's get to know each other...</div>
+      </div>
+    </div>
+
     <div class="bento-layout">
 
       <!-- Left column: audience-aware intro -->
@@ -2991,14 +3024,29 @@
       initMobileSelect();
       handleRoute();
       window.addEventListener('popstate', handleRoute);
-      const right = document.getElementById('bento-right');
-      if (right) right.style.opacity = '0';
+
       Promise.all([loadProjectMeta(), initAudience()]).finally(() => {
         buildBento();
-        if (right) {
-          right.style.transition = 'opacity 0.4s ease';
-          right.style.opacity = '1';
-        }
+
+        // Set greeting name in splash
+        const cfg = audienceConfig || defaultConfig;
+        const name = cfg?.greeting || 'there';
+        const nameEl = document.getElementById('intro-name');
+        if (nameEl) nameEl.textContent = name;
+
+        // Pop-fade text in, then dissolve splash to reveal portfolio
+        requestAnimationFrame(() => {
+          const text = document.getElementById('intro-text');
+          if (text) text.classList.add('visible');
+
+          setTimeout(() => {
+            const splash = document.getElementById('intro-splash');
+            if (splash) {
+              splash.classList.add('fade-out');
+              setTimeout(() => splash.remove(), 700);
+            }
+          }, 2200);
+        });
       });
     }
 
