@@ -2692,6 +2692,8 @@
         const cfg = await r.json();
         if (!cfg) return;
         audienceConfig = cfg.projects?.length ? cfg : null;
+        // Switch to 'featured' so the curated list is shown by default
+        if (audienceConfig) activeFilter = 'featured';
 
         if (cfg.greeting) {
           const el = document.getElementById('bento-greeting');
@@ -2718,7 +2720,7 @@
 
     function getFilteredProjects() {
       // Audience override: show audience projects in defined order
-      if (audienceConfig && (activeFilter === 'all' || activeFilter === 'featured')) {
+      if (audienceConfig && activeFilter === 'featured') {
         const slugs = audienceConfig.projects;
         return slugs.map(s => projects.find(p => p.slug === s)).filter(Boolean);
       }
