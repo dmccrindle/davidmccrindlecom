@@ -455,8 +455,12 @@
           <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:8px">Custom intro <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">-- supports **bold** and [link](url)</span></label>
           <textarea id="aud-intro" rows="4" placeholder="Design leader with 20+ years shipping..." style="width:100%;background:#1a1a1a;border:1px solid #444;border-radius:8px;color:#fff;font-size:14px;line-height:1.6;padding:12px 14px;box-sizing:border-box;resize:vertical;font-family:inherit;margin-bottom:24px"></textarea>
 
-          <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:12px">Featured projects <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">(checked = shown first)</span></label>
-          <div id="aud-projects" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px"></div>
+          <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:12px">Featured projects <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">(checked = shown)</span></label>
+          <div id="aud-projects" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:28px"></div>
+
+          <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:8px">Highlight cards <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">-- sprinkled into the grid, no link</span></label>
+          <div id="aud-highlights" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px"></div>
+          <button onclick="highlightAdd()" style="font-size:12px;padding:6px 14px;border-radius:6px;background:#222;border:1px solid #444;color:#aaa;cursor:pointer;align-self:flex-start">+ Add card</button>
 
           <div id="aud-msg" style="margin-top:16px;font-size:13px;color:#6f6;display:none"></div>
         </div>
@@ -983,7 +987,7 @@
     }
 
     function audienceNew() {
-      currentAudience = { name: '', greeting: '', intro: '', projects: [] };
+      currentAudience = { name: '', greeting: '', intro: '', projects: [], highlights: [] };
       renderAudEditor();
     }
 
@@ -994,6 +998,7 @@
       document.getElementById('aud-greeting').value = currentAudience?.greeting || '';
       document.getElementById('aud-intro').value = currentAudience?.intro || '';
       document.getElementById('aud-msg').style.display = 'none';
+      renderHighlights();
 
       const sel = new Set(currentAudience?.projects || []);
       document.getElementById('aud-projects').innerHTML = ALL_PROJECTS.map(p => `
@@ -1008,12 +1013,16 @@
       const greeting = document.getElementById('aud-greeting').value.trim();
       const intro = document.getElementById('aud-intro').value.trim();
       const projects = [...document.querySelectorAll('#aud-projects input:checked')].map(i => i.value);
+      const highlights = [...document.querySelectorAll('.hl-row')].map(row => ({
+        text: row.querySelector('.hl-text')?.value.trim() || '',
+        color: row.querySelector('.hl-color')?.value || '#6366f1',
+      })).filter(h => h.text);
       if (!name) { alert('Group name required'); return; }
 
       const r = await fetch('/api/audiences', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, greeting, intro, projects }),
+        body: JSON.stringify({ name, greeting, intro, projects, highlights }),
       });
       if (r.ok) {
         const { audience } = await r.json();
@@ -1039,6 +1048,37 @@
       document.getElementById('aud-editor').style.display = 'none';
       document.getElementById('aud-empty').style.display = 'block';
       await loadAudiences();
+    }
+
+    // ── Highlights ───────────────────────────────────
+    const HIGHLIGHT_COLORS = ['#6366f1','#0ea5e9','#10b981','#f59e0b','#ef4444','#ec4899','#8b5cf6','#f97316'];
+
+    function renderHighlights() {
+      const container = document.getElementById('aud-highlights');
+      if (!container) return;
+      const items = currentAudience?.highlights || [];
+      container.innerHTML = items.map((h, i) => `
+        <div class="hl-row" style="display:flex;gap:8px;align-items:center">
+          <input class="hl-text" value="${(h.text||'').replace(/"/g,'&quot;')}" placeholder="e.g. Lead a team of 10 designers"
+            style="flex:1;background:#1a1a1a;border:1px solid #444;border-radius:6px;color:#fff;font-size:13px;padding:8px 12px;font-family:inherit">
+          <input type="color" class="hl-color" value="${h.color||'#6366f1'}"
+            style="width:36px;height:34px;border-radius:6px;border:1px solid #333;background:none;cursor:pointer;padding:2px;flex-shrink:0">
+          <button onclick="highlightRemove(${i})" style="background:transparent;border:none;color:#f66;font-size:18px;cursor:pointer;padding:0 4px;line-height:1">&times;</button>
+        </div>`).join('');
+    }
+
+    function highlightAdd() {
+      if (!currentAudience) return;
+      if (!currentAudience.highlights) currentAudience.highlights = [];
+      const color = HIGHLIGHT_COLORS[currentAudience.highlights.length % HIGHLIGHT_COLORS.length];
+      currentAudience.highlights.push({ text: '', color });
+      renderHighlights();
+    }
+
+    function highlightRemove(i) {
+      if (!currentAudience?.highlights) return;
+      currentAudience.highlights.splice(i, 1);
+      renderHighlights();
     }
 
     // ── Projects tab ─────────────────────────────────

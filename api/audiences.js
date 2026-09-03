@@ -65,10 +65,10 @@ export default async function handler(req, res) {
   // POST /api/audiences  -- CMS: create or update an audience
   if (req.method === 'POST') {
     if (!await verifyCmsToken(req)) return res.status(401).json({ error: 'Unauthorized' });
-    const { name, greeting, intro, projects } = req.body || {};
+    const { name, greeting, intro, projects, highlights } = req.body || {};
     if (!name) return res.status(400).json({ error: 'name required' });
     const key = name.toLowerCase().replace(/[^a-z0-9_]/g, '_');
-    const audience = { name: key, greeting: greeting || '', intro: intro || '', projects: projects || [] };
+    const audience = { name: key, greeting: greeting || '', intro: intro || '', projects: projects || [], highlights: highlights || [] };
     try {
       await upstash(['SET', `audience:${key}`, JSON.stringify(audience)]);
       await upstash(['SADD', 'audience_index', key]);

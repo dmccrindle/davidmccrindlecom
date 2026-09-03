@@ -290,20 +290,40 @@
 
     /* Bento grid */
     .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      grid-auto-rows: 220px;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
-      margin-top: 64px;
+    }
+    .bento-row {
+      display: flex;
+      gap: 10px;
+      height: calc(86vh - 90px);
+      flex-shrink: 0;
+    }
+    .bento-row-pair {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 0;
+    }
+    .bento-row-pair .bento-card { flex: 1; }
+    .bento-row-tail {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .bento-row-tail .bento-card {
+      flex: 1;
+      height: calc((86vh - 90px - 10px) / 2);
     }
     .bento-card {
       border-radius: 12px; overflow: hidden;
       position: relative; cursor: pointer;
-      grid-column: span 2; grid-row: span 1;
-      background: #1a1a1a;
+      background: #1a1a1a; min-width: 0;
       transition: transform 0.25s ease;
     }
-    .bento-card.bento-featured { grid-column: span 3; grid-row: span 2; }
+    .bento-card.bento-featured { flex: 3; }
     .bento-card:hover { transform: scale(1.015); }
     .bento-card-img {
       position: absolute; inset: 0;
@@ -338,6 +358,19 @@
       letter-spacing: 0.05em; cursor: pointer;
       pointer-events: none;
     }
+    .bento-highlight {
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px; text-align: center;
+      border-radius: 12px; overflow: hidden; min-width: 0;
+      cursor: default;
+    }
+    .bento-highlight-text {
+      font-size: clamp(16px, 2vw, 22px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
 
     .pf-gallery-footer { display: none; }
     .pf-mobile-select { display: none; }
@@ -356,9 +389,11 @@
       }
       .bento-right { padding: 20px 16px 48px; }
       .bento-hello { font-size: 40px; }
-      .bento-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 145px; margin-top: 56px; }
-      .bento-card.bento-featured { grid-column: span 4; grid-row: span 2; }
-      .bento-card { grid-column: span 2; }
+      .bento-row { height: auto; min-height: 280px; flex-direction: column; }
+      .bento-card.bento-featured { flex: none; height: 56vw; }
+      .bento-row-pair { flex-direction: row; }
+      .bento-row-pair .bento-card { flex: 1; height: 35vw; }
+      .bento-row-tail .bento-card { height: 35vw; }
       .bento-filter-toggle { position: fixed; bottom: 20px; right: 20px; top: auto; z-index: 50; }
       .bento-filter-drawer { bottom: 64px; top: auto; right: 20px; position: fixed; }
       body.gallery-active { overflow: auto; position: static; }
@@ -2694,8 +2729,6 @@
         const cfg = await r.json();
         if (!cfg) return;
         audienceConfig = cfg.projects?.length ? cfg : null;
-        // Switch to 'featured' so the curated list is shown by default
-        if (audienceConfig) activeFilter = 'featured';
 
         if (cfg.greeting) {
           const el = document.getElementById('bento-greeting');
@@ -2765,32 +2798,99 @@
     var FILTER_SLUGS = ['all','featured','food-agriculture','consumer-tech','design-systems','media-entertainment','commerce-payments','enterprise-saas','retail','security'];
 
     // ── Bento grid ────────────────────────────────
+    function makeCard(p, isFeatured) {
+      const meta = projectMeta[p.slug] || {};
+      const bgColor = meta.bgColor || p.cardColor || '#1a1a1a';
+      const description = meta.description || p.description || '';
+      const imgSrc = p.cardImg || p.heroImg || p.thumbnail;
+      const card = document.createElement('div');
+      card.className = 'bento-card' + (isFeatured ? ' bento-featured' : '');
+      card.style.background = bgColor;
+      card.innerHTML = `
+        ${imgSrc ? `<img class="bento-card-img" src="${imgSrc}" alt="${p.title}">` : ''}
+        <div class="bento-card-hover">
+          <div class="bento-card-name">${p.gridTitle || p.title}</div>
+          ${description ? `<div class="bento-card-desc">${description}</div>` : ''}
+          <button class="bento-card-btn">View</button>
+        </div>`;
+      card.addEventListener('click', () => showCaseStudy(p));
+      return card;
+    }
+
+    function makeHighlight(h) {
+      const el = document.createElement('div');
+      el.className = 'bento-highlight';
+      el.style.background = h.color || '#6366f1';
+      el.innerHTML = `<div class="bento-highlight-text">${h.text}</div>`;
+      return el;
+    }
+
     function buildBento() {
       const grid = document.getElementById('bento-grid');
       if (!grid) return;
       grid.innerHTML = '';
 
-      const projs = getFilteredProjects().filter(p => !p.externalUrl);
-      projs.forEach(p => {
-        const meta = projectMeta[p.slug] || {};
-        const bgColor = meta.bgColor || p.cardColor || '#1a1a1a';
-        const description = meta.description || p.description || '';
-        const imgSrc = p.cardImg || p.heroImg || p.thumbnail;
-
-        const card = document.createElement('div');
-        card.className = 'bento-card' + (p.featured ? ' bento-featured' : '');
-        card.style.background = bgColor;
-
-        card.innerHTML = `
-          ${imgSrc ? `<img class="bento-card-img" src="${imgSrc}" alt="${p.title}">` : ''}
-          <div class="bento-card-hover">
-            <div class="bento-card-name">${p.gridTitle || p.title}</div>
-            ${description ? `<div class="bento-card-desc">${description}</div>` : ''}
-            <button class="bento-card-btn">View</button>
-          </div>`;
-        card.addEventListener('click', () => showCaseStudy(p));
-        grid.appendChild(card);
+      const all = getFilteredProjects().filter(p => !p.externalUrl);
+      const featured = all.filter(p => p.featured);
+      // Weave highlight cards into regular slots (every ~3 regular cards)
+      const highlights = (audienceConfig?.highlights || []).filter(h => h.text);
+      const rawRegular = all.filter(p => !p.featured);
+      const regular = [];
+      let hi = 0;
+      rawRegular.forEach((p, i) => {
+        regular.push({ type: 'project', data: p });
+        if (hi < highlights.length && (i + 1) % 3 === 0) {
+          regular.push({ type: 'highlight', data: highlights[hi++] });
+        }
       });
+      // Append any remaining highlights
+      while (hi < highlights.length) regular.push({ type: 'highlight', data: highlights[hi++] });
+
+      let fi = 0, ri = 0, rowIdx = 0;
+
+      function makeSlot(item) {
+        if (!item) {
+          const ph = document.createElement('div');
+          ph.className = 'bento-card'; ph.style.background = '#111';
+          return ph;
+        }
+        return item.type === 'highlight' ? makeHighlight(item.data) : makeCard(item.data, false);
+      }
+
+      // Alternating rows: featured-left / featured-right, each paired with 2 regular slots
+      while (fi < featured.length) {
+        const f = featured[fi++];
+        const pair = regular.slice(ri, ri + 2);
+        ri += pair.length;
+
+        const row = document.createElement('div');
+        row.className = 'bento-row';
+
+        const featuredCard = makeCard(f, true);
+        const pairCol = document.createElement('div');
+        pairCol.className = 'bento-row-pair';
+        pairCol.appendChild(makeSlot(pair[0]));
+        pairCol.appendChild(makeSlot(pair[1]));
+
+        if (rowIdx % 2 === 0) {
+          row.appendChild(featuredCard);
+          row.appendChild(pairCol);
+        } else {
+          row.appendChild(pairCol);
+          row.appendChild(featuredCard);
+        }
+
+        grid.appendChild(row);
+        rowIdx++;
+      }
+
+      // Any leftover regular/highlight slots in a trailing row
+      if (ri < regular.length) {
+        const tail = document.createElement('div');
+        tail.className = 'bento-row-tail';
+        regular.slice(ri).forEach(item => tail.appendChild(makeSlot(item)));
+        grid.appendChild(tail);
+      }
     }
 
     // ── Filters ───────────────────────────────────
