@@ -2915,21 +2915,8 @@
       const rawRegular = all.filter(p => config ? !largeSet.has(p.slug) : !p.featured);
 
       const highlights = activeFilter === 'all' ? (config?.highlights || []).filter(h => h.text) : [];
-      const regular = [];
-      let hi = 0;
-      // First highlight above the fold
-      if (hi < highlights.length) {
-        regular.push({ type: 'highlight', data: highlights[hi++] });
-      }
-      rawRegular.forEach((p, i) => {
-        regular.push({ type: 'project', data: p });
-        if (hi < highlights.length && (i + 1) % 3 === 0) {
-          regular.push({ type: 'highlight', data: highlights[hi++] });
-        }
-      });
-      while (hi < highlights.length) regular.push({ type: 'highlight', data: highlights[hi++] });
 
-      let fi = 0, ri = 0, rowIdx = 0;
+      let fi = 0, ri = 0, hi = 0, rowIdx = 0;
 
       function makeSlot(item) {
         if (!item) {
@@ -2940,11 +2927,21 @@
         return item.type === 'highlight' ? makeHighlight(item.data) : makeCard(item.data, false);
       }
 
-      // Alternating rows: featured-left / featured-right, each paired with 2 regular slots
+      // Alternating rows: featured-left / featured-right.
+      // Highlights are injected into the pair column, alternating sides:
+      // even-indexed highlights -> even rows (right pair), odd-indexed -> odd rows (left pair).
       while (fi < featured.length) {
         const f = featured[fi++];
-        const pair = regular.slice(ri, ri + 2);
-        ri += pair.length;
+        let slot0, slot1;
+
+        // Inject a highlight if it "belongs" on this row's side
+        if (hi < highlights.length && rowIdx % 2 === hi % 2) {
+          slot0 = { type: 'highlight', data: highlights[hi++] };
+          slot1 = rawRegular[ri] ? { type: 'project', data: rawRegular[ri++] } : null;
+        } else {
+          slot0 = rawRegular[ri] ? { type: 'project', data: rawRegular[ri++] } : null;
+          slot1 = rawRegular[ri] ? { type: 'project', data: rawRegular[ri++] } : null;
+        }
 
         const row = document.createElement('div');
         row.className = 'bento-row';
@@ -2952,8 +2949,8 @@
         const featuredCard = makeCard(f, true);
         const pairCol = document.createElement('div');
         pairCol.className = 'bento-row-pair';
-        pairCol.appendChild(makeSlot(pair[0]));
-        pairCol.appendChild(makeSlot(pair[1]));
+        pairCol.appendChild(makeSlot(slot0));
+        pairCol.appendChild(makeSlot(slot1));
 
         if (rowIdx % 2 === 0) {
           row.appendChild(featuredCard);
@@ -2967,8 +2964,20 @@
         rowIdx++;
       }
 
-      // Leftover slots: chunk into rows of 3
-      const leftover = regular.slice(ri);
+      // Leftover slots: weave remaining highlights into rows of 3
+      const leftoverProjects = rawRegular.slice(ri);
+      const leftover = [];
+      let lhi = 0;
+      const remainingHighlights = highlights.slice(hi);
+      if (remainingHighlights.length > 0) leftover.push({ type: 'highlight', data: remainingHighlights[lhi++] });
+      leftoverProjects.forEach((p, i) => {
+        leftover.push({ type: 'project', data: p });
+        if (lhi < remainingHighlights.length && (i + 1) % 3 === 0) {
+          leftover.push({ type: 'highlight', data: remainingHighlights[lhi++] });
+        }
+      });
+      while (lhi < remainingHighlights.length) leftover.push({ type: 'highlight', data: remainingHighlights[lhi++] });
+
       for (let i = 0; i < leftover.length; i += 3) {
         const tail = document.createElement('div');
         tail.className = 'bento-row-tail';
