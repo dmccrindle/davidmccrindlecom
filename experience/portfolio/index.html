@@ -312,11 +312,10 @@
       display: flex;
       gap: 10px;
       flex-shrink: 0;
-    }
-    .bento-row-tail .bento-card {
-      flex: 1;
       height: calc((86vh - 90px - 10px) / 2);
     }
+    .bento-row-tail .bento-card,
+    .bento-row-tail .bento-highlight { flex: 1; }
     .bento-card {
       border-radius: 12px; overflow: hidden;
       position: relative; cursor: pointer;
@@ -2884,11 +2883,12 @@
         rowIdx++;
       }
 
-      // Any leftover regular/highlight slots in a trailing row
-      if (ri < regular.length) {
+      // Leftover slots: chunk into rows of 3
+      const leftover = regular.slice(ri);
+      for (let i = 0; i < leftover.length; i += 3) {
         const tail = document.createElement('div');
         tail.className = 'bento-row-tail';
-        regular.slice(ri).forEach(item => tail.appendChild(makeSlot(item)));
+        leftover.slice(i, i + 3).forEach(item => tail.appendChild(makeSlot(item)));
         grid.appendChild(tail);
       }
     }
