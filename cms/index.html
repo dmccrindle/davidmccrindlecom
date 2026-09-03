@@ -295,6 +295,27 @@
     .row-status.ok { color: #4ade80; }
     .row-status.err { color: #f87171; }
 
+    /* ── Drag list ── */
+    .drag-list { display: flex; flex-direction: column; gap: 4px; margin-bottom: 28px; }
+    .drag-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: 8px;
+      background: #1a1a1a; border: 1px solid #333;
+    }
+    .drag-item.drag-over { border-color: #888; background: #222; }
+    .drag-handle {
+      cursor: grab; color: #555; font-size: 18px;
+      flex-shrink: 0; user-select: none; line-height: 1;
+    }
+    .drag-handle:active { cursor: grabbing; }
+    .drag-item-title { flex: 1; font-size: 13px; color: #ddd; }
+    .drag-large-label {
+      font-size: 11px; color: #888; display: flex;
+      align-items: center; gap: 6px; flex-shrink: 0;
+      text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;
+    }
+    .drag-large-label input { accent-color: #fff; width: 14px; height: 14px; cursor: pointer; }
+
     @media (max-width: 600px) {
       #app { padding: 40px 20px 60px; }
       .form-grid { grid-template-columns: 1fr; }
@@ -318,6 +339,7 @@
       <button class="cms-tab" onclick="switchTab('edit')">Edit Shows</button>
       <button class="cms-tab" onclick="switchTab('audiences')">Audiences</button>
       <button class="cms-tab" onclick="switchTab('projects')">Projects</button>
+      <button class="cms-tab" onclick="switchTab('default')">Default</button>
     </div>
 
     <!-- Add tab -->
@@ -455,8 +477,8 @@
           <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:8px">Custom intro <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">-- supports **bold** and [link](url)</span></label>
           <textarea id="aud-intro" rows="4" placeholder="Design leader with 20+ years shipping..." style="width:100%;background:#1a1a1a;border:1px solid #444;border-radius:8px;color:#fff;font-size:14px;line-height:1.6;padding:12px 14px;box-sizing:border-box;resize:vertical;font-family:inherit;margin-bottom:24px"></textarea>
 
-          <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:12px">Featured projects <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">(checked = shown)</span></label>
-          <div id="aud-projects" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:28px"></div>
+          <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:12px">Project order <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">-- drag to reorder, check Large for big card</span></label>
+          <div id="aud-projects" class="drag-list"></div>
 
           <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:8px">Highlight cards <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">-- sprinkled into the grid, no link</span></label>
           <div id="aud-highlights" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px"></div>
@@ -476,6 +498,29 @@
       <div id="proj-msg" style="margin-top:16px;font-size:13px;color:#6f6;display:none"></div>
     </div>
 
+    <!-- Default tab -->
+    <div id="tab-default" class="tab-panel">
+      <p style="font-size:13px;color:#666;margin-bottom:28px">Default portfolio view -- applies to all visitors with no specific audience assigned.</p>
+
+      <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:8px">Greeting <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">-- shown as "Hello, [greeting]"</span></label>
+      <input id="def-greeting" placeholder="e.g. there" style="width:100%;background:#1a1a1a;border:1px solid #444;border-radius:8px;color:#fff;font-size:14px;padding:10px 14px;box-sizing:border-box;margin-bottom:20px;outline:none;font-family:inherit" />
+
+      <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:8px">Custom intro <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">-- supports **bold** and [link](url)</span></label>
+      <textarea id="def-intro" rows="4" placeholder="Design leader with 20+ years shipping..." style="width:100%;background:#1a1a1a;border:1px solid #444;border-radius:8px;color:#fff;font-size:14px;line-height:1.6;padding:12px 14px;box-sizing:border-box;resize:vertical;font-family:inherit;margin-bottom:24px"></textarea>
+
+      <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:12px">Project order <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">-- drag to reorder, check Large for big card</span></label>
+      <div id="def-projects" class="drag-list"></div>
+
+      <label style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#888;display:block;margin-bottom:8px">Highlight cards <span style="color:#666;font-weight:400;text-transform:none;letter-spacing:0">-- sprinkled into the grid, no link</span></label>
+      <div id="def-highlights" style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px"></div>
+      <button onclick="defHighlightAdd()" style="font-size:12px;padding:6px 14px;border-radius:6px;background:#222;border:1px solid #444;color:#aaa;cursor:pointer;margin-bottom:24px">+ Add card</button>
+
+      <div>
+        <button onclick="defaultSave()" style="padding:10px 28px;background:#fff;color:#111;border:none;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer">Save Default</button>
+        <span id="def-msg" style="margin-left:16px;font-size:13px;color:#6f6;display:none"></span>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -488,7 +533,7 @@
 
     // ── Tabs ────────────────────────────────────────
 
-    const TAB_NAMES = ['add', 'edit', 'audiences', 'projects'];
+    const TAB_NAMES = ['add', 'edit', 'audiences', 'projects', 'default'];
     function switchTab(name) {
       currentTab = name;
       document.querySelectorAll('.cms-tab').forEach((btn, i) => {
@@ -499,6 +544,7 @@
       if (name === 'edit') renderEditList();
       if (name === 'audiences') loadAudiences();
       if (name === 'projects') loadProjects();
+      if (name === 'default') loadDefault();
     }
 
     // ── Add form ────────────────────────────────────
@@ -991,6 +1037,70 @@
       renderAudEditor();
     }
 
+    function normalizeProjList(list) {
+      return (list || []).map(item =>
+        typeof item === 'string' ? { slug: item, large: false } : item
+      );
+    }
+
+    function renderDragList(containerId, savedProjects) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const saved = normalizeProjList(savedProjects);
+      const savedSlugs = saved.map(i => i.slug);
+      const largeSet = new Set(saved.filter(i => i.large).map(i => i.slug));
+      // Saved projects in their order, then any not-yet-saved at the bottom
+      const ordered = [
+        ...saved.map(i => ALL_PROJECTS.find(p => p.slug === i.slug)).filter(Boolean),
+        ...ALL_PROJECTS.filter(p => !savedSlugs.includes(p.slug)),
+      ];
+      container.innerHTML = '';
+      ordered.forEach(p => {
+        const item = document.createElement('div');
+        item.className = 'drag-item';
+        item.draggable = true;
+        item.dataset.slug = p.slug;
+        item.innerHTML = `
+          <span class="drag-handle" title="Drag to reorder">&#8942;&#8942;</span>
+          <span class="drag-item-title">${p.title}</span>
+          <label class="drag-large-label">
+            <input type="checkbox" class="drag-large" ${largeSet.has(p.slug) ? 'checked' : ''}> Large
+          </label>`;
+        attachDragHandlers(item, container);
+        container.appendChild(item);
+      });
+    }
+
+    let dragSrc = null;
+    function attachDragHandlers(item, list) {
+      item.addEventListener('dragstart', e => {
+        dragSrc = item;
+        e.dataTransfer.effectAllowed = 'move';
+        setTimeout(() => item.style.opacity = '0.4', 0);
+      });
+      item.addEventListener('dragend', () => { item.style.opacity = ''; dragSrc = null; });
+      item.addEventListener('dragover', e => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; item.classList.add('drag-over'); });
+      item.addEventListener('dragleave', () => item.classList.remove('drag-over'));
+      item.addEventListener('drop', e => {
+        e.preventDefault(); e.stopPropagation();
+        item.classList.remove('drag-over');
+        if (dragSrc && dragSrc !== item) {
+          const items = [...list.children];
+          const srcIdx = items.indexOf(dragSrc);
+          const tgtIdx = items.indexOf(item);
+          if (srcIdx < tgtIdx) item.after(dragSrc);
+          else item.before(dragSrc);
+        }
+      });
+    }
+
+    function readDragList(containerId) {
+      return [...document.querySelectorAll(`#${containerId} .drag-item`)].map(item => ({
+        slug: item.dataset.slug,
+        large: item.querySelector('.drag-large')?.checked || false,
+      }));
+    }
+
     function renderAudEditor() {
       document.getElementById('aud-empty').style.display = 'none';
       document.getElementById('aud-editor').style.display = 'block';
@@ -999,21 +1109,15 @@
       document.getElementById('aud-intro').value = currentAudience?.intro || '';
       document.getElementById('aud-msg').style.display = 'none';
       renderHighlights();
-
-      const sel = new Set(currentAudience?.projects || []);
-      document.getElementById('aud-projects').innerHTML = ALL_PROJECTS.map(p => `
-        <label style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:#1a1a1a;border:1px solid #333;cursor:pointer">
-          <input type="checkbox" value="${p.slug}" ${sel.has(p.slug)?'checked':''} style="width:16px;height:16px;accent-color:#fff">
-          <span style="font-size:13px;color:#ddd">${p.title}</span>
-        </label>`).join('');
+      renderDragList('aud-projects', currentAudience?.projects);
     }
 
     async function audienceSave() {
       const name = document.getElementById('aud-name').value.trim();
       const greeting = document.getElementById('aud-greeting').value.trim();
       const intro = document.getElementById('aud-intro').value.trim();
-      const projects = [...document.querySelectorAll('#aud-projects input:checked')].map(i => i.value);
-      const highlights = [...document.querySelectorAll('.hl-row')].map(row => ({
+      const projects = readDragList('aud-projects');
+      const highlights = [...document.querySelectorAll('#aud-highlights .hl-row')].map(row => ({
         text: row.querySelector('.hl-text')?.value.trim() || '',
         color: row.querySelector('.hl-color')?.value || '#6366f1',
       })).filter(h => h.text);
@@ -1119,6 +1223,75 @@
           colorInput.addEventListener('input', () => { label.textContent = colorInput.value; });
         }
       });
+    }
+
+    // ── Default tab ──────────────────────────────────
+    const HIGHLIGHT_COLORS_DEF = ['#6366f1','#0ea5e9','#10b981','#f59e0b','#ef4444','#ec4899','#8b5cf6','#f97316'];
+    var defaultData = { name: 'default', greeting: '', intro: '', projects: [], highlights: [] };
+
+    async function loadDefault() {
+      try {
+        const r = await fetch('/api/audiences?viewer=default');
+        if (r.ok) {
+          const d = await r.json();
+          if (d) defaultData = d;
+        }
+      } catch {}
+      document.getElementById('def-greeting').value = defaultData.greeting || '';
+      document.getElementById('def-intro').value = defaultData.intro || '';
+      renderDragList('def-projects', defaultData.projects);
+      renderDefHighlights();
+    }
+
+    function renderDefHighlights() {
+      const container = document.getElementById('def-highlights');
+      if (!container) return;
+      const items = defaultData.highlights || [];
+      container.innerHTML = items.map((h, i) => `
+        <div class="hl-row" style="display:flex;gap:8px;align-items:center">
+          <input class="hl-text" value="${(h.text||'').replace(/"/g,'&quot;')}" placeholder="e.g. Lead a team of 10 designers"
+            style="flex:1;background:#1a1a1a;border:1px solid #444;border-radius:6px;color:#fff;font-size:13px;padding:8px 12px;font-family:inherit">
+          <input type="color" class="hl-color" value="${h.color||'#6366f1'}"
+            style="width:36px;height:34px;border-radius:6px;border:1px solid #333;background:none;cursor:pointer;padding:2px;flex-shrink:0">
+          <button onclick="defHighlightRemove(${i})" style="background:transparent;border:none;color:#f66;font-size:18px;cursor:pointer;padding:0 4px;line-height:1">&times;</button>
+        </div>`).join('');
+    }
+
+    function defHighlightAdd() {
+      if (!defaultData.highlights) defaultData.highlights = [];
+      const color = HIGHLIGHT_COLORS_DEF[defaultData.highlights.length % HIGHLIGHT_COLORS_DEF.length];
+      defaultData.highlights.push({ text: '', color });
+      renderDefHighlights();
+    }
+
+    function defHighlightRemove(i) {
+      defaultData.highlights.splice(i, 1);
+      renderDefHighlights();
+    }
+
+    async function defaultSave() {
+      const greeting = document.getElementById('def-greeting').value.trim();
+      const intro = document.getElementById('def-intro').value.trim();
+      const projects = readDragList('def-projects');
+      const highlights = [...document.querySelectorAll('#tab-default .hl-row')].map(row => ({
+        text: row.querySelector('.hl-text')?.value.trim() || '',
+        color: row.querySelector('.hl-color')?.value || '#6366f1',
+      })).filter(h => h.text);
+
+      const r = await fetch('/api/audiences', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: 'default', greeting, intro, projects, highlights }),
+      });
+      const msg = document.getElementById('def-msg');
+      if (r.ok) {
+        defaultData = { name: 'default', greeting, intro, projects, highlights };
+        msg.textContent = 'Saved!';
+        msg.style.display = 'inline';
+        setTimeout(() => msg.style.display = 'none', 2000);
+      } else {
+        alert('Save failed');
+      }
     }
 
     async function saveProject(slug) {

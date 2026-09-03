@@ -242,7 +242,7 @@
     }
     .bento-right::-webkit-scrollbar { display: none; }
 
-    /* Filter toggle */
+    /* Filter toggle -- lives in navbar */
     .bento-filter-toggle {
       display: flex; align-items: center; gap: 6px;
       background: rgba(255,255,255,0.08);
@@ -253,17 +253,16 @@
       letter-spacing: 0.08em; text-transform: uppercase;
       padding: 7px 14px; cursor: pointer;
       transition: background 0.15s, color 0.15s;
-      position: fixed; top: 84px; right: 28px; z-index: 40;
     }
     .bento-filter-toggle:hover { background: rgba(255,255,255,0.14); color: #fff; }
     .bento-filter-toggle.active { background: #fff; color: #0a0a0a; border-color: #fff; }
     .bento-filter-toggle.active svg { opacity: 1; }
     .bento-filter-toggle svg { opacity: 0.8; }
 
-    /* Filter drawer */
+    /* Filter drawer -- anchored to top-right */
     .bento-filter-drawer {
       display: none;
-      position: fixed; top: 128px; right: 28px;
+      position: fixed; top: 76px; right: 28px;
       background: #181818;
       border: 1px solid rgba(255,255,255,0.12);
       border-radius: 12px; padding: 10px;
@@ -2546,7 +2545,13 @@
       <option value="security">Security</option>
       <option value="__logout__">Log Out</option>
     </select>
-    <button class="logout-btn" onclick="doLogout()">Logout</button>
+    <div style="display:flex;align-items:center;gap:10px">
+      <button class="bento-filter-toggle" id="bento-filter-toggle" onclick="window.toggleFilterDrawer()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        Filter
+      </button>
+      <button class="logout-btn" onclick="doLogout()">Logout</button>
+    </div>
   </nav>
 
   <!-- ══ GALLERY VIEW ══════════════════════════ -->
@@ -2564,10 +2569,6 @@
 
       <!-- Right column: bento grid + filter -->
       <div class="bento-right" id="bento-right">
-        <button class="bento-filter-toggle" id="bento-filter-toggle" onclick="window.toggleFilterDrawer()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-          Filter
-        </button>
         <div class="bento-filter-drawer" id="bento-filter-drawer">
           <nav class="pf-filter-list" id="pf-filter-list" aria-label="Filter by industry"></nav>
         </div>
@@ -2698,6 +2699,7 @@
     // ── Active industry filter ───────────────────
     var activeFilter = 'all';
     var audienceConfig = null;
+    var defaultConfig = null;
     var projectMeta = {};
 
     async function loadProjectMeta() {
@@ -2719,7 +2721,22 @@
       return '<p>' + safe.replace(/\n\n+/g, '</p><p>').replace(/\n/g, ' ') + '</p>';
     }
 
+    function normalizeProjList(list) {
+      return (list || []).map(item =>
+        typeof item === 'string' ? { slug: item, large: false } : item
+      );
+    }
+
     async function initAudience() {
+      // Always load default config
+      try {
+        const dr = await fetch('/api/audiences?viewer=default');
+        if (dr.ok) {
+          const dcfg = await dr.json();
+          if (dcfg?.projects?.length) defaultConfig = dcfg;
+        }
+      } catch (_) {}
+
       const viewer = getCookie('portfolio_viewer');
       if (!viewer || viewer === 'default') return;
       try {
@@ -2729,13 +2746,14 @@
         if (!cfg) return;
         audienceConfig = cfg.projects?.length ? cfg : null;
 
-        if (cfg.greeting) {
+        const active = audienceConfig || defaultConfig;
+        if (active?.greeting) {
           const el = document.getElementById('bento-greeting');
-          if (el) el.textContent = cfg.greeting;
+          if (el) el.textContent = active.greeting;
         }
-        if (cfg.intro) {
+        if (active?.intro) {
           const el = document.getElementById('gallery-intro');
-          if (el) el.innerHTML = parseIntro(cfg.intro);
+          if (el) el.innerHTML = parseIntro(active.intro);
         }
       } catch (_) {}
     }
@@ -2753,13 +2771,13 @@
     };
 
     function getFilteredProjects() {
-      // Audience override: show audience projects in defined order
-      if (audienceConfig && activeFilter === 'featured') {
-        const slugs = audienceConfig.projects;
-        return slugs.map(s => projects.find(p => p.slug === s)).filter(Boolean);
+      const config = audienceConfig || defaultConfig;
+      // Audience/default config: show projects in defined order
+      if (config && activeFilter === 'featured') {
+        const projList = normalizeProjList(config.projects);
+        return projList.map(({ slug }) => projects.find(p => p.slug === slug)).filter(Boolean);
       }
       if (activeFilter === 'all') {
-        // Featured first, then the rest
         const featured = projects.filter(p => p.featured);
         const rest = projects.filter(p => !p.featured);
         return [...featured, ...rest];
@@ -2829,20 +2847,29 @@
       if (!grid) return;
       grid.innerHTML = '';
 
+      const config = audienceConfig || defaultConfig;
+      const projList = normalizeProjList(config?.projects);
+      const largeSet = new Set(projList.filter(i => i.large).map(i => i.slug));
+
       const all = getFilteredProjects().filter(p => !p.externalUrl);
-      const featured = all.filter(p => p.featured);
-      // Weave highlight cards into regular slots (every ~3 regular cards)
-      const highlights = (audienceConfig?.highlights || []).filter(h => h.text);
-      const rawRegular = all.filter(p => !p.featured);
+      const featured = config
+        ? all.filter(p => largeSet.has(p.slug))
+        : all.filter(p => p.featured);
+      const rawRegular = all.filter(p => config ? !largeSet.has(p.slug) : !p.featured);
+
+      const highlights = (config?.highlights || []).filter(h => h.text);
       const regular = [];
       let hi = 0;
+      // First highlight above the fold
+      if (hi < highlights.length) {
+        regular.push({ type: 'highlight', data: highlights[hi++] });
+      }
       rawRegular.forEach((p, i) => {
         regular.push({ type: 'project', data: p });
         if (hi < highlights.length && (i + 1) % 3 === 0) {
           regular.push({ type: 'highlight', data: highlights[hi++] });
         }
       });
-      // Append any remaining highlights
       while (hi < highlights.length) regular.push({ type: 'highlight', data: highlights[hi++] });
 
       let fi = 0, ri = 0, rowIdx = 0;
