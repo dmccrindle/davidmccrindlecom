@@ -2552,6 +2552,25 @@
       transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1);
     }
     #intro-hey.visible { opacity: 1; transform: scale(1); }
+    @keyframes wave-hand {
+      0%   { transform: rotate(0deg); }
+      15%  { transform: rotate(20deg); }
+      30%  { transform: rotate(-10deg); }
+      45%  { transform: rotate(18deg); }
+      60%  { transform: rotate(-8deg); }
+      75%  { transform: rotate(14deg); }
+      100% { transform: rotate(0deg); }
+    }
+    #intro-wave {
+      display: inline-block;
+      transform-origin: 70% 80%;
+      opacity: 0;
+      transition: opacity 0.3s ease 0.4s;
+    }
+    #intro-hey.visible #intro-wave {
+      opacity: 1;
+      animation: wave-hand 1.4s ease 0.5s 1 forwards;
+    }
     #intro-sub {
       font-size: clamp(14px, 1.6vw, 20px);
       color: rgba(255,255,255,0.38);
@@ -2602,7 +2621,7 @@
     <!-- Intro splash -->
     <div id="intro-splash">
       <div id="intro-text">
-        <div id="intro-hey">Hey there, <span id="intro-name"></span></div>
+        <div id="intro-hey">Hey there, <span id="intro-name"></span> <span id="intro-wave">👋</span></div>
         <div id="intro-sub">Let's get to know each other...</div>
       </div>
     </div>
