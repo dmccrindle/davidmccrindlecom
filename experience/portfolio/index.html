@@ -323,14 +323,15 @@
     }
     .bento-card.bento-featured { flex: 3; }
     .bento-card:hover { transform: scale(1.015); }
-    .bento-card-img {
+    .bento-card-img, .bento-card-video {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
       object-fit: cover; pointer-events: none;
       transition: transform 0.35s ease;
     }
     .bento-card-img.contain { object-fit: contain; }
-    .bento-card:hover .bento-card-img { transform: scale(1.06); }
+    .bento-card:hover .bento-card-img,
+    .bento-card:hover .bento-card-video { transform: scale(1.06); }
     .bento-card-hover {
       position: absolute; inset: 0;
       background: rgba(0,0,0,0.82);
@@ -2873,11 +2874,13 @@
       const meta = projectMeta[p.slug] || {};
       const bgColor = meta.bgColor || p.cardColor || '#1a1a1a';
       const description = meta.description || p.description || '';
-      const imgSrc = p.cardImg || p.heroImg || p.thumbnail;
+      const videoSrc = p.cardVideo || null;
+      const imgSrc = videoSrc ? null : (p.cardImg || p.heroImg || p.thumbnail);
       const card = document.createElement('div');
       card.className = 'bento-card' + (isFeatured ? ' bento-featured' : '');
       card.style.background = bgColor;
       card.innerHTML = `
+        ${videoSrc ? `<video class="bento-card-video" src="${videoSrc}" autoplay muted loop playsinline></video>` : ''}
         ${imgSrc ? `<img class="bento-card-img" src="${imgSrc}" alt="${p.title}">` : ''}
         <div class="bento-card-hover">
           <div class="bento-card-name">${p.gridTitle || p.title}</div>
