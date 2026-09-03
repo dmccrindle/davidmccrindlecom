@@ -3042,14 +3042,18 @@
       Promise.all([loadProjectMeta(), initAudience()]).finally(() => {
         buildBento();
 
+        // Hide cards while splash is visible so the pop-in is clean
+        document.querySelectorAll('#bento-grid .bento-card, #bento-grid .bento-highlight')
+          .forEach(c => c.style.opacity = '0');
+
         const cfg = audienceConfig || defaultConfig;
         const name = cfg?.greeting || 'there';
         const nameEl = document.getElementById('intro-name');
         if (nameEl) nameEl.textContent = name;
 
-        const hey   = document.getElementById('intro-hey');
-        const sub   = document.getElementById('intro-sub');
-        const text  = document.getElementById('intro-text');
+        const hey    = document.getElementById('intro-hey');
+        const sub    = document.getElementById('intro-sub');
+        const text   = document.getElementById('intro-text');
         const splash = document.getElementById('intro-splash');
 
         // Phase 1: pop in the greeting
@@ -3065,11 +3069,12 @@
             setTimeout(() => {
               if (splash) splash.classList.add('fade-out');
 
-              // Phase 4: stagger-pop the cards after splash is gone
+              // Phase 4: after splash gone, stagger-pop cards
               setTimeout(() => {
                 if (splash) splash.remove();
                 const cards = document.querySelectorAll('#bento-grid .bento-card, #bento-grid .bento-highlight');
                 cards.forEach((card, i) => {
+                  card.style.opacity = '';
                   card.style.animationDelay = Math.min(i * 55, 350) + 'ms';
                   card.classList.add('bento-card-pop');
                 });
