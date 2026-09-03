@@ -2812,7 +2812,7 @@
       'retail':             { label: 'Retail',          icon: '<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>' },
       'security':           { label: 'Security',        icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
     };
-    var FILTER_SLUGS = ['all','featured','food-agriculture','consumer-tech','design-systems','media-entertainment','commerce-payments','enterprise-saas','retail','security'];
+    var FILTER_SLUGS = ['all','food-agriculture','consumer-tech','design-systems','media-entertainment','commerce-payments','enterprise-saas','retail','security'];
 
     // ── Bento grid ────────────────────────────────
     function makeCard(p, isFeatured) {
@@ -2857,7 +2857,7 @@
         : all.filter(p => p.featured);
       const rawRegular = all.filter(p => config ? !largeSet.has(p.slug) : !p.featured);
 
-      const highlights = (config?.highlights || []).filter(h => h.text);
+      const highlights = activeFilter === 'all' ? (config?.highlights || []).filter(h => h.text) : [];
       const regular = [];
       let hi = 0;
       // First highlight above the fold
@@ -2944,7 +2944,7 @@
       const mob = document.getElementById('pf-mobile-select');
       if (mob) mob.value = filter;
       if (pushUrl !== false) {
-        const url = (filter === 'all' || filter === 'featured') ? '/experience/portfolio/' : '/experience/portfolio/' + filter;
+        const url = filter === 'all' ? '/experience/portfolio/' : '/experience/portfolio/' + filter;
         history.pushState(null, '', url);
       }
       buildBento();
