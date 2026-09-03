@@ -227,7 +227,7 @@
       flex: 1;
       overflow-y: auto;
       scrollbar-width: none;
-      padding: 24px 28px 48px;
+      padding: 80px 28px 48px;
       position: relative;
     }
     .bento-right::-webkit-scrollbar { display: none; }
@@ -243,7 +243,7 @@
       letter-spacing: 0.08em; text-transform: uppercase;
       padding: 7px 14px; cursor: pointer;
       transition: background 0.15s, color 0.15s;
-      position: absolute; top: 24px; right: 28px; z-index: 20;
+      position: fixed; top: 84px; right: 28px; z-index: 40;
     }
     .bento-filter-toggle:hover { background: rgba(255,255,255,0.14); color: #fff; }
     .bento-filter-toggle.active { background: #fff; color: #0a0a0a; border-color: #fff; }
@@ -253,7 +253,7 @@
     /* Filter drawer */
     .bento-filter-drawer {
       display: none;
-      position: absolute; top: 60px; right: 28px;
+      position: fixed; top: 128px; right: 28px;
       background: #181818;
       border: 1px solid rgba(255,255,255,0.12);
       border-radius: 12px; padding: 10px;
@@ -345,7 +345,7 @@
       .bento-card.bento-featured { grid-column: span 4; grid-row: span 2; }
       .bento-card { grid-column: span 2; }
       .bento-filter-toggle { position: fixed; bottom: 20px; right: 20px; top: auto; z-index: 50; }
-      .bento-filter-drawer { bottom: 60px; top: auto; right: 20px; position: fixed; }
+      .bento-filter-drawer { bottom: 64px; top: auto; right: 20px; position: fixed; }
       body.gallery-active { overflow: auto; position: static; }
     }
     @media (max-width: 480px) {
@@ -2666,7 +2666,8 @@
         .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\[(.*?)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-      return '<p>' + safe.replace(/\n\n+/g, '</p><p>').replace(/\n/g, '<br>') + '</p>';
+      // Single newlines flow as spaces; double newlines create paragraph breaks
+      return '<p>' + safe.replace(/\n\n+/g, '</p><p>').replace(/\n/g, ' ') + '</p>';
     }
 
     async function initAudience() {
