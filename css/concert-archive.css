@@ -9,7 +9,7 @@
 .leaflet-control-zoom,
 .leaflet-control-attribution { display: none !important; }
 .leaflet-container { background: #1a1a1a !important; }
-.leaflet-tile-pane { will-change: transform; }
+.leaflet-tile-pane { will-change: transform; filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.88) saturate(0.6); }
 
 /* ── Concert Markers ─────────────────────────── */
 .concert-marker-wrap {
