@@ -764,6 +764,7 @@ export const projects = [
     featured: false,
     cardColor: '#0d1f0f',
     showcase: [
+      { tab: 'How It Works', youtube: 'Y-cu-Or8Psk', caption: 'AsseTrac MaTrac in action -- from beacon installation on access mats through to real-time project visibility across field and office teams.' },
       { tab: 'Platform', image: '/assetrac/assetrac-1024x565.png', caption: 'The MaTrac platform gives office teams, field crews, and compliance staff a shared view of every mat across a project site. Real-time location, movement history, and regulatory documentation all live in one place -- replacing spreadsheets and manual check-ins that had been the industry standard.' },
       { tab: 'Field App', image: '/assetrac/assetrac-app.png', caption: 'Field teams needed something that worked in the mud, on a phone, with gloves on. The mobile experience was designed around the actual conditions of the job site -- large tap targets, clear status indicators, and minimal steps to complete the most common tasks.' },
     ],

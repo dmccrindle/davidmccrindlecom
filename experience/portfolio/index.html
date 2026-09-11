@@ -656,7 +656,10 @@
     .showcase-img-wrap {
       width: 100%; border-radius: 16px; overflow: hidden;
       background: #ebebeb; margin-bottom: 28px; aspect-ratio: 16/9;
+      position: relative;
     }
+    .showcase-video-wrap { position: absolute; inset: 0; }
+    .showcase-video { width: 100%; height: 100%; display: block; border: none; }
     .showcase-img {
       width: 100%; height: 100%; object-fit: cover; display: block;
       transition: opacity 0.25s ease, transform 0.3s ease;
@@ -2713,6 +2716,9 @@
       <div class="showcase-inner">
         <div class="showcase-img-wrap">
           <img class="showcase-img" id="showcase-img" src="" alt="">
+          <div class="showcase-video-wrap" id="showcase-video-wrap" style="display:none">
+            <iframe class="showcase-video" id="showcase-video" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </div>
         <div class="showcase-tabs" id="showcase-tabs"></div>
         <p class="showcase-caption" id="showcase-caption"></p>
@@ -2850,9 +2856,12 @@
       const config = audienceConfig || defaultConfig;
       if (activeFilter === 'all') {
         if (config?.projects?.length) {
-          // Use CMS-defined order
           const projList = normalizeProjList(config.projects);
-          return projList.map(({ slug }) => projects.find(p => p.slug === slug)).filter(Boolean);
+          const ordered = projList.map(({ slug }) => projects.find(p => p.slug === slug)).filter(Boolean);
+          // Append any projects not yet in the CMS list so new additions always appear
+          const inList = new Set(projList.map(i => i.slug));
+          const unlisted = projects.filter(p => !inList.has(p.slug));
+          return [...ordered, ...unlisted];
         }
         // Fallback: featured first, then rest
         return [...projects.filter(p => p.featured), ...projects.filter(p => !p.featured)];
@@ -3388,22 +3397,38 @@
         `<button class="showcase-tab ${i === 0 ? 'active' : ''}" data-idx="${i}" onclick="selectShowcase(${i})">${item.tab}</button>`
       ).join('');
 
-      imgEl.src = items[0].image || '';
-      imgEl.alt = items[0].tab;
+      applyShowcaseItem(items[0]);
       capEl.textContent = items[0].caption || '';
+    }
+
+    function applyShowcaseItem(item) {
+      const imgEl     = document.getElementById('showcase-img');
+      const videoWrap = document.getElementById('showcase-video-wrap');
+      const videoEl   = document.getElementById('showcase-video');
+      if (item.youtube) {
+        imgEl.style.display = 'none';
+        videoEl.src = `https://www.youtube.com/embed/${item.youtube}?rel=0&modestbranding=1`;
+        videoWrap.style.display = 'block';
+      } else {
+        videoWrap.style.display = 'none';
+        videoEl.src = '';
+        imgEl.style.display = 'block';
+        imgEl.src = item.image || '';
+        imgEl.alt = item.tab;
+      }
     }
 
     window.selectShowcase = function(idx) {
       if (idx === showcaseActive) return;
       const imgEl = document.getElementById('showcase-img');
       const capEl = document.getElementById('showcase-caption');
-      imgEl.classList.add('transitioning');
+      const prev  = showcaseItems[showcaseActive];
+      if (!prev?.youtube) imgEl.classList.add('transitioning');
       capEl.classList.add('transitioning');
       setTimeout(() => {
         showcaseActive = idx;
         const item = showcaseItems[idx];
-        imgEl.src = item.image || '';
-        imgEl.alt = item.tab;
+        applyShowcaseItem(item);
         capEl.textContent = item.caption || '';
         document.querySelectorAll('.showcase-tab').forEach(t => t.classList.toggle('active', +t.dataset.idx === idx));
         imgEl.classList.remove('transitioning');
