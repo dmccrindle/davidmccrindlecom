@@ -749,6 +749,56 @@ export const projects = [
     `
   },
   {
+    slug: 'assetrac',
+    title: 'AsseTrac',
+    gridTitle: 'AsseTrac',
+    description: 'IoT asset tracking for large-scale infrastructure projects. Hardware partner research, prototyping, and customer testing.',
+    subtitle: 'AsseTrac built MaTrac, an IoT system that tracks access mats across transmission line, pipeline, and rail projects. I led the product design from early discovery through customer validation -- researching the problem space, partnering with hardware vendors, and designing the software experience that tied it all together.',
+    intro: 'Access mats are the temporary roadways that make large infrastructure projects possible. They cost thousands of dollars each, they get moved constantly, and until MaTrac, nobody really knew where they were. I helped design the software that changed that.',
+    company: 'AsseTrac',
+    tags: ['IoT', 'Product Design', 'Hardware Integration', 'Field Research'],
+    thumbnail: '/assetrac/assetrac-1024x565.png',
+    heroImg: '/assetrac/assetrac-1024x565.png',
+    cardImg: '/assetrac/assetrac-1024x565.png',
+    industry: 'enterprise-saas',
+    featured: false,
+    cardColor: '#0d1f0f',
+    showcase: [
+      { tab: 'Platform', image: '/assetrac/assetrac-1024x565.png', caption: 'The MaTrac platform gives office teams, field crews, and compliance staff a shared view of every mat across a project site. Real-time location, movement history, and regulatory documentation all live in one place -- replacing spreadsheets and manual check-ins that had been the industry standard.' },
+      { tab: 'Field App', image: '/assetrac/assetrac-app.png', caption: 'Field teams needed something that worked in the mud, on a phone, with gloves on. The mobile experience was designed around the actual conditions of the job site -- large tap targets, clear status indicators, and minimal steps to complete the most common tasks.' },
+    ],
+    content: `
+      <h2>Overview</h2>
+      <p>AsseTrac developed MaTrac to solve a problem that costs the infrastructure industry millions of dollars a year: nobody knows where the mats are. Access mats are the temporary roadways laid down on transmission line, pipeline, and rail projects. They're expensive, they move constantly between job sites, and tracking them with spreadsheets and phone calls isn't working.</p>
+      <p>MaTrac combines Bluetooth beacons attached to individual mats, cellular gateways mounted on the equipment that moves them, and a cloud platform that ties location, movement, and compliance data together in real time.</p>
+      <p>I joined the project to design the software experience across the full system.</p>
+
+      <h2>Discovery & Research</h2>
+      <p>Before any design work started, I spent time understanding the industry. That meant meeting with stakeholders inside AsseTrac to understand the business model and go-to-market, talking to prospects and existing customers to understand how mat management actually worked in the field, and sitting with the pain -- the lost mats, the compliance headaches, the hours spent on the phone trying to track down where a piece of equipment ended up.</p>
+      <p>The research made clear that the problem wasn't just operational. It was also a trust problem. Field teams and office teams had different pictures of what was happening on site. Billing was difficult when nobody could prove where a mat was on a given day. Regulatory bodies needed documentation that was hard to produce after the fact.</p>
+      <p>A good software solution had to close all three gaps simultaneously.</p>
+
+      <h2>Hardware Partnership</h2>
+      <p>IoT product design requires understanding the hardware. I worked directly with AsseTrac's hardware partners to understand what the Bluetooth beacons and cellular gateways could actually do -- range, update frequency, battery life constraints, how the system behaved in dense or remote environments where cell coverage was unpredictable.</p>
+      <p>Those conversations shaped design decisions throughout the product. Knowing the system updated location every few minutes rather than continuously changed how we communicated status to users. Understanding gateway range helped us think about how many gateways a site needed and what happened at the edges of coverage.</p>
+      <p>The goal was a software experience that was honest about what the hardware could deliver -- not one that overpromised and eroded trust when the field reality didn't match the interface.</p>
+
+      <h2>Design</h2>
+      <p>The platform needed to serve genuinely different users: office-based project managers who needed high-level visibility and reporting, field crews who needed to look something up fast in difficult conditions, billing staff who needed exportable documentation, and regulatory contacts who needed compliance records they could stand behind.</p>
+      <p>I designed across all of these contexts -- a web platform for office and administrative users, and a mobile experience built for the realities of a job site. Large touch targets, high-contrast status indicators, minimal steps for common tasks, and a UI that worked as well on a muddy phone screen as it did on a desktop.</p>
+      <p>Prototypes were built at enough fidelity to test with real users -- not just to explore ideas, but to catch the cases where our mental model of the workflow didn't match what people actually did.</p>
+
+      <h2>Customer Testing</h2>
+      <p>Testing with customers on an IoT product has a layer of complexity that most software testing doesn't. The experience depends on physical hardware behaving as expected, on connectivity in environments where connectivity is unreliable, and on users who are busy, often skeptical of new technology, and under real operational pressure.</p>
+      <p>I worked with the AsseTrac team to structure testing that respected those constraints -- focused on the highest-risk assumptions, designed to generate usable feedback even from short sessions, and iterated quickly based on what we learned.</p>
+      <p>The feedback shaped the final product in meaningful ways: how status was communicated, how edge cases were handled, and where the system needed to be more transparent about what it knew versus what it was estimating.</p>
+
+      <h2>Outcome</h2>
+      <p>MaTrac launched with a system that gave infrastructure companies real-time visibility into assets that had previously existed mostly as line items on a spreadsheet. Field teams could confirm mat placement. Office teams could pull compliance documentation without a phone call. Billing became verifiable.</p>
+      <p>AsseTrac's headline result: up to $100 saved per mat per project. At scale, on a large transmission or pipeline job, that's a significant number.</p>
+    `
+  },
+  {
     slug: 'thrivent',
     title: 'Thrivent',
     gridTitle: 'Thrivent Financial',
