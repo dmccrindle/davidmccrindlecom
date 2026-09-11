@@ -2376,6 +2376,38 @@
     }
     .cs-at-step-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
     .cs-at-step-body { font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.55); }
+    /* How it works */
+    .cs-at-hiw {
+      display: grid; grid-template-columns: 1fr 20px 1fr 20px 1fr 20px 1fr;
+      gap: 0; align-items: start; margin-top: 48px;
+    }
+    .cs-at-hiw-connector {
+      align-self: center; margin-top: -80px;
+      height: 2px; background: rgba(232,100,26,0.25);
+      position: relative;
+    }
+    .cs-at-hiw-connector::after {
+      content: ''; position: absolute; right: -5px; top: 50%;
+      transform: translateY(-50%);
+      border: 5px solid transparent; border-left-color: rgba(232,100,26,0.4);
+    }
+    .cs-at-hiw-step { display: flex; flex-direction: column; gap: 12px; }
+    .cs-at-hiw-img-wrap {
+      border-radius: 10px; overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.08); background: #fff;
+      aspect-ratio: 4/3;
+    }
+    .cs-at-hiw-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-at-hiw-num {
+      font-size: 11px; font-weight: 800; letter-spacing: 0.14em;
+      color: #e8641a; margin-top: 4px;
+    }
+    .cs-at-hiw-title { font-size: 15px; font-weight: 700; color: #111; }
+    .cs-at-hiw-body { font-size: 13.5px; line-height: 1.6; color: rgba(0,0,0,0.55); }
+    @media (max-width: 760px) {
+      .cs-at-hiw { grid-template-columns: 1fr; }
+      .cs-at-hiw-connector { display: none; }
+    }
     /* Impact strip */
     .cs-at-impact {
       display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
@@ -4870,15 +4902,15 @@
             <p class="cs-at-intro">Access mats are the temporary roadways that make transmission line, pipeline, and rail projects possible. They're expensive, they move constantly, and until MaTrac, nobody really knew where they were. MaTrac combines Bluetooth beacons, cellular gateways, and a cloud platform to change that.</p>
             <div class="cs-at-stats">
               <div class="cs-at-stat">
-                <div class="cs-at-stat-num">$100</div>
-                <div class="cs-at-stat-lbl">Saved per mat, per project</div>
+                <div class="cs-at-stat-num">$50K+</div>
+                <div class="cs-at-stat-lbl">Estimated savings per project -- at $100/mat across a typical 500+ mat deployment</div>
               </div>
               <div class="cs-at-stat">
                 <div class="cs-at-stat-num">Real-time</div>
                 <div class="cs-at-stat-lbl">Location and movement tracking across the entire site</div>
               </div>
               <div class="cs-at-stat">
-                <div class="cs-at-stat-num">4 users</div>
+                <div class="cs-at-stat-num">4 roles</div>
                 <div class="cs-at-stat-lbl">Office, field, billing, and regulatory -- all served by one platform</div>
               </div>
               <div class="cs-at-stat">
@@ -4889,8 +4921,53 @@
           </div>
         </section>
 
-        <!-- Discovery -->
+        <!-- How It Works -->
         <section class="cs-at-section alt">
+          <div class="cs-at-inner">
+            <div class="cs-at-eyebrow">How it works</div>
+            <h2 class="cs-at-h2">From beacon to dashboard in four steps</h2>
+            <div class="cs-at-hiw">
+              <div class="cs-at-hiw-step">
+                <div class="cs-at-hiw-img-wrap">
+                  <img src="/assetrac/assetrac-step1.png" alt="MaTrac beacon installed in an access mat">
+                </div>
+                <div class="cs-at-hiw-num">01</div>
+                <div class="cs-at-hiw-title">Beacons in the mats</div>
+                <div class="cs-at-hiw-body">MaTrac beacons are installed directly into access mats, giving each one a persistent, trackable identity.</div>
+              </div>
+              <div class="cs-at-hiw-connector" aria-hidden="true"></div>
+              <div class="cs-at-hiw-step">
+                <div class="cs-at-hiw-img-wrap">
+                  <img src="/assetrac/assetrac-step2.png" alt="Mobile gateway installed on equipment that moves mats">
+                </div>
+                <div class="cs-at-hiw-num">02</div>
+                <div class="cs-at-hiw-title">Gateways on the equipment</div>
+                <div class="cs-at-hiw-body">Cellular gateways mount on the equipment that moves mats. When equipment is near a mat, its location is captured and transmitted.</div>
+              </div>
+              <div class="cs-at-hiw-connector" aria-hidden="true"></div>
+              <div class="cs-at-hiw-step">
+                <div class="cs-at-hiw-img-wrap">
+                  <img src="/assetrac/assetrac-step3.png" alt="Project layout map uploaded to the MaTrac software platform">
+                </div>
+                <div class="cs-at-hiw-num">03</div>
+                <div class="cs-at-hiw-title">Map your site</div>
+                <div class="cs-at-hiw-body">Project layout maps are uploaded to the platform. As mats and equipment arrive on site, they appear in real time on the map.</div>
+              </div>
+              <div class="cs-at-hiw-connector" aria-hidden="true"></div>
+              <div class="cs-at-hiw-step">
+                <div class="cs-at-hiw-img-wrap">
+                  <img src="/assetrac/assetrac-step4.png" alt="Office and field teams using the MaTrac platform">
+                </div>
+                <div class="cs-at-hiw-num">04</div>
+                <div class="cs-at-hiw-title">Everyone has visibility</div>
+                <div class="cs-at-hiw-body">Office teams run the project, field teams execute the work, billing invoices with verified data, and regulators confirm compliance -- all from the same platform.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Discovery -->
+        <section class="cs-at-section">
           <div class="cs-at-inner">
             <div class="cs-at-eyebrow">Discovery</div>
             <h2 class="cs-at-h2">The industry was managing billion-dollar projects with phone calls and spreadsheets</h2>
@@ -5020,8 +5097,8 @@
                 <div class="cs-at-impact-attr"><strong>Richard Vernon</strong> -- President, Northern Clearing Inc.</div>
               </div>
               <div class="cs-at-impact-item">
-                <div class="cs-at-impact-quote">Up to $100 saved per mat per project. On a large transmission or pipeline job, that adds up fast.</div>
-                <div class="cs-at-impact-attr"><strong>AsseTrac MaTrac</strong> -- headline customer result</div>
+                <div class="cs-at-impact-quote">$100 per mat. Typical projects deploy 500+ mats. That's $50,000 or more back per job.</div>
+                <div class="cs-at-impact-attr"><strong>AsseTrac MaTrac</strong> -- based on stated $100/mat savings at typical deployment scale</div>
               </div>
             </div>
           </div>
