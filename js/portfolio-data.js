@@ -749,6 +749,23 @@ export const projects = [
     `
   },
   {
+    slug: 'nc4',
+    title: 'NC4',
+    gridTitle: 'NC4 Risk Center',
+    description: 'White-label threat intelligence platform redesign for Fortune 500 and government clients. Search-first, mobile-first.',
+    subtitle: 'NC4 provided critical event and threat intelligence to 100+ Fortune 500 companies and government agencies worldwide. I redesigned their platform as a white-label system -- mobile-first, search-driven, with a universal palette and typography system clients could quickly make their own.',
+    intro: 'NC4 generated over 27,000 geo-targeted alerts every day for some of the world\'s most security-conscious organizations. I redesigned the platform as a white-label product built for speed, mobile use, and client customization.',
+    company: 'NC4 (acquired by Everbridge)',
+    tags: ['White-Label', 'Threat Intelligence', 'Mobile Design', 'Design System', 'User Testing'],
+    thumbnail: '/nc4/nc4-1.png',
+    heroImg: '/nc4/nc4-1.png',
+    cardImg: '/nc4/nc4-1.png',
+    industry: 'security',
+    featured: false,
+    cardColor: '#0b1829',
+    customLayout: 'nc4',
+  },
+  {
     slug: 'assetrac',
     title: 'AsseTrac',
     gridTitle: 'AsseTrac',

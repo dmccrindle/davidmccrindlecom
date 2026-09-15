@@ -2252,6 +2252,63 @@
       .cs-tv-callouts { grid-template-columns: 1fr; gap: 14px; }
     }
 
+    /* ── NC4 custom layout ───────────────────────── */
+    body.cs-nc4-layout .cs-lead { border-bottom: none; padding: 56px 60px 24px; }
+    body.cs-nc4-layout .cs-body-white { padding-bottom: 0; }
+    .cs-nc4-hero {
+      background: #0b1829; padding: 48px 40px;
+      display: flex; justify-content: center;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .cs-nc4-hero img {
+      max-width: 960px; width: 100%; border-radius: 10px; display: block;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    /* Reuse .cs-tv-* for NC4 sections, override accent colors */
+    body.cs-nc4-layout .cs-tv-section.dark { background: #0b1829; }
+    body.cs-nc4-layout .cs-tv-section.alt { background: #f2f5f9; }
+    body.cs-nc4-layout .cs-tv-eyebrow { color: rgba(0,0,0,0.4); }
+    body.cs-nc4-layout .cs-tv-section.dark .cs-tv-eyebrow { color: #4a9eff; }
+    body.cs-nc4-layout .cs-tv-section.dark .cs-tv-h2 { color: #fff; }
+    body.cs-nc4-layout .cs-tv-section.dark .cs-tv-intro { color: rgba(255,255,255,0.65); }
+    body.cs-nc4-layout .cs-tv-section.dark .cs-tv-split-body { color: rgba(255,255,255,0.7); }
+    body.cs-nc4-layout .cs-tv-section.dark .cs-tv-callout { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.08); }
+    body.cs-nc4-layout .cs-tv-section.dark .cs-tv-callout-title { color: #fff; }
+    body.cs-nc4-layout .cs-tv-section.dark .cs-tv-callout-body { color: rgba(255,255,255,0.55); }
+    body.cs-nc4-layout .cs-tv-section.dark .cs-tv-split-tag { color: #4a9eff; }
+    /* Banner (two pillars) */
+    .cs-nc4-banner { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 48px; border-radius: 14px; overflow: hidden; }
+    .cs-nc4-banner-item { padding: 32px 36px; background: #0b1829; color: #fff; }
+    .cs-nc4-banner-item:last-child { background: #122240; }
+    .cs-nc4-banner-num { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #4a9eff; margin-bottom: 10px; }
+    .cs-nc4-banner-title { font-size: clamp(17px,2vw,21px); font-weight: 800; letter-spacing: -0.01em; color: #fff; margin-bottom: 8px; }
+    .cs-nc4-banner-sub { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.55; }
+    /* Pills -- blue tint */
+    body.cs-nc4-layout .cs-tv-pill { background: rgba(74,158,255,0.08); border-color: rgba(74,158,255,0.2); color: #1a5fa8; }
+    body.cs-nc4-layout .cs-tv-section.dark .cs-tv-pill { background: rgba(74,158,255,0.1); border-color: rgba(74,158,255,0.28); color: #4a9eff; }
+    /* White-label palette swatch row */
+    .cs-nc4-swatches { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 32px; }
+    .cs-nc4-swatch { width: 56px; height: 56px; border-radius: 10px; border: 1px solid rgba(0,0,0,0.1); flex-shrink: 0; }
+    .cs-nc4-swatch-label { font-size: 10px; color: rgba(0,0,0,0.4); margin-top: 5px; text-align: center; letter-spacing: 0.06em; }
+    .cs-nc4-swatch-wrap { display: flex; flex-direction: column; align-items: center; }
+    /* Stat strip */
+    .cs-nc4-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 48px; border-radius: 14px; overflow: hidden; }
+    .cs-nc4-stat { padding: 32px 28px; background: #0b1829; color: #fff; }
+    .cs-nc4-stat:nth-child(even) { background: #122240; }
+    .cs-nc4-stat-num { font-size: clamp(26px,3vw,38px); font-weight: 900; letter-spacing: -0.03em; color: #4a9eff; line-height: 1; margin-bottom: 8px; }
+    .cs-nc4-stat-lbl { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.4; }
+    /* Impact quote block */
+    .cs-nc4-impact { background: #0b1829; border-radius: 14px; padding: 48px; margin-top: 48px; }
+    .cs-nc4-impact-quote { font-size: clamp(17px,2.2vw,22px); font-weight: 600; line-height: 1.6; color: #fff; margin-bottom: 20px; max-width: 760px; }
+    .cs-nc4-impact-attr { font-size: 13px; color: rgba(255,255,255,0.4); }
+    @media (max-width: 900px) {
+      body.cs-nc4-layout .cs-lead { padding: 40px 24px 20px; }
+      .cs-nc4-hero { padding: 28px 20px; }
+      .cs-nc4-banner { grid-template-columns: 1fr; }
+      .cs-nc4-stats { grid-template-columns: 1fr 1fr; }
+      .cs-nc4-impact { padding: 32px 24px; }
+    }
+
     /* ── AsseTrac custom layout ───────────────────── */
     body.cs-assetrac-layout .cs-lead { border-bottom: none; padding: 56px 60px 24px; }
     body.cs-assetrac-layout .cs-body-white { padding-bottom: 0; }
@@ -3469,6 +3526,18 @@
         window.scrollTo(0, 0);
         return;
       }
+      if (project.customLayout === 'nc4') {
+        document.getElementById('cs-lead-text').textContent = project.intro || '';
+        customEl.innerHTML = renderNc4Layout();
+        bodyEl.style.display = 'none';
+        showcaseEl.style.display = 'none';
+        document.body.classList.add('cs-nc4-layout');
+        ['cs-sprout-layout','cs-popquiz-layout','cs-chekt-layout','cs-kb-layout','cs-thrivent-layout','cs-assetrac-layout'].forEach(c => document.body.classList.remove(c));
+        stopSproutMcpTyper();
+        buildNextSection(projects.slice(projects.findIndex(p => p.slug === project.slug) + 1).find(p => !p.externalUrl) || null);
+        window.scrollTo(0, 0);
+        return;
+      }
       if (project.customLayout === 'assetrac') {
         document.getElementById('cs-lead-text').textContent = project.intro || '';
         customEl.innerHTML = renderAssetracLayout();
@@ -3491,6 +3560,7 @@
       document.body.classList.remove('cs-kb-layout');
       document.body.classList.remove('cs-thrivent-layout');
       document.body.classList.remove('cs-assetrac-layout');
+      document.body.classList.remove('cs-nc4-layout');
       stopSproutMcpTyper();
       customEl.innerHTML = '';
       bodyEl.style.display = '';
@@ -4887,6 +4957,179 @@
     });
 
     // ── Chekt custom case-study layout ───────────
+    function renderNc4Layout() {
+      return `
+        <!-- Hero -->
+        <div class="cs-nc4-hero">
+          <img src="/nc4/nc4-1.png" alt="NC4 Risk Center platform redesign">
+        </div>
+
+        <!-- Context -->
+        <section class="cs-tv-section">
+          <div class="cs-tv-inner">
+            <div class="cs-tv-eyebrow">The engagement</div>
+            <h2 class="cs-tv-h2">A white-label threat intelligence platform used by the Fortune 500 and government agencies worldwide</h2>
+            <p class="cs-tv-intro">NC4 provided critical event and threat intelligence to some of the world's largest organizations -- over 100 Fortune 500 companies, global enterprises, and government agencies. Their platform generated 27,000+ geo-targeted alerts and 700 incident reports every day. I was brought in to redesign the product as a white-label system that NC4's clients could quickly make their own.</p>
+            <div class="cs-nc4-banner">
+              <div class="cs-nc4-banner-item">
+                <div class="cs-nc4-banner-num">The challenge</div>
+                <div class="cs-nc4-banner-title">White-label at enterprise scale</div>
+                <div class="cs-nc4-banner-sub">The platform needed to work as a branded product for dozens of different enterprise clients -- each with their own visual identity, use cases, and user needs. The design had to be generic enough to flex, and strong enough to work out of the box.</div>
+              </div>
+              <div class="cs-nc4-banner-item">
+                <div class="cs-nc4-banner-num">The focus</div>
+                <div class="cs-nc4-banner-title">Search, mobile, and a universal palette</div>
+                <div class="cs-nc4-banner-sub">Threat intelligence lives and dies on speed. Search became the primary interaction paradigm. Mobile was designed first. A universal typography and color system gave every client a strong baseline and a clear customization path.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Discovery & stakeholders (dark) -->
+        <section class="cs-tv-section dark">
+          <div class="cs-tv-inner">
+            <div class="cs-tv-eyebrow">Discovery</div>
+            <h2 class="cs-tv-h2">Understanding the platform through the people who depended on it</h2>
+            <p class="cs-tv-intro">Before designing, I needed to understand how threat intelligence professionals actually worked -- what they needed to see first, how they triaged alerts, and where the existing platform slowed them down under pressure.</p>
+            <div class="cs-tv-callouts">
+              <div class="cs-tv-callout">
+                <div class="cs-tv-callout-icon">🎙️</div>
+                <div class="cs-tv-callout-title">Stakeholder sessions</div>
+                <div class="cs-tv-callout-body">Facilitated sessions with NC4's internal team and client stakeholders to map business goals, surface pain points, and understand the expectations each client type brought to the platform.</div>
+              </div>
+              <div class="cs-tv-callout">
+                <div class="cs-tv-callout-icon">🧪</div>
+                <div class="cs-tv-callout-title">User testing</div>
+                <div class="cs-tv-callout-body">Led structured user testing sessions with security and intelligence professionals. Tested how people prioritized alerts, searched for incidents, and navigated between views under realistic time pressure.</div>
+              </div>
+              <div class="cs-tv-callout">
+                <div class="cs-tv-callout-icon">🗺️</div>
+                <div class="cs-tv-callout-title">Workflow mapping</div>
+                <div class="cs-tv-callout-body">Mapped the full intelligence workflow -- from alert ingestion through triage, investigation, and reporting -- to identify where cognitive load spiked and where the existing UI added unnecessary steps.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Search emphasis -->
+        <section class="cs-tv-section alt">
+          <div class="cs-tv-inner">
+            <div class="cs-tv-eyebrow">Design focus: Search</div>
+            <h2 class="cs-tv-h2">Search as the primary interface</h2>
+            <div class="cs-tv-split">
+              <div>
+                <div class="cs-tv-split-tag">Core interaction</div>
+                <h3 class="cs-tv-split-h">Finding a critical event in seconds, not minutes</h3>
+                <p class="cs-tv-split-body">In a platform generating thousands of geo-targeted alerts daily, the ability to surface the right event fast isn't a nice-to-have -- it's the whole product. I redesigned search as the primary interaction paradigm: elevated in the hierarchy, persistent across views, and designed to support both keyword queries and geographic filtering simultaneously.</p>
+                <div class="cs-tv-pills">
+                  <span class="cs-tv-pill">Global search</span>
+                  <span class="cs-tv-pill">Geo-filtering</span>
+                  <span class="cs-tv-pill">Alert triage</span>
+                  <span class="cs-tv-pill">Persistent access</span>
+                </div>
+              </div>
+              <div class="cs-tv-split-img">
+                <img src="/nc4/nc4-2.png" alt="NC4 platform search experience">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mobile design -->
+        <section class="cs-tv-section dark">
+          <div class="cs-tv-inner">
+            <div class="cs-tv-eyebrow">Design focus: Mobile</div>
+            <h2 class="cs-tv-h2">Critical intelligence wherever you are</h2>
+            <div class="cs-tv-split reverse">
+              <div class="cs-tv-split-img">
+                <img src="/nc4/nc4-3.png" alt="NC4 mobile experience">
+              </div>
+              <div>
+                <div class="cs-tv-split-tag">Mobile-first</div>
+                <h3 class="cs-tv-split-h">Designed for the field, not just the desk</h3>
+                <p class="cs-tv-split-body">Security and risk professionals don't only work at their desks. The redesign prioritized mobile from the start -- not as a scaled-down version of the desktop, but as a first-class context with its own hierarchy. Alert summaries, geographic views, and incident details were all designed to be legible and actionable on a phone screen in any situation.</p>
+                <div class="cs-tv-pills">
+                  <span class="cs-tv-pill">Mobile-first design</span>
+                  <span class="cs-tv-pill">Alert summaries</span>
+                  <span class="cs-tv-pill">Incident detail</span>
+                  <span class="cs-tv-pill">Responsive layout</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- White-label system -->
+        <section class="cs-tv-section">
+          <div class="cs-tv-inner">
+            <div class="cs-tv-eyebrow">Design system</div>
+            <h2 class="cs-tv-h2">A universal palette and type system designed to be made your own</h2>
+            <div class="cs-tv-split">
+              <div>
+                <div class="cs-tv-split-tag">White-label foundation</div>
+                <h3 class="cs-tv-split-h">Generic enough to flex. Strong enough to work out of the box.</h3>
+                <p class="cs-tv-split-body">Each NC4 client had their own brand identity. The design system needed a neutral but professional baseline -- selected typography that communicated authority and clarity, and a color palette structured so that swapping a primary brand color would cascade cleanly through the interface without requiring bespoke design work for each client.</p>
+                <p class="cs-tv-split-body" style="margin-top:14px">The system made it possible to spin up a fully branded client deployment quickly, with minimal one-off customization effort from the NC4 team.</p>
+                <div class="cs-tv-pills">
+                  <span class="cs-tv-pill">Universal color palette</span>
+                  <span class="cs-tv-pill">Typography selection</span>
+                  <span class="cs-tv-pill">White-label theming</span>
+                  <span class="cs-tv-pill">Client customization</span>
+                </div>
+              </div>
+              <div class="cs-tv-split-img">
+                <img src="/nc4/nc4-4.png" alt="NC4 design system and white-label palette">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- More screens -->
+        <section class="cs-tv-section alt">
+          <div class="cs-tv-inner">
+            <div class="cs-tv-eyebrow">The work</div>
+            <h2 class="cs-tv-h2">Platform screens</h2>
+            <div class="cs-tv-full-img">
+              <img src="/nc4/nc4-5.png" alt="NC4 platform interface overview">
+            </div>
+          </div>
+        </section>
+
+        <!-- Impact -->
+        <section class="cs-tv-section dark">
+          <div class="cs-tv-inner">
+            <div class="cs-tv-eyebrow">Outcome</div>
+            <h2 class="cs-tv-h2">A platform trusted by 100+ Fortune 500 companies and global government agencies</h2>
+            <p class="cs-tv-intro">NC4 was acquired by Everbridge in 2019 for approximately $83 million, expanding Everbridge's critical event management platform with NC4's threat intelligence capabilities. The combined platform serves some of the world's largest and most security-conscious organizations.</p>
+            <div class="cs-nc4-stats">
+              <div class="cs-nc4-stat">
+                <div class="cs-nc4-stat-num">100+</div>
+                <div class="cs-nc4-stat-lbl">Fortune 500 clients using the platform</div>
+              </div>
+              <div class="cs-nc4-stat">
+                <div class="cs-nc4-stat-num">27K+</div>
+                <div class="cs-nc4-stat-lbl">Geo-targeted alerts generated daily</div>
+              </div>
+              <div class="cs-nc4-stat">
+                <div class="cs-nc4-stat-num">$83M</div>
+                <div class="cs-nc4-stat-lbl">Acquisition by Everbridge in 2019</div>
+              </div>
+            </div>
+            <div class="cs-nc4-impact">
+              <div class="cs-nc4-impact-quote">The design had to work for a Fortune 500 security team in New York and a government agency in Washington simultaneously. The white-label system made that possible without rebuilding the product for every client.</div>
+              <div class="cs-nc4-impact-attr">David McCrindle -- Design Lead, NC4 Risk Center redesign</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Lightbox (reuse Thrivent's) -->
+        <div class="cs-tv-lightbox" id="cs-tv-lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+          <button class="cs-tv-lightbox-close" onclick="tvLightboxClose()" aria-label="Close">&times;</button>
+          <img class="cs-tv-lightbox-img" id="cs-tv-lightbox-img" src="" alt="">
+        </div>
+      `;
+    }
+
     function renderAssetracLayout() {
       return `
         <!-- Hero -->
