@@ -340,6 +340,7 @@
       <button class="cms-tab" onclick="switchTab('audiences')">Audiences</button>
       <button class="cms-tab" onclick="switchTab('projects')">Projects</button>
       <button class="cms-tab" onclick="switchTab('default')">Default</button>
+      <button class="cms-tab" onclick="switchTab('tracker')">Tracker</button>
     </div>
 
     <!-- Add tab -->
@@ -498,6 +499,21 @@
       <div id="proj-msg" style="margin-top:16px;font-size:13px;color:#6f6;display:none"></div>
     </div>
 
+    <!-- Tracker tab -->
+    <div id="tab-tracker" class="tab-panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+        <div>
+          <h2 style="font-size:17px;font-weight:700;margin:0 0 4px">Portfolio Tracker</h2>
+          <p style="font-size:13px;color:#666;margin:0">Click and view events from portfolio visitors</p>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button onclick="loadTracker()" style="font-size:12px;padding:7px 16px;border-radius:6px;background:#222;border:1px solid #444;color:#aaa;cursor:pointer">Refresh</button>
+          <button onclick="clearTracker()" style="font-size:12px;padding:7px 16px;border-radius:6px;background:#2a0a0a;border:1px solid #5a1a1a;color:#f88;cursor:pointer">Clear log</button>
+        </div>
+      </div>
+      <div id="tracker-content" style="font-size:13px;color:#666">Loading...</div>
+    </div>
+
     <!-- Default tab -->
     <div id="tab-default" class="tab-panel">
       <p style="font-size:13px;color:#666;margin-bottom:28px">Default portfolio view -- applies to all visitors with no specific audience assigned.</p>
@@ -533,7 +549,7 @@
 
     // ── Tabs ────────────────────────────────────────
 
-    const TAB_NAMES = ['add', 'edit', 'audiences', 'projects', 'default'];
+    const TAB_NAMES = ['add', 'edit', 'audiences', 'projects', 'default', 'tracker'];
     function switchTab(name, pushState = true) {
       currentTab = name;
       document.querySelectorAll('.cms-tab').forEach((btn, i) => {
@@ -546,6 +562,7 @@
       if (name === 'audiences') loadAudiences();
       if (name === 'projects') loadProjects();
       if (name === 'default') loadDefault();
+      if (name === 'tracker') loadTracker();
     }
 
     function handleCmsRoute() {
@@ -1337,6 +1354,62 @@
       } else {
         alert('Save failed');
       }
+    }
+
+    // ── Tracker ─────────────────────────────────────
+    async function loadTracker() {
+      const el = document.getElementById('tracker-content');
+      el.textContent = 'Loading...';
+      let events = [];
+      try {
+        const r = await fetch('/api/tracker-view');
+        if (!r.ok) { el.textContent = 'Could not load tracker data.'; return; }
+        events = await r.json();
+      } catch (e) {
+        el.textContent = 'Error: ' + e.message;
+        return;
+      }
+      if (!events.length) { el.innerHTML = '<p style="color:#666">No events yet.</p>'; return; }
+
+      const byViewer = {};
+      for (const e of events) {
+        const v = e.viewer || 'unknown';
+        if (!byViewer[v]) byViewer[v] = [];
+        byViewer[v].push(e);
+      }
+
+      const thStyle = 'text-align:left;padding:6px 10px;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#666;border-bottom:1px solid #333';
+      const tdStyle = 'padding:7px 10px;border-bottom:1px solid #222;vertical-align:top';
+
+      const blocks = Object.entries(byViewer).map(([name, evts]) => {
+        const rows = evts.map(e => `<tr>
+          <td style="${tdStyle};color:#666;white-space:nowrap">${(e.ts||'').replace('T',' ').substring(0,19)}</td>
+          <td style="${tdStyle};color:#ccc">${e.event||''}</td>
+          <td style="${tdStyle};color:#aaa">${e.project || '<span style="color:#444">--</span>'}</td>
+        </tr>`).join('');
+        return `<div style="margin-bottom:36px">
+          <div style="font-size:15px;font-weight:700;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #333">
+            ${h(name)} <span style="font-weight:400;color:#555;font-size:12px">${evts.length} event${evts.length !== 1 ? 's' : ''}</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:13px">
+            <thead><tr>
+              <th style="${thStyle}">Time (UTC)</th>
+              <th style="${thStyle}">Event</th>
+              <th style="${thStyle}">Project</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>`;
+      }).join('');
+
+      el.innerHTML = `<p style="font-size:12px;color:#555;margin-bottom:24px">${events.length} total events across ${Object.keys(byViewer).length} viewer${Object.keys(byViewer).length !== 1 ? 's' : ''}</p>${blocks}`;
+    }
+
+    async function clearTracker() {
+      if (!confirm('Clear all tracker events? This cannot be undone.')) return;
+      const r = await fetch('/api/tracker-view', { method: 'DELETE' });
+      if (r.ok) loadTracker();
+      else alert('Clear failed');
     }
 
   </script>
