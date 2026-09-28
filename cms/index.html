@@ -1360,7 +1360,6 @@
     async function loadTracker() {
       const el = document.getElementById('tracker-content');
       el.textContent = 'Loading...';
-      let events = [];
       try {
         const ctrl = new AbortController();
         const t = setTimeout(() => ctrl.abort(), 8000);
@@ -1370,45 +1369,47 @@
           el.textContent = `Error ${r.status}: could not load tracker data.`;
           return;
         }
-        events = await r.json();
+        const events = await r.json();
+
+        if (!events.length) { el.innerHTML = '<p style="color:#666">No events yet.</p>'; return; }
+
+        const byViewer = {};
+        for (const e of events) {
+          const v = e.viewer || 'unknown';
+          if (!byViewer[v]) byViewer[v] = [];
+          byViewer[v].push(e);
+        }
+
+        const thStyle = 'text-align:left;padding:6px 10px;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#666;border-bottom:1px solid #333';
+        const tdStyle = 'padding:7px 10px;border-bottom:1px solid #222;vertical-align:top';
+
+        const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+        const blocks = Object.entries(byViewer).map(([name, evts]) => {
+          const rows = evts.map(e => `<tr>
+            <td style="${tdStyle};color:#666;white-space:nowrap">${(e.ts||'').replace('T',' ').substring(0,19)}</td>
+            <td style="${tdStyle};color:#ccc">${esc(e.event)}</td>
+            <td style="${tdStyle};color:#aaa">${e.project ? esc(e.project) : '<span style="color:#444">--</span>'}</td>
+          </tr>`).join('');
+          return `<div style="margin-bottom:36px">
+            <div style="font-size:15px;font-weight:700;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #333">
+              ${esc(name)} <span style="font-weight:400;color:#555;font-size:12px">${evts.length} event${evts.length !== 1 ? 's' : ''}</span>
+            </div>
+            <table style="width:100%;border-collapse:collapse;font-size:13px">
+              <thead><tr>
+                <th style="${thStyle}">Time (UTC)</th>
+                <th style="${thStyle}">Event</th>
+                <th style="${thStyle}">Project</th>
+              </tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>`;
+        }).join('');
+
+        el.innerHTML = `<p style="font-size:12px;color:#555;margin-bottom:24px">${events.length} total events across ${Object.keys(byViewer).length} viewer${Object.keys(byViewer).length !== 1 ? 's' : ''}</p>${blocks}`;
       } catch (e) {
         el.textContent = 'Error: ' + (e.name === 'AbortError' ? 'request timed out' : e.message);
-        return;
       }
-      if (!events.length) { el.innerHTML = '<p style="color:#666">No events yet.</p>'; return; }
-
-      const byViewer = {};
-      for (const e of events) {
-        const v = e.viewer || 'unknown';
-        if (!byViewer[v]) byViewer[v] = [];
-        byViewer[v].push(e);
-      }
-
-      const thStyle = 'text-align:left;padding:6px 10px;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#666;border-bottom:1px solid #333';
-      const tdStyle = 'padding:7px 10px;border-bottom:1px solid #222;vertical-align:top';
-
-      const blocks = Object.entries(byViewer).map(([name, evts]) => {
-        const rows = evts.map(e => `<tr>
-          <td style="${tdStyle};color:#666;white-space:nowrap">${(e.ts||'').replace('T',' ').substring(0,19)}</td>
-          <td style="${tdStyle};color:#ccc">${e.event||''}</td>
-          <td style="${tdStyle};color:#aaa">${e.project || '<span style="color:#444">--</span>'}</td>
-        </tr>`).join('');
-        return `<div style="margin-bottom:36px">
-          <div style="font-size:15px;font-weight:700;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #333">
-            ${h(name)} <span style="font-weight:400;color:#555;font-size:12px">${evts.length} event${evts.length !== 1 ? 's' : ''}</span>
-          </div>
-          <table style="width:100%;border-collapse:collapse;font-size:13px">
-            <thead><tr>
-              <th style="${thStyle}">Time (UTC)</th>
-              <th style="${thStyle}">Event</th>
-              <th style="${thStyle}">Project</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-          </table>
-        </div>`;
-      }).join('');
-
-      el.innerHTML = `<p style="font-size:12px;color:#555;margin-bottom:24px">${events.length} total events across ${Object.keys(byViewer).length} viewer${Object.keys(byViewer).length !== 1 ? 's' : ''}</p>${blocks}`;
     }
 
     async function clearTracker() {
