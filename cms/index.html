@@ -1362,11 +1362,17 @@
       el.textContent = 'Loading...';
       let events = [];
       try {
-        const r = await fetch('/api/tracker-view');
-        if (!r.ok) { el.textContent = 'Could not load tracker data.'; return; }
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 8000);
+        const r = await fetch('/api/tracker-view', { signal: ctrl.signal });
+        clearTimeout(t);
+        if (!r.ok) {
+          el.textContent = `Error ${r.status}: could not load tracker data.`;
+          return;
+        }
         events = await r.json();
       } catch (e) {
-        el.textContent = 'Error: ' + e.message;
+        el.textContent = 'Error: ' + (e.name === 'AbortError' ? 'request timed out' : e.message);
         return;
       }
       if (!events.length) { el.innerHTML = '<p style="color:#666">No events yet.</p>'; return; }

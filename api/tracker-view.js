@@ -4,12 +4,19 @@ async function upstash(cmd) {
   const url   = process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
   if (!url || !token) throw new Error('Upstash not configured');
-  const r = await fetch(url, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(cmd),
-  });
-  return r.json();
+  const controller = new AbortController();
+  const t = setTimeout(() => controller.abort(), 5000);
+  try {
+    const r = await fetch(url, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(cmd),
+      signal: controller.signal,
+    });
+    return r.json();
+  } finally {
+    clearTimeout(t);
+  }
 }
 
 function getCookie(req, name) {
